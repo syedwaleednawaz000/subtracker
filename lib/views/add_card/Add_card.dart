@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -27,9 +28,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   List<String> titleContainer = ['Credit Card', 'Debit Card', 'Pay Pal'];
   List<String> containerImages= [
-    AppConstant.credit_cardIcon,
-    AppConstant.debit_cardIcon,
-    AppConstant.paypalIcon
+    AppImages.credit_cardIcon,
+    AppImages.debit_cardIcon,
+    AppImages.paypalIcon
   ];
 
   @override
@@ -427,7 +428,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         padding: const EdgeInsets.only(left: 10),
                         child: Align(
                             alignment: Alignment.centerLeft,
-                            child: Image.asset(AppConstant.three_dotsIcon, scale: 3.4,
+                            child: Image.asset(AppImages.three_dotsIcon, scale: 3.4,
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode ? Colors.white : Color(0XFF424252),)),
                       )

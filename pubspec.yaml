@@ -53,15 +53,6 @@ dependencies:
 
 
 
-
-
-
-
-
-
-
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -87,30 +78,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
-     - assets/new.png
      - assets/icons/
      - assets/welBg/
-     - assets/splash_bg.png
-     - assets/icons/lang/
-     - android/assets_h/
-     - android/assets_h/faceid/
-     - android/assets_h/fonts/
-     - android/assets_h/icons/
-     - android/assets_h/icons/right_arrow.png
-     - android/assets_h/images/b.png
-     - android/assets_h/images/bb.png
-     - android/assets_h/images/s.png
-     - android/assets_h/images/m.png
-     - android/assets_h/images/cont.png
-     - assets/Chart_half.png
-     - assets/doted.png
-     - assets/Ellipse.png
-     - assets/icons/debit.png
-     - assets/Payment_icon.png
-     - assets/icons/notif.png
-     - assets/bgr.png
-     - assets/MainCircle.png
-     - assets/cross.png
+
 #     - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -138,7 +108,7 @@ flutter:
          - asset: assets/fonts/Inter-Regular.ttf
      - family: Poppins_Regular
        fonts:
-         - asset: android/assets_h/fonts/Poppins-Regular.ttf
+         - asset: assets/fonts/Poppins-Regular.ttf
 
 #           style: italic
 

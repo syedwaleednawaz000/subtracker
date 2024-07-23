@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -38,7 +39,7 @@ class CancelSubscription extends StatelessWidget {
                         onTap: (){
                           Navigator.pop(context);
                         },
-                        child: Image.asset(AppConstant.backArrow)),
+                        child: Image.asset(AppImages.backArrow)),
                     SizedBox(
                       width: MySize.scaleFactorWidth * 88,
                     ),
@@ -150,7 +151,7 @@ class CancelSubscription extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     manageplanrowlist(
-                      imageIcon: Image.asset(AppConstant.plan,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      imageIcon: Image.asset(AppImages.plan,    color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : Color(0XFFC1C1CD),),
                       text: 'Subscription Tracking',
                     ),
@@ -158,7 +159,7 @@ class CancelSubscription extends StatelessWidget {
                       height: MySize.size16,
                     ),
                     manageplanrowlist(
-                      imageIcon: Image.asset(AppConstant.notify,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      imageIcon: Image.asset(AppImages.notify,    color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : Color(0XFFC1C1CD),),
                       text: 'Alerts and Notifications',
                     ),
@@ -166,7 +167,7 @@ class CancelSubscription extends StatelessWidget {
                       height: MySize.size16,
                     ),
                     manageplanrowlist(
-                      imageIcon: Image.asset(AppConstant.chart,
+                      imageIcon: Image.asset(AppImages.chart,
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : Color(0XFFC1C1CD),
                       ),
@@ -176,7 +177,7 @@ class CancelSubscription extends StatelessWidget {
                       height: MySize.size16,
                     ),
                     manageplanrowlist(
-                      imageIcon: Image.asset(AppConstant.analytics,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      imageIcon: Image.asset(AppImages.analytics,    color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : Color(0XFFC1C1CD),),
                       text: 'Spending Analytics',
                     ),
@@ -184,7 +185,7 @@ class CancelSubscription extends StatelessWidget {
                       height: MySize.size16,
                     ),
                     manageplanrowlist(
-                      imageIcon: Image.asset(AppConstant.contsupport,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      imageIcon: Image.asset(AppImages.contsupport,    color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : Color(0XFFC1C1CD),),
                       text: 'Customer Support',
                     ),

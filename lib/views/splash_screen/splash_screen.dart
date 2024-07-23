@@ -11,17 +11,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => WelcomeScreen(),
-        ),
-      );
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Timer(Duration(seconds: 3), () {
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(
+  //         builder: (context) => WelcomeScreen(),
+  //       ),
+  //     );
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

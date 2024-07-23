@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -213,7 +214,7 @@ class _SubscriptionState extends State<Subscription> {
                               onTap:(){
                                 Navigator.pop(context);
                               },
-                              child: Image.asset(AppConstant.backArrow)),
+                              child: Image.asset(AppImages.backArrow)),
                           SizedBox(
                             width: MySize.scaleFactorWidth * 145,
                           ),
@@ -255,11 +256,11 @@ class _SubscriptionState extends State<Subscription> {
                       children: [
                         Row(
                           children: [
-                            AppConstant.halfOneDriveLogo1,
+                            AppImages.halfOneDriveLogo1,
                             SizedBox(width: MySize.scaleFactorWidth * 86,),
                             const TresorlyContainer(),
                             SizedBox(width: MySize.scaleFactorWidth * 93,),
-                            AppConstant.halfSpotifyLogo1,
+                            AppImages.halfSpotifyLogo1,
                           ],
                         ),
                         Positioned(
@@ -274,7 +275,7 @@ class _SubscriptionState extends State<Subscription> {
                               color: AppColors.whiteFF, // Customize color
                               borderRadius: BorderRadius.circular(16),
                             ),
-                            child: Image.asset(AppConstant.editImage),
+                            child: Image.asset(AppImages.editImage),
                           ),
                         ),
                       ],
@@ -313,7 +314,7 @@ class _SubscriptionState extends State<Subscription> {
                                //   ),
                                // );
                              },
-                            child: Image.asset(AppConstant.exclMark)),
+                            child: Image.asset(AppImages.exclMark)),
                       ),
                           SizedBox(width: MySize.size4,),
                          Provider.of<ThemeChanger>(context).themeData == darkMode
