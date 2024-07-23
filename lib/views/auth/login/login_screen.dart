@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:sub_tracker/Provider/login_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -24,8 +25,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool val = false;
-
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 4,
                           ),
                           TextFormField(
+                            controller: emailController,
                             style: TextStyle(
                                 color:  Color(0XFF666680)
                             ),
@@ -112,6 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 4,
                           ),
                           TextFormField(
+                            controller: passwordController,
                             style: TextStyle(
                                 color:  Color(0XFF666680)
                             ),
@@ -167,7 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                ? Color(0XFFA2A2B5)
                                : Color(0XFFA2A2B5),
                               side: BorderSide(style: BorderStyle.solid,width: 1, color: Color(0XFF353542).withOpacity(.95)),
-                              value: val, onChanged: (value) => setState(() {
+                              value: val,
+                              onChanged: (value) => setState(() {
                               val = !val;
                             } ),),
                             Text('Remember me',
@@ -196,42 +201,45 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-            
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
-                  },
-                  child: Padding(
-                    padding:
-                    EdgeInsets.only(top: MySize.size28, ),
-                    child: Container(
-                        height: MySize.scaleFactorHeight * 48,
-                        width: MySize.scaleFactorWidth * 333,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(MySize.size40),
-                          border: Border(
-                            top: BorderSide(color: Colors.white.withOpacity(.5)),
-                            left: BorderSide(color: Colors.white.withOpacity(.5)),
-                            // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                            bottom: BorderSide.none
-                          ),
-                          // border: Border.all(color: Colors.white.withOpacity(.5)),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0, 8),
-                                blurRadius: 25,
-                                color: Color(0XFF4F63BE).withOpacity(.5)
-                            )
-                          ],
-                          color: Color(0XFF758AFF),
-                        ),
-                        child: Center(
-                          child: Text('Sign In',
-                            style: TextStyle(color: Colors.white, fontSize: 16)
-                          ),
-                        )),
-                  ),
-                ),
+
+          Consumer<LoginProvider>(builder: (context, loginProvider, child) {
+            return                 GestureDetector(
+              onTap: (){
+                loginProvider.login(email: emailController.text.trim(), password: passwordController.text.trim(), rememberMe: val);
+                // Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
+              },
+              child: Padding(
+                padding:
+                EdgeInsets.only(top: MySize.size28, ),
+                child: Container(
+                    height: MySize.scaleFactorHeight * 48,
+                    width: MySize.scaleFactorWidth * 333,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(MySize.size40),
+                      border: Border(
+                          top: BorderSide(color: Colors.white.withOpacity(.5)),
+                          left: BorderSide(color: Colors.white.withOpacity(.5)),
+                          // right: BorderSide(color: Colors.white.withOpacity(.5)),
+                          bottom: BorderSide.none
+                      ),
+                      // border: Border.all(color: Colors.white.withOpacity(.5)),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(0, 8),
+                            blurRadius: 25,
+                            color: Color(0XFF4F63BE).withOpacity(.5)
+                        )
+                      ],
+                      color: Color(0XFF758AFF),
+                    ),
+                    child: Center(
+                      child: Text('Sign In',
+                          style: TextStyle(color: Colors.white, fontSize: 16)
+                      ),
+                    )),
+              ),
+            );
+          },),
                 SizedBox(height: 25,),
                 Column(
                   children: [

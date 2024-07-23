@@ -11,6 +11,7 @@ class APIClient {
   Dio _dio = Dio();
   Map<String, dynamic> headers = {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
     'Authorization': 'Bearer ${AppConstant.getUserToken}'
   };
 

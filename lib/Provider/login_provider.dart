@@ -15,7 +15,7 @@ class LoginProvider extends ChangeNotifier{
   }
 
   Future<void> login({required String email , required String password, required bool rememberMe})async{
-    FlutterToast.toastMessage(message: "Login api call ");
+
     var body = {
       "email": email,
       "password": password
@@ -23,6 +23,7 @@ class LoginProvider extends ChangeNotifier{
     try{
       Response response = await _apiService.login(params: body);
       if(response.statusCode == 200){
+        FlutterToast.toastMessage(message: "Successfully login",);
         if(rememberMe == true){
           storeRememberMe(email: email,password: password);
         }

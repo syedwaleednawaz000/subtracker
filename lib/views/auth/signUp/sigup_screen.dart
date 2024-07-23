@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
@@ -25,6 +26,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+
+
   bool val = false;
   bool isSelected = false;
   bool isSelected1 = false;
@@ -64,6 +67,9 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     return null; // Return null if validation succeeds
   }
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
@@ -94,6 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                    child: Column(
                      children: [
                        CustomTextFormField(
+                         controller: emailController,
                          text: 'E-mail address',
                          hintText: 'Email',
                          validator: validateEmail,
@@ -104,6 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
                          height: 10,
                        ),
                        CustomTextFormField(
+                         controller: passwordController,
                          text: 'Password',
                          hintText: 'Password',
                          validator:  validatePassword,
@@ -122,6 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                          height: 10,
                        ),
                        CustomTextFormField(
+                         controller: confirmPasswordController,
                          text: 'Confirm Password',
                          hintText: 'Confirm Password',
                           obscureText: isSelected2,
@@ -316,49 +325,52 @@ class _SignupScreenState extends State<SignupScreen> {
                      ],
                    ),
                  ),
-                  GestureDetector(
-                    onTap: (){
-                      if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                        Navigator.push(context, MaterialPageRoute(builder:  (context) => const BnavBar()));
-                      }
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(top: MySize.size34, bottom: MySize.size15),
-                      child:Container(
-                          height: MySize.scaleFactorHeight * 48,
-                          width: MySize.scaleFactorWidth * 333,
+              Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                return                   GestureDetector(
+                  onTap: (){
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                      print("email ${emailController.text} and pass  ${passwordController.text}");
+                      registerProvider.register(email: emailController.text.trim(),
+                          password: passwordController.text.trim());
+                      // Navigator.push(context, MaterialPageRoute(builder:  (context) => const BnavBar()));
+                    }
+                  },
+                  child: Padding(
+                    padding:
+                    EdgeInsets.only(top: MySize.size34, bottom: MySize.size15),
+                    child:Container(
+                        height: MySize.scaleFactorHeight * 48,
+                        width: MySize.scaleFactorWidth * 333,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(MySize.size40),
                           boxShadow: [
                             BoxShadow(
-                              offset: const Offset(0, 8),
-                              blurRadius: 25,
-                              color: const Color(0XFF4F63BE).withOpacity(.5)
+                                offset: const Offset(0, 8),
+                                blurRadius: 25,
+                                color: const Color(0XFF4F63BE).withOpacity(.5)
                             )
                           ],
                           color: const Color(0XFF758AFF),
                         ),
                         child: const Center(
                           child: Text('Get started!',
-                              style: TextStyle(color:Colors.white, fontSize: 16),
+                            style: TextStyle(color:Colors.white, fontSize: 16),
                           ),
                         )),
 
 
 
-                      // const FieldContainer(
-                      //   containerColor: Color(0XFF758AFF),
-                      //   mytitle: 'Get Started!',
-                      //   textColor: AppColors.white100,
-                      // ),
-                    ),
+                    // const FieldContainer(
+                    //   containerColor: Color(0XFF758AFF),
+                    //   mytitle: 'Get Started!',
+                    //   textColor: AppColors.white100,
+                    // ),
                   ),
+                );
+              },),
                   const Padding(
                     padding: EdgeInsets.only(
                         left: 25, right: 25, top: 12, bottom: 12),
@@ -407,9 +419,11 @@ class _SignupScreenState extends State<SignupScreen> {
       this.prefixIcons,
       required this.validator,
       this.obscureText,
+      required this.controller,
     });
 
     final String hintText;
+    final TextEditingController controller;
     final String text;
     final IconButton? suffixIcons;
     final Icon? prefixIcons;
@@ -433,6 +447,7 @@ class _SignupScreenState extends State<SignupScreen> {
             height: 4,
           ),
           TextFormField(
+            controller: controller,
             obscureText: obscureText ?? false,
             validator: validator,
             style: const TextStyle(

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sub_tracker/Repo/repo.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 
 class RegisterProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
@@ -11,17 +12,19 @@ class RegisterProvider extends ChangeNotifier{
     isRegister = load;
     notifyListeners();
   }
-  Future<void> login()async{
+  Future<void> register({required String  email ,required String password})async{
     var body = {
       'name': 'humna',
-      'email': 'humna@gmail.com',
-      'password': 'humna123',
+      'email': email,
+      'password': password,
       'role': 'individual',
-      'password_confirmation': 'humna123'
+      'password_confirmation': password
     };
+    print("this is the body ${body}");
     try{
       Response response = await _apiService.register(params: body);
       if(response.statusCode == 200){
+        FlutterToast.toastMessage(message: "Successfully registered",);
         if (kDebugMode) {
           print("hit successfully");
         }
