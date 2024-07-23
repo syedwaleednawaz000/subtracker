@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
@@ -55,7 +56,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
                 child: ListTile(
                   isThreeLine: false,
                   title: Text('Switzerland', style: TextStyle(color: Colors.white),),
-                  leading: Image.asset('assets/icons/lang/switz.png', scale: 3.5,),
+                  leading: Image.asset(AppImages.switzFlag, scale: 3.5,),
                   trailing: Text('CHF', style: TextStyle(color: Colors.white),),
                 ),
               ),
@@ -63,7 +64,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
           ),
           const CurrencyTiles(
             title: 'Pakistan2',
-            leadingIcon: AssetImage('assets/icons/lang/switz.png',),
+            leadingIcon: AssetImage(AppImages.switzFlag,),
             trailingText: '()',
           ),
           SizedBox(height: 30),
@@ -128,7 +129,7 @@ class CurrencyTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> namingLists = ['Pakistan', 'Iran', 'English (UK)', 'Pakistan', 'English (UK)', 'Iran', 'Palestine', 'English (UK)'];
     List<String> namingLists_urdu = ['PKR', 'Rial', 'GBP', 'PKR', 'GBP', 'Rial', 'JOD', 'English'];
-    List<AssetImage>  iconsList = [AssetImage('assets/icons/lang/PK.png'), AssetImage('assets/icons/lang/IR.png'), AssetImage('assets/icons/lang/GB.png'),AssetImage('assets/icons/lang/PK.png'), AssetImage('assets/icons/lang/GB.png'), AssetImage('assets/icons/lang/IR.png'), AssetImage('assets/icons/lang/PS.png'), AssetImage('assets/icons/lang/GB.png'), ];
+    List<AssetImage>  iconsList = const [AssetImage(AppImages.pkFlag), AssetImage(AppImages.irFlag), AssetImage(AppImages.gbFlag),AssetImage(AppImages.psFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.irFlag), AssetImage(AppImages.psFlag), AssetImage(AppImages.gbFlag), ];
     return ListView.builder(
       shrinkWrap: true,
       itemCount: namingLists.length,
@@ -147,13 +148,13 @@ class CurrencyTiles extends StatelessWidget {
                 dense: true,
                 tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF272730) : Color(0XFFF7F7FF),
                 // tileColor: Theme.of(context).colorScheme.primary,
-                    title: Text('${namingLists[index]}', style: TextStyle(
+                    title: Text(namingLists[index], style: const TextStyle(
                       // color: Colors.white.withOpacity(.5)
                     ),),
                     leading:  Image(image: iconsList[index], height: 24, width: 24,),
-                    trailing: Text('${namingLists_urdu[index]}',
+                    trailing: Text(namingLists_urdu[index],
                     style: TextStyle(
-                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5): Color(0XFF1C1C23),
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5): const Color(0XFF1C1C23),
                     ),
                     ),
               ),

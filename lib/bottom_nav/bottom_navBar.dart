@@ -146,61 +146,65 @@ class _BnavBarState extends State<BnavBar> {
           child: FloatingActionButton(
             backgroundColor: Colors.blue,
               shape: CircleBorder(),
-              onPressed: (){},
+              onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Subscription()));
+              },
             child: Icon(Icons.add, ),
           ),
         ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0XFF4E4E61),
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: [
-              BottomNavigationBarItem(
-                  icon:   Consumer<BottomNotifier>(builder: (context, value, child) {
-                    print('consumer tapped');
-                    return  IconButton(
-                      icon: Image.asset(AppImages.homeIcon, width: 18, height: 18, color: value.isSelected(0) ? Color(0XFF758AFF) : Color(0XFFC1C1CD)),
-                      onPressed: () => value.selection(0),
-                      // color: value.selectedIndex == 1 ? Colors.blue : Colors.grey,
-
-                    );
-                  },), label: ''),
-              BottomNavigationBarItem(
-                  icon:  Consumer<BottomNotifier>(builder: (context, value, child) {
-                    return  IconButton(
-                      icon: Image.asset(AppImages.dashboardIcon, width: 18, height: 18,
-                          // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
-                          color: value.isSelected(1) ?Color(0XFF758AFF) : Color(0XFFC1C1CD)
-                      ),
-                      onPressed: () => value.selection(1),
-                      // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
-                    );
-                  }),label: ''),
-              BottomNavigationBarItem(
-                  icon:   Consumer<BottomNotifier>(builder: (context, value, index) {
-                    return  IconButton(
-                      icon: Image.asset(AppImages.calendarIcon, width: 18, height: 18,
-                          // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
-                          color: value.isSelected(2) ? Color(0XFF758AFF) : Color(0XFFC1C1CD)
-                      ),
-                      onPressed: () => value.selection(2),
-                      // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
-                    );
-                  }), label: ''),
-              BottomNavigationBarItem(
-            icon:   Consumer<BottomNotifier>(builder: (context, value, child) {
-                 return  IconButton(
-                   icon: Icon(Icons.settings, size: 22,   color: value.isSelected(3) ? Color(0XFF758AFF) : Color(0XFFC1C1CD)),
-                   // icon: Image.asset(AppImages.setting, width: 18, height: 18, color: AppColors.white100,),
-                   onPressed: () => value.selection(3),
-                   // color: value.selectedIndex == 3 ? Colors.blue : Colors.grey,
-
-                 );
-               },), label: ''),
-        ]),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Color(0XFF4E4E61),
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                    icon:   Consumer<BottomNotifier>(builder: (context, value, child) {
+                      print('consumer tapped');
+                      return  IconButton(
+                        icon: Image.asset(AppImages.homeIcon, width: 18, height: 18, color: value.isSelected(0) ? Color(0XFF758AFF) : Color(0XFFC1C1CD)),
+                        onPressed: () => value.selection(0),
+                        // color: value.selectedIndex == 1 ? Colors.blue : Colors.grey,
+          
+                      );
+                    },), label: ''),
+                BottomNavigationBarItem(
+                    icon:  Consumer<BottomNotifier>(builder: (context, value, child) {
+                      return  IconButton(
+                        icon: Image.asset(AppImages.dashboardIcon, width: 18, height: 18,
+                            // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
+                            color: value.isSelected(1) ?Color(0XFF758AFF) : Color(0XFFC1C1CD)
+                        ),
+                        onPressed: () => value.selection(1),
+                        // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
+                      );
+                    }),label: ''),
+                BottomNavigationBarItem(
+                    icon:   Consumer<BottomNotifier>(builder: (context, value, index) {
+                      return  IconButton(
+                        icon: Image.asset(AppImages.calendarIcon, width: 18, height: 18,
+                            // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
+                            color: value.isSelected(2) ? Color(0XFF758AFF) : Color(0XFFC1C1CD)
+                        ),
+                        onPressed: () => value.selection(2),
+                        // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
+                      );
+                    }), label: ''),
+                BottomNavigationBarItem(
+              icon:   Consumer<BottomNotifier>(builder: (context, value, child) {
+                   return  IconButton(
+                     icon: Icon(Icons.settings, size: 22,   color: value.isSelected(3) ? Color(0XFF758AFF) : Color(0XFFC1C1CD)),
+                     // icon: Image.asset(AppImages.setting, width: 18, height: 18, color: AppColors.white100,),
+                     onPressed: () => value.selection(3),
+                     // color: value.selectedIndex == 3 ? Colors.blue : Colors.grey,
+          
+                   );
+                 },), label: ''),
+          ]),
+        ),
       ),
         body: Consumer<BottomNotifier>(builder: (context, value, child){
     return _screens[value.selectedIndex];

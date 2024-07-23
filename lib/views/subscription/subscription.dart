@@ -5,15 +5,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '../../theme/theme.dart';
-import '../../utils/app_Images.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
-import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
-import '../subscriptioninfo/base/spotifycontainer.dart';
-import '../subscriptioninfo/subscription_info.dart';
-import 'base/hbocontainer.dart';
+import 'package:sub_tracker/theme/theme.dart';
+import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
+import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
+
 
 class Subscription extends StatefulWidget {
   const Subscription({super.key});
@@ -256,11 +254,11 @@ class _SubscriptionState extends State<Subscription> {
                       children: [
                         Row(
                           children: [
-                            AppImages.halfOneDriveLogo1,
+                            Text(AppImages.halfOneDriveLogo1),
                             SizedBox(width: MySize.scaleFactorWidth * 86,),
                             const TresorlyContainer(),
                             SizedBox(width: MySize.scaleFactorWidth * 93,),
-                            AppImages.halfSpotifyLogo1,
+                            Text(AppImages.halfSpotifyLogo1),
                           ],
                         ),
                         Positioned(

@@ -27,7 +27,7 @@ class RegisterWithM extends StatelessWidget {
             children: [
               const Spacer(),
               FieldContainer(
-                myImage: 'assets/icons/apple.png',
+                myImage: AppImages.appleIcon,
                 containerColor: AppColors.grey100, // Always grey100
                 mytitle: 'Sign up with Apple',
                 textColor: Colors.white, // Always white
@@ -48,7 +48,7 @@ class RegisterWithM extends StatelessWidget {
               // ),
               SizedBox(height: 16,),
               FieldContainer(
-                myImage: 'assets/icons/google.png',
+                myImage: AppImages.googleIcon,
               containerColor:  Provider.of<ThemeChanger>(context)
                   .themeData == darkMode
                   ? AppColors.white100

@@ -5,8 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
+import 'package:sub_tracker/theme/theme.dart';
+import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/FAQs_screen/faqs.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
+import 'package:sub_tracker/views/base/text_widgets.dart';
+import 'package:sub_tracker/views/cancelsubscription/cancelsubscription.dart';
 import 'package:sub_tracker/views/change_password/change_password.dart';
 import 'package:sub_tracker/views/contactsupport/contactsupport.dart';
 import 'package:sub_tracker/views/currency_screen/currency_screen.dart';
@@ -15,19 +21,9 @@ import 'package:sub_tracker/views/manageplan/manageplan.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
+import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
+import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
-import '../../theme/theme.dart';
-import '../../utils/app_Images.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
-import '../../utils/my_size.dart';
-import '../base/savebutton.dart';
-import '../base/text_widgets.dart';
-import '../cancelsubscription/cancelsubscription.dart';
-import '../language_selection/base/custom_appBar.dart';
-import 'base/settingrowslist.dart';
-import 'base/settingswitchrow.dart';
-import 'base/showdialog.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key,});
@@ -42,7 +38,7 @@ class _SettingsState extends State<Settings> {
   List<String> titleText2 = ['Biometric Auth.', 'Two Factor Auth.', 'Email Notification' ];
   List<String> trailText = ['Data', 'Language', 'Currency', 'Password', ];
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
-  List<AssetImage> leadingAccImage = [AssetImage(AppImages.person),AssetImage(AppImages.language),AssetImage(AppImages.currency), AssetImage(AppImages.password)];
+  List<AssetImage> leadingAccImage = [AssetImage(AppImages.manIcon),AssetImage(AppImages.language),AssetImage(AppImages.currency), AssetImage(AppImages.password)];
   List<AssetImage> leadingImage = [AssetImage(AppImages.faceID),AssetImage(AppImages.factor),AssetImage(AppImages.email)];
   List<AssetImage> plansImage = [AssetImage(AppImages.plan),AssetImage(AppImages.payment),AssetImage(AppImages.payment)];
   List<String> subsTitle = ['Manage Plan', 'Manage Payment', 'Cancel Subscription' ];
@@ -86,7 +82,7 @@ class _SettingsState extends State<Settings> {
 
                         Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
                       },
-                      child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
+                      child: Image.asset(AppImages.notificationIcon, height: 25, width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                             darkMode
                             ? Color(0XFFA2A2B5)
@@ -108,8 +104,9 @@ class _SettingsState extends State<Settings> {
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(90),
+                    image: DecorationImage(image: AssetImage(AppImages.person))
                   ),
-                  child: AppImages.personImage,
+                  // child: Text(AppImages.person),
                 ),
                 SizedBox(height: MySize.size8),
                 Text(
@@ -408,11 +405,11 @@ class _SettingsState extends State<Settings> {
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>const CancelSubscription()));
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 5),
+                            padding: EdgeInsets.only(right: 5),
                             child: SettingRowList(
                               imageIcon: Stack(
                                 children: [
-                                  Image.asset('assets/cross.png', scale: 3),
+                                  Positioned(child:  Image.asset(AppImages.crossIcon, scale: 3, color: Colors.red,), left: 8,),
                                   Image.asset(AppImages.payment),
                                 ],
                               ),

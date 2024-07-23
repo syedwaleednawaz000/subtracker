@@ -30,7 +30,7 @@ class PrivPolicy extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Image.asset(
-                        'assets/icons/back_arrow.png',
+                        AppImages.backArrow,
                         height: 24,
                         width: 24,
                       )),

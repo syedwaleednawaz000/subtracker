@@ -426,7 +426,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 centerTitle: true,
-                leading:Image.asset('assets/icons/back_arrow.png', scale: 4.9,color: Color(0XFFA2A2B5),),
+                leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
                 title:  Text('Manage Payment',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
               )
           ),
@@ -666,16 +666,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   //       :  Color(0XFF757784).withOpacity(.2),
                   // )
                   ),
-                  child: Row(
+                  child: const Row(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.add,
                         color: Color(0xFF757784),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       Text(
@@ -730,7 +730,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Row(
                     children: [
                       Image.asset(
-                        'assets/Payment_icon.png',
+                        AppImages.payment,
                         height: 24,
                         width: 34,
                       ),

@@ -62,7 +62,7 @@ class _PersonalDataState extends State<PersonalData> {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(90),
               ),
-              child: AppImages.personImage,
+              child: Image.asset(AppImages.person),
             ),
             SizedBox(
               height: MySize.size8,

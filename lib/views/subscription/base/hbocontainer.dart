@@ -20,7 +20,7 @@ class TresorlyContainer extends StatelessWidget {
 
   borderRadius: BorderRadius.circular(45)
   ),
-      child: AppImages.tresorlyImage,
+      child: Text(AppImages.tresorlyIcon),
     );
   }
 }

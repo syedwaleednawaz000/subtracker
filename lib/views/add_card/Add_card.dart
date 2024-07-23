@@ -390,7 +390,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         padding: const EdgeInsets.only(left: 15),
                         child: Row(
                           children: [
-                            Image.asset('assets/Payment_icon.png', scale: 4.3,),
+                            Image.asset(AppImages.payment, scale: 4.3,),
                             Center(
                                 child: Text(
                                   '  1234  1234 1234 1234', style: TextStyle(
@@ -513,13 +513,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
                      ],
                    ),
           ),
-
-
-
-
-
-
-
         ],
       ),
     );
