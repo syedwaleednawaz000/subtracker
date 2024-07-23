@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
