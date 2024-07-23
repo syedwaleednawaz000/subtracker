@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: MySize.size12, right: MySize.size15),
-                                    child: Image.asset('assets/icons/esss.png',  height: 40, width: 40,),
+                                    child: Image.asset(AppImages.subtrackrIcon,  height: 40, width: 40,),
                                   ),
                                   TextWidgetInterMedium(
                                       title: 'SignNTrack',
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: MySize.size12, right: MySize.size15),
-                                    child: Image.asset('assets/icons/pee.png',  height: 40, width: 40,),
+                                    child: Image.asset(AppImages.profilioIcon,  height: 40, width: 40,),
                                   ),
                                   TextWidgetInterMedium(
                                     title: 'Profilio',
@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: MySize.size12, right: MySize.size15),
-                                    child: Image.asset('assets/icons/tresorly.png', height: 40, width: 40,),
+                                    child: Image.asset(AppImages.tresorlyIcon, height: 40, width: 40,),
                                   ),
                                   Text('Tresorly',
                                     textAlign: TextAlign.start,

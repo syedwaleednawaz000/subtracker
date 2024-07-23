@@ -20,7 +20,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF1C1C23)
+          ? const Color(0XFF1C1C23)
           : Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),

@@ -24,6 +24,7 @@ class Assets {
   static const String iconsChart = 'assets/icons/Chart.png';
   static const String iconsContact = 'assets/icons/contact.png';
   static const String iconsCreditCard = 'assets/icons/creditCard.png';
+  static const String iconsCrossIcono = 'assets/icons/crossIcon.png';
   static const String iconsCurrency = 'assets/icons/currency.png';
   static const String iconsDarkmode = 'assets/icons/darkmode.png';
   static const String iconsDashboard = 'assets/icons/dashboard.png';
@@ -69,7 +70,7 @@ class Assets {
   static const String imagesBgImage = 'assets/images/bgImage.png';
   static const String imagesBgr = 'assets/images/bgr.png';
   static const String imagesCard = 'assets/images/Card.png';
-  static const String imagesChartHalf = 'assets/images/Chart_half.png';
+  static const String imagesChartHalf = 'assets/images/chart_half.png';
   static const String imagesCont = 'assets/images/cont.png';
   static const String imagesCreditCard = 'assets/images/credit_card.png';
   static const String imagesCross = 'assets/images/cross.png';
@@ -80,7 +81,7 @@ class Assets {
   static const String imagesDoted = 'assets/images/doted.png';
   static const String imagesEllipse = 'assets/images/Ellipse.png';
   static const String imagesFaceId = 'assets/images/face_id.png';
-  static const String imagesGoogle = 'assets/images/google.png';
+  static const String imagesHalfChart = 'assets/images/half_chart.png';
   static const String imagesHbo = 'assets/images/hbo.png';
   static const String imagesHomeFrame = 'assets/images/homeFrame.png';
   static const String imagesIndeed = 'assets/images/indeed.png';
@@ -108,6 +109,8 @@ class Assets {
   static const String welBgBg2 = 'assets/welBg/bg2.png';
   static const String welBgBg3 = 'assets/welBg/bg3.png';
   static const String welBgLightBg = 'assets/welBg/Light_bg.png';
+  static const String welBgLoginBg = 'assets/welBg/loginBg.png';
+  static const String welBgRestPassBg = 'assets/welBg/restPassBg.png';
   static const String welBgSplashBg = 'assets/welBg/splash_bg.png';
 
 }

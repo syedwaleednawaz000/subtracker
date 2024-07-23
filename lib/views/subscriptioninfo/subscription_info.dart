@@ -116,7 +116,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                             // color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(MySize.size32),
                           ),
-                          child: AppImages.tresorlyImage,
+                          child: Text(AppImages.tresorlyIcon),
                         ),
                         SizedBox(height: MySize.size6),
                         Text(

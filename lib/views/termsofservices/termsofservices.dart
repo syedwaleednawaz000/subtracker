@@ -29,7 +29,7 @@ class TermsOfServices extends StatelessWidget {
                       onTap: (){
                         Navigator.pop(context);
                       },
-                      child: Image.asset('assets/icons/back_arrow.png', height: 24,width: 24,)),
+                      child: Image.asset(AppImages.backArrow, height: 24,width: 24,)),
                   SizedBox(
                     width: MySize.scaleFactorWidth * 90,
                   ),

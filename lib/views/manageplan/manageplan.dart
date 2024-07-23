@@ -36,7 +36,7 @@ class ManagePlan extends StatelessWidget {
                     elevation: 0,
                     centerTitle: true,
                     title:  Text('Manage Plan',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
-                    leading:Image.asset('assets/icons/back_arrow.png', scale: 4.9,color: Color(0XFFA2A2B5),),
+                    leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
                   )
               ),
             ),

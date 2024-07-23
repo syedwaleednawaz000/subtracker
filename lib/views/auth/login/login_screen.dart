@@ -235,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 25,),
                 Column(
                   children: [
-                    Image.asset('assets/images/face_id.png', height: 58,),
+                    Image.asset(AppImages.faceID, height: 58,),
                     SizedBox(height: 15,),
                     Text('Enable Face ID',
                         style: TextStyle(

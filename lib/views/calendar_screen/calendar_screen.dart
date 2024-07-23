@@ -57,7 +57,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
                         Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
                       },
-                      child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
+                      child: Image.asset(AppImages.notificationIcon, height: 25, width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                             darkMode
                             ? Color(0XFFA2A2B5)
@@ -271,7 +271,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: SubsContainer(
                               title: 'SignNTrack',
                               subtitle: '\$5.99',
-                              imageIcon: Image.asset('assets/icons/esss.png', height: 40, width: 40,),
+                              imageIcon: Image.asset(AppImages.subtrackrIcon, height: 40, width: 40,),
                             ),
                           ),
                           GestureDetector(
@@ -281,7 +281,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: SubsContainer(
                               title: 'Profilio',
                               subtitle: '\$18.99',
-                              imageIcon: Image.asset('assets/icons/pee.png', height: 40, width: 40,),
+                              imageIcon: Image.asset(AppImages.profilioIcon, height: 40, width: 40,),
                             ),
                           ),
                           GestureDetector(
@@ -291,7 +291,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: SubsContainer(
                               title: 'Microsoft ',
                               subtitle: '\$5.99',
-                              imageIcon: Image.asset('assets/icons/tresorly.png', height: 40, width: 40,),
+                              imageIcon: Image.asset(AppImages.tresorlyIcon, height: 40, width: 40,),
                             ),
                           ),
                         ],
