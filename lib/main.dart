@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: themeChanger.themeData,
-          home: const BnavBar(),
+          home: const SplashScreen(),
         );
       }),
     );

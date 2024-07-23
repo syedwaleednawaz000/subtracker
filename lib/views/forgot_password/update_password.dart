@@ -20,19 +20,19 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0XFF1C1C23),
+      backgroundColor: Color(0XFF1C1C23),
       body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.fill)
+        decoration: const BoxDecoration(
+            image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover)
         ),
-        child: Column(
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 40, right: 40),
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 250,),
+                  const SizedBox(height: 200,),
                   const Text( 'Reset Password',
                     style: TextStyle(
                         fontFamily: 'Poppins_Regular',

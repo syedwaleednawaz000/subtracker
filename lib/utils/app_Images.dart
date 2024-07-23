@@ -30,7 +30,7 @@ class AppImages {
 
 
 
-  static const googleIcon= 'assets/images/google.png';
+  static const googleIcon= 'assets/icons/google.png';
   // static const personIcon = 'assets/images/person.png';
   static const indeedIcon = 'assets/images/indeed.png';
   static const spotifyIcon = 'assets/images/Vector.png';
@@ -81,7 +81,7 @@ class AppImages {
   static  Image spotify_Image = Image(image: const AssetImage('assets/images/Vector.png'), height:MySize.scaleFactorHeight*70, width: MySize.scaleFactorWidth*70);
   static  Image indeed_Image = Image(image: const AssetImage('assets/images/indeed.png'), height:MySize.scaleFactorHeight*70, width: MySize.scaleFactorWidth*70);
   // static  Image person_Image = Image(image: const AssetImage('assets/images/person.png'), height:MySize.scaleFactorHeight*72, width: MySize.scaleFactorWidth*72);
-  static  Image google_Image = Image(image: const AssetImage('assets/images/google.png'), height:MySize.scaleFactorHeight*27, width: MySize.scaleFactorWidth*27);
+  // static  Image google_Image = Image(image: const AssetImage('assets/images/google.png'), height:MySize.scaleFactorHeight*27, width: MySize.scaleFactorWidth*27);
 
 
 
