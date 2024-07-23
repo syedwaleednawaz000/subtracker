@@ -11,5 +11,8 @@ class ApiService {
   Future<Response> login({var params}) {
     return apiClient.post(url: AppUrl.login, params: params);
   }
+  Future<Response> register({var params}) {
+    return apiClient.post(url: AppUrl.register, params: params);
+  }
 
 }
