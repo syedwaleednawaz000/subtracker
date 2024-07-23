@@ -5,7 +5,7 @@ import 'app_colors.dart';
 import 'my_size.dart';
 
 class AppConstant {
-//
+  static String getUserToken = '';
   ///variables
 
 
