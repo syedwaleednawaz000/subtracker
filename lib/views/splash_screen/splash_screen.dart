@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/splash_provider.dart';
 import 'package:sub_tracker/views/welcomeScreen/welcome_screen.dart';
 import '../../bottom_nav/bottom_navBar.dart';
 import '../../utils/app_Images.dart';
@@ -15,13 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => WelcomeScreen(),
-        ),
-      );
-    });
+    Future.microtask(() => Provider.of<SplashProvider>(context,listen: false).checkLogin(context: context));
+    Future.microtask(() => Provider.of<SplashProvider>(context,listen: false).initStateNetwork());
   }
   @override
   Widget build(BuildContext context) {

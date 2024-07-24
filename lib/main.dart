@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
+import 'package:sub_tracker/Provider/splash_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/test.dart';
 import 'package:sub_tracker/theme/theme.dart';
@@ -50,6 +51,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ThemeChanger()),
         ChangeNotifierProvider(create: (BuildContext context) => LoginProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => RegisterProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SplashProvider()),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);

@@ -7,7 +7,7 @@ class AppUrl{
   static String addCategories = "categories";
   static String storeUserCategories = "user-categories";
   static String getCategories = "categories";
-  static String editCategories = "categories/";//at the end id
+  static String editeCategories = "categories/";//at the end id 2
   static String deleteCategories = "categories/";//at the end id
   static String deleteSubscriptions = "subscriptions/";//at the end id
   static String storeTickets = "tickets";
