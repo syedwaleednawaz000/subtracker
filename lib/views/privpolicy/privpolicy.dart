@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -29,7 +30,7 @@ class PrivPolicy extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Image.asset(
-                        'assets/icons/back_arrow.png',
+                        AppImages.backArrow,
                         height: 24,
                         width: 24,
                       )),
@@ -80,7 +81,7 @@ class PrivPolicy extends StatelessWidget {
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    AppConstant.privText,
+                    AppImages.privText,
                     style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -179,7 +180,7 @@ class PrivPolicy extends StatelessWidget {
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    AppConstant.privText,
+                    AppImages.privText,
                     style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,

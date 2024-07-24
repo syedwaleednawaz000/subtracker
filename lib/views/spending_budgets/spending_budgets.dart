@@ -68,7 +68,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
 
                     Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
                     },
-                      child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
+                      child: Image.asset(AppImages.notificationIcon, height: 25, width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                   darkMode
                     ? Color(0XFFA2A2B5)
@@ -90,7 +90,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               Stack(
                 children: [
                   // const RoundProgessBar(),
-                  Image.asset('assets/Chart_half.png', height: 165, width: 250,),
+                  Image.asset(AppImages.half_chartIcon, height: 165, width: 250,),
                   Positioned(
                     left: 100,
                     top: 75,
@@ -137,7 +137,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                       // color: AppColors.white100,
                       fontSize: MySize.size14),
                   SizedBox(width: MySize.size25,),
-                  Image.asset('assets/icons/hand.png', width: 14, height: 16)
+                  Image.asset(AppImages.handIcon, width: 14, height: 16)
                 ],
               ),),
               SizedBox(height: MySize.size16,),

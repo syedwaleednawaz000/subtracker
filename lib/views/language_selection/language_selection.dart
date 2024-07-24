@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
 import '../base/text_widgets.dart';
@@ -62,9 +63,9 @@ class _LanguageSelectionState extends State<LanguageSelection> {
        //     ),
        //   ),
        // ),
-       const LanguageTiles(
+        LanguageTiles(
           title: 'Pakistan',
-          leadingIcon: AssetImage('assets/icons/lang/PS.png',),
+          leadingIcon: AssetImage(AppImages.psFlag,),
           trailingText: '()',
         ),
           SizedBox(height: 45,),
@@ -91,7 +92,7 @@ class LanguageTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> namingLists = [ 'English (UK)', 'Pakistan', 'Iran', 'English (UK)', 'Pakistan', 'English (UK)', 'Iran', 'English (UK)', 'English (UK)', ];
     List<String> namingLists_urdu = ['(English)', '(اردو)', '(فارسی)', 'English ', '(اردو)', 'English', '(فارسی)', 'English', 'English', ];
-    List<AssetImage>  iconsList = [AssetImage('assets/icons/lang/GB.png'),AssetImage('assets/icons/lang/PK.png'), AssetImage('assets/icons/lang/IR.png'), AssetImage('assets/icons/lang/GB.png'), AssetImage('assets/icons/lang/PK.png'), AssetImage('assets/icons/lang/GB.png'), AssetImage('assets/icons/lang/IR.png'), AssetImage('assets/icons/lang/PS.png'), AssetImage('assets/icons/lang/GB.png'),];
+    List<AssetImage>  iconsList = [AssetImage(AppImages.psFlag),AssetImage(AppImages.pkFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag),];
     List<Color> listColors = [
       Color(0XFF758AFF), Color(0XFFF1F1FF), Color(0XFFF1F1FF),
       Color(0XFFF1F1FF), Color(0XFFF1F1FF), Color(0XFFF1F1FF),

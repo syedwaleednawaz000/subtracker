@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -28,7 +29,7 @@ class TermsOfServices extends StatelessWidget {
                       onTap: (){
                         Navigator.pop(context);
                       },
-                      child: Image.asset('assets/icons/back_arrow.png', height: 24,width: 24,)),
+                      child: Image.asset(AppImages.backArrow, height: 24,width: 24,)),
                   SizedBox(
                     width: MySize.scaleFactorWidth * 90,
                   ),
@@ -73,7 +74,7 @@ class TermsOfServices extends StatelessWidget {
               padding: EdgeInsets.only(left: MySize.size32),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Text(AppConstant.privText,
+                child: Text(AppImages.privText,
                     style:  TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -166,7 +167,7 @@ class TermsOfServices extends StatelessWidget {
               padding: EdgeInsets.only(left: MySize.size32),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Text(AppConstant.privText,
+                child: Text(AppImages.privText,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

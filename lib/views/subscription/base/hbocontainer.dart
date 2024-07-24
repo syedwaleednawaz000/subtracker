@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../utils/app_Images.dart';
 import '../../../utils/app_colors.dart';
 
 import '../../../utils/app_constant.dart';
@@ -19,7 +20,7 @@ class TresorlyContainer extends StatelessWidget {
 
   borderRadius: BorderRadius.circular(45)
   ),
-      child: AppConstant.tresorlyImage,
+      child: Text(AppImages.tresorlyIcon),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -35,7 +36,7 @@ class ManagePlan extends StatelessWidget {
                     elevation: 0,
                     centerTitle: true,
                     title:  Text('Manage Plan',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
-                    leading:Image.asset('assets/icons/back_arrow.png', scale: 4.9,color: Color(0XFFA2A2B5),),
+                    leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
                   )
               ),
             ),
@@ -191,35 +192,35 @@ class ManagePlan extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         manageplanrowlist(
-                          imageIcon: Image.asset(AppConstant.plan),
+                          imageIcon: Image.asset(AppImages.plan),
                           text: 'Subscription Tracking',
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         manageplanrowlist(
-                          imageIcon: Image.asset(AppConstant.notify),
+                          imageIcon: Image.asset(AppImages.notify),
                           text: 'Alerts and Notifications',
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         manageplanrowlist(
-                          imageIcon: Image.asset(AppConstant.chart),
+                          imageIcon: Image.asset(AppImages.chart),
                           text: 'Financial Overview',
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         manageplanrowlist(
-                          imageIcon: Image.asset(AppConstant.analytics),
+                          imageIcon: Image.asset(AppImages.analytics),
                           text: 'Spending Analytics',
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         manageplanrowlist(
-                          imageIcon: Image.asset(AppConstant.contsupport),
+                          imageIcon: Image.asset(AppImages.contsupport),
                           text: 'Customer Support',
                         ),
                       ],

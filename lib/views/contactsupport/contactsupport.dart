@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
@@ -36,7 +37,7 @@ class ContactSupport extends StatelessWidget {
                   backgroundColor: Colors.transparent,
                   elevation: 0,
                   centerTitle: true,
-                  leading:Image.asset('assets/icons/back_arrow.png', scale: 4.9,color: Color(0XFFA2A2B5),),
+                  leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
                   title:  Text('Spending & Budgets',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
                 )
             ),
@@ -105,7 +106,7 @@ class ContactSupport extends StatelessWidget {
                       isDense: true,
 
                     ),
-                    dropdownMenuEntries: [
+                    dropdownMenuEntries: const [
                   DropdownMenuEntry(value: 1, label: 'Account and Billing', ),
                   DropdownMenuEntry(value: 2, label: 'App Functionality',),
                   DropdownMenuEntry(value: 3, label: 'Subscription Management',),

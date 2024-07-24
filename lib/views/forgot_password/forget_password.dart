@@ -115,7 +115,7 @@ class ForgetPassword extends StatelessWidget {
         body: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(AppImages.bg3Image), fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

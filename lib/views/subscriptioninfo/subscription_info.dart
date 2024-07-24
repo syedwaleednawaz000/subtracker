@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -72,7 +73,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                           child: Row(
                             children: [
                               Image.asset(
-                                AppConstant.downwardArrow,
+                                AppImages.downwardArrow,
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
@@ -95,7 +96,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                               ),
                               Spacer(), // Add Spacer here
                               Image.asset(
-                                AppConstant.trash,
+                                AppImages.trash,
                                 scale: 1.2,
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
@@ -115,7 +116,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                             // color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(MySize.size32),
                           ),
-                          child: AppConstant.tresorlyImage,
+                          child: Text(AppImages.tresorlyIcon),
                         ),
                         SizedBox(height: MySize.size6),
                         Text(
@@ -232,7 +233,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           Navigator.pop(context);
                                         },
                                         child: Image.asset(
-                                          AppConstant.arrowLeft,
+                                          AppImages.arrowLeft,
                                           width: MySize.size14,
                                           height: MySize.size14,
                                           color:
@@ -249,7 +250,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       text: 'Description',
                                       text2: 'Password Manager',
                                       icon: Image.asset(
-                                        AppConstant.arrowLeft,
+                                        AppImages.arrowLeft,
                                         width: MySize.size14,
                                         height: MySize.size14,
                                         color:
@@ -265,7 +266,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       text: 'Category',
                                       text2: 'Security',
                                       icon: Image.asset(
-                                        AppConstant.arrowLeft,
+                                        AppImages.arrowLeft,
                                         width: MySize.size14,
                                         height: MySize.size14,
                                         color:
@@ -281,7 +282,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       text: 'Start Date',
                                       text2: '08.01.2022',
                                       icon: Image.asset(
-                                        AppConstant.arrowLeft,
+                                        AppImages.arrowLeft,
                                         width: MySize.size14,
                                         height: MySize.size14,
                                         color:
@@ -297,7 +298,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       text: 'Renewal Date',
                                       text2: '07.01.2023',
                                       icon: Image.asset(
-                                        AppConstant.arrowLeft,
+                                        AppImages.arrowLeft,
                                         width: MySize.size14,
                                         height: MySize.size14,
                                         color:
@@ -567,7 +568,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                               // )
                                             ]),
                                         Image.asset(
-                                          AppConstant.arrowLeft,
+                                          AppImages.arrowLeft,
                                           width: MySize.size14,
                                           height: MySize.size14,
                                           color:
@@ -842,7 +843,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                               // )
                                             ]),
                                         Image.asset(
-                                          AppConstant.arrowLeft,
+                                          AppImages.arrowLeft,
                                           width: MySize.size14,
                                           height: MySize.size14,
                                           color:

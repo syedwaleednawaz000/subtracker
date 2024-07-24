@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -36,7 +37,7 @@ class _PersonalDataState extends State<PersonalData> {
                       onTap: (){
                         Navigator.pop(context);
                       },
-                      child: Image.asset(AppConstant.backArrow, height: 20,)),
+                      child: Image.asset(AppImages.backArrow, height: 20,)),
                   SizedBox(
                     width: MySize.scaleFactorWidth * 120,
                   ),
@@ -61,7 +62,7 @@ class _PersonalDataState extends State<PersonalData> {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(90),
               ),
-              child: AppConstant.personImage,
+              child: Image.asset(AppImages.person),
             ),
             SizedBox(
               height: MySize.size8,
