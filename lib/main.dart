@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sub_tracker/Provider/bio_metric_provider.dart';
+import 'package:sub_tracker/Provider/email_notification_provider.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
+import 'package:sub_tracker/Provider/two_factor_auth_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/test.dart';
 import 'package:sub_tracker/theme/theme.dart';
@@ -54,6 +58,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => RegisterProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => SplashProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ProfileProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => LanguageProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => BioMetricProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => EmailNotificationProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => TwoFactorAuthProvider()),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
