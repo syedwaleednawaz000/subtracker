@@ -11,24 +11,19 @@ import 'package:sub_tracker/views/auth/login/login_screen.dart';
 class ProfileProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
 
-  bool isRegister = false;
+  bool _isDeleted = false;
+  bool get isDeleted => _isDeleted;
   void _loginLoading({required bool load}){
-    isRegister = load;
+    _isDeleted = load;
     notifyListeners();
   }
-  Future<void> register({required String  email ,required String password})async{
-    var body = {
-      'name': 'humna',
-      'email': email,
-      'password': password,
-      'role': 'individual',
-      'password_confirmation': password
-    };
+  Future<void> deleteAccount({required String  email ,required String password})async{
+    var body = {};
     print("this is the body ${body}");
     try{
-      Response response = await _apiService.register(params: body);
+      Response response = await _apiService.deleteAccount(params: body);
       if(response.statusCode == 200){
-        FlutterToast.toastMessage(message: "Successfully registered",);
+        FlutterToast.toastMessage(message: "Account Deleted successfully",);
         if (kDebugMode) {
           print("hit successfully");
         }

@@ -14,5 +14,7 @@ class ApiService {
   Future<Response> register({var params}) {
     return apiClient.post(url: AppUrl.register, params: params);
   }
-
+  Future<Response> deleteAccount({var params}) {
+    return apiClient.delete(url: AppUrl.deleteAccount, params: params);
+  }
 }
