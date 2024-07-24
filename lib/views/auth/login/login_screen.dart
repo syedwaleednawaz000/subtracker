@@ -296,8 +296,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(height: 22,),
-                  Padding(
-                    padding: const EdgeInsets.only(
+                  const Padding(
+                    padding: EdgeInsets.only(
                         left: 25, right: 25, bottom: 12),
                     child: Text(
                       'If you don\'t have an account yet?',
@@ -308,10 +308,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.white,
                       ),),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder:  (context) => SignupScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder:  (context) => const SignupScreen()));
                     },
                     child: Padding(
                       padding: EdgeInsets.only(bottom: MySize.size30),
