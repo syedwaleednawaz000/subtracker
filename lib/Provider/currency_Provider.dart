@@ -8,23 +8,23 @@ import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
-class LanguageProvider extends ChangeNotifier{
+class CurrencyProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
 
-  bool _isLanguages = false;
-  bool get isLanguages => _isLanguages;
+  bool _isCurrency = false;
+  bool get isCurrency => _isCurrency;
   void _loginLoading({required bool load}){
-    _isLanguages = load;
+    _isCurrency = load;
     notifyListeners();
   }
   Future<void> updateCurrency()async{
     var body = {
-      'language_id': '1'
+      'currency_code': 'AFN'
     };
     try{
-      Response response = await _apiService.updateLanguages(params: body);
+      Response response = await _apiService.deleteAccount(params: body);
       if(response.statusCode == 200){
-        FlutterToast.toastMessage(message: "Language successfully updated",);
+        FlutterToast.toastMessage(message: "Currency successfully updated",);
         if (kDebugMode) {
           print("hit successfully");
         }
@@ -38,27 +38,28 @@ class LanguageProvider extends ChangeNotifier{
       print("this is error ${error.toString()}");
     }
   }
-  Map<String , dynamic> languagesData = {};
-  Future<void> getLanguages()async{
+  Map<String, dynamic> currencyData = {};
+  Future<void> getCurrency()async{
     _loginLoading(load: true);
     try{
-      Response response = await _apiService.getLanguages(params: {});
+      Response response = await _apiService.getCurrencies(params: {});
       if(response.statusCode == 200){
         _loginLoading(load: false);
-        languagesData = response.data;
+        currencyData = response.data;
+
         if (kDebugMode) {
-          print("hit successfully getCurrencies getLanguages $languagesData");
+          print("hit successfully getCurrencies $currencyData");
         }
 
       }else{
         _loginLoading(load: false);
         if (kDebugMode) {
-          print("hit successfully in else getLanguages");
+          print("hit successfully in else ");
         }
       }
     }catch(error){
       _loginLoading(load: false);
-      print(" getLanguages this is error ${error.toString()}");
+      print("this is error ${error.toString()}");
     }
   }
 

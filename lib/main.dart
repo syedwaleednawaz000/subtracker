@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/email_notification_provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ProfileProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => LanguageProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => BioMetricProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => CurrencyProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => EmailNotificationProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TwoFactorAuthProvider()),
       ],

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/views/credit_card/credit_card.dart';
@@ -138,6 +139,7 @@ class _BnavBarState extends State<BnavBar> {
   ];
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => Provider.of<LanguageProvider>(context,listen: false).getLanguages());
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: CircleAvatar(
