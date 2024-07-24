@@ -10,6 +10,7 @@ import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 
@@ -281,61 +282,92 @@ class _SignupScreenState extends State<SignupScreen> {
                        const SizedBox(
                          height: 12,
                        ),
-                       Align(
-                         alignment: Alignment.centerLeft,
-                         child: Row(
-
-                           children: [
-                               Checkbox(
-                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                 visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
-                                 checkColor:  const Color(0XFF666680),
-                                 side: BorderSide(style: BorderStyle.solid,width: 3, color: const Color(0XFF353542).withOpacity(.5)),
-                                 value: val, onChanged: (value) => setState(() {
-                                 val = !val;
-                               } ),),
-                             const SizedBox(width: 25,),
-                             RichText(
-                                 text: TextSpan(children: [
+                       Row(
+                         children: [
+                           Checkbox(
+                             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                             visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
+                             checkColor: const Color(0XFF666680),
+                             side: BorderSide(
+                               style: BorderStyle.solid,
+                               width: 3,
+                               color: const Color(0XFF353542).withOpacity(.5),
+                             ),
+                             value: val,
+                             onChanged: (value) => setState(() {
+                               val = !val;
+                             }),
+                           ),
+                           SizedBox(width: MySize.size25),
+                           Expanded( // Ensure text wraps within available space
+                             child: RichText(
+                               text: TextSpan(
+                                 children: [
                                    TextSpan(
-                                       text: 'By proceeding, you agree to our ',
-                                       style:
-                                       TextStyle(fontSize: 15 ,color: AppColors.grey30.withOpacity(.3))),
+                                     text: 'By proceeding, you agree to our ',
+                                     style: TextStyle(
+                                       fontSize: 15,
+                                       color: AppColors.grey30.withOpacity(.3),
+                                     ),
+                                   ),
                                    const TextSpan(
-                                       text: 'Privacy \nPolicy',
-                                       style: TextStyle(color: Color(0XFF758AFF),
+                                     text: 'Privacy Policy',
+                                     style: TextStyle(
+                                       color: Color(0XFF758AFF),
                                        fontSize: 15,
                                        decoration: TextDecoration.underline,
-                                       decorationColor: AppColors.lightBlue,)),
+                                       decorationColor: AppColors.lightBlue,
+                                     ),
+                                   ),
                                    TextSpan(
-                                       text: ' and ',
-                                       style:
-                                       TextStyle(color: AppColors.grey30.withOpacity(.3), fontSize: 13)),
+                                     text: ' and ',
+                                     style: TextStyle(
+                                       color: AppColors.grey30.withOpacity(.3),
+                                       fontSize: 15,
+                                     ),
+                                   ),
                                    const TextSpan(
-                                       text: 'Term of Use',
-                                       style: TextStyle(color: Color(0XFF758AFF),
-                                         fontSize: 15,
-                                         decoration: TextDecoration.underline,
-                                         decorationColor: AppColors.lightBlue,)),
-                                 ]))
-                           ],
-                         ),
+                                     text: 'Terms of Use',
+                                     style: TextStyle(
+                                       color: Color(0XFF758AFF),
+                                       fontSize: 15,
+                                       decoration: TextDecoration.underline,
+                                       decorationColor: AppColors.lightBlue,
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                           ),
+                         ],
                        ),
                      ],
                    ),
                  ),
               Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
-                return                   GestureDetector(
+                return  GestureDetector(
                   onTap: (){
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
-                      print("email ${emailController.text} and pass  ${passwordController.text}");
-                      registerProvider.register(email: emailController.text.trim(),
-                          password: passwordController.text.trim());
-                      // Navigator.push(context, MaterialPageRoute(builder:  (context) => const BnavBar()));
+                      if (passwordController.text.trim() == confirmPasswordController.text.trim()) {
+                        if (val == true) {
+                          registerProvider.register(
+                            context: context,
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          );
+                        } else {
+                          FlutterToast.toastMessage(
+                            message: "Please accept privacy and policy",
+                            isError: true,
+                          );
+                        }
+                      } else {
+                        FlutterToast.toastMessage(
+                          message: "Password doesn't match with confirm password",
+                          isError: true,
+                        );
+                      }
                     }
                   },
                   child: Padding(
@@ -355,19 +387,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           ],
                           color: const Color(0XFF758AFF),
                         ),
-                        child: const Center(
-                          child: Text('Get started!',
+                        child:  Center(
+                          child: registerProvider.isRegister == true ?  const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator()) : const Text('Get started!',
                             style: TextStyle(color:Colors.white, fontSize: 16),
                           ),
                         )),
-
-
-
-                    // const FieldContainer(
-                    //   containerColor: Color(0XFF758AFF),
-                    //   mytitle: 'Get Started!',
-                    //   textColor: AppColors.white100,
-                    // ),
                   ),
                 );
               },),

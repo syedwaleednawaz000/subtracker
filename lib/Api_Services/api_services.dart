@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/app_url.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 
 
 class APIClient {
@@ -67,7 +68,7 @@ class APIClient {
       if (error.response != null) {
         String content = error.response.toString();
         Map<String, dynamic> map = jsonDecode(error.response.toString());
-        // AppConstants.flutterToast(message: map['message']);
+        FlutterToast.toastMessage(message: map['message'],isError: true);
         print("This is an error in Dio: ${map['message'].toString()}");
       }
       rethrow;

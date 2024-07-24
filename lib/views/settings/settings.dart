@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
@@ -541,7 +542,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Provider.of<ProfileProvider>(context,listen: false).cleanLocalData(context: context);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(

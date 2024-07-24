@@ -6,7 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Repo/repo.dart';
+import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/welcomeScreen/welcome_screen.dart';
 
@@ -47,12 +50,18 @@ class SplashProvider extends ChangeNotifier{
 
 
   Future<void> checkLogin({required BuildContext context})async{
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => WelcomeScreen(),
-        ),
-      );
+    Timer(const Duration(seconds: 3), () async {
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        if(prefs.getString(AppConstant.saveUserToken) != null){
+          Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
+        }else{
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const WelcomeScreen(),
+            ),
+          );
+        }
+
     });
   }
 

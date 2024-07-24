@@ -64,7 +64,7 @@ class RegisterWithM extends StatelessWidget {
               SizedBox(height: 16,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder:  (context) => LoginScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder:  (context) => const SignupScreen()));
                 },
                 child: FieldContainer(
                   containerColor:  Provider.of<ThemeChanger>(context)
@@ -94,7 +94,7 @@ class RegisterWithM extends StatelessWidget {
               SizedBox(height: 16,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder:  (context) => SignupScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
                 },
                 child: Padding(
                   padding: EdgeInsets.only( bottom: MySize.size30),
