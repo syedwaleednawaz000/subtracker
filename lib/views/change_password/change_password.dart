@@ -29,6 +29,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     MySize().init(context);
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),

@@ -29,7 +29,7 @@ class _CustomContainerState extends State<CustomContainer> {
     return Column(
       children: [
         Container(
-          height: MySize.scaleFactorHeight * 449,
+          height: MySize.scaleFactorHeight * 465,
           width: MySize.scaleFactorWidth * 405,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
@@ -38,8 +38,8 @@ class _CustomContainerState extends State<CustomContainer> {
             ),
             border: Border.all(color: AppColors.white20.withOpacity(.2)),
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Color(0XFF353542)
-                : Color(0XFFFFFFFF),
+                ? const Color(0XFF353542)
+                : const Color(0XFFFFFFFF),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,27 +49,27 @@ class _CustomContainerState extends State<CustomContainer> {
                 alignment: Alignment.center,
                 children: [
                   CustomPaint(
-                    size: Size(385, 429),
+                    size: const Size(385, 429),
                     painter: DottedArcPainterC(strokeWidth: 3,
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Color(0XFF353542)
-                        : Color(0XFFFFFFFF),),
+                        ? const Color(0XFF353542)
+                        : const Color(0XFFFFFFFF),),
                   ),
                   CustomPaint(
-                    size: Size(298, 300), // Adjust size as needed
+                    size: const Size(298, 300), // Adjust size as needed
                     painter: DottedArcPainter(strokeWidth: 3,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFF353542)
-                          : Color(0XFFFFFFFF),),
+                          ? const Color(0XFF353542)
+                          : const Color(0XFFFFFFFF),),
                   ),
                   CustomPaint(
-                    size: Size(200, 10), // Adjust size as needed
+                    size: const Size(200, 10), // Adjust size as needed
                     painter: DottedArcPainter(strokeWidth: 3,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFF4E4E61)
-                          : Color(0XFF4E4E61),),
+                          ? const Color(0XFF4E4E61)
+                          : const Color(0XFF4E4E61),),
                   ),
-                  CircularProgressBarWidget(),
+                  const CircularProgressBarWidget(),
                   Positioned(
                     bottom: 10,
                     left: 20,
@@ -84,18 +84,11 @@ class _CustomContainerState extends State<CustomContainer> {
                         SizedBox(
                           width: MySize.scaleFactorWidth * 14,
                         ),
-                         InkWell(
-
-                           onTap: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
-                           },
-
-                           child: LineColorContainer(
-                            borderColor: AppColors.purpleLine,
-                            titleText: 'Highest subs',
-                            numberCount: '\$19.99',
-                                                   ),
-                         ),
+                         const LineColorContainer(
+                          borderColor: AppColors.purpleLine,
+                          titleText: 'Highest subs',
+                          numberCount: '\$19.99',
+                                                 ),
                         const SizedBox(
                           width: 14,
                         ),
@@ -112,12 +105,12 @@ class _CustomContainerState extends State<CustomContainer> {
                     top: 33,
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
                       },
                       child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? Color(0XFFC1C1CD)
-                              :  Color(0XFFC1C1CD)
+                              ? const Color(0XFFC1C1CD)
+                              :  const Color(0XFFC1C1CD)
                       ),
                     ),)
                 ],

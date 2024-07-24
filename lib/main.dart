@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/currency_screen/currency_provider/currency_provider.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
+import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
@@ -58,6 +60,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => RegisterProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => SplashProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ProfileProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => LanguageProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => CurrencyProvider()),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
