@@ -23,6 +23,7 @@ class OTPVerification extends StatefulWidget {
 }
 
 class _OTPVerificationState extends State<OTPVerification> {
+  TextEditingController otpController = TextEditingController();
   late PinTheme defaultPinTheme;
   late PinTheme focusedPinTheme;
   late PinTheme submittedPinTheme;
@@ -87,6 +88,7 @@ class _OTPVerificationState extends State<OTPVerification> {
               ),
               const SizedBox(height: 50),
               Pinput(
+                controller: otpController,
                 length: 6,
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: focusedPinTheme,
@@ -126,7 +128,7 @@ class _OTPVerificationState extends State<OTPVerification> {
         child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
           return GestureDetector(
             onTap: () {
-              forgotPasswordProvider.verifyOtp(context: context, otp: widget.otp);
+              forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim());
             },
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 45),
