@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Repo/repo.dart';
@@ -79,4 +80,15 @@ class ProfileProvider extends ChangeNotifier{
     Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
+
+  XFile? updatePic ;
+  Future<void> picPicture()async{
+    final ImagePicker picker = ImagePicker();
+    final XFile? _image = await picker.pickImage(source: ImageSource.gallery);
+    if(_image != null){
+      updatePic = _image;
+      notifyListeners();
+    }
+
+  }
 }

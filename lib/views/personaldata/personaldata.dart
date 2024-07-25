@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
@@ -63,15 +65,19 @@ class _PersonalDataState extends State<PersonalData> {
               height: 40,
             ),
 
-            Container(
-              height: MySize.size72,
-              width: MySize.size72,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(90),
-              ),
-              child: Image.asset(AppImages.person),
-            ),
+Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+   return             Container(
+     height: MySize.size72,
+     width: MySize.size72,
+     decoration: BoxDecoration(
+       color: Colors.transparent,
+       borderRadius: BorderRadius.circular(90),
+     ),
+     child:profileProvider.updatePic == null ?
+     Image.asset(AppImages.person) :
+     Image.file(File(profileProvider.updatePic!.path.toString())),
+   );
+},),
             SizedBox(
               height: MySize.size8,
             ),
@@ -86,32 +92,39 @@ class _PersonalDataState extends State<PersonalData> {
               height: MySize.size8,
             ),
 
-            Container(
-              height: 36, width: 70,
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return GestureDetector(
+                onTap: (){
+                  profileProvider.picPicture();
+                },
+                child: Container(
+                  height: 36, width: 70,
 
-              decoration: BoxDecoration(
-                borderRadius:  BorderRadius.circular(16),
-                color:   Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ? Colors.white.withOpacity(.1) : Color(0XFFF1F1FF),
-                border: Border(
-                  top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode
-                      ? Color(0xFFCFCFFC).withOpacity(.15)
-                      : Color(0xFFCFCFFC).withOpacity(.15)),
+                  decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.circular(16),
+                    color:   Provider.of<ThemeChanger>(context).themeData ==
+                        darkMode ? Colors.white.withOpacity(.1) : Color(0XFFF1F1FF),
+                    border: Border(
+                      top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0xFFCFCFFC).withOpacity(.15)
+                          : Color(0xFFCFCFFC).withOpacity(.15)),
 
-                  left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode
-                      ? Color(0xFFCFCFFC).withOpacity(.15)
-                      : Color(0xFFCFCFFC).withOpacity(.15)),
+                      left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0xFFCFCFFC).withOpacity(.15)
+                          : Color(0xFFCFCFFC).withOpacity(.15)),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text('Change',
+                      style: TextStyle(
+                          color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Color(0XFF424252),
+                          fontSize: 12, fontWeight: FontWeight.w600),),
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text('Change',
-                  style: TextStyle(
-                      color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Color(0XFF424252),
-                      fontSize: 12, fontWeight: FontWeight.w600),),
-              ),
-            ),
+              );
+            },),
 
             SizedBox(
               height: MySize.size19,

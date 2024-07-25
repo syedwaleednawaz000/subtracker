@@ -21,7 +21,7 @@ class Subscription extends StatefulWidget {
 }
 
 class _SubscriptionState extends State<Subscription> {
-   TextEditingController? _controller;
+   final TextEditingController _controller  = TextEditingController();
    Map<String, dynamic> _selectedOption = {'Select Subscription Provider': "Select Subscription Provider"};
 
    ///
@@ -154,12 +154,30 @@ class _SubscriptionState extends State<Subscription> {
      );
    }
 
+   void _incrementText() {
+     setState(() {
+       String text = _controller.text;
+       text = text.replaceAll(RegExp(r'[^0-9-]'), ''); // Remove all non-numeric characters except for the negative sign
+       int currentValue = int.tryParse(text) ?? 0; // Parse current text to an integer
+       currentValue += 1; // Increment the value
+       _controller.text = currentValue.toString();
+     });
+   }
 
+   void _decrementText() {
+     setState(() {
+       String text = _controller.text;
+       text = text.replaceAll(RegExp(r'[^0-9-]'), ''); // Remove all non-numeric characters except for the negative sign
+       int currentValue = int.tryParse(text) ?? 0; // Parse current text to an integer
+       currentValue -= 1; // Decrement the value
+       _controller.text = currentValue.toString();
+     });
+   }
    ///
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: "\$5.99");
+
     _controller!.addListener(_formatInput);
   }
 
@@ -321,161 +339,6 @@ class _SubscriptionState extends State<Subscription> {
                       ),
                     SizedBox(height: MySize.size10,),
                     GestureDetector(
-                      // onTap: (){
-                      //   showModalBottomSheet<void>(
-                      //     context: context,
-                      //     builder: (BuildContext context) {
-                      //       return Container(
-                      //         decoration: BoxDecoration(
-                      //             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                      //                 ? Color(0XFF353542)
-                      //                 : Color(0XFFF1F1FF),
-                      //             borderRadius: BorderRadius.only(
-                      //               topRight: Radius.circular(16),
-                      //               topLeft: Radius.circular(16),
-                      //             )
-                      //         ),
-                      //         height: 400,
-                      //         child: Center(
-                      //           child: SingleChildScrollView(
-                      //             child: Column(
-                      //               mainAxisAlignment: MainAxisAlignment.center,
-                      //               mainAxisSize: MainAxisSize.min,
-                      //               children: <Widget>[
-                      //                 const SizedBox(height: 30,),
-                      //                 Text('Select Billing Plan',
-                      //                   style: TextStyle(
-                      //                     fontSize: MySize.size14,
-                      //                     fontWeight: FontWeight.w600,
-                      //                     color: Provider.of<ThemeChanger>(
-                      //                         context)
-                      //                         .themeData ==
-                      //                         darkMode
-                      //                         ? Colors.white
-                      //                         : Color(0XFF424252),
-                      //                   ),
-                      //                 ),
-                      //                 ListTile(
-                      //                   title: Text('Monthly',
-                      //                     style: TextStyle(
-                      //                       fontSize: 14,
-                      //                       fontWeight: FontWeight.w400,
-                      //                       fontFamily: 'Regular-Poppins',
-                      //                       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                           darkMode
-                      //                           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                           : Color(0XFF1C1C23),
-                      //                     ),
-                      //                   ),
-                      //                   onTap: () => categories,
-                      //                 ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Quarterly',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Quarterly'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Semi-Annually',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Semi-Annually'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Annually',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Annually'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Biennially',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Biennially'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Weekly',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Weekly'),
-                      //                 // ),
-                      //                 ListTile(
-                      //                   title: Text('Bi-Weekly',
-                      //                     style: TextStyle(
-                      //                       fontSize: 14,
-                      //                       fontWeight: FontWeight.w400,
-                      //                       fontFamily: 'Regular-Poppins',
-                      //                       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                           darkMode
-                      //                           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                           : Color(0XFF1C1C23),
-                      //                     ),
-                      //                   ),
-                      //                   onTap: () => categories
-                      //                 ),
-                      //                 ListTile(
-                      //                   title: Text('Custom',
-                      //                     style: TextStyle(
-                      //                       fontSize: 14,
-                      //                       fontWeight: FontWeight.w400,
-                      //                       fontFamily: 'Regular-Poppins',
-                      //                       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                           darkMode
-                      //                           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                           : Color(0XFF1C1C23),
-                      //                     ),
-                      //                   ),
-                      //                   onTap: () => categories,
-                      //                 ),
-                      //
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       );
-                      //     },
-                      //   );
-                      // },
                       onTap: (){
                         showCategories(context);
                       },
@@ -513,215 +376,6 @@ class _SubscriptionState extends State<Subscription> {
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 25,),
-                    //   child: GestureDetector(
-                    //     onTap: (){
-                    //       showModalBottomSheet<void>(
-                    //         context: context,
-                    //         builder: (BuildContext context) {
-                    //           return Container(
-                    //             decoration: BoxDecoration(
-                    //                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    //                     ? Color(0XFF353542)
-                    //                     : Color(0XFFF1F1FF),
-                    //                 borderRadius: BorderRadius.only(
-                    //                   topRight: Radius.circular(16),
-                    //                   topLeft: Radius.circular(16),
-                    //                 )
-                    //             ),
-                    //             height: 400,
-                    //             child: Center(
-                    //               child: SingleChildScrollView(
-                    //                 child: Column(
-                    //                   mainAxisAlignment: MainAxisAlignment.center,
-                    //                   mainAxisSize: MainAxisSize.min,
-                    //                   children: <Widget>[
-                    //                     const SizedBox(height: 30,),
-                    //                     Text('Select Billing Plan',
-                    //                       style: TextStyle(
-                    //                         fontSize: MySize.size14,
-                    //                         fontWeight: FontWeight.w600,
-                    //                         color: Provider.of<ThemeChanger>(
-                    //                             context)
-                    //                             .themeData ==
-                    //                             darkMode
-                    //                             ? Colors.white
-                    //                             : Color(0XFF424252),
-                    //                       ),
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Monthly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Quarterly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Semi-Annually',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () =>categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Annually',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Biennially',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () =>categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Weekly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Bi-Weekly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Custom',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () =>categories,
-                    //                     ),
-                    //
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           );
-                    //         },
-                    //       );
-                    //     },
-                    //     child: TextFormField(
-                    //       cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    //           ? Color(0XFFFFFFFF)
-                    //           : Color(0XFF1C1C23),
-                    //       decoration: InputDecoration(
-                    //         isDense: true,
-                    //         contentPadding: EdgeInsets.zero,
-                    //         prefixIcon: Icon(Icons.search,color: Color(0xff666680),),
-                    //         hintText: 'Select Subscription Provider',
-                    //         hintStyle: TextStyle(
-                    //           fontSize: MySize.size12,
-                    //           fontWeight: FontWeight.w500,
-                    //           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //               darkMode
-                    //               ? Color(0XFF666680)
-                    //               : Color(0XFF666680),
-                    //         ),
-                    //               // border: OutlineInputBorder(
-                    //               //   borderRadius: BorderRadius.circular(16),
-                    //               //   borderSide:  BorderSide(
-                    //               //             color:  Provider.of<ThemeChanger>(context).themeData ==
-                    //               //                   darkMode
-                    //               //                   ? Color(0XFFFFFFFF).withOpacity(.1)
-                    //               //                   : Color(0XFF353542).withOpacity(.1),
-                    //               //             width: 1.5,
-                    //               //           ),
-                    //               //         ),
-                    //         focusedBorder: OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(16),
-                    //           borderSide: BorderSide(
-                    //             color:  Provider.of<ThemeChanger>(context).themeData ==
-                    //                   darkMode
-                    //                   ? Color(0XFFFFFFFF).withOpacity(.1)
-                    //                   : Color(0XFF353542).withOpacity(.4),
-                    //             width: 1.5,
-                    //           ),
-                    //         ),
-                    //         enabledBorder: OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(16),
-                    //       borderSide: BorderSide(
-                    //       color:  Provider.of<ThemeChanger>(context).themeData ==
-                    //           darkMode
-                    //           ? Color(0XFFFFFFFF).withOpacity(.1)
-                    //           : Color(0XFF353542).withOpacity(.4),
-                    //       width: 1.5,
-                    //     ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -788,13 +442,7 @@ class _SubscriptionState extends State<Subscription> {
                   children: [
                     GestureDetector(
                       onTap: (){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                         const SnackBar(
-                              backgroundColor: Color(0XFF1C1C23),
-                              content: Center(child: Text('Price is deducted ', style: TextStyle(
-                                color: Colors.white
-                              ),)))
-                        );
+                        _decrementText();
                       },
                       child: Container(
                         height: MySize.scaleFactorHeight * 48,
@@ -856,7 +504,7 @@ class _SubscriptionState extends State<Subscription> {
                              ),
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.only(left: 20),
-                              hintText:"\$5.99",
+                              hintText:"\$0.0",
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: MySize.size24,
@@ -887,17 +535,7 @@ class _SubscriptionState extends State<Subscription> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        ScaffoldMessenger.of(context).showSnackBar(
-
-                            const SnackBar(
-                              // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-                              // showCloseIcon: true,
-                              //   closeIconColor: Colors.redAccent,
-                              backgroundColor: Color(0XFF1C1C23),
-                                content: Center(
-                                child: Text('Price is added', style: TextStyle(
-                                   color: Colors.white
-                                ),))));
+                        _incrementText();
                       },
                       child: Container(
                         height: MySize.scaleFactorHeight * 48,
