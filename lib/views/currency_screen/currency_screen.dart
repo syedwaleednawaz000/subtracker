@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -15,19 +16,13 @@ class CurrencySelection extends StatefulWidget {
 
 class _CurrencySelectionState extends State<CurrencySelection> {
   @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<CurrencyProvider>(context,listen: false).getCurrency());
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    List<String> namingLists = ['Pakistan', 'Iran', 'English (UK)', 'Pakistan', 'English (UK)', 'Iran', 'Palestine', 'English (UK)'];
-    List<String> namingLists_urdu = ['PKR', 'Rial', 'GBP', 'PKR', 'GBP', 'Rial', 'JOD', 'English'];
-    List<AssetImage> iconsList = const [
-      AssetImage(AppImages.pkFlag),
-      AssetImage(AppImages.irFlag),
-      AssetImage(AppImages.gbFlag),
-      AssetImage(AppImages.psFlag),
-      AssetImage(AppImages.gbFlag),
-      AssetImage(AppImages.irFlag),
-      AssetImage(AppImages.psFlag),
-      AssetImage(AppImages.gbFlag),
-    ];
 
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
@@ -50,11 +45,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
         children: [
 
           Expanded(
-            child: CurrencyTiles(
-              namingLists: namingLists,
-              namingLists_urdu: namingLists_urdu,
-              iconsList: iconsList,
-            ),
+            child: CurrencyTiles(),
           ),
           SizedBox(height: MySize.size10),
           const CustomSaveButton(
@@ -69,29 +60,30 @@ class _CurrencySelectionState extends State<CurrencySelection> {
 class CurrencyTiles extends StatelessWidget {
   const CurrencyTiles({
     super.key,
-    required this.namingLists,
-    required this.namingLists_urdu,
-    required this.iconsList,
+
   });
 
-  final List<String> namingLists;
-  final List<String> namingLists_urdu;
-  final List<AssetImage> iconsList;
+  // final List<String> namingLists;
+  // final List<String> namingLists_urdu;
+  // final List<AssetImage> iconsList;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CurrencyProvider>(
       builder: (context, currencyProvider, child) {
-        return ListView.builder(
+        return currencyProvider.isCurrency == true ? const Center(child: CircularProgressIndicator(color: Colors.green,),):
+        currencyProvider.currencyData['data'].length == 0 ?
+        const Center(child: Text("data are not available"),):
+        ListView.builder(
           shrinkWrap: true,
-          itemCount: namingLists.length,
+          itemCount: currencyProvider.currencyData['data'].length,
           itemBuilder: (context, index) {
             bool isSelected = currencyProvider.selectedIndex == index;
             return Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 8),
               child: GestureDetector(
                 onTap: () {
-                  currencyProvider.selectCurrency(index, namingLists[index], namingLists_urdu[index]);
+                  currencyProvider.selectCurrency(index, currencyProvider.currencyData['data'][index]['name'], currencyProvider.currencyData['data'][index]['code']);
                 },
                 child: Container(
                   height: 52,
@@ -105,14 +97,15 @@ class CurrencyTiles extends StatelessWidget {
                     child: ListTile(
                       dense: true,
                       title: Text(
-                        namingLists[index],
+                        currencyProvider.currencyData['data'][index]['name'].toString(),
                         style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
                         ),
                       ),
-                      leading: Image(image: iconsList[index], height: 24, width: 24),
+                      leading: const Image(image: AssetImage(AppImages.pkFlag), height: 24, width: 24),
                       trailing: Text(
-                        namingLists_urdu[index],
+                        currencyProvider.currencyData['data'][index]['code'].toString(),
+                        // namingLists_urdu[index],
                         style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : const Color(0XFF1C1C23),
                         ),

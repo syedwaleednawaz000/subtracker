@@ -1,14 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Repo/repo.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
-class CurrencyProvider extends ChangeNotifier{
+class CurrencyProvider with ChangeNotifier {
   final ApiService _apiService = ApiService();
 
   bool _isCurrency = false;
@@ -64,4 +60,18 @@ class CurrencyProvider extends ChangeNotifier{
   }
 
 
+  int _selectedIndex=-1;
+  String _selectedCountry ='Country';
+  String _selectedCurrency ='Currency';
+
+  int get selectedIndex => _selectedIndex;
+  String get selectedCountry => _selectedCountry;
+  String get selectedCurrency => _selectedCurrency;
+
+  void selectCurrency(int index, String currency, String currencyCode) {
+    _selectedIndex = index;
+    _selectedCountry = currency;
+    _selectedCurrency = currencyCode;
+    notifyListeners();
+  }
 }

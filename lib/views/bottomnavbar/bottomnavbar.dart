@@ -100,6 +100,8 @@
 //
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 
 import '../calendar_screen/calendar_screen.dart';
 import '../home_screen/home_screen.dart';
@@ -141,6 +143,7 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => Provider.of<LanguageProvider>(context,listen: false).getLanguages());
     return Scaffold(
         backgroundColor: Colors.black,
         body: _screens[widget.currentIndex],

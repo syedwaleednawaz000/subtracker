@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
@@ -250,11 +252,12 @@ class _SettingsState extends State<Settings> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 185,
+                            // height: 185,
                             width: double.infinity,
                             child: ListView.builder(
                               itemCount: titleText.length,
-                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 return GestureDetector(
                                   onTap: () {

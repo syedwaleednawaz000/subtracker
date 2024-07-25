@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/change_password_provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
+import 'package:sub_tracker/views/change_password/change_password.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
@@ -17,6 +20,10 @@ class PersonalData extends StatefulWidget {
 }
 
 class _PersonalDataState extends State<PersonalData> {
+  final TextEditingController _emailEditingController = TextEditingController();
+  final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _phoneNumberEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
@@ -126,6 +133,7 @@ class _PersonalDataState extends State<PersonalData> {
                     height: MySize.size4,
                   ),
                   TextFormField(
+                    controller: _emailEditingController,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.only(
@@ -178,6 +186,7 @@ class _PersonalDataState extends State<PersonalData> {
                     height: 4,
                   ),
                   TextFormField(
+                    controller: _nameEditingController,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.only(left: 20, right: 20),
@@ -230,6 +239,7 @@ class _PersonalDataState extends State<PersonalData> {
                     height: 4,
                   ),
                   TextFormField(
+                    controller: _phoneNumberEditingController,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       isDense: true,
@@ -262,8 +272,16 @@ class _PersonalDataState extends State<PersonalData> {
               ),
             ),
 
-            Spacer(),
-            CustomSaveButton(titleText: 'Next',),
+            const Spacer(),
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return             CustomSaveButton(
+                loading: profileProvider.isUpdated,
+                onTap: (){
+                  profileProvider.updateProfile(email: _emailEditingController.text.trim(),
+                      name: _nameEditingController.text.trim(), phone: _phoneNumberEditingController.text.trim());
+                },
+                titleText: 'Update',);
+            },)
           ],
         ),
       ),
@@ -272,12 +290,16 @@ class _PersonalDataState extends State<PersonalData> {
 }
 
 class CustomSaveButton extends StatelessWidget {
-  const CustomSaveButton({
+   CustomSaveButton({
     super.key,
    required this.titleText,
+    this.onTap,
+     this.loading,
   });
 
    final String titleText ;
+  void Function()? onTap;
+  bool? loading ;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -302,10 +324,7 @@ class CustomSaveButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Settings()));
-            },
+            onTap: onTap,
             child: Container(
                 height: 48,
                 width: 288,
@@ -322,7 +341,7 @@ class CustomSaveButton extends StatelessWidget {
                         : Color(0XFFF1F1FF),
                     ),
                 child: Center(
-                  child: Text(
+                  child: loading == true ? const CircularProgressIndicator(color: Colors.green,): Text(
                     titleText,
                     style: TextStyle(
                       fontSize: 14,

@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
@@ -16,6 +18,39 @@ class ProfileProvider extends ChangeNotifier{
   void _loginLoading({required bool load}){
     _isDeleted = load;
     notifyListeners();
+  }
+  bool _isUpdate = false;
+  bool get isUpdated => _isUpdate;
+  void _updateLoading({required bool load}){
+    _isUpdate = load;
+    notifyListeners();
+  }
+  Future<void> updateProfile({required String  email ,required String name , required String phone})async{
+    _updateLoading(load: true);
+    var body = {
+      'name': name,
+      'email': email,
+      'phone_number': phone
+    };
+    try{
+      Response response = await _apiService.updateProfile(params: body);
+      if(response.statusCode == 200){
+        _updateLoading(load: false);
+        FlutterToast.toastMessage(message: "Profile updated successfully",);
+        if (kDebugMode) {
+          print("hit successfully");
+        }
+        Get.back();
+      }else{
+        _updateLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    }catch(error){
+      _updateLoading(load: false);
+      print("this is error ${error.toString()}");
+    }
   }
   Future<void> deleteAccount({required String  email ,required String password})async{
     var body = {};

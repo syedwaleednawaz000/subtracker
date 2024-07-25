@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';

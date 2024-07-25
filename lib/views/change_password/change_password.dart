@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -24,7 +25,9 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   bool val = false;
-
+  TextEditingController currentPassEditingController = TextEditingController();
+  TextEditingController newPassTextEditingController = TextEditingController();
+  TextEditingController newConfirmPassTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
@@ -56,7 +59,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Password',
+                      Text('Current password',
                         style: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
                             fontSize: 12,
@@ -67,10 +70,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                         height: 4,
                       ),
                       TextFormField(
+                        controller: currentPassEditingController,
                         decoration: InputDecoration(
                           isDense: true,
                           contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                          hintText: 'Enter Password',
+                          hintText: 'Enter current password',
                           hintStyle: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
                             fontSize: MySize.size12,
@@ -112,10 +116,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                         height: 4,
                       ),
                       TextFormField(
+                        controller: newPassTextEditingController,
                         decoration: InputDecoration(
                           isDense: true,
                           contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                          hintText: 'Enter Password',
+                          hintText: 'Enter new password',
                           hintStyle: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
                             fontSize: MySize.size12,
@@ -146,7 +151,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(' Confirm Password',
+                      Text('New Confirm Password',
                         style: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
                             fontSize: 12,
@@ -160,7 +165,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         decoration: InputDecoration(
                           isDense: true,
                           contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                          hintText: 'Enter Password',
+                          hintText: 'Enter new Confirm Password',
                           hintStyle: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
                             fontSize: MySize.size12,
@@ -199,43 +204,18 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
             ),
             Spacer(),
-            CustomSaveButton(
+          Consumer<ChangePasswordProvider>(builder: (context, changePasswordProvider, child) {
+            return             CustomSaveButton(
+              loading: changePasswordProvider.isChangePassword,
+              onTap: (){
+                changePasswordProvider.changePassword(context: context,
+                    currentPassword: currentPassEditingController.text.trim(),
+                    newPassword: newPassTextEditingController.text.trim(),
+                    newPasswordConfirmation: newConfirmPassTextEditingController.text.trim());
+              },
               titleText: 'Save',
-            ),
-            // GestureDetector(
-            //   onTap: (){
-            //     Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings()));
-            //   },
-            //   child: Container(
-            //     height: 114, width: double.infinity,
-            //     decoration: BoxDecoration(
-            //         gradient: LinearGradient(colors: [Color(0XFF1C1C23), Color(0XFF3F3F4B)]),
-            //         borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-            //         boxShadow: [
-            //           BoxShadow(
-            //               offset: Offset(0, 4),
-            //               blurRadius: 4,
-            //               color: AppColors.black00.withOpacity(.25)
-            //           )
-            //         ]
-            //     ),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Container(
-            //             height: 48, width: 288,
-            //             decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(40),
-            //                 color: Color(0XFFFFFFFF).withOpacity(.15),
-            //                 border: Border.all(color: Color(0XFFFFFFFF).withOpacity(.1))
-            //             ),
-            //             child: Center(child: TextWidgetInterMedium(title: 'Save',
-            //                 // color: Colors.white
-            //             ))),
-            //       ],
-            //     ),
-            //   ),
-            // )
+            );
+          },)
           ],
         ));
   }
