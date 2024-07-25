@@ -147,10 +147,10 @@ class _BnavBarState extends State<BnavBar> {
           backgroundColor: Colors.white,
           child: FloatingActionButton(
             backgroundColor: Colors.blue,
-              shape: CircleBorder(),
-              onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Subscription()));
+              shape: const CircleBorder(),
+              onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const Subscription()));
               },
-            child: Icon(Icons.add, ),
+            child: const Icon(Icons.add, ),
           ),
         ),
       bottomNavigationBar: Padding(
