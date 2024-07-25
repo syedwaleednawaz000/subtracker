@@ -275,7 +275,7 @@ class CancelSubscription extends StatelessWidget {
           Container(
               padding: EdgeInsets.only(
                   top: MySize.scaleFactorHeight * 203,
-                  left: MySize.scaleFactorHeight * 162),
+                  left: MySize.scaleFactorHeight * 130),
               child: const SubscribeStackWidget()),
 
           Positioned(

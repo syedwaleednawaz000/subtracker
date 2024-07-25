@@ -18,8 +18,10 @@ class SubscribeStackWidget extends StatelessWidget {
           // left: MySize.scaleFactorWidth* 135,
           // right: MySize.scaleFactorWidth* 135,
           child: Container(
-            height: MySize.scaleFactorHeight * 20,
-            width: MySize.scaleFactorWidth * 105,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            margin: EdgeInsets.symmetric(horizontal: 15),
+            // height: MySize.scaleFactorHeight * 20,
+            // width: MySize.scaleFactorWidth * 105,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(MySize.size12),
                 boxShadow: const [

@@ -38,14 +38,12 @@ class _ChangePasswordState extends State<ChangePassword> {
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(
             padding: EdgeInsets.only(left: 4, top: 25  ),
-            child: GestureDetector(
+            child:  CustomAppBar(
               onTap: () {
                 Navigator.pop(context);
               },
-              child: const CustomAppBar(
-                text: 'Change Password',
-                icon: Icons.arrow_back_rounded,
-              ),
+              text: 'Change Password',
+              icon: Icons.arrow_back_rounded,
             ),
           ),
         ),

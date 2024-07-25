@@ -18,6 +18,36 @@ class UpdatePassword extends StatefulWidget {
 }
 
 class _UpdatePasswordState extends State<UpdatePassword> {
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password cannot be empty';
+    }
+    // Validate password complexity (e.g., length and character types)
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    // Additional custom checks (optional), e.g., character types
+    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$').hasMatch(value)) {
+      return 'Password must contain at least one uppercase letter, lowercase letter, number, and special character';
+    }
+    return null; // Return null if validation succeeds
+  }
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email cannot be empty';
+    }
+    // Basic email format validation
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+      return 'Invalid email format';
+    }
+    // Additional custom checks (optional), e.g., domain name validation
+    if (!value.contains('@gmail') || !value.contains('.com')) {
+      return 'Enter a Gmail address with .com domain';
+    }
+    return null; // Return null if validation succeeds
+  }
   bool val = false;
 
   @override
@@ -75,6 +105,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           height: 4,
                         ),
                         TextFormField(
+                          validator: validatePassword,
                           controller: forgotPasswordProvider.password,
                           style: TextStyle(
                               color:  Color(0XFF666680)
@@ -121,6 +152,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           height: 4,
                         ),
                         TextFormField(
+                          validator: validateEmail,
                           controller: forgotPasswordProvider.confirmPassword,
                           style: const TextStyle(
                               color:  Color(0XFF666680)
@@ -164,28 +196,30 @@ class _UpdatePasswordState extends State<UpdatePassword> {
            onTap:(){
              forgotPasswordProvider.changePassword(context: context);
            },
-           child: Container(
-             height: MySize.scaleFactorHeight * 48,
-             margin: const EdgeInsets.symmetric(horizontal: 45),
-             padding: const EdgeInsets.symmetric(vertical: 10),
-             decoration: BoxDecoration(
-                 borderRadius: BorderRadius.circular(40),
-                 border: Border(
-                     top: BorderSide(color: Colors.white.withOpacity(.5)),
-                     left: BorderSide(color: Colors.white.withOpacity(.5)),
-                     bottom: BorderSide.none),
-                 color: const Color(0XFF758AFF),
-                 boxShadow: [
-                   BoxShadow(
-                       offset: const Offset(0, 8),
-                       blurRadius: 25,
-                       color: const Color(0XFF4F63BE).withOpacity(.5))
-                 ]),
-             child:  Center(
-               child: forgotPasswordProvider.isChangePass == true ? const CircularProgressIndicator(): const Text(
-                 'Reset Password',
-                 style: TextStyle(
-                     fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+           child: Padding(
+             padding: const EdgeInsets.only(left: 30.0),
+             child: Container(
+               height: MySize.scaleFactorHeight * 48,
+               margin: const EdgeInsets.symmetric(horizontal: 60),
+               decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(40),
+                   border: Border(
+                       top: BorderSide(color: Colors.white.withOpacity(.5)),
+                       left: BorderSide(color: Colors.white.withOpacity(.5)),
+                       bottom: BorderSide.none),
+                   color: const Color(0XFF758AFF),
+                   boxShadow: [
+                     BoxShadow(
+                         offset: const Offset(0, 8),
+                         blurRadius: 25,
+                         color: const Color(0XFF4F63BE).withOpacity(.5))
+                   ]),
+               child:  Center(
+                 child: forgotPasswordProvider.isChangePass == true ? const CircularProgressIndicator(): const Text(
+                   'Reset Password',
+                   style: TextStyle(
+                       fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+                 ),
                ),
              ),
            ),

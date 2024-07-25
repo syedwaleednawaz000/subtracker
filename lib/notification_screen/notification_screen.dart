@@ -21,14 +21,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
           padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child: GestureDetector(
-            onTap: () {
+          child:  CustomAppBar(
+            onTap: (){
               Navigator.pop(context);
             },
-            child: const CustomAppBar(
-              text: 'Notifications',
-              icon: Icons.arrow_back_rounded,
-            ),
+            text: 'Notifications',
+            icon: Icons.arrow_back_rounded,
           ),
         ),
       ),

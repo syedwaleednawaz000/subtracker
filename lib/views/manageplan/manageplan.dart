@@ -26,18 +26,17 @@ class ManagePlan extends StatelessWidget {
             preferredSize: Size.fromHeight(MySize.size72),
             child: Padding(
               padding: EdgeInsets.only(left: 8, top: MySize.size25),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: AppBar(
-                    scrolledUnderElevation: 0,
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    centerTitle: true,
-                    title:  Text('Manage Plan',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
-                    leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
-                  )
+              child: AppBar(
+                scrolledUnderElevation: 0,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                centerTitle: true,
+                title:  Text('Manage Plan',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+                leading:GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(AppImages.backArrow,color: Color(0XFFA2A2B5),)),
               ),
             ),
           ),
