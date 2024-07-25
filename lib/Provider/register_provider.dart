@@ -26,7 +26,7 @@ class RegisterProvider extends ChangeNotifier{
     print("this is the body ${body}");
     try{
       Response response = await _apiService.register(params: body);
-      if(response.statusCode == 200){
+      if(response.statusCode == 201){
         _loginLoading(load: false);
         FlutterToast.toastMessage(message: "Successfully registered",);
 
