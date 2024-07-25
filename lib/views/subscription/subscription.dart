@@ -111,14 +111,14 @@ class _SubscriptionState extends State<Subscription> {
        context: context,
        builder: (BuildContext context) {
          return Container(
-           padding: EdgeInsets.all(16.0),
+           padding: const EdgeInsets.all(16.0),
            child: ListView(
              children: [
                Text(
                  'Subcategories of $category',
-                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                ),
-               Divider(),
+               const Divider(),
                ...subcategories.map((subcat) {
                  return ListTile(
                    title: Text(subcat),
@@ -137,7 +137,7 @@ class _SubscriptionState extends State<Subscription> {
        context: context,
        builder: (BuildContext context) {
          return Container(
-           padding: EdgeInsets.all(16.0),
+           padding: const EdgeInsets.all(16.0),
            child: ListView(
              children: categories.keys.map((category) {
                return ListTile(
@@ -184,7 +184,7 @@ class _SubscriptionState extends State<Subscription> {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF1C1C23)
+          ? const Color(0XFF1C1C23)
           : Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -196,15 +196,15 @@ class _SubscriptionState extends State<Subscription> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Color(0XFF353542)
-                        : Color(0XFFF1F1FF),
+                        ? const Color(0XFF353542)
+                        : const Color(0XFFF1F1FF),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(MySize.size24),
                         bottomRight: Radius.circular(MySize.size24))),
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 20,  vertical: 22),
                       child: Row(
                         children: [
@@ -224,8 +224,8 @@ class _SubscriptionState extends State<Subscription> {
                               fontSize: MySize.size16,
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFA2A2B5)
-                                  : Color(0XFF424252),
+                                  ? const Color(0XFFA2A2B5)
+                                  : const Color(0XFF424252),
                             ),
                           ),
 
@@ -243,39 +243,20 @@ class _SubscriptionState extends State<Subscription> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                             darkMode
                             ? Colors.white
-                            : Color(0XFF1C1C23),
+                            : const Color(0XFF1C1C23),
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Stack(
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Text(AppImages.halfOneDriveLogo1),
-                            SizedBox(width: MySize.scaleFactorWidth * 86,),
-                            const TresorlyContainer(),
-                            SizedBox(width: MySize.scaleFactorWidth * 93,),
-                            Text(AppImages.halfSpotifyLogo1),
-                          ],
-                        ),
-                        Positioned(
-                          // top: 110,
-                          // left: 242,
-                          top: MySize.scaleFactorHeight * 119,
-                          left: MySize.scaleFactorHeight * 249,
-                          child: Container(
-                            height: 28,
-                            width: 28,
-                            decoration: BoxDecoration(
-                              color: AppColors.whiteFF, // Customize color
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Image.asset(AppImages.editImage),
-                          ),
-                        ),
+                        Image.asset(AppImages.halfOneDriveLogo1,),
+                        SizedBox(width: MySize.scaleFactorWidth * 86,),
+                        const TresorlyContainer(),
+                        SizedBox(width: MySize.scaleFactorWidth * 91.2,),
+                        Image.asset(AppImages.halfSpotifyLogo1)
                       ],
                     ),
                     SizedBox(height: MySize.size16,),
@@ -286,7 +267,7 @@ class _SubscriptionState extends State<Subscription> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                             darkMode
                             ? Colors.white
-                            : Color(0XFF333339),
+                            : const Color(0XFF333339),
                       ),
                     ),
 
@@ -322,8 +303,8 @@ class _SubscriptionState extends State<Subscription> {
                              fontWeight: FontWeight.w500,
                              color: Provider.of<ThemeChanger>(context).themeData ==
                                  darkMode
-                                 ? Color(0XFF666680)
-                                 : Color(0XFF666680),
+                                 ? const Color(0XFF666680)
+                                 : const Color(0XFF666680),
                            ),
                          )
                           : Text('Select Subscription Provider',
@@ -332,8 +313,8 @@ class _SubscriptionState extends State<Subscription> {
                               fontWeight: FontWeight.w500,
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFF666680)
-                                  : Color(0XFF666680),
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680),
                             ),
                           ),
                         ],
@@ -499,32 +480,33 @@ class _SubscriptionState extends State<Subscription> {
                         showCategories(context);
                       },
                       child: Container(
-
-                        height: 50, width: 380,
+                       // padding: EdgeInsets.symmetric(horizontal: MySize.size2,),
+                        height: MySize.size40,
+                        width: MySize.scaleFactorWidth*340,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(17),
                           border: Border.all(
                               color:  Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFFFFFFF).withOpacity(.1)
-                                  : Color(0XFF353542).withOpacity(.4),
+                                  ? const Color(0XFFFFFFFF).withOpacity(.1)
+                                  : const Color(0XFF353542).withOpacity(.4),
                           )
                         ),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(Icons.search, color: Color(0xff666680)),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               _selectedOption.values.first ?? "Select subscription Provider",
                               style: TextStyle(
                                 fontSize: MySize.size12,
                                 fontWeight: FontWeight.w500,
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFFA2A2B5),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                               ),
                             ),
                           ],
@@ -748,9 +730,7 @@ class _SubscriptionState extends State<Subscription> {
                 height: 4,
                 child: ListView(
                   children: [
-                    SizedBox(
-                      height: MySize.size34,
-                    ),
+                    SizedBox(height: MySize.size34,),
                   ],
                 ),
               ),
@@ -762,8 +742,8 @@ class _SubscriptionState extends State<Subscription> {
                   fontWeight: FontWeight.w500,
                   color: Provider.of<ThemeChanger>(context).themeData ==
                       darkMode
-                      ? Color(0XFF666680)
-                      : Color(0XFF666680),
+                      ? const Color(0XFF666680)
+                      : const Color(0XFF666680),
                 ),
               ),
               SizedBox(
@@ -777,8 +757,8 @@ class _SubscriptionState extends State<Subscription> {
                     border: Border.all(
                       color:  Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF).withOpacity(.1)
-                          : Color(0XFF353542).withOpacity(.4),
+                          ? const Color(0XFFFFFFFF).withOpacity(.1)
+                          : const Color(0XFF353542).withOpacity(.4),
                       width: 1.5,
                     ),
                     borderRadius: BorderRadius.circular(16),
@@ -823,31 +803,22 @@ class _SubscriptionState extends State<Subscription> {
                           border: Border.all(
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFFCFCFFC).withOpacity(.15)
-                                : Color(0XFFCFCFFC).withOpacity(.15),
+                                ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                : const Color(0XFFCFCFFC).withOpacity(.15),
                           ),
                             color:Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF4E4E61).withOpacity(.1)
-                                : Color(0XFF4E4E61).withOpacity(.2),
+                                ? const Color(0XFF4E4E61).withOpacity(.1)
+                                : const Color(0XFF4E4E61).withOpacity(.2),
                             borderRadius: BorderRadius.circular(16)
                         ),
-                        // child: IconButton(onPressed: (){
-                        //
-                        // }, icon: Icon(
-                        //             Icons.remove,
-                        //               size: MySize.size30,
-                        //               color:Provider.of<ThemeChanger>(context).themeData ==
-                        //                   darkMode
-                        //                   ? Color(0XFF4E4E61)
-                        //                   : Color(0XFF353542)))
                         child: Icon(
                           Icons.remove,
                           size: MySize.size30,
                           color:Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                              ? Color(0XFF4E4E61)
-                              : Color(0XFF353542)
+                              ? const Color(0XFF4E4E61)
+                              : const Color(0XFF353542)
                         ),
                       ),
                     ),
@@ -860,8 +831,8 @@ class _SubscriptionState extends State<Subscription> {
                             fontWeight: FontWeight.w600,
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF83839C)
-                                : Color(0XFF83839C) //: Color(0XFF333339),
+                                ? const Color(0XFF83839C)
+                                : const Color(0XFF83839C) //: Color(0XFF333339),
                           ),
                         ),
                         SizedBox(
@@ -871,7 +842,7 @@ class _SubscriptionState extends State<Subscription> {
                           width: 100,
                           child: TextFormField(
                             controller: _controller,
-                            keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true,),
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true,),
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(RegExp(r'^\$?\d*\.?\d{0,2}')), // Allow only digits and up to 2 decimal places
                             ],
@@ -881,10 +852,10 @@ class _SubscriptionState extends State<Subscription> {
                                color: Provider.of<ThemeChanger>(context).themeData ==
                                    darkMode
                                    ? Colors.white
-                                   : Color(0XFF333339),
+                                   : const Color(0XFF333339),
                              ),
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
+                              contentPadding: const EdgeInsets.only(left: 20),
                               hintText:"\$5.99",
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
@@ -892,20 +863,20 @@ class _SubscriptionState extends State<Subscription> {
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode
                                     ? Colors.white
-                                    : Color(0XFF333339),
+                                    : const Color(0XFF333339),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? Color(0XFF353542)
-                                      : Color(0XFF353542)
+                                      ? const Color(0XFF353542)
+                                      : const Color(0XFF353542)
                                 )
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide:  BorderSide(
                                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? Color(0XFF353542)
-                                  : Color(0XFF353542)
+                                  ? const Color(0XFF353542)
+                                  : const Color(0XFF353542)
                                 )
                               ),
 
@@ -918,7 +889,7 @@ class _SubscriptionState extends State<Subscription> {
                       onTap: (){
                         ScaffoldMessenger.of(context).showSnackBar(
 
-                            SnackBar(
+                            const SnackBar(
                               // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                               // showCloseIcon: true,
                               //   closeIconColor: Colors.redAccent,
@@ -935,13 +906,13 @@ class _SubscriptionState extends State<Subscription> {
                             border: Border.all(
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFCFCFFC).withOpacity(.15)
-                                  : Color(0XFFCFCFFC).withOpacity(.15),
+                                  ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                  : const Color(0XFFCFCFFC).withOpacity(.15),
                             ),
                             color:Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF4E4E61).withOpacity(.1)
-                                : Color(0XFF4E4E61).withOpacity(.2),
+                                ? const Color(0XFF4E4E61).withOpacity(.1)
+                                : const Color(0XFF4E4E61).withOpacity(.2),
                             borderRadius: BorderRadius.circular(16)
                         ),
                         child: Icon(
@@ -949,8 +920,8 @@ class _SubscriptionState extends State<Subscription> {
                           size: MySize.size30,
                             color:Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF4E4E61)
-                                : Color(0XFF353542)
+                                ? const Color(0XFF4E4E61)
+                                : const Color(0XFF353542)
                         ),
                       ),
                     ),
@@ -1006,7 +977,7 @@ class _SubscriptionState extends State<Subscription> {
                       ),
                 ),
                 )),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
             ],
           ),
         ),
