@@ -40,6 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return null; // Return null if validation succeeds
   }
+
+
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
@@ -242,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   Consumer<LoginProvider>(builder: (context, loginProvider, child) {
-                    return                 GestureDetector(
+                    return GestureDetector(
                       onTap: (){
                         if(_formKey.currentState!.validate()){
                           loginProvider.login(context: context,email: loginProvider.emailController.text.trim(),

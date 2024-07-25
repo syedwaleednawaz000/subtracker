@@ -28,18 +28,13 @@ class ContactSupport extends StatelessWidget {
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(
             padding: EdgeInsets.only(left: 8, top: MySize.size25),
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: AppBar(
-                  scrolledUnderElevation: 0,
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  centerTitle: true,
-                  leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
-                  title:  Text('Spending & Budgets',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
-                )
+            child: AppBar(
+              scrolledUnderElevation: 0,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              leading:Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),),
+              title:  Text('Spending & Budgets',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
             ),
           ),
         ),
@@ -113,6 +108,7 @@ class ContactSupport extends StatelessWidget {
                   DropdownMenuEntry(value: 4, label: 'Other Issues',),
                   DropdownMenuEntry(value: 5, label: 'Data and Privacy',),
                   DropdownMenuEntry(value: 6, label: 'Other Issues',),
+
                 ],
                 trailingIcon: Icon(Icons.expand_more),
                 ),

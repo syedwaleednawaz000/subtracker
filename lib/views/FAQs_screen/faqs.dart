@@ -15,6 +15,7 @@ class FaqsScreen extends StatefulWidget {
 }
 
 class _FaqsScreenState extends State<FaqsScreen> {
+  String _selectedText = 'Lorem ipsum dolor sit ?';
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +27,12 @@ class _FaqsScreenState extends State<FaqsScreen> {
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
           padding: EdgeInsets.only( top: MySize.size25),
-          child: GestureDetector(
+          child:  CustomAppBar(
             onTap: () {
               Navigator.pop(context);
             },
-            child: const CustomAppBar(
-              text: 'FAQs',
-              icon: Icons.arrow_back_rounded,
-            ),
+            text: 'FAQs',
+            icon: Icons.arrow_back_rounded,
           ),
         ),
       ),
@@ -57,7 +56,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
               )
             ),
             Container(
-              height: 44, width: 331,
+              height: MySize.size54,
               decoration: BoxDecoration(
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
                     ? Color(0XFF272730)
@@ -78,27 +77,82 @@ class _FaqsScreenState extends State<FaqsScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
+                    child:Row(
                       children: [
-                        Text('Lorem ipsum dolor sit ?',
+                        Text(
+                          _selectedText,
                           style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? Color(0XFFFFFFFF)
-                                  : Color(0XFF333339),
-                              fontFamily: 'Poppins_Regular'
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Color(0XFFFFFFFF)
+                                : Color(0XFF333339),
+                            fontFamily: 'Poppins_Regular',
                           ),
                         ),
                         Spacer(),
-                        Icon(Icons.expand_more, size: 26,
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? Colors.white
-                              : Color(0XFF333339),
-                        )
+                        PopupMenuButton<int>(
+                          icon: Icon(
+                            Icons.expand_more,
+                            size: 26,
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Colors.white
+                                : Color(0XFF333339),
+                          ),
+                          onSelected: (int value) {
+                            setState(() {
+                              switch (value) {
+                                case 1:
+                                  _selectedText = 'Account and Billing';
+                                  break;
+                                case 2:
+                                  _selectedText = 'App Functionality';
+                                  break;
+                                case 3:
+                                  _selectedText = 'Subscription Management';
+                                  break;
+                                case 4:
+                                  _selectedText = 'Other Issues';
+                                  break;
+                                case 5:
+                                  _selectedText = 'Data and Privacy';
+                                  break;
+                                case 6:
+                                  _selectedText = 'Other Issues';
+                                  break;
+                              }
+                            });
+                          },
+                          itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+                            PopupMenuItem<int>(
+                              value: 1,
+                              child: Text('Account and Billing'),
+                            ),
+                            PopupMenuItem<int>(
+                              value: 2,
+                              child: Text('App Functionality'),
+                            ),
+                            PopupMenuItem<int>(
+                              value: 3,
+                              child: Text('Subscription Management'),
+                            ),
+                            PopupMenuItem<int>(
+                              value: 4,
+                              child: Text('Other Issues'),
+                            ),
+                            PopupMenuItem<int>(
+                              value: 5,
+                              child: Text('Data and Privacy'),
+                            ),
+                            PopupMenuItem<int>(
+                              value: 6,
+                              child: Text('Other Issues'),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  )
+                 ),
                 ],
               ),
             ),
