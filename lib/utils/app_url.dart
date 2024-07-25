@@ -2,7 +2,10 @@ class AppUrl{
   static String baseUrl = "https://subtracker.dotapp.pk/api/";
   static String login = "auth/login";
   static String register = "auth/register";
-  static String forgotPassword = "";
+  static String forgotPassword = "forgetPassword";
+  static String verifyOtp = "verifyOtp";
+  static String changePassword = "changePassword";
+  static String updatePassword = "change-password";
   static String subscriptions = "subscriptions";
   static String addCategories = "categories";
   static String storeUserCategories = "user-categories";
@@ -17,7 +20,6 @@ class AppUrl{
   static String deleteTicket = "tickets/"; //at the end id
   static String geTotalBudgets = "budgets";
   static String getNotifications = "notifications";
-  static String changePassword = "change-password";
   static String updateProfile = "update-profile";
   static String deleteAccount = "delete-account";
   static String enableTwoFactorAuth = "two-factor-auth/enable";

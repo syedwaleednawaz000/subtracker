@@ -16,7 +16,7 @@ class ChangePasswordProvider extends ChangeNotifier{
     isChangePassword = load;
     notifyListeners();
   }
-  Future<void> changePassword({required BuildContext context,required String  currentPassword ,required String newPassword,required String newPasswordConfirmation})async{
+  Future<void> updatePassword({required BuildContext context,required String  currentPassword ,required String newPassword,required String newPasswordConfirmation})async{
     var body = {
       'current_password': currentPassword,
       'new_password': newPassword,
@@ -25,7 +25,7 @@ class ChangePasswordProvider extends ChangeNotifier{
     _loginLoading(load: true);
     print("this is the body ${body}");
     try{
-      Response response = await _apiService.changePassword(params: body);
+      Response response = await _apiService.updatePassword(params: body);
       if(response.statusCode == 200){
         _loginLoading(load: false);
         FlutterToast.toastMessage(message: "Successfully password updated",);

@@ -13,7 +13,15 @@ class ApiService {
   Future<Response> register({var params}) {
     return apiClient.post(url: AppUrl.register, params: params);
   }
-
+  Future<Response> forgotPassword({var params}) {
+    return apiClient.post(url: AppUrl.forgotPassword, params: params);
+  }
+  Future<Response> verifyOtp({var params}) {
+    return apiClient.post(url: AppUrl.verifyOtp, params: params);
+  }
+  Future<Response> changePassword({var params}) {
+    return apiClient.post(url: AppUrl.changePassword, params: params);
+  }
   Future<Response> enableTwoFactorAuth({var params}) {
     return apiClient.post(url: AppUrl.enableTwoFactorAuth, params: params);
   }
@@ -59,8 +67,8 @@ class ApiService {
     return apiClient.post(url: AppUrl.updateProfile, params: params);
   }
 
-  Future<Response> changePassword({var params}) {
-    return apiClient.post(url: AppUrl.changePassword, params: params);
+  Future<Response> updatePassword({var params}) {
+    return apiClient.post(url: AppUrl.updatePassword, params: params);
   }
 
   Future<Response> updateTickets({var params}) {

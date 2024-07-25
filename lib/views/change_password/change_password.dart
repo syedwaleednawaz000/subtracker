@@ -208,7 +208,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             return             CustomSaveButton(
               loading: changePasswordProvider.isChangePassword,
               onTap: (){
-                changePasswordProvider.changePassword(context: context,
+                changePasswordProvider.updatePassword(context: context,
                     currentPassword: currentPassEditingController.text.trim(),
                     newPassword: newPassTextEditingController.text.trim(),
                     newPasswordConfirmation: newConfirmPassTextEditingController.text.trim());
