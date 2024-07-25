@@ -148,39 +148,32 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                 ],
               ),
             ),
-            const SizedBox(height: 28,),
+            const SizedBox(height: 30,),
             GestureDetector(
               onTap:(){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
               },
               child: Container(
-                height: 50, width: 325,
+                margin: const EdgeInsets.symmetric(horizontal: 45),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  // border: Border.all(color: Colors.white.withOpacity(.5)),
-                  border: Border(
-                      top: BorderSide(color: Colors.white.withOpacity(.5)),
-                      left: BorderSide(color: Colors.white.withOpacity(.5)),
-                      // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                      bottom: BorderSide.none
-                  ),
-                  color: const Color(0XFF758AFF),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 8),
-                        blurRadius: 25,
-                        color: const Color(0XFF4F63BE).withOpacity(.5)
-                    )
-                  ],/*Secondary Color*/
-                ),
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border(
+                        top: BorderSide(color: Colors.white.withOpacity(.5)),
+                        left: BorderSide(color: Colors.white.withOpacity(.5)),
+                        bottom: BorderSide.none),
+                    color: const Color(0XFF758AFF),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 8),
+                          blurRadius: 25,
+                          color: const Color(0XFF4F63BE).withOpacity(.5))
+                    ]),
                 child: const Center(
                   child: Text(
                     'Reset Password',
                     style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white
-                    ),
+                        fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
