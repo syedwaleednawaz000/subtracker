@@ -23,6 +23,7 @@ class _PersonalDataState extends State<PersonalData> {
     MySize().init(context);
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Color(0XFFF7F7FF),
         body: Column(
           children: [
@@ -77,11 +78,6 @@ class _PersonalDataState extends State<PersonalData> {
             SizedBox(
               height: MySize.size8,
             ),
-            // SaveButton(
-            //   height: MySize.size32,
-            //   width: MySize.size72,
-            //   text: 'Change',
-            // ),
 
             Container(
               height: 36, width: 70,
@@ -95,10 +91,7 @@ class _PersonalDataState extends State<PersonalData> {
                       darkMode
                       ? Color(0xFFCFCFFC).withOpacity(.15)
                       : Color(0xFFCFCFFC).withOpacity(.15)),
-                  // bottom: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                  //     darkMode
-                  //     ? Color(0xFFCFCFFC).withOpacity(.15)
-                  //     : Color(0xFFCFCFFC).withOpacity(.15)),
+
                   left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
                       darkMode
                       ? Color(0xFFCFCFFC).withOpacity(.15)
@@ -237,12 +230,13 @@ class _PersonalDataState extends State<PersonalData> {
                     height: 4,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.only(left: 20, right: 20),
                       hintText: 'Phone No.',
                       hintStyle: TextStyle(
-                          fontFamily: 'Poppins_Regular',
+                        fontFamily: 'Poppins_Regular',
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
                         fontSize: MySize.size12,
                       ),

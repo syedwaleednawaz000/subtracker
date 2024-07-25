@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
 
-                SizedBox(height: 10,),
+                SizedBox(height: MySize.size10,),
                 Container(
                   width: MySize.scaleFactorWidth * 328,
                   height: MySize.scaleFactorHeight * 60,
