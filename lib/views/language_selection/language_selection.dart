@@ -43,7 +43,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
         ),
       ),
 
-      body: Column(
+      body: const Column(
         children: [
 
           SizedBox(height: 20,),

@@ -29,8 +29,8 @@ class _CustomContainerState extends State<CustomContainer> {
     return Column(
       children: [
         Container(
-          height: MySize.scaleFactorHeight * 465,
-          width: MySize.scaleFactorWidth * 405,
+          // height: MySize.scaleFactorHeight * 465,
+          // width: MySize.scaleFactorWidth * 405,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(24),
@@ -70,9 +70,8 @@ class _CustomContainerState extends State<CustomContainer> {
                           : const Color(0XFF4E4E61),),
                   ),
                   const CircularProgressBarWidget(),
-                  Positioned(
-                    bottom: 10,
-                    left: 20,
+                  Padding(
+                    padding:  EdgeInsets.only(top: MySize.scaleFactorHeight*355),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
