@@ -269,6 +269,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                            TextField(
                              decoration: InputDecoration(
                                labelText: 'Category',
+                               hintText: 'Enter Category',
                                labelStyle: TextStyle(
                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                      ? const Color(0XFFFFFFFF)
@@ -280,6 +281,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                            TextField(
                              decoration: InputDecoration(
                                labelText: 'Price',
+                               hintText: 'Enter Price',
                                labelStyle: TextStyle(
                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                      ? const Color(0XFFFFFFFF)
