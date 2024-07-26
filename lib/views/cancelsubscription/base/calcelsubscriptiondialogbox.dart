@@ -136,7 +136,8 @@ import '../../../utils/my_size.dart';
 import '../../base/text_widgets.dart';
 
 class CancelSubsDialogBox extends StatelessWidget {
-  const CancelSubsDialogBox({super.key});
+  String planID;
+   CancelSubsDialogBox({required this.planID,super.key});
 
   @override
   Widget build(BuildContext context) {

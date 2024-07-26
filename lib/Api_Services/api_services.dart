@@ -65,11 +65,19 @@ class APIClient {
       );
       return response;
     } on DioException catch (error) {
+      print("error in post ${error}");
       if (error.response != null) {
+
         String content = error.response.toString();
         Map<String, dynamic> map = jsonDecode(error.response.toString());
-        FlutterToast.toastMessage(message: map['message'],isError: true);
-        print("This is an error in Dio: ${map['message'].toString()}");
+        if(map['message'] == null){
+          FlutterToast.toastMessage(message: map['error'],isError: true);
+          print("This is an error in Dio: ${map['error'].toString()}");
+        }else{
+          FlutterToast.toastMessage(message: map['message'],isError: true);
+          print("This is an error in Dio: ${map['message'].toString()}");
+        }
+
       }
       rethrow;
     }
@@ -98,7 +106,29 @@ class APIClient {
       rethrow;
     }
   }
-
+  // patch
+  Future<Response> patch({required String url, dynamic params,}) async {
+    try {
+      final response = await _dio.patch(
+        url,
+        data: params,
+        options: Options(
+          responseType: ResponseType.json,
+          headers: headers,
+        ),
+      );
+      return response;
+    } on DioException catch (error) {
+      if (error.response != null) {
+        String content = error.response.toString();
+        Map<String, dynamic> map = jsonDecode(error.response.toString());
+        // AppConstants.flutterToast(message: map['message']);
+        print("This is an error in Dio: ${map['message'].toString()}");
+        print("This is an error in Dio, complete map in delete method: ${error.response!.statusCode.toString()}");
+      }
+      rethrow;
+    }
+  }
   /// for Put Request.
   Future<Response> put({required String url, dynamic params,}) async {
     try {

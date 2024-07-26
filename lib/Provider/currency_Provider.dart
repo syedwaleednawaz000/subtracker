@@ -7,34 +7,46 @@ import 'package:sub_tracker/utils/flutter_toast.dart';
 class CurrencyProvider with ChangeNotifier {
   final ApiService _apiService = ApiService();
 
+  bool _isUpdateCurrency = false;
+  bool get isUpdateCurrency => _isUpdateCurrency;
+  void _UpdateCurrencyLoading({required bool load}){
+    _isUpdateCurrency = load;
+    notifyListeners();
+  }
+  Future<void> updateCurrency({required String currencyCode,required BuildContext context})async{
+    _UpdateCurrencyLoading(load: true);
+    var body = {
+      'currency_code': currencyCode
+    };
+    try{
+      Response response = await _apiService.updateCurrencies(params: body);
+      if(response.statusCode == 200){
+        _UpdateCurrencyLoading(load: false);
+        FlutterToast.toastMessage(message: response.data['message'],);
+        Navigator.pop(context);
+        if (kDebugMode) {
+          print("hit successfully");
+        }
+
+      }else{
+        _UpdateCurrencyLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    }catch(error){
+      _UpdateCurrencyLoading(load: false);
+      print("this is error ${error.toString()}");
+    }
+  }
+
+  Map<String, dynamic> currencyData = {};
   bool _isCurrency = false;
   bool get isCurrency => _isCurrency;
   void _loginLoading({required bool load}){
     _isCurrency = load;
     notifyListeners();
   }
-  Future<void> updateCurrency()async{
-    var body = {
-      'currency_code': 'AFN'
-    };
-    try{
-      Response response = await _apiService.deleteAccount(params: body);
-      if(response.statusCode == 200){
-        FlutterToast.toastMessage(message: "Currency successfully updated",);
-        if (kDebugMode) {
-          print("hit successfully");
-        }
-
-      }else{
-        if (kDebugMode) {
-          print("hit successfully in else ");
-        }
-      }
-    }catch(error){
-      print("this is error ${error.toString()}");
-    }
-  }
-  Map<String, dynamic> currencyData = {};
   Future<void> getCurrency()async{
     _loginLoading(load: true);
     try{
@@ -68,7 +80,7 @@ class CurrencyProvider with ChangeNotifier {
   String get selectedCountry => _selectedCountry;
   String get selectedCurrency => _selectedCurrency;
 
-  void selectCurrency(int index, String currency, String currencyCode) {
+  void selectCurrency({required int index, required String currency, required String currencyCode}) {
     _selectedIndex = index;
     _selectedCountry = currency;
     _selectedCurrency = currencyCode;

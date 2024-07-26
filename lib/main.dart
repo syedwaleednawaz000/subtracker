@@ -5,6 +5,7 @@ import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/email_notification_provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
+import 'package:sub_tracker/Provider/plan_provider.dart';
 
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/my_size.dart';
@@ -50,6 +51,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => TwoFactorAuthProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ChangePasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ForgotPasswordProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => PlanProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {

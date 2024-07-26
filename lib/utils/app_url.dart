@@ -32,6 +32,9 @@ class AppUrl{
   static String getLanguages = "languages";
   static String updateLanguages = "user/update-language";
   static String getCurrencies = "currencies";
+  static String getPlans = "getPlans";
+  static String storePlan = "storePlan";
+  static String plansCancel = "plans/";
   static String updateCurrencies = "user/update-currency";
   static String updateCategories = "categories/"; //at the end id
   // static String f = "";

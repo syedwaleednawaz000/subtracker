@@ -62,6 +62,10 @@ class ApiService {
   Future<Response> updateCategories({var params}) {
     return apiClient.post(url: AppUrl.updateCategories, params: params);
   }
+  Future<Response> storePlan({var params}) {
+    return apiClient.post(url: AppUrl.storePlan, params: params);
+  }
+
 
   Future<Response> updateProfile({var params}) {
     return apiClient.post(url: AppUrl.updateProfile, params: params);
@@ -123,6 +127,11 @@ class ApiService {
       url: AppUrl.getCurrencies,
     );
   }
+  Future<Response> getPlanes({var params}) {
+    return apiClient.get(
+      url: AppUrl.getPlans,
+    );
+  }
 
   Future<Response> getQrCode({var params}) {
     return apiClient.get(
@@ -151,5 +160,9 @@ class ApiService {
 
   Future<Response> deleteCategories({var params}) {
     return apiClient.delete(url: AppUrl.deleteCategories, params: params);
+  }
+//Todo here all patch
+  Future<Response> cancelPlan({required String planID,var params}) {
+    return apiClient.patch(url: "${AppUrl.plansCancel}$planID/cancel", params: params);
   }
 }

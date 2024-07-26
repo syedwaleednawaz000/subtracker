@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -42,13 +43,23 @@ class _CurrencySelectionState extends State<CurrencySelection> {
       body: Column(
         children: [
 
-          Expanded(
+          const Expanded(
             child: CurrencyTiles(),
           ),
           SizedBox(height: MySize.size10),
-          const CustomSaveButton(
-            Text: 'Save',
-          ),
+          Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+            return            CustomSaveButton(
+              loading: currencyProvider.isUpdateCurrency,
+              text: 'Save',
+              onTap: (){
+                if(currencyProvider.selectedCurrency != "Currency"){
+                  currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
+                }else{
+                  FlutterToast.toastMessage(message: "Please select Currency");
+                }
+              },
+            );
+          },)
         ],
       ),
     );
@@ -60,11 +71,6 @@ class CurrencyTiles extends StatelessWidget {
     super.key,
 
   });
-
-  // final List<String> namingLists;
-  // final List<String> namingLists_urdu;
-  // final List<AssetImage> iconsList;
-
   @override
   Widget build(BuildContext context) {
     return Consumer<CurrencyProvider>(
@@ -81,7 +87,7 @@ class CurrencyTiles extends StatelessWidget {
               padding: const EdgeInsets.only(left: 25, right: 25, top: 8),
               child: GestureDetector(
                 onTap: () {
-                  currencyProvider.selectCurrency(index, currencyProvider.currencyData['data'][index]['name'], currencyProvider.currencyData['data'][index]['code']);
+                  currencyProvider.selectCurrency(index: index, currency: currencyProvider.currencyData['data'][index]['name'],currencyCode:  currencyProvider.currencyData['data'][index]['code']);
                 },
                 child: Container(
                   height: 52,
