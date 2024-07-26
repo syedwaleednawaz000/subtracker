@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
@@ -8,6 +11,7 @@ import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 
 import 'package:sub_tracker/theme/theme.dart';
+import 'package:sub_tracker/utils/app_url.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
@@ -22,6 +26,18 @@ import 'bottom_nav/bottomNotifier.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
+  // await FireBaseApi().initNotification();
+  if(Platform.isAndroid){
+    Stripe.publishableKey =
+        AppUrl.stripePublishableKey;
+  }else if(Platform.isIOS){
+
+  }else{
+
+  }
   runApp(MyApp());
 }
 
