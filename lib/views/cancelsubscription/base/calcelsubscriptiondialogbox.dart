@@ -130,6 +130,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/plan_provider.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/my_size.dart';
@@ -204,22 +205,28 @@ class CancelSubsDialogBox extends StatelessWidget {
                             SizedBox(
                               width: MySize.size10,
                             ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 40),
-                                child: Text('Accept',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                        ? Color(0XFF2B83F2) : Color(0XFF2B83F2),
-                                  ),
-                                )
-                              ),
-                            ),
+                Consumer<PlanProvider>(builder: (context, planProvider, child) {
+                  return                             TextButton(
+                    onPressed: () {
+                      planProvider.cancelPlan(context: context, planID: planID);
+
+                    },
+                    child: planProvider.isCancel? SizedBox(
+                        height: MySize.size20,
+                        width: MySize.size20,
+                        child: CircularProgressIndicator(color: Colors.blue,)): Padding(
+                        padding: const EdgeInsets.only(left: 40),
+                        child: Text('Accept',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Color(0XFF2B83F2) : Color(0XFF2B83F2),
+                          ),
+                        )
+                    ),
+                  );
+                },),
                           ],
                         )
                       ],

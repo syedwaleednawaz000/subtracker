@@ -86,4 +86,39 @@ class PlanProvider extends ChangeNotifier {
     _selectData = selectData;
     notifyListeners();
   }
+
+
+
+
+  //Patch plan
+  bool _isCancel = false;
+  bool get isCancel => _isCancel;
+  void _cancelLoading({required bool load}){
+    _isCancel = load;
+    notifyListeners();
+  }
+  Future<void> cancelPlan({ required BuildContext context, required String planID})async{
+    _cancelLoading(load: true);
+    var body = {};
+    try{
+      Response response = await _apiService.cancelPlan(planID: planID.toString(),params: body);
+      if(response.statusCode == 200){
+        _cancelLoading(load: false);
+        FlutterToast.toastMessage(message: response.data['message'],);
+        Navigator.pop(context);
+        if (kDebugMode) {
+          print("hit successfully");
+        }
+
+      }else{
+        _cancelLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    }catch(error){
+      _cancelLoading(load: false);
+      print("this is error ${error.toString()}");
+    }
+  }
 }
