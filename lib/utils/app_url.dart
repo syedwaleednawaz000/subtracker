@@ -1,4 +1,8 @@
 class AppUrl{
+  //Todo Stripe urls
+  static String stripeBaseUrl = "https://api.stripe.com/v1/payment_intents";
+  static String stripeSecretKey = "sk_test_51MOeICHTQCzatOOI7H7L23lbJBG2sFnqjYT5C2sPhciDU8iRadWqhjwwI1vzYIlGEmBIArZTTGT756TWEH3xf4Mo007vUHz5BW";
+  static String stripePublishableKey = 'pk_test_51MOeICHTQCzatOOIxjnHyV9uhg6C2EbuVCvIB3tTB4GAbiu0YeMg4dHHth76bMkH1Pu5oEF983WEj2TebkWj7TZ500GdOm3wdZ';
   static String baseUrl = "https://subtracker.dotapp.pk/api/";
   static String login = "auth/login";
   static String register = "auth/register";
