@@ -1,4 +1,5 @@
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -109,7 +110,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ),
                         ),
                         const Spacer(),
-                        DropdownButton<int>(
+                        DropdownButton2<int>(dropdownStyleData: DropdownStyleData(
+                          maxHeight: 200,
+
+                        ),
                           value: _selectedMonth,
                           onChanged: (int? newValue) {
                             if (newValue != null) {

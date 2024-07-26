@@ -48,7 +48,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
       if (_selectedDate != null && date.year == _selectedDate!.year && date.month == _selectedDate!.month && date.day == _selectedDate!.day) {
         return Colors.blueAccent; // Selected color
       } else {
-        return index % 2 == 0 ? Color(0XFFF1F1FF) : Color(0XFFF1F1FF); // Default color
+        return index % 2 == 0 ? const Color(0XFFF1F1FF) : const Color(0XFFF1F1FF); // Default color
       }
     });
 
@@ -86,13 +86,13 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 children: [
                   Text(
                     titleText[index],
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     subtitleText[index],
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   // Show the icon if this date is selected
                   if (_selectedDate != null && _selectedDate!.isAtSameMomentAs(date))
                     Container(
