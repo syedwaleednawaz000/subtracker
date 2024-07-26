@@ -230,7 +230,8 @@ class _SubscriptionState extends State<Subscription> {
                               onTap:(){
                                 Navigator.pop(context);
                               },
-                              child: Image.asset(AppImages.backArrow)),
+                              child: Image.asset(AppImages.backArrow),
+                          ),
                           SizedBox(
                             width: MySize.scaleFactorWidth * 145,
                           ),

@@ -51,8 +51,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+             Padding(
+               padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size44,top: MySize.size60),
+               child: Row(
+                 //mainAxisAlignment: MainAxisAlignment.start,
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   GestureDetector(
+                     onTap:(){
+                       Navigator.pop(context);
+                     },
+                     child: Image.asset(AppImages.backArrow),
+                   ),
+                 ],
+               ),
+             ),
               // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
               const Text('Forgot Password?',
                 style: TextStyle(

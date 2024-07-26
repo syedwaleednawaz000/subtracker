@@ -95,7 +95,62 @@ class _SignupScreenState extends State<SignupScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 24,
                         color: Colors.white
-                    ),),
+                    ),
+                  ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24, right: 24, top: 22),                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text('User Name',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0XFF666680)
+                              ),),
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            TextFormField(
+                              style: const TextStyle(
+                                  color:  Color(0XFF666680)
+                              ),
+                              obscureText: isSelected1,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                                  isDense: true,
+                                  hintText: 'Enter User Name',
+                                  hintStyle:  TextStyle(
+                                    fontFamily: 'Poppins_Regular',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0XFF666680).withOpacity(.3),
+                                  ),
+                                  suffixIcon: IconButton(onPressed: (){
+                                    setState(() {
+                                      isSelected1 = !isSelected1;
+                                    });
+                                  }, icon: isSelected1
+                                      ? Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)
+                                      : Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3),)),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                      borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
+                                  focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
+                            ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(16),
+                                            borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
+                                          ),
+                              ),
+
+                            ),
+                          ],
+                        ),
+                      ),
                  Padding(
                    padding: const EdgeInsets.only(left: 24, right: 24, top: 22),
                    child: Column(
@@ -203,58 +258,6 @@ class _SignupScreenState extends State<SignupScreen> {
                        const SizedBox(
                          height: 10,
                        ),
-                   //     Column(
-                   //       crossAxisAlignment: CrossAxisAlignment.start,
-                   //       mainAxisAlignment: MainAxisAlignment.start,
-                   //       children: [
-                   //         const Text('Confirm Password',
-                   //           textAlign: TextAlign.center,
-                   //           style: TextStyle(
-                   //             fontSize: 14,
-                   //             fontWeight: FontWeight.w400,
-                   //             color: Color(0XFF666680)
-                   //           ),),
-                   //         const SizedBox(
-                   //           height: 4,
-                   //         ),
-                   //         TextFormField(
-                   //           style: const TextStyle(
-                   //               color:  Color(0XFF666680)
-                   //           ),
-                   //           obscureText: isSelected1,
-                   //           decoration: InputDecoration(
-                   //             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                   //               isDense: true,
-                   //               hintText: 'Confirm Password',
-                   //               hintStyle:  TextStyle(
-                   //                 fontFamily: 'Poppins_Regular',
-                   //                 fontSize: 14,
-                   //                 fontWeight: FontWeight.w400,
-                   //                 color: const Color(0XFF666680).withOpacity(.3),
-                   //               ),
-                   //               suffixIcon: IconButton(onPressed: (){
-                   //                 setState(() {
-                   //                   isSelected1 = !isSelected1;
-                   //                 });
-                   //               }, icon: isSelected1
-                   //                   ? Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)
-                   //                   : Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3),)),
-                   //               border: OutlineInputBorder(
-                   //                   borderRadius: BorderRadius.circular(16),
-                   //                   borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                   //               focusedBorder: OutlineInputBorder(
-                   //           borderRadius: BorderRadius.circular(16),
-                   //           borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                   //         ),
-                   // enabledBorder: OutlineInputBorder(
-                   //   borderRadius: BorderRadius.circular(16),
-                   //   borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                   // ),
-                   //           ),
-                   //
-                   //         ),
-                   //       ],
-                   //     ),
 
                       const Padding(
                          padding: EdgeInsets.only(left: 5, right: 5, top: 16, bottom: 16),
