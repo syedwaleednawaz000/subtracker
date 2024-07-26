@@ -34,7 +34,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
     return Scaffold(
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Color(0XFF0E0E12)
+                ? const Color(0XFF0E0E12)
                 : Colors.white,
         body: Stack(clipBehavior: Clip.none, children: [
           Padding(
@@ -52,8 +52,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                     decoration: BoxDecoration(
                       color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                          ? Color(0XFF353542)
-                          : Color(0XFFF1F1FF),
+                          ? const Color(0XFF353542)
+                          : const Color(0XFFF1F1FF),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(MySize.size24),
                         topRight: Radius.circular(MySize.size24),
@@ -73,10 +73,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFF424252),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFF424252),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 'Subscription info',
                                 textAlign: TextAlign.start,
@@ -86,8 +86,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                   color: Provider.of<ThemeChanger>(context)
                                               .themeData ==
                                           darkMode
-                                      ? Color(0XFFA2A2B5)
-                                      : Color(0XFF424252),
+                                      ? const Color(0XFFA2A2B5)
+                                      : const Color(0XFF424252),
                                 ),
                               ),
                               const Spacer(), // Add Spacer here
@@ -97,8 +97,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFF424252),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFF424252),
                               ),
                             ],
                           ),
@@ -125,7 +125,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
                                     ? Colors.white
-                                    : Color(0XFF1C1C23),
+                                    : const Color(0XFF1C1C23),
                           ),
                         ),
                         SizedBox(height: MySize.size2),
@@ -138,8 +138,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                             color:
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFFA2A2B5),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                           ),
                         ),
                         SizedBox(height: MySize.scaleFactorHeight * 70),
@@ -160,8 +160,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       color: Provider.of<ThemeChanger>(context)
                                                   .themeData ==
                                               darkMode
-                                          ? Color(0XFF131318)
-                                          : Color(0XFFFFFFFF),
+                                          ? const Color(0XFF131318)
+                                          : const Color(0XFFFFFFFF),
                                     ),
                                   ),
                                 ),
@@ -184,8 +184,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                             color:
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
-                                    ? Color(0XFF353542)
-                                    : Color(0XFFF1F1FF),
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFFF1F1FF),
                             borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(MySize.size24),
                               bottomLeft: Radius.circular(MySize.size24),
@@ -205,16 +205,16 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                   color: Provider.of<ThemeChanger>(context)
                                               .themeData ==
                                           darkMode
-                                      ? Color(0XFF4E4E61).withOpacity(.2)
-                                      : Color(0XFFF7F7FF),
+                                      ? const Color(0XFF4E4E61).withOpacity(.2)
+                                      : const Color(0XFFF7F7FF),
                                   borderRadius: BorderRadius.circular(16),
                                   border: Border.all(
                                     width: MySize.size2,
                                     color: Provider.of<ThemeChanger>(context)
                                                 .themeData ==
                                             darkMode
-                                        ? Color(0XFFCFCFFC).withOpacity(.15)
-                                        : Color(0XFFCFCFFC).withOpacity(.15),
+                                        ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                        : const Color(0XFFCFCFFC).withOpacity(.15),
                                   ),
                                 ),
                                 child: Column(
@@ -236,8 +236,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                               Provider.of<ThemeChanger>(context)
                                                           .themeData ==
                                                       darkMode
-                                                  ? Color(0XFFA2A2B5)
-                                                  : Color(0XFFA2A2B5),
+                                                  ? const Color(0XFFA2A2B5)
+                                                  : const Color(0XFFA2A2B5),
                                         ),
                                       ),
                                     ),
@@ -253,8 +253,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                             Provider.of<ThemeChanger>(context)
                                                         .themeData ==
                                                     darkMode
-                                                ? Color(0XFFA2A2B5)
-                                                : Color(0XFFA2A2B5),
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
                                       ),
                                     ),
                                     SizedBox(height: MySize.size16),
@@ -269,8 +269,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                             Provider.of<ThemeChanger>(context)
                                                         .themeData ==
                                                     darkMode
-                                                ? Color(0XFFA2A2B5)
-                                                : Color(0XFFA2A2B5),
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
                                       ),
                                     ),
                                     SizedBox(height: MySize.size16),
@@ -285,8 +285,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                             Provider.of<ThemeChanger>(context)
                                                         .themeData ==
                                                     darkMode
-                                                ? Color(0XFFA2A2B5)
-                                                : Color(0XFFA2A2B5),
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
                                       ),
                                     ),
                                     SizedBox(height: MySize.size16),
@@ -301,8 +301,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                             Provider.of<ThemeChanger>(context)
                                                         .themeData ==
                                                     darkMode
-                                                ? Color(0XFFA2A2B5)
-                                                : Color(0XFFA2A2B5),
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
                                       ),
                                     ),
                                     SizedBox(height: MySize.size16),
@@ -319,10 +319,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                 .themeData ==
                                                 darkMode
                                                 ? Colors.white
-                                                : Color(0XFF424252),
+                                                : const Color(0XFF424252),
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         /// Billing cycle
                                         Row(
                                             crossAxisAlignment:
@@ -367,9 +367,9 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                       return Container(
                                                         decoration: BoxDecoration(
                                                             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                                ? Color(0XFF353542)
-                                                                : Color(0XFFF1F1FF),
-                                                          borderRadius: BorderRadius.only(
+                                                                ? const Color(0XFF353542)
+                                                                : const Color(0XFFF1F1FF),
+                                                          borderRadius: const BorderRadius.only(
                                                               topRight: Radius.circular(16),
                                                               topLeft: Radius.circular(16),
                                                           )
@@ -391,7 +391,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       .themeData ==
                                                                       darkMode
                                                                       ? Colors.white
-                                                                      : Color(0XFF424252),
+                                                                      : const Color(0XFF424252),
                                                                 ),
                                                                 ),
                                                                 ListTile(
@@ -402,8 +402,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Monthly'),
@@ -416,8 +416,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Quarterly'),
@@ -430,8 +430,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Semi-Annually'),
@@ -444,8 +444,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Annually'),
@@ -458,8 +458,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Biennially'),
@@ -472,8 +472,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Weekly'),
@@ -486,8 +486,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Bi-Weekly'),
@@ -500,8 +500,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       fontFamily: 'Regular-Poppins',
                                                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                                                           darkMode
-                                                                          ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                          : Color(0XFF1C1C23),
+                                                                          ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                          : const Color(0XFF1C1C23),
                                                                     ),
                                                                   ),
                                                                   onTap: () => _selectOption('Custom'),
@@ -522,8 +522,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                     fontWeight: FontWeight.w500,
                                                     color: Provider.of<ThemeChanger>(context).themeData ==
                                                         darkMode
-                                                        ? Color(0XFFA2A2B5)
-                                                        : Color(0XFFA2A2B5),
+                                                        ? const Color(0XFFA2A2B5)
+                                                        : const Color(0XFFA2A2B5),
                                                   ),),
                                                 ),
                                               ),
@@ -571,8 +571,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           Provider.of<ThemeChanger>(context)
                                               .themeData ==
                                               darkMode
-                                              ? Color(0XFFA2A2B5)
-                                              : Color(0XFFA2A2B5),
+                                              ? const Color(0XFFA2A2B5)
+                                              : const Color(0XFFA2A2B5),
                                         ),
                                       ],
                                     ),
@@ -591,10 +591,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                         .themeData ==
                                                     darkMode
                                                 ? Colors.white
-                                                : Color(0XFF424252),
+                                                : const Color(0XFF424252),
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
@@ -638,9 +638,9 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                         return Container(
                                                           decoration: BoxDecoration(
                                                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                              ? Color(0XFF353542)
-                                                              : Color(0XFFF1F1FF),
-                                                              borderRadius: BorderRadius.only(
+                                                              ? const Color(0XFF353542)
+                                                              : const Color(0XFFF1F1FF),
+                                                              borderRadius: const BorderRadius.only(
                                                                 topRight: Radius.circular(16),
                                                                 topLeft: Radius.circular(16),
                                                               )
@@ -662,7 +662,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                           .themeData ==
                                                                           darkMode
                                                                           ? Colors.white
-                                                                          : Color(0XFF424252),
+                                                                          : const Color(0XFF424252),
                                                                     ),
                                                                   ),
                                                                   ListTile(
@@ -673,8 +673,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Monthly'),
@@ -687,8 +687,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Quarterly'),
@@ -701,8 +701,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Semi-Annually'),
@@ -715,8 +715,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Annually'),
@@ -729,8 +729,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Biennially'),
@@ -743,8 +743,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Weekly'),
@@ -757,8 +757,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Bi-Weekly'),
@@ -771,8 +771,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                         fontFamily: 'Regular-Poppins',
                                                                         color: Provider.of<ThemeChanger>(context).themeData ==
                                                                             darkMode
-                                                                            ? Color(0XFFFFFFFF).withOpacity(.4)
-                                                                            : Color(0XFF1C1C23),
+                                                                            ? const Color(0XFFFFFFFF).withOpacity(.4)
+                                                                            : const Color(0XFF1C1C23),
                                                                       ),
                                                                     ),
                                                                     onTap: () => _selectOption('Custom'),
@@ -794,8 +794,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                     fontWeight: FontWeight.w500,
                                                     color: Provider.of<ThemeChanger>(context).themeData ==
                                                         darkMode
-                                                        ? Color(0XFFA2A2B5)
-                                                        : Color(0XFFA2A2B5),
+                                                        ? const Color(0XFFA2A2B5)
+                                                        : const Color(0XFFA2A2B5),
                                                   ),),
 
 
@@ -846,8 +846,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                               Provider.of<ThemeChanger>(context)
                                                           .themeData ==
                                                       darkMode
-                                                  ? Color(0XFFA2A2B5)
-                                                  : Color(0XFFA2A2B5),
+                                                  ? const Color(0XFFA2A2B5)
+                                                  : const Color(0XFFA2A2B5),
                                         ),
                                       ],
                                     ),
@@ -859,8 +859,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       color: Provider.of<ThemeChanger>(context)
                                                   .themeData ==
                                               darkMode
-                                          ? Color(0XFF4E4E61)
-                                          : Color(0XFF4E4E61).withOpacity(.5),
+                                          ? const Color(0XFF4E4E61)
+                                          : const Color(0XFF4E4E61).withOpacity(.5),
                                       strokeWidth: 1,
                                       borderType: BorderType.RRect,
                                       radius: Radius.circular(MySize.size12),
@@ -881,8 +881,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                     context)
                                                                 .themeData ==
                                                             darkMode
-                                                        ? Color(0XFFA2A2B5)
-                                                        : Color(0XFFA2A2B5),
+                                                        ? const Color(0XFFA2A2B5)
+                                                        : const Color(0XFFA2A2B5),
                                               ),
                                             ),
                                             SizedBox(width: MySize.size10),
@@ -899,8 +899,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       context)
                                                                   .themeData ==
                                                               darkMode
-                                                          ? Color(0XFFA2A2B5)
-                                                          : Color(0XFFA2A2B5),
+                                                          ? const Color(0XFFA2A2B5)
+                                                          : const Color(0XFFA2A2B5),
                                                   width: 2,
                                                 ),
                                               ),
@@ -912,8 +912,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                                       context)
                                                                   .themeData ==
                                                               darkMode
-                                                          ? Color(0XFFA2A2B5)
-                                                          : Color(0XFFA2A2B5),
+                                                          ? const Color(0XFFA2A2B5)
+                                                          : const Color(0XFFA2A2B5),
                                                   size: MySize.size12,
                                                 ),
                                               ),
@@ -943,7 +943,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                 .themeData ==
                                             darkMode
                                         ? Colors.white.withOpacity(.1)
-                                        : Color(0XFFF7F7FF),
+                                        : const Color(0XFFF7F7FF),
                                     borderRadius:
                                         BorderRadius.circular(MySize.size24),
                                     border: Border.all(
@@ -965,8 +965,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                             Provider.of<ThemeChanger>(context)
                                                         .themeData ==
                                                     darkMode
-                                                ? Color(0XFFFFFFFF)
-                                                : Color(0XFF424252),
+                                                ? const Color(0XFFFFFFFF)
+                                                : const Color(0XFF424252),
                                       ),
                                     ),
                                   ),
