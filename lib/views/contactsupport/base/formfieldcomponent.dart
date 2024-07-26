@@ -15,12 +15,13 @@ class FormFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //width: MySize.scaleFactorWidth*400,
       decoration:BoxDecoration(
         borderRadius: BorderRadius.circular(MySize.size4),
           border: Border.all(
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Color(0XFF757784)
-                : Color(0XFFE2E2E2),
+                ? const Color(0XFF757784)
+                : const Color(0XFFE2E2E2),
             width: .5,
           )
       ) ,
@@ -33,11 +34,10 @@ class FormFieldComponent extends StatelessWidget {
                 fontSize: MySize.size14,
                 fontWeight: FontWeight.w400,
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? Color(0XFFD2D2D2).withOpacity(.8)
-                    : Color(0XFFD2D2D2),
+                    ? const Color(0XFFD2D2D2).withOpacity(.8)
+                    : const Color(0XFFD2D2D2),
                 fontFamily: 'Poppins_Regular'
             ),
-            // TextStyle(color: AppColors.whiteFF.withOpacity(.6),fontSize: MySize.size14,fontWeight: FontWeight.w400),
             border: InputBorder.none,
         ),
       ),

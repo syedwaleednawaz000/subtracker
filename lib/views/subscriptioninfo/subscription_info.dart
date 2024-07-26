@@ -5,12 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
 import '../settings/settings.dart';
-import 'base/stackedcircle.dart';
 import 'base/subscriptioninforow.dart';
 
 class SubscriptionInfo extends StatefulWidget {
@@ -94,7 +90,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       : Color(0XFF424252),
                                 ),
                               ),
-                              Spacer(), // Add Spacer here
+                              const Spacer(), // Add Spacer here
                               Image.asset(
                                 AppImages.trash,
                                 scale: 1.2,
@@ -116,7 +112,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                             // color: AppColors.primaryColor,
                             borderRadius: BorderRadius.circular(MySize.size32),
                           ),
-                          child: Text(AppImages.tresorlyIcon),
+                          child: Image.asset(AppImages.tresorlyIcon),
                         ),
                         SizedBox(height: MySize.size6),
                         Text(
