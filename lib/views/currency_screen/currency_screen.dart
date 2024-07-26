@@ -6,7 +6,7 @@ import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 import '../language_selection/base/custom_appBar.dart';
 import '../language_selection/language_selection.dart';
-import 'currency_provider/currency_provider.dart';
+
 class CurrencySelection extends StatefulWidget {
   const CurrencySelection({super.key});
 

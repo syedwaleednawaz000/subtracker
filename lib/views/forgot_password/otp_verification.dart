@@ -136,7 +136,7 @@ class _OTPVerificationState extends State<OTPVerification> {
           builder: (context, forgotPasswordProvider, child) {
             return GestureDetector(
               onTap: () {
-                if(otpController.text.length <4){
+                if(otpController.text.length >=6){
                   forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim());
                 }else{
                   FlutterToast.toastMessage(message: "Please enter correct otp");

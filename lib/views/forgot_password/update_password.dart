@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 
 import '../../utils/app_Images.dart';
@@ -18,7 +19,7 @@ class UpdatePassword extends StatefulWidget {
 }
 
 class _UpdatePasswordState extends State<UpdatePassword> {
-
+  final _formKey = GlobalKey<FormState>();
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password cannot be empty';
@@ -34,20 +35,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     return null; // Return null if validation succeeds
   }
 
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    // Basic email format validation
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Invalid email format';
-    }
-    // Additional custom checks (optional), e.g., domain name validation
-    if (!value.contains('@gmail') || !value.contains('.com')) {
-      return 'Enter a Gmail address with .com domain';
-    }
-    return null; // Return null if validation succeeds
-  }
+
   bool val = false;
 
   @override
@@ -59,142 +47,151 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover)
         ),
         child: Consumer<ForgotPasswordProvider>(builder:  (context, forgotPasswordProvider, child) {
-          return ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 200,),
-                    const Text( 'Reset Password',
-                      style: TextStyle(
-                          fontFamily: 'Poppins_Regular',
-                          fontSize: 26,
-                          color: Colors.white
+          return Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 200,),
+                      const Text( 'Reset Password',
+                        style: TextStyle(
+                            fontFamily: 'Poppins_Regular',
+                            fontSize: 26,
+                            color: Colors.white
+                        ),
+
+                      ),
+                      const SizedBox(height: 16,),
+                      const Text( 'Here’s a tip: Use a combination of numbers,'
+                          ' \nuppercase, lowercase and special characters',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Poppins_Regular',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white
+                        ),
+
                       ),
 
-                    ),
-                    const SizedBox(height: 16,),
-                    const Text( 'Here’s a tip: Use a combination of numbers,'
-                        ' \nuppercase, lowercase and special characters',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Poppins_Regular',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white
+                      const SizedBox(height: 28,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Password',
+                            style: TextStyle(
+                              // fontFamily: 'Poppins_Regular',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: Color(0XFF666680),
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          TextFormField(
+                            validator: validatePassword,
+                            controller: forgotPasswordProvider.password,
+                            style: TextStyle(
+                                color:  Color(0XFF666680)
+                            ),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                              hintText: 'Password',
+                              hintStyle:  TextStyle(
+                                fontFamily: 'Poppins_Regular',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0XFF666680).withOpacity(.3),
+                              ),
+                              suffixIcon: Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15,),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text( 'Confirm Password',
+                            style: TextStyle(
+                              // fontWeight: FontWeight.w400,
+                              // fontFamily: 'Poppins_Regular',
+                              fontSize: 12,
+                              color: Color(0XFF666680),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          TextFormField(
+                            validator: validatePassword,
+                            controller: forgotPasswordProvider.confirmPassword,
+                            style: const TextStyle(
+                                color:  Color(0XFF666680)
+                            ),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                              hintText: 'Confirm Password',
+                              hintStyle:  TextStyle(
+                                fontFamily: 'Poppins_Regular',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0XFF666680).withOpacity(.3),
+                              ),
+                              suffixIcon: Icon(Icons.lock , color: const Color(0XFF666680).withOpacity(.3),),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
+                              ),
+                            ),  ),
+                        ],
                       ),
 
-                    ),
-
-                    const SizedBox(height: 28,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Password',
-                          style: TextStyle(
-                            // fontFamily: 'Poppins_Regular',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: Color(0XFF666680),
-                          ),
-                        ),
-
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        TextFormField(
-                          validator: validatePassword,
-                          controller: forgotPasswordProvider.password,
-                          style: TextStyle(
-                              color:  Color(0XFF666680)
-                          ),
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Password',
-                            hintStyle:  TextStyle(
-                              fontFamily: 'Poppins_Regular',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0XFF666680).withOpacity(.3),
-                            ),
-                            suffixIcon: Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15,),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text( 'Confirm Password',
-                          style: TextStyle(
-                            // fontWeight: FontWeight.w400,
-                            // fontFamily: 'Poppins_Regular',
-                            fontSize: 12,
-                            color: Color(0XFF666680),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        TextFormField(
-                          validator: validateEmail,
-                          controller: forgotPasswordProvider.confirmPassword,
-                          style: const TextStyle(
-                              color:  Color(0XFF666680)
-                          ),
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Confirm Password',
-                            hintStyle:  TextStyle(
-                              fontFamily: 'Poppins_Regular',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0XFF666680).withOpacity(.3),
-                            ),
-                            suffixIcon: Icon(Icons.lock , color: const Color(0XFF666680).withOpacity(.3),),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                            ),
-                          ),  ),
-                      ],
-                    ),
-
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: MySize.size100,)
-            ],
+                SizedBox(height: MySize.size100,)
+              ],
+            ),
           );
         },),
       ),
       floatingActionButton:Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
          return GestureDetector(
            onTap:(){
-             forgotPasswordProvider.changePassword(context: context);
+             if(_formKey.currentState!.validate()){
+               if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
+                 forgotPasswordProvider.changePassword(context: context);
+               }else{
+                 FlutterToast.toastMessage(message: "Confirm password doesn't match");
+               }
+             }
            },
            child: Padding(
              padding: const EdgeInsets.only(left: 30.0),

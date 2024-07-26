@@ -18,7 +18,6 @@ import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/cancelsubscription/cancelsubscription.dart';
 import 'package:sub_tracker/views/change_password/change_password.dart';
 import 'package:sub_tracker/views/contactsupport/contactsupport.dart';
-import 'package:sub_tracker/views/currency_screen/currency_provider/currency_provider.dart';
 import 'package:sub_tracker/views/currency_screen/currency_screen.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
