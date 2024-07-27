@@ -143,7 +143,6 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    Future.microtask(() => Provider.of<LanguageProvider>(context,listen: false).getLanguages());
     return Scaffold(
         backgroundColor: Colors.black,
         body: _screens[widget.currentIndex],

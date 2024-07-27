@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
-        return MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: themeChanger.themeData,
           home: const SplashScreen(),

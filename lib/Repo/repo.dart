@@ -59,7 +59,7 @@ class ApiService {
     return apiClient.post(url: AppUrl.updateCurrencies, params: params);
   }
 
-  Future<Response> updateCategories({var params}) {
+  Future<Response> updateCategory({var params}) {
     return apiClient.post(url: AppUrl.updateCategories, params: params);
   }
   Future<Response> storePlan({var params}) {
@@ -75,8 +75,8 @@ class ApiService {
     return apiClient.post(url: AppUrl.updatePassword, params: params);
   }
 
-  Future<Response> updateTickets({var params}) {
-    return apiClient.post(url: AppUrl.updateTickets, params: params);
+  Future<Response> updateTickets({required String ticketID,var params}) {
+    return apiClient.post(url: AppUrl.updateTickets+ticketID, params: params);
   }
 
   Future<Response> storeUserCategories({var params}) {
@@ -149,22 +149,27 @@ class ApiService {
       url: AppUrl.showTicketDetails,
     );
   }
+  Future<Response> getSubscriptions({var params}) {
+    return apiClient.get(
+      url: AppUrl.getSubscriptions,
+    );
+  }
 
   //Todo here all delete method
   Future<Response> deleteAccount({var params}) {
     return apiClient.delete(url: AppUrl.deleteAccount, params: params);
   }
 
-  Future<Response> deleteTicket({var params}) {
+  Future<Response> deleteTicket({required String ticketID,var params}) {
     return apiClient.delete(url: AppUrl.deleteTicket, params: params);
   }
 
-  Future<Response> deleteSubscriptions({var params}) {
-    return apiClient.delete(url: AppUrl.deleteSubscriptions, params: params);
+  Future<Response> deleteSubscriptions({required String subscriptionID,var params}) {
+    return apiClient.delete(url: AppUrl.deleteSubscriptions+subscriptionID, params: params);
   }
 
-  Future<Response> deleteCategories({var params}) {
-    return apiClient.delete(url: AppUrl.deleteCategories, params: params);
+  Future<Response> deleteCategory({required String categoryID,var params}) {
+    return apiClient.delete(url: AppUrl.deleteCategories+categoryID, params: params);
   }
 //Todo here all patch
   Future<Response> cancelPlan({required String planID,var params}) {
