@@ -11,7 +11,7 @@ import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
-class ProfileProvider extends ChangeNotifier{
+class SubscriptionProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
 
   bool _isDeleted = false;

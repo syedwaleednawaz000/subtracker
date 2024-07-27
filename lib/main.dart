@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
+import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/email_notification_provider.dart';
@@ -15,6 +16,8 @@ import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
+import 'package:sub_tracker/Provider/subscription_provider.dart';
+import 'package:sub_tracker/Provider/ticket_provider.dart';
 import 'package:sub_tracker/Provider/two_factor_auth_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_url.dart';
@@ -67,6 +70,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PlanProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => FaqsProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SubscriptionProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => TicketProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {

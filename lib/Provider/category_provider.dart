@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 
-class ProfileProvider extends ChangeNotifier {
+class CategoryProvider extends ChangeNotifier {
   final ApiService _apiService = ApiService();
 
   bool _isStoreUserCat = false;
