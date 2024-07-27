@@ -8,8 +8,12 @@ import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
 
 class CircularProgressBarWidget extends StatelessWidget {
-  const CircularProgressBarWidget({
+  String totalBudget ;
+  String monlthyBill;
+   CircularProgressBarWidget({
     super.key,
+    required this.totalBudget,
+    required this.monlthyBill,
   });
 
   @override
@@ -53,8 +57,8 @@ class CircularProgressBarWidget extends StatelessWidget {
                height: MySize.scaleFactorHeight *  56,
 
              ),
-              SizedBox(height: 8,),
-              Text( '\$1,235',
+              const SizedBox(height: 8,),
+              Text( '\$ ${monlthyBill == null ?"${monlthyBill}":"0"}',
                 style: TextStyle(
                   fontSize: MySize.size40,
                   fontWeight: FontWeight.w700,

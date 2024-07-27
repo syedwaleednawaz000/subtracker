@@ -12,6 +12,7 @@ class AppUrl{
   static String updatePassword = "change-password";
   static String subscriptions = "subscriptions";
   static String getSubscriptions = "subscriptions";
+  static String termsAndConditions = "settings/terms_and_conditions";
   static String addCategories = "categories";
   static String storeUserCategories = "user-categories";
   static String getCategories = "categories";

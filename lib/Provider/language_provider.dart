@@ -17,7 +17,7 @@ class LanguageProvider extends ChangeNotifier{
     _isLanguages = load;
     notifyListeners();
   }
-  Future<void> updateCurrency()async{
+  Future<void> updateLanguage()async{
     var body = {
       'language_id': '1'
     };

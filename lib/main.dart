@@ -17,6 +17,7 @@ import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
+import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
 import 'package:sub_tracker/Provider/ticket_provider.dart';
 import 'package:sub_tracker/Provider/two_factor_auth_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => FaqsProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => SubscriptionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TicketProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => TermAndConditionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
 
       ],

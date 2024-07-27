@@ -149,9 +149,16 @@ class ApiService {
       url: AppUrl.showTicketDetails,
     );
   }
+
   Future<Response> getSubscriptions({var params}) {
     return apiClient.get(
       url: AppUrl.getSubscriptions,
+    );
+  }
+
+  Future<Response> getTermAndCondition({var params}) {
+    return apiClient.get(
+      url: AppUrl.termsAndConditions,
     );
   }
 

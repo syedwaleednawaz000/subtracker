@@ -15,8 +15,18 @@ import 'circular_ProgressBar.dart';
 import 'linecolor_container.dart';
 
 class CustomContainer extends StatefulWidget {
-  const CustomContainer({
+  String monthlyBill;
+  String activeSubscription;
+  String highestSubscription;
+  String lowestSubscription;
+  String totalBudget;
+   CustomContainer({
     Key? key,
+    required this.activeSubscription,
+    required this.highestSubscription,
+    required this.lowestSubscription,
+    required this.monthlyBill,
+     required this.totalBudget,
   }) : super(key: key);
 
   @override
@@ -29,8 +39,6 @@ class _CustomContainerState extends State<CustomContainer> {
     return Column(
       children: [
         Container(
-          // height: MySize.scaleFactorHeight * 465,
-          // width: MySize.scaleFactorWidth * 405,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(24),
@@ -69,32 +77,35 @@ class _CustomContainerState extends State<CustomContainer> {
                           ? const Color(0XFF4E4E61)
                           : const Color(0XFF4E4E61),),
                   ),
-                  const CircularProgressBarWidget(),
+                   CircularProgressBarWidget(
+                    totalBudget: widget.monthlyBill,
+                     monlthyBill: widget.totalBudget,
+                  ),
                   Padding(
                     padding:  EdgeInsets.only(top: MySize.scaleFactorHeight*355),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const LineColorContainer(
+                         LineColorContainer(
                           borderColor: AppColors.pinkLine,
                           titleText: 'Active subs',
-                          numberCount: '12',
+                          numberCount: '${widget.activeSubscription}',
                         ),
                         SizedBox(
                           width: MySize.scaleFactorWidth * 14,
                         ),
-                         const LineColorContainer(
+                          LineColorContainer(
                           borderColor: AppColors.purpleLine,
                           titleText: 'Highest subs',
-                          numberCount: '\$19.99',
+                          numberCount: '\$ ${widget.highestSubscription}',
                                                  ),
                         const SizedBox(
                           width: 14,
                         ),
-                        const LineColorContainer(
+                         LineColorContainer(
                           borderColor: AppColors.accentLine,
                           titleText: 'Lowest subs',
-                          numberCount: '\$5.99',
+                          numberCount: '\$ ${widget.lowestSubscription}',
                         ),
                       ],
                     ),

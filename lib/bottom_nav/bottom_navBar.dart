@@ -139,7 +139,6 @@ class _BnavBarState extends State<BnavBar> {
   ];
   @override
   Widget build(BuildContext context) {
-    Future.microtask(() => Provider.of<LanguageProvider>(context,listen: false).getLanguages());
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: CircleAvatar(

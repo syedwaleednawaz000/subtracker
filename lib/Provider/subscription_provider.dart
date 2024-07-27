@@ -97,12 +97,12 @@ class SubscriptionProvider extends ChangeNotifier{
 
   Map<String, dynamic> subscriptionData = {};
   bool _isSubscription = false;
-  bool get isCurrency => _isSubscription;
+  bool get isSubscription => _isSubscription;
   void _subscriptionLoading({required bool load}){
     _isSubscription = load;
     notifyListeners();
   }
-  Future<void> getCurrency()async{
+  Future<void> getSubscriptions()async{
     _subscriptionLoading(load: true);
     try{
       Response response = await _apiService.getSubscriptions(params: {});
