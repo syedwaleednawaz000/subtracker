@@ -576,7 +576,7 @@ class _SubscriptionState extends State<Subscription> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SubscriptionInfo(),
+                      builder: (context) =>  SubscriptionInfo(subscriptionInfoData: {}),
                     ),
                   );
 
