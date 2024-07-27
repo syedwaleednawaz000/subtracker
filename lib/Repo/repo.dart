@@ -127,6 +127,11 @@ class ApiService {
       url: AppUrl.getCurrencies,
     );
   }
+  Future<Response> getFaqs({var params}) {
+    return apiClient.get(
+      url: AppUrl.getFaqs,
+    );
+  }
   Future<Response> getPlanes({var params}) {
     return apiClient.get(
       url: AppUrl.getPlans,

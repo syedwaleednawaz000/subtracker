@@ -36,6 +36,7 @@ class AppUrl{
   static String getLanguages = "languages";
   static String updateLanguages = "user/update-language";
   static String getCurrencies = "currencies";
+  static String getFaqs = "faqs";
   static String getPlans = "getPlans";
   static String storePlan = "storePlan";
   static String plansCancel = "plans/";

@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get/route_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/app_url.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -36,6 +39,7 @@ class APIClient {
 
   /// for Get request.
   Future<Response> get({required String url,}) async {
+    print("this is header ${headers}");
     try {
       final response = await _dio.get(
         url,
@@ -46,6 +50,9 @@ class APIClient {
       );
       return response;
     } on DioError catch (error) {
+      if(error.response!.statusCode == 401){
+        Provider.of<ProfileProvider>(Get.context!,listen: false).cleanLocalData(context: Get.context!);
+      }
       String content = error.response?.toString() ?? "Error occurred without a response.";
       // Handle error or log content if needed
       rethrow;

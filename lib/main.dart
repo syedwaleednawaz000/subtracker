@@ -6,6 +6,7 @@ import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/email_notification_provider.dart';
+import 'package:sub_tracker/Provider/faqs_provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ChangePasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PlanProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => FaqsProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {
