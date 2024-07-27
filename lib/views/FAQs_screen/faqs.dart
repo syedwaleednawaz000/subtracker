@@ -79,8 +79,8 @@ class _FaqsScreenState extends State<FaqsScreen> {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       var finalData =  faqsProvider.faqsData['data'][index];
-                      return                 Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5),
                         child: CustomExpensionTile(
                           title: finalData['title'],
                           child: RichText(
