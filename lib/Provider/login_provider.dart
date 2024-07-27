@@ -1,0 +1,91 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Repo/repo.dart';
+import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
+
+class LoginProvider extends ChangeNotifier{
+  final ApiService _apiService = ApiService();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool isLogin = false;
+  void _loginLoading({required bool load}){
+    isLogin = load;
+    notifyListeners();
+  }
+
+  Future<void> login({required BuildContext context,required String email , required String password, required bool rememberMe})async{
+    var body = {
+      "email": email,
+      "password": password
+    };
+    _loginLoading(load: true);
+    try{
+      Response response = await _apiService.login(params: body);
+      if(response.statusCode == 200){
+        _loginLoading(load: false);
+        storeLocalData(userToken: response.data['access_token']);
+
+        if(rememberMe == true){
+          storeRememberMe(email: email,password: password);
+        }else{
+          storeRememberMe(email: '',password: '');
+        }
+        if (kDebugMode) {
+          log("hit successfully");
+        }
+        FlutterToast.toastMessage(message: "Successfully login",);
+        Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
+        emailController.clear();
+        passwordController.clear();
+        notifyListeners();
+      }else{
+        _loginLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    }catch(error){
+      _loginLoading(load: false);
+      log("this is error ${error.toString()}");
+    }
+  }
+
+
+  Future<void> storeLocalData({String? userToken})async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(AppConstant.saveUserToken, userToken.toString());
+    AppConstant.getUserToken = userToken.toString();
+    notifyListeners();
+  }
+
+
+  Future<void> storeRememberMe({required String email, required String password })async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(AppConstant.saveUserEmail, email);
+    prefs.setString(AppConstant.saveUserPassword, password);
+  }
+
+  Future<void> getRememberMe()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString(AppConstant.saveUserEmail) != null ){
+      emailController.text = prefs.getString(AppConstant.saveUserEmail)!;
+      passwordController.text= prefs.getString(AppConstant.saveUserPassword)!;
+      notifyListeners();
+    }else{
+      emailController.clear();
+      passwordController.clear();
+      notifyListeners();
+    }
+  }
+
+
+}

@@ -1,6 +1,7 @@
-package com.example.sub_tracker
+package com.alright.subtracker
 
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity: FlutterActivity() {
+class MainActivity: FlutterFragmentActivity() {
 }

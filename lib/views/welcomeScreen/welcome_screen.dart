@@ -94,8 +94,8 @@ class WelcomeScreen extends StatelessWidget {
                                     ),
                                       ),
 
-                                  SizedBox(width: 5,),
-                                 Image.asset('android/assets_h/icons/right_arrow.png', scale: 3.5,),
+                                   SizedBox(width:  MySize.size5,),
+                                 Image.asset('assets/icons/right_arrow.png', scale: 3.5,),
                                 ],
                               ),
                             ),
@@ -103,16 +103,15 @@ class WelcomeScreen extends StatelessWidget {
                             Stack(
                              children: [
                                Positioned(
-
-                                   child: Image.asset('android/assets_h/images/bb.png', scale: 3,)),
+                                   child: Image.asset('assets/images/bb.png', scale: 3.4,)),
                                Positioned(
-                                   right: 60,
-                                   top: 70,
-                                   child: Image.asset('android/assets_h/images/s.png', scale: 3,)),
+                                   right: MySize.size56,
+                                   top: MySize.size56,
+                                   child: Image.asset('assets/images/s.png', scale: 3,)),
                                Positioned(
-                                   left: 70,
-                                   top: 85,
-                                   child: Image.asset('android/assets_h/images/m.png', scale: 3.4,)),
+                                   left: MySize.size64,
+                                   top: MySize.size68,
+                                   child: Image.asset('assets/images/m.png', scale: 3.4,)),
 
 
                              ],

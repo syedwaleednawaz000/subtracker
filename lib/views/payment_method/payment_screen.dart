@@ -367,6 +367,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -385,9 +386,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   List<String> titleContainer = ['Credit Card', 'Debit Card', 'Pay Pal'];
   List<String> containerImages= [
-    AppConstant.credit_cardIcon,
-    AppConstant.debit_cardIcon,
-    AppConstant.paypalIcon
+    AppImages.credit_cardIcon,
+    AppImages.debit_cardIcon,
+    AppImages.paypalIcon
   ];
 
   int selectedIndex = -1;
@@ -416,18 +417,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
           padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: AppBar(
-                scrolledUnderElevation: 0,
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                centerTitle: true,
-                leading:Image.asset('assets/icons/back_arrow.png', scale: 4.9,color: Color(0XFFA2A2B5),),
-                title:  Text('Manage Payment',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
-              )
+          child: AppBar(
+            scrolledUnderElevation: 0,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            centerTitle: true,
+            leading:GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),)),
+            title:  Text('Manage Payment',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
           ),
         ),
       ),
@@ -473,7 +473,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             //           child: Column(
             //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             //             children: [
-            //               Image.asset(AppConstants.debit_cardIcon, height: 50, width: 75, color: tap ? AppColors.whiteColor :  Color(0XFF17508F),),
+            //               Image.asset(AppImagess.debit_cardIcon, height: 50, width: 75, color: tap ? AppColors.whiteColor :  Color(0XFF17508F),),
             //               TextWidgetInterRegular(title: 'Credit Card', fontSize: 12, fontWeight: FontWeight.w500, color: tap ? AppColors.whiteColor :  Color(0XFF17508F))
             //             ],
             //           ),
@@ -495,7 +495,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             //           child: Column(
             //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             //             children: [
-            //               Image.asset(AppConstants.credit_cardIcon, height: 50, width: 75,color: tap1 ? AppColors.whiteColor :  Color(0XFF17508F),),
+            //               Image.asset(AppImagess.credit_cardIcon, height: 50, width: 75,color: tap1 ? AppColors.whiteColor :  Color(0XFF17508F),),
             //               TextWidgetInterRegular(title: 'Debit Card', fontSize: 12, fontWeight: FontWeight.w500,
             //                   color: tap1 ? AppColors.whiteColor :  Color(0XFF17508F))
             //             ],
@@ -518,7 +518,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             //           child: Column(
             //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             //             children: [
-            //               Image.asset(AppConstants.paypalIcon, height: 50, width: 75,color: tap2 ? AppColors.whiteColor :  Color(0XFF17508F),),
+            //               Image.asset(AppImagess.paypalIcon, height: 50, width: 75,color: tap2 ? AppColors.whiteColor :  Color(0XFF17508F),),
             //               TextWidgetInterRegular(
             //                   title: 'Pay pal', fontSize: 12, fontWeight: FontWeight.w500, color: tap2 ? AppColors.whiteColor :  Color(0XFF17508F))
             //             ],
@@ -665,16 +665,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   //       :  Color(0XFF757784).withOpacity(.2),
                   // )
                   ),
-                  child: Row(
+                  child: const Row(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.add,
                         color: Color(0xFF757784),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       Text(
@@ -729,7 +729,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Row(
                     children: [
                       Image.asset(
-                        'assets/Payment_icon.png',
+                        AppImages.payment,
                         height: 24,
                         width: 34,
                       ),

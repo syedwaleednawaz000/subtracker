@@ -5,14 +5,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import '../../theme/theme.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
-import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
-import '../subscriptioninfo/base/spotifycontainer.dart';
-import '../subscriptioninfo/subscription_info.dart';
-import 'base/hbocontainer.dart';
+import 'package:sub_tracker/theme/theme.dart';
+import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
+import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
+
 
 class Subscription extends StatefulWidget {
   const Subscription({super.key});
@@ -22,7 +21,7 @@ class Subscription extends StatefulWidget {
 }
 
 class _SubscriptionState extends State<Subscription> {
-   TextEditingController? _controller;
+   final TextEditingController _controller  = TextEditingController();
    Map<String, dynamic> _selectedOption = {'Select Subscription Provider': "Select Subscription Provider"};
 
    ///
@@ -112,14 +111,14 @@ class _SubscriptionState extends State<Subscription> {
        context: context,
        builder: (BuildContext context) {
          return Container(
-           padding: EdgeInsets.all(16.0),
+           padding: const EdgeInsets.all(16.0),
            child: ListView(
              children: [
                Text(
                  'Subcategories of $category',
-                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                ),
-               Divider(),
+               const Divider(),
                ...subcategories.map((subcat) {
                  return ListTile(
                    title: Text(subcat),
@@ -138,7 +137,7 @@ class _SubscriptionState extends State<Subscription> {
        context: context,
        builder: (BuildContext context) {
          return Container(
-           padding: EdgeInsets.all(16.0),
+           padding: const EdgeInsets.all(16.0),
            child: ListView(
              children: categories.keys.map((category) {
                return ListTile(
@@ -155,12 +154,30 @@ class _SubscriptionState extends State<Subscription> {
      );
    }
 
+   void _incrementText() {
+     setState(() {
+       String text = _controller.text;
+       text = text.replaceAll(RegExp(r'[^0-9-]'), ''); // Remove all non-numeric characters except for the negative sign
+       int currentValue = int.tryParse(text) ?? 0; // Parse current text to an integer
+       currentValue += 1; // Increment the value
+       _controller.text = currentValue.toString();
+     });
+   }
 
+   void _decrementText() {
+     setState(() {
+       String text = _controller.text;
+       text = text.replaceAll(RegExp(r'[^0-9-]'), ''); // Remove all non-numeric characters except for the negative sign
+       int currentValue = int.tryParse(text) ?? 0; // Parse current text to an integer
+       currentValue -= 1; // Decrement the value
+       _controller.text = currentValue.toString();
+     });
+   }
    ///
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: "\$5.99");
+
     _controller!.addListener(_formatInput);
   }
 
@@ -185,7 +202,7 @@ class _SubscriptionState extends State<Subscription> {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF1C1C23)
+          ? const Color(0XFF1C1C23)
           : Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -197,15 +214,15 @@ class _SubscriptionState extends State<Subscription> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Color(0XFF353542)
-                        : Color(0XFFF1F1FF),
+                        ? const Color(0XFF353542)
+                        : const Color(0XFFF1F1FF),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(MySize.size24),
                         bottomRight: Radius.circular(MySize.size24))),
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 20,  vertical: 22),
                       child: Row(
                         children: [
@@ -213,7 +230,8 @@ class _SubscriptionState extends State<Subscription> {
                               onTap:(){
                                 Navigator.pop(context);
                               },
-                              child: Image.asset(AppConstant.backArrow)),
+                              child: Image.asset(AppImages.backArrow),
+                          ),
                           SizedBox(
                             width: MySize.scaleFactorWidth * 145,
                           ),
@@ -225,8 +243,8 @@ class _SubscriptionState extends State<Subscription> {
                               fontSize: MySize.size16,
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFA2A2B5)
-                                  : Color(0XFF424252),
+                                  ? const Color(0XFFA2A2B5)
+                                  : const Color(0XFF424252),
                             ),
                           ),
 
@@ -244,39 +262,20 @@ class _SubscriptionState extends State<Subscription> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                             darkMode
                             ? Colors.white
-                            : Color(0XFF1C1C23),
+                            : const Color(0XFF1C1C23),
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Stack(
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            AppConstant.halfOneDriveLogo1,
-                            SizedBox(width: MySize.scaleFactorWidth * 86,),
-                            const TresorlyContainer(),
-                            SizedBox(width: MySize.scaleFactorWidth * 93,),
-                            AppConstant.halfSpotifyLogo1,
-                          ],
-                        ),
-                        Positioned(
-                          // top: 110,
-                          // left: 242,
-                          top: MySize.scaleFactorHeight * 119,
-                          left: MySize.scaleFactorHeight * 249,
-                          child: Container(
-                            height: 28,
-                            width: 28,
-                            decoration: BoxDecoration(
-                              color: AppColors.whiteFF, // Customize color
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Image.asset(AppConstant.editImage),
-                          ),
-                        ),
+                        Image.asset(AppImages.halfOneDriveLogo1,),
+                        SizedBox(width: MySize.scaleFactorWidth * 86,),
+                        const TresorlyContainer(),
+                        SizedBox(width: MySize.scaleFactorWidth * 91.2,),
+                        Image.asset(AppImages.halfSpotifyLogo1)
                       ],
                     ),
                     SizedBox(height: MySize.size16,),
@@ -287,7 +286,7 @@ class _SubscriptionState extends State<Subscription> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                             darkMode
                             ? Colors.white
-                            : Color(0XFF333339),
+                            : const Color(0XFF333339),
                       ),
                     ),
 
@@ -313,7 +312,7 @@ class _SubscriptionState extends State<Subscription> {
                                //   ),
                                // );
                              },
-                            child: Image.asset(AppConstant.exclMark)),
+                            child: Image.asset(AppImages.exclMark)),
                       ),
                           SizedBox(width: MySize.size4,),
                          Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -323,8 +322,8 @@ class _SubscriptionState extends State<Subscription> {
                              fontWeight: FontWeight.w500,
                              color: Provider.of<ThemeChanger>(context).themeData ==
                                  darkMode
-                                 ? Color(0XFF666680)
-                                 : Color(0XFF666680),
+                                 ? const Color(0XFF666680)
+                                 : const Color(0XFF666680),
                            ),
                          )
                           : Text('Select Subscription Provider',
@@ -333,414 +332,51 @@ class _SubscriptionState extends State<Subscription> {
                               fontWeight: FontWeight.w500,
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFF666680)
-                                  : Color(0XFF666680),
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680),
                             ),
                           ),
                         ],
                       ),
                     SizedBox(height: MySize.size10,),
                     GestureDetector(
-                      // onTap: (){
-                      //   showModalBottomSheet<void>(
-                      //     context: context,
-                      //     builder: (BuildContext context) {
-                      //       return Container(
-                      //         decoration: BoxDecoration(
-                      //             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                      //                 ? Color(0XFF353542)
-                      //                 : Color(0XFFF1F1FF),
-                      //             borderRadius: BorderRadius.only(
-                      //               topRight: Radius.circular(16),
-                      //               topLeft: Radius.circular(16),
-                      //             )
-                      //         ),
-                      //         height: 400,
-                      //         child: Center(
-                      //           child: SingleChildScrollView(
-                      //             child: Column(
-                      //               mainAxisAlignment: MainAxisAlignment.center,
-                      //               mainAxisSize: MainAxisSize.min,
-                      //               children: <Widget>[
-                      //                 const SizedBox(height: 30,),
-                      //                 Text('Select Billing Plan',
-                      //                   style: TextStyle(
-                      //                     fontSize: MySize.size14,
-                      //                     fontWeight: FontWeight.w600,
-                      //                     color: Provider.of<ThemeChanger>(
-                      //                         context)
-                      //                         .themeData ==
-                      //                         darkMode
-                      //                         ? Colors.white
-                      //                         : Color(0XFF424252),
-                      //                   ),
-                      //                 ),
-                      //                 ListTile(
-                      //                   title: Text('Monthly',
-                      //                     style: TextStyle(
-                      //                       fontSize: 14,
-                      //                       fontWeight: FontWeight.w400,
-                      //                       fontFamily: 'Regular-Poppins',
-                      //                       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                           darkMode
-                      //                           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                           : Color(0XFF1C1C23),
-                      //                     ),
-                      //                   ),
-                      //                   onTap: () => categories,
-                      //                 ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Quarterly',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Quarterly'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Semi-Annually',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Semi-Annually'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Annually',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Annually'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Biennially',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Biennially'),
-                      //                 // ),
-                      //                 // ListTile(
-                      //                 //   title: Text('Weekly',
-                      //                 //     style: TextStyle(
-                      //                 //       fontSize: 14,
-                      //                 //       fontWeight: FontWeight.w400,
-                      //                 //       fontFamily: 'Regular-Poppins',
-                      //                 //       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                 //           darkMode
-                      //                 //           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                 //           : Color(0XFF1C1C23),
-                      //                 //     ),
-                      //                 //   ),
-                      //                 //   onTap: () => _selectOption('Weekly'),
-                      //                 // ),
-                      //                 ListTile(
-                      //                   title: Text('Bi-Weekly',
-                      //                     style: TextStyle(
-                      //                       fontSize: 14,
-                      //                       fontWeight: FontWeight.w400,
-                      //                       fontFamily: 'Regular-Poppins',
-                      //                       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                           darkMode
-                      //                           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                           : Color(0XFF1C1C23),
-                      //                     ),
-                      //                   ),
-                      //                   onTap: () => categories
-                      //                 ),
-                      //                 ListTile(
-                      //                   title: Text('Custom',
-                      //                     style: TextStyle(
-                      //                       fontSize: 14,
-                      //                       fontWeight: FontWeight.w400,
-                      //                       fontFamily: 'Regular-Poppins',
-                      //                       color: Provider.of<ThemeChanger>(context).themeData ==
-                      //                           darkMode
-                      //                           ? Color(0XFFFFFFFF).withOpacity(.4)
-                      //                           : Color(0XFF1C1C23),
-                      //                     ),
-                      //                   ),
-                      //                   onTap: () => categories,
-                      //                 ),
-                      //
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       );
-                      //     },
-                      //   );
-                      // },
                       onTap: (){
                         showCategories(context);
                       },
                       child: Container(
-
-                        height: 50, width: 380,
+                       // padding: EdgeInsets.symmetric(horizontal: MySize.size2,),
+                        height: MySize.size40,
+                        width: MySize.scaleFactorWidth*340,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(17),
                           border: Border.all(
                               color:  Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFFFFFFF).withOpacity(.1)
-                                  : Color(0XFF353542).withOpacity(.4),
+                                  ? const Color(0XFFFFFFFF).withOpacity(.1)
+                                  : const Color(0XFF353542).withOpacity(.4),
                           )
                         ),
                         child: Row(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(Icons.search, color: Color(0xff666680)),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               _selectedOption.values.first ?? "Select subscription Provider",
                               style: TextStyle(
                                 fontSize: MySize.size12,
                                 fontWeight: FontWeight.w500,
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFFA2A2B5),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 25,),
-                    //   child: GestureDetector(
-                    //     onTap: (){
-                    //       showModalBottomSheet<void>(
-                    //         context: context,
-                    //         builder: (BuildContext context) {
-                    //           return Container(
-                    //             decoration: BoxDecoration(
-                    //                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    //                     ? Color(0XFF353542)
-                    //                     : Color(0XFFF1F1FF),
-                    //                 borderRadius: BorderRadius.only(
-                    //                   topRight: Radius.circular(16),
-                    //                   topLeft: Radius.circular(16),
-                    //                 )
-                    //             ),
-                    //             height: 400,
-                    //             child: Center(
-                    //               child: SingleChildScrollView(
-                    //                 child: Column(
-                    //                   mainAxisAlignment: MainAxisAlignment.center,
-                    //                   mainAxisSize: MainAxisSize.min,
-                    //                   children: <Widget>[
-                    //                     const SizedBox(height: 30,),
-                    //                     Text('Select Billing Plan',
-                    //                       style: TextStyle(
-                    //                         fontSize: MySize.size14,
-                    //                         fontWeight: FontWeight.w600,
-                    //                         color: Provider.of<ThemeChanger>(
-                    //                             context)
-                    //                             .themeData ==
-                    //                             darkMode
-                    //                             ? Colors.white
-                    //                             : Color(0XFF424252),
-                    //                       ),
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Monthly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Quarterly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Semi-Annually',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () =>categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Annually',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Biennially',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () =>categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Weekly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Bi-Weekly',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () => categories,
-                    //                     ),
-                    //                     ListTile(
-                    //                       title: Text('Custom',
-                    //                         style: TextStyle(
-                    //                           fontSize: 14,
-                    //                           fontWeight: FontWeight.w400,
-                    //                           fontFamily: 'Regular-Poppins',
-                    //                           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //                               darkMode
-                    //                               ? Color(0XFFFFFFFF).withOpacity(.4)
-                    //                               : Color(0XFF1C1C23),
-                    //                         ),
-                    //                       ),
-                    //                       onTap: () =>categories,
-                    //                     ),
-                    //
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           );
-                    //         },
-                    //       );
-                    //     },
-                    //     child: TextFormField(
-                    //       cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    //           ? Color(0XFFFFFFFF)
-                    //           : Color(0XFF1C1C23),
-                    //       decoration: InputDecoration(
-                    //         isDense: true,
-                    //         contentPadding: EdgeInsets.zero,
-                    //         prefixIcon: Icon(Icons.search,color: Color(0xff666680),),
-                    //         hintText: 'Select Subscription Provider',
-                    //         hintStyle: TextStyle(
-                    //           fontSize: MySize.size12,
-                    //           fontWeight: FontWeight.w500,
-                    //           color: Provider.of<ThemeChanger>(context).themeData ==
-                    //               darkMode
-                    //               ? Color(0XFF666680)
-                    //               : Color(0XFF666680),
-                    //         ),
-                    //               // border: OutlineInputBorder(
-                    //               //   borderRadius: BorderRadius.circular(16),
-                    //               //   borderSide:  BorderSide(
-                    //               //             color:  Provider.of<ThemeChanger>(context).themeData ==
-                    //               //                   darkMode
-                    //               //                   ? Color(0XFFFFFFFF).withOpacity(.1)
-                    //               //                   : Color(0XFF353542).withOpacity(.1),
-                    //               //             width: 1.5,
-                    //               //           ),
-                    //               //         ),
-                    //         focusedBorder: OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(16),
-                    //           borderSide: BorderSide(
-                    //             color:  Provider.of<ThemeChanger>(context).themeData ==
-                    //                   darkMode
-                    //                   ? Color(0XFFFFFFFF).withOpacity(.1)
-                    //                   : Color(0XFF353542).withOpacity(.4),
-                    //             width: 1.5,
-                    //           ),
-                    //         ),
-                    //         enabledBorder: OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(16),
-                    //       borderSide: BorderSide(
-                    //       color:  Provider.of<ThemeChanger>(context).themeData ==
-                    //           darkMode
-                    //           ? Color(0XFFFFFFFF).withOpacity(.1)
-                    //           : Color(0XFF353542).withOpacity(.4),
-                    //       width: 1.5,
-                    //     ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -749,9 +385,7 @@ class _SubscriptionState extends State<Subscription> {
                 height: 4,
                 child: ListView(
                   children: [
-                    SizedBox(
-                      height: MySize.size34,
-                    ),
+                    SizedBox(height: MySize.size34,),
                   ],
                 ),
               ),
@@ -763,8 +397,8 @@ class _SubscriptionState extends State<Subscription> {
                   fontWeight: FontWeight.w500,
                   color: Provider.of<ThemeChanger>(context).themeData ==
                       darkMode
-                      ? Color(0XFF666680)
-                      : Color(0XFF666680),
+                      ? const Color(0XFF666680)
+                      : const Color(0XFF666680),
                 ),
               ),
               SizedBox(
@@ -778,8 +412,8 @@ class _SubscriptionState extends State<Subscription> {
                     border: Border.all(
                       color:  Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF).withOpacity(.1)
-                          : Color(0XFF353542).withOpacity(.4),
+                          ? const Color(0XFFFFFFFF).withOpacity(.1)
+                          : const Color(0XFF353542).withOpacity(.4),
                       width: 1.5,
                     ),
                     borderRadius: BorderRadius.circular(16),
@@ -809,13 +443,7 @@ class _SubscriptionState extends State<Subscription> {
                   children: [
                     GestureDetector(
                       onTap: (){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                         const SnackBar(
-                              backgroundColor: Color(0XFF1C1C23),
-                              content: Center(child: Text('Price is deducted ', style: TextStyle(
-                                color: Colors.white
-                              ),)))
-                        );
+                        _decrementText();
                       },
                       child: Container(
                         height: MySize.scaleFactorHeight * 48,
@@ -824,31 +452,22 @@ class _SubscriptionState extends State<Subscription> {
                           border: Border.all(
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFFCFCFFC).withOpacity(.15)
-                                : Color(0XFFCFCFFC).withOpacity(.15),
+                                ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                : const Color(0XFFCFCFFC).withOpacity(.15),
                           ),
                             color:Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF4E4E61).withOpacity(.1)
-                                : Color(0XFF4E4E61).withOpacity(.2),
+                                ? const Color(0XFF4E4E61).withOpacity(.1)
+                                : const Color(0XFF4E4E61).withOpacity(.2),
                             borderRadius: BorderRadius.circular(16)
                         ),
-                        // child: IconButton(onPressed: (){
-                        //
-                        // }, icon: Icon(
-                        //             Icons.remove,
-                        //               size: MySize.size30,
-                        //               color:Provider.of<ThemeChanger>(context).themeData ==
-                        //                   darkMode
-                        //                   ? Color(0XFF4E4E61)
-                        //                   : Color(0XFF353542)))
                         child: Icon(
                           Icons.remove,
                           size: MySize.size30,
                           color:Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                              ? Color(0XFF4E4E61)
-                              : Color(0XFF353542)
+                              ? const Color(0XFF4E4E61)
+                              : const Color(0XFF353542)
                         ),
                       ),
                     ),
@@ -861,8 +480,8 @@ class _SubscriptionState extends State<Subscription> {
                             fontWeight: FontWeight.w600,
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF83839C)
-                                : Color(0XFF83839C) //: Color(0XFF333339),
+                                ? const Color(0XFF83839C)
+                                : const Color(0XFF83839C) //: Color(0XFF333339),
                           ),
                         ),
                         SizedBox(
@@ -872,7 +491,7 @@ class _SubscriptionState extends State<Subscription> {
                           width: 100,
                           child: TextFormField(
                             controller: _controller,
-                            keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true,),
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true,),
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(RegExp(r'^\$?\d*\.?\d{0,2}')), // Allow only digits and up to 2 decimal places
                             ],
@@ -882,31 +501,31 @@ class _SubscriptionState extends State<Subscription> {
                                color: Provider.of<ThemeChanger>(context).themeData ==
                                    darkMode
                                    ? Colors.white
-                                   : Color(0XFF333339),
+                                   : const Color(0XFF333339),
                              ),
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              hintText:"\$5.99",
+                              contentPadding: const EdgeInsets.only(left: 20),
+                              hintText:"\$0.0",
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: MySize.size24,
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode
                                     ? Colors.white
-                                    : Color(0XFF333339),
+                                    : const Color(0XFF333339),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? Color(0XFF353542)
-                                      : Color(0XFF353542)
+                                      ? const Color(0XFF353542)
+                                      : const Color(0XFF353542)
                                 )
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide:  BorderSide(
                                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? Color(0XFF353542)
-                                  : Color(0XFF353542)
+                                  ? const Color(0XFF353542)
+                                  : const Color(0XFF353542)
                                 )
                               ),
 
@@ -917,17 +536,7 @@ class _SubscriptionState extends State<Subscription> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        ScaffoldMessenger.of(context).showSnackBar(
-
-                            SnackBar(
-                              // margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-                              // showCloseIcon: true,
-                              //   closeIconColor: Colors.redAccent,
-                              backgroundColor: Color(0XFF1C1C23),
-                                content: Center(
-                                child: Text('Price is added', style: TextStyle(
-                                   color: Colors.white
-                                ),))));
+                        _incrementText();
                       },
                       child: Container(
                         height: MySize.scaleFactorHeight * 48,
@@ -936,13 +545,13 @@ class _SubscriptionState extends State<Subscription> {
                             border: Border.all(
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFCFCFFC).withOpacity(.15)
-                                  : Color(0XFFCFCFFC).withOpacity(.15),
+                                  ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                  : const Color(0XFFCFCFFC).withOpacity(.15),
                             ),
                             color:Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF4E4E61).withOpacity(.1)
-                                : Color(0XFF4E4E61).withOpacity(.2),
+                                ? const Color(0XFF4E4E61).withOpacity(.1)
+                                : const Color(0XFF4E4E61).withOpacity(.2),
                             borderRadius: BorderRadius.circular(16)
                         ),
                         child: Icon(
@@ -950,8 +559,8 @@ class _SubscriptionState extends State<Subscription> {
                           size: MySize.size30,
                             color:Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFF4E4E61)
-                                : Color(0XFF353542)
+                                ? const Color(0XFF4E4E61)
+                                : const Color(0XFF353542)
                         ),
                       ),
                     ),
@@ -1007,7 +616,7 @@ class _SubscriptionState extends State<Subscription> {
                       ),
                 ),
                 )),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
             ],
           ),
         ),

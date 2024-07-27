@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
 import '../../../theme/theme.dart';
+import '../../../utils/app_Images.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_constant.dart';
 import '../../../utils/my_size.dart';
@@ -80,24 +82,27 @@ class ShowDialogBox extends StatelessWidget {
                           SizedBox(
                             width: MySize.size10,
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 40),
-                              child: Text('Accept',
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.w400,
-                                  color:  Provider.of<ThemeChanger>(context)
-                                      .themeData == darkMode
-                                      ?  Color(0XFF2B83F2) // #
-                                      :  Color(0XFF2B83F2),
+                          Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                            return TextButton(
+                              onPressed: () {
+                                profileProvider.deleteAccount(context: context);
+                                // Navigator.pop(context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 40),
+                                child: profileProvider.isDeleteAccount ? Center(child: CircularProgressIndicator(color: Colors.green,),):  Text('Accept',
+                                  style: TextStyle(
+                                    fontSize: MySize.size14,
+                                    fontWeight: FontWeight.w400,
+                                    color:  Provider.of<ThemeChanger>(context)
+                                        .themeData == darkMode
+                                        ?  Color(0XFF2B83F2) // #
+                                        :  Color(0XFF2B83F2),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },)
                         ],
                       )
                     ],
@@ -109,7 +114,7 @@ class ShowDialogBox extends StatelessWidget {
       child: SettingRowList(
         text: 'Delete Account',
         color: Color(0XFFB50000),
-        imageIcon: Image.asset(AppConstant.delete, color: Color(0XFFB50000),),
+        imageIcon: Image.asset(AppImages.delete, color: Color(0XFFB50000),),
       ),
     );
   }

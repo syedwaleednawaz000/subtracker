@@ -26,29 +26,15 @@ class RegisterWithM extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              FieldContainer(
-                myImage: 'assets/icons/apple.png',
+              const FieldContainer(
+                myImage: AppImages.appleIcon,
                 containerColor: AppColors.grey100, // Always grey100
                 mytitle: 'Sign up with Apple',
                 textColor: Colors.white, // Always white
               ),
-              // FieldContainer(
-              //   myImage: 'assets/icons/apple.png',
-              //   // containerColor:  Provider.of<ThemeChanger>(context)
-              //   //   .themeData == darkMode
-              //   //   ? AppColors.grey100
-              //   //   : AppColors.grey100,
-              //   containerColor: AppColors.grey100,
-              //   mytitle: 'Sign up with Apple',
-              //   // textColor: Provider.of<ThemeChanger>(context)
-              //   //   .themeData == darkMode
-              //   //   ? Colors.white
-              //   //   : Colors.white,
-              //   textColor: Colors.white,
-              // ),
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               FieldContainer(
-                myImage: 'assets/icons/google.png',
+                myImage: AppImages.googleIcon,
               containerColor:  Provider.of<ThemeChanger>(context)
                   .themeData == darkMode
                   ? AppColors.white100
@@ -58,13 +44,13 @@ class RegisterWithM extends StatelessWidget {
                   // 1C1C23
                 textColor:  Provider.of<ThemeChanger>(context)
                   .themeData == darkMode
-                  ? Color(0XFF1C1C23)
-                  :  Color(0XFF1C1C23),
+                  ? const Color(0XFF1C1C23)
+                  :  const Color(0XFF1C1C23),
               ),
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder:  (context) => LoginScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder:  (context) => const SignupScreen()));
                 },
                 child: FieldContainer(
                   containerColor:  Provider.of<ThemeChanger>(context)
@@ -78,23 +64,23 @@ class RegisterWithM extends StatelessWidget {
                       :  AppColors.white100,
                 ),
               ),
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               Text('OR',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
                 color: Provider.of<ThemeChanger>(context)
                   .themeData == darkMode
-                  ? Color(0XFFFFFFFF)
-                  :  Color(0XFFFFFFFF),
+                  ? const Color(0XFFFFFFFF)
+                  :  const Color(0XFFFFFFFF),
               ),
               ),
 
 
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder:  (context) => SignupScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
                 },
                 child: Padding(
                   padding: EdgeInsets.only( bottom: MySize.size30),
@@ -114,7 +100,7 @@ class RegisterWithM extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               // Padding(
               //   padding: const EdgeInsets.only(left: 10, right: 10),
               //   child: TextWidgetInterBold(title: 'By registering, you agree to our Terms of Use. Learn \nhow we collect, use and share your data.',
@@ -123,14 +109,14 @@ class RegisterWithM extends StatelessWidget {
               //       // fontWeight: FontWeight.w400,
               //       color: AppColors.grey30.withOpacity(.3)),
               // ),
-              Text('By registering, you agree to our Terms of Use. Learn \nhow we collect, use and share your data.',
+              const Text('By registering, you agree to our Terms of Use. Learn \nhow we collect, use and share your data.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0XFF666680),
               ),),
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
             ],
           ),
         ));

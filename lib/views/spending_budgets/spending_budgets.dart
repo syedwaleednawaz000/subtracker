@@ -33,7 +33,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
   List<String> trailTitle      =  ['\$25.99', '\$50.99', '\$5.99'];
   List<String> trailSubtitle   =  ['of \$400','of \$600', 'of \$600' ];
 
-  List<Color> gradientColors = [AppColors.accent100, Color(0XFF758AFF), AppColors.purpleLine];
+  List<Color> gradientColors = [AppColors.accent100, const Color(0XFF758AFF), AppColors.purpleLine];
 
   List<int> lineMaxSteps = [30, 30, 30];
   List<int> lineCurrentSteps = [10, 18, 24];
@@ -59,20 +59,20 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: true,
-              title:  Text('Spending & Budgets',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+              title:  Text('Spending & Budgets',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
              actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25),
                   child: InkWell(
                   onTap: (){
 
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
                     },
-                      child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
+                      child: Image.asset(AppImages.notificationIcon, height: 25, width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                   darkMode
-                    ? Color(0XFFA2A2B5)
-                  : Color(0XFF424252),
+                    ? const Color(0XFFA2A2B5)
+                  : const Color(0XFF424252),
                                 )),
                 )
              ],
@@ -80,8 +80,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
           ),
         ),
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? Color(0XFF1C1C23)
-            : Color(0XFFF7F7FF),
+            ? const Color(0XFF1C1C23)
+            : const Color(0XFFF7F7FF),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -90,7 +90,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               Stack(
                 children: [
                   // const RoundProgessBar(),
-                  Image.asset('assets/Chart_half.png', height: 165, width: 250,),
+                  Image.asset(AppImages.half_chartIcon, height: 165, width: 250,),
                   Positioned(
                     left: 100,
                     top: 75,
@@ -126,8 +126,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   color: Colors.transparent,
                   border: Border.all(
                    color:   Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFF4E4E61)
-                          : Color(0XFF4E4E61).withOpacity(.2),
+                          ? const Color(0XFF4E4E61)
+                          : const Color(0XFF4E4E61).withOpacity(.2),
                       width: 1),
               ),
               child: Row(
@@ -137,12 +137,12 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                       // color: AppColors.white100,
                       fontSize: MySize.size14),
                   SizedBox(width: MySize.size25,),
-                  Image.asset('assets/icons/hand.png', width: 14, height: 16)
+                  Image.asset(AppImages.handIcon, width: 14, height: 16)
                 ],
               ),),
               SizedBox(height: MySize.size16,),
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
 
                 itemCount: titleText.length,
                 shrinkWrap: true,
@@ -156,11 +156,11 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                         width: MySize.scaleFactorWidth * 326,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(MySize.size16),
                             color:   Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Color(0XFF4E4E61).withOpacity(.2)
-                                : Color(0XFFF1F1FF),
+                                ? const Color(0XFF4E4E61).withOpacity(.2)
+                                : const Color(0XFFF1F1FF),
                         border: Border.all(color:   Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Color(0XFFCFCFFC).withOpacity(.15)
-                            : Color(0XFFCFCFFC).withOpacity(.15),)
+                            ? const Color(0XFFCFCFFC).withOpacity(.15)
+                            : const Color(0XFFCFCFFC).withOpacity(.15),)
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -173,8 +173,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                   fontWeight: FontWeight.w600,
                                   color: Provider.of<ThemeChanger>(context).themeData ==
                                       darkMode
-                                      ? Color(0XFFFFFFFF)
-                                      : Color(0XFF424252),
+                                      ? const Color(0XFFFFFFFF)
+                                      : const Color(0XFF424252),
                                 ),
                               ),
 
@@ -185,8 +185,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                   fontWeight: FontWeight.w500,
                                   color: Provider.of<ThemeChanger>(context).themeData ==
                                       darkMode
-                                      ? Color(0XFFA2A2B5 )
-                                      : Color(0XFF424252),
+                                      ? const Color(0XFFA2A2B5 )
+                                      : const Color(0XFF424252),
                                 ),
                               ),
 
@@ -201,8 +201,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       fontWeight: FontWeight.w600,
                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                           darkMode
-                                          ? Color(0XFFFFFFFF)
-                                          : Color(0XFF424252),
+                                          ? const Color(0XFFFFFFFF)
+                                          : const Color(0XFF424252),
                                     ),
                                   ),
                                   Text( trailSubtitle[index],
@@ -212,8 +212,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       fontWeight: FontWeight.w500,
                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                           darkMode
-                                          ? Color(0XFFA2A2B5)
-                                          : Color(0XFF424252),
+                                          ? const Color(0XFFA2A2B5)
+                                          : const Color(0XFF424252),
                                     ),
                                   ),
 
@@ -239,69 +239,116 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                 child: GestureDetector(
                   onTap: (){
                   showDialog(context: context, builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Center(
-                        child: Text('Spending & Budgets',style: TextStyle(
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? Color(0XFFA2A2B5)
-                                : Color(0XFFA2A2B5),
-                            fontSize: MySize.size18, fontWeight: FontWeight.w700),),
-                      ),
-                      content: Text('Are you sure you want to add category', style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? Color(0XFFFFFFFF)
-                              : Color(0XFF1C1C23),
-                          fontSize: MySize.size16, fontWeight: FontWeight.w400),),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('Add',
-                              style: TextStyle(
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? Colors.lightBlue
-                                      : Colors.lightBlue,
-                                  fontSize: MySize.size16, fontWeight: FontWeight.w400),
-                          ),
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Center(child: Text('New catrgory is added'))));
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: Text('Cancel',
-                              style: TextStyle(
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? Colors.redAccent
-                                      : Colors.redAccent,
-                                  fontSize: MySize.size16, fontWeight: FontWeight.w400),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Center(child: Text('Cancelling to add new',
-                              style: TextStyle(
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? Colors.redAccent
-                                      : Colors.redAccent,
-                                  fontSize: MySize.size16, fontWeight: FontWeight.w400),
-                            ),
-                            )));
-
-                          },
-                        ),
-                      ],
-                    );
+                     return AlertDialog(
+                       title: Center(
+                         child: Text(
+                           'Spending & Budgets',
+                           style: TextStyle(
+                             color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                 ? const Color(0XFFA2A2B5)
+                                 : const Color(0XFFA2A2B5),
+                             fontSize: MySize.size18,
+                             fontWeight: FontWeight.w700,
+                           ),
+                         ),
+                       ),
+                       content: Column(
+                         mainAxisSize: MainAxisSize.min,
+                         children: [
+                           Text(
+                             'Please enter new category and its price',
+                             style: TextStyle(
+                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                   ? const Color(0XFFFFFFFF)
+                                   : const Color(0XFF1C1C23),
+                               fontSize: MySize.size16,
+                               fontWeight: FontWeight.w400,
+                             ),
+                           ),
+                           const SizedBox(height: 10),
+                           TextField(
+                             decoration: InputDecoration(
+                               labelText: 'Category',
+                               hintText: 'Enter Category',
+                               labelStyle: TextStyle(
+                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                     ? const Color(0XFFFFFFFF)
+                                     : const Color(0XFF1C1C23),
+                               ),
+                             ),
+                           ),
+                           const SizedBox(height: 10),
+                           TextField(
+                             decoration: InputDecoration(
+                               labelText: 'Price',
+                               hintText: 'Enter Price',
+                               labelStyle: TextStyle(
+                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                     ? const Color(0XFFFFFFFF)
+                                     : const Color(0XFF1C1C23),
+                               ),
+                             ),
+                             keyboardType: TextInputType.number,
+                           ),
+                         ],
+                       ),
+                       actions: <Widget>[
+                         TextButton(
+                           child: Text(
+                             'Add',
+                             style: TextStyle(
+                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                   ? Colors.lightBlue
+                                   : Colors.lightBlue,
+                               fontSize: MySize.size16,
+                               fontWeight: FontWeight.w400,
+                             ),
+                           ),
+                           onPressed: () {
+                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Center(child: Text('New category is added'))));
+                             Navigator.of(context).pop();
+                           },
+                         ),
+                         TextButton(
+                           child: Text(
+                             'Cancel',
+                             style: TextStyle(
+                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                   ? Colors.redAccent
+                                   : Colors.redAccent,
+                               fontSize: MySize.size16,
+                               fontWeight: FontWeight.w400,
+                             ),
+                           ),
+                           onPressed: () {
+                             Navigator.of(context).pop();
+                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                               content: Center(
+                                 child: Text(
+                                   'Cancelling to add new',
+                                   style: TextStyle(
+                                     color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                         ? Colors.redAccent
+                                         : Colors.redAccent,
+                                     fontSize: MySize.size16,
+                                     fontWeight: FontWeight.w400,
+                                   ),
+                                 ),
+                               ),
+                              ),
+                            );
+                           },
+                         ),
+                       ],
+                     );
                   });
                   },
                   child: DottedBorder(
                     dashPattern: const [6, 6, 6, 6],
                     color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode
-                        ? Color(0XFF4E4E61)
-                        : Color(0XFF4E4E61).withOpacity(.5),
+                        ? const Color(0XFF4E4E61)
+                        : const Color(0XFF4E4E61).withOpacity(.5),
                     strokeWidth: 1,
                     borderType: BorderType.RRect,
                     radius: Radius.circular(MySize.size12),
@@ -317,8 +364,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                               fontWeight: FontWeight.w600,
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                                  ? Color(0XFFA2A2B5)
-                                  : Color(0XFFA2A2B5),
+                                  ? const Color(0XFFA2A2B5)
+                                  : const Color(0XFFA2A2B5),
                             ),
                           ),
 
@@ -332,8 +379,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                               border: Border.all(
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFFA2A2B5),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                                 width: 2,
                               ),
                             ),
@@ -342,8 +389,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                 Icons.add,
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode
-                                    ? Color(0XFFA2A2B5)
-                                    : Color(0XFFA2A2B5),
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                                 size: MySize.size12,
                               ),
                             ),
@@ -354,7 +401,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   ),
                 ),
               ),
-              SizedBox(height: 60,)
+              const SizedBox(height: 60,)
             ],
           ),
         ),

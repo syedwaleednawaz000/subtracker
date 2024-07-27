@@ -1,16 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
 import '../../theme/theme.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
 
-class TermsOfServices extends StatelessWidget {
+class TermsOfServices extends StatefulWidget {
   const   TermsOfServices({super.key});
 
+  @override
+  State<TermsOfServices> createState() => _TermsOfServicesState();
+}
+
+class _TermsOfServicesState extends State<TermsOfServices> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() =>     Provider.of<TermAndConditionProvider>(context,listen: false).getTermAndCondition());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,216 +26,72 @@ class TermsOfServices extends StatelessWidget {
           ? Color(0XFF1C1C23)
           : Colors.white,
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 23, vertical: 13),
-              child: Row(
-                children: [
-                  GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset('assets/icons/back_arrow.png', height: 24,width: 24,)),
-                  SizedBox(
-                    width: MySize.scaleFactorWidth * 90,
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 23, vertical: 13),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Image.asset(AppImages.backArrow, height: 24,width: 24,)),
+                      SizedBox(
+                        width: MySize.scaleFactorWidth * 90,
+                      ),
+                      Text('Terms of Service',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: MySize.size16,
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Color(0XFFA2A2B5)
+                                : Color(0XFF333339),
+                            fontFamily: 'Poppins_Regular'
+                        ),
+                      ),
+                    ],
                   ),
-                  Text('Terms of Service',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: MySize.size16,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Color(0XFFA2A2B5)
-                            : Color(0XFF333339),
-                        fontFamily: 'Poppins_Regular'
+                ),
+                SizedBox(
+                  height: MySize.size30,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: MySize.size32),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text('Terms of Service',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 18,
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Color(0XFFEEEEEE)
+                              : Color(0XFF1C1C23),
+                          fontFamily: 'Poppins_Regular'
+                      ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MySize.size30,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: MySize.size32),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text('Terms of Service',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 18,
+                ),
+                Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
+                 return termAndConditionProvider.isTermAndCondition ?
+                     const Center(child: CircularProgressIndicator(color: Colors.green),):
+                  termAndConditionProvider.termAndConditionData == null ?
+                    const Center(child: Text("term and condition not available"),):
+                  Text("${termAndConditionProvider.termAndConditionData['value']}",textAlign: TextAlign.left,style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFFEEEEEE)
-                          : Color(0XFF1C1C23),
+                          ? Colors.white
+                          : Color(0XFF333339),
                       fontFamily: 'Poppins_Regular'
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: MySize.size16,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: MySize.size32),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(AppConstant.privText,
-                    style:  TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Colors.white
-                            : Color(0XFF333339),
-                        fontFamily: 'Poppins_Regular'
-                    ),
-                )
-              ),
-            ),
-            SizedBox(
-              height: MySize.size18,
-            ),
-            Padding(
-              padding:
-              EdgeInsets.only(left: MySize.size32, right: MySize.size20),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text:
-                        'Diam quam dignissim dignissim tellus tellus eu\nsed a. Et nec suspendisse ante sed odio sit mauris\nnec sit. Adipiscing ipsum lacus in penatibus tortor\nfaucibus nisl diam.',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),),
-                      TextSpan(
-                        text: ' Aenean non ut malesuada\n ',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        'gravida vel integer suspendisse arcu velit. Facilisis\nvel lectus a nisi. Vitae donec ipsum eu nulla\npellentesque semper. Dapibus egestas diam mi\neleifend risus nunc enim.',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        ' Natoque pellentesque\namet interdum ut felis. Vitae integer posuere\n',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        'euismod ut amet. Diam amet egestas pretium a\nultrices auctor cras scelerisque. In porttitor sed.',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: MySize.size18,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: MySize.size32),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(AppConstant.privText,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Colors.white
-                            : Color(0XFF333339),
-                        fontFamily: 'Poppins_Regular'
-                    ),
-                )
-              ),
-            ),
-            SizedBox(
-              height: MySize.size18,
-            ),
-            Padding(
-              padding:
-              EdgeInsets.only(left: MySize.size32, right: MySize.size32),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text:
-                        'Diam quam dignissim dignissim tellus tellus eu\nsed a. Et nec suspendisse ante sed odio sit mauris\nnec sit. Adipiscing ipsum lacus in penatibus tortor\nfaucibus nisl diam.',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Aenean non ut malesuada\n ',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        'gravida vel integer suspendisse arcu velit. Facilisis\nvel lectus a nisi. Vitae donec ipsum eu nulla\npellentesque semper. Dapibus egestas diam mi\neleifend risus nunc enim.',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Colors.white
-                                : Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                  ),);
+                  }
+                  )
+              ],
             ),
           ],
         ),

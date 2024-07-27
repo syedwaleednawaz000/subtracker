@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/change_password_provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
+import 'package:sub_tracker/views/change_password/change_password.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
@@ -16,12 +22,17 @@ class PersonalData extends StatefulWidget {
 }
 
 class _PersonalDataState extends State<PersonalData> {
+  final TextEditingController _emailEditingController = TextEditingController();
+  final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _phoneNumberEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
     MySize().init(context);
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Color(0XFFF7F7FF),
         body: Column(
           children: [
@@ -36,7 +47,7 @@ class _PersonalDataState extends State<PersonalData> {
                       onTap: (){
                         Navigator.pop(context);
                       },
-                      child: Image.asset(AppConstant.backArrow, height: 20,)),
+                      child: Image.asset(AppImages.backArrow, height: 20,)),
                   SizedBox(
                     width: MySize.scaleFactorWidth * 120,
                   ),
@@ -54,15 +65,19 @@ class _PersonalDataState extends State<PersonalData> {
               height: 40,
             ),
 
-            Container(
-              height: MySize.size72,
-              width: MySize.size72,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(90),
-              ),
-              child: AppConstant.personImage,
-            ),
+Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+   return             Container(
+     height: MySize.size72,
+     width: MySize.size72,
+     decoration: BoxDecoration(
+       color: Colors.transparent,
+       borderRadius: BorderRadius.circular(90),
+     ),
+     child:profileProvider.updatePic == null ?
+     Image.asset(AppImages.person) :
+     Image.file(File(profileProvider.updatePic!.path.toString())),
+   );
+},),
             SizedBox(
               height: MySize.size8,
             ),
@@ -76,41 +91,40 @@ class _PersonalDataState extends State<PersonalData> {
             SizedBox(
               height: MySize.size8,
             ),
-            // SaveButton(
-            //   height: MySize.size32,
-            //   width: MySize.size72,
-            //   text: 'Change',
-            // ),
 
-            Container(
-              height: 36, width: 70,
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return GestureDetector(
+                onTap: (){
+                  profileProvider.picPicture();
+                },
+                child: Container(
+                  height: 36, width: 70,
 
-              decoration: BoxDecoration(
-                borderRadius:  BorderRadius.circular(16),
-                color:   Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ? Colors.white.withOpacity(.1) : Color(0XFFF1F1FF),
-                border: Border(
-                  top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode
-                      ? Color(0xFFCFCFFC).withOpacity(.15)
-                      : Color(0xFFCFCFFC).withOpacity(.15)),
-                  // bottom: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                  //     darkMode
-                  //     ? Color(0xFFCFCFFC).withOpacity(.15)
-                  //     : Color(0xFFCFCFFC).withOpacity(.15)),
-                  left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode
-                      ? Color(0xFFCFCFFC).withOpacity(.15)
-                      : Color(0xFFCFCFFC).withOpacity(.15)),
+                  decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.circular(16),
+                    color:   Provider.of<ThemeChanger>(context).themeData ==
+                        darkMode ? Colors.white.withOpacity(.1) : Color(0XFFF1F1FF),
+                    border: Border(
+                      top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0xFFCFCFFC).withOpacity(.15)
+                          : Color(0xFFCFCFFC).withOpacity(.15)),
+
+                      left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0xFFCFCFFC).withOpacity(.15)
+                          : Color(0xFFCFCFFC).withOpacity(.15)),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text('Change',
+                      style: TextStyle(
+                          color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Color(0XFF424252),
+                          fontSize: 12, fontWeight: FontWeight.w600),),
+                  ),
                 ),
-              ),
-              child: Center(
-                child: Text('Change',
-                  style: TextStyle(
-                      color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Color(0XFF424252),
-                      fontSize: 12, fontWeight: FontWeight.w600),),
-              ),
-            ),
+              );
+            },),
 
             SizedBox(
               height: MySize.size19,
@@ -132,6 +146,7 @@ class _PersonalDataState extends State<PersonalData> {
                     height: MySize.size4,
                   ),
                   TextFormField(
+                    controller: _emailEditingController,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.only(
@@ -184,6 +199,7 @@ class _PersonalDataState extends State<PersonalData> {
                     height: 4,
                   ),
                   TextFormField(
+                    controller: _nameEditingController,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.only(left: 20, right: 20),
@@ -236,12 +252,14 @@ class _PersonalDataState extends State<PersonalData> {
                     height: 4,
                   ),
                   TextFormField(
+                    controller: _phoneNumberEditingController,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       isDense: true,
                       contentPadding: const EdgeInsets.only(left: 20, right: 20),
                       hintText: 'Phone No.',
                       hintStyle: TextStyle(
-                          fontFamily: 'Poppins_Regular',
+                        fontFamily: 'Poppins_Regular',
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
                         fontSize: MySize.size12,
                       ),
@@ -267,8 +285,16 @@ class _PersonalDataState extends State<PersonalData> {
               ),
             ),
 
-            Spacer(),
-            CustomSaveButton(titleText: 'Next',),
+            const Spacer(),
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return             CustomSaveButton(
+                loading: profileProvider.isUpdated,
+                onTap: (){
+                  profileProvider.updateProfile(email: _emailEditingController.text.trim(),
+                      name: _nameEditingController.text.trim(), phone: _phoneNumberEditingController.text.trim());
+                },
+                titleText: 'Update',);
+            },)
           ],
         ),
       ),
@@ -277,12 +303,16 @@ class _PersonalDataState extends State<PersonalData> {
 }
 
 class CustomSaveButton extends StatelessWidget {
-  const CustomSaveButton({
+   CustomSaveButton({
     super.key,
    required this.titleText,
+    this.onTap,
+     this.loading,
   });
 
    final String titleText ;
+  void Function()? onTap;
+  bool? loading ;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -307,10 +337,7 @@ class CustomSaveButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Settings()));
-            },
+            onTap: onTap,
             child: Container(
                 height: 48,
                 width: 288,
@@ -327,7 +354,7 @@ class CustomSaveButton extends StatelessWidget {
                         : Color(0XFFF1F1FF),
                     ),
                 child: Center(
-                  child: Text(
+                  child: loading == true ? const CircularProgressIndicator(color: Colors.green,): Text(
                     titleText,
                     style: TextStyle(
                       fontSize: 14,
