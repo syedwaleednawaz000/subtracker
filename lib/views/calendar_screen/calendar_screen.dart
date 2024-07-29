@@ -218,7 +218,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         children: [
                           GestureDetector(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const SubscriptionInfo()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionInfo(subscriptionInfoData: {},)));
                             },
                             child: SubsContainer(
                               title: 'SignNTrack',
@@ -228,7 +228,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const SubscriptionInfo()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionInfo(subscriptionInfoData: {},)));
                             },
                             child: SubsContainer(
                               title: 'Profilio',
@@ -238,7 +238,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const SubscriptionInfo()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionInfo(subscriptionInfoData: {},)));
                             },
                             child: SubsContainer(
                               title: 'Microsoft ',
