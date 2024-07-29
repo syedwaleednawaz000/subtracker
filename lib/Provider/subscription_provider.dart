@@ -11,6 +11,8 @@ import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
+import '../views/subscriptioninfo/subscription_info.dart';
+
 class SubscriptionProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
 
@@ -31,22 +33,24 @@ class SubscriptionProvider extends ChangeNotifier{
     required String price, required String reminderDuration, required String categoryID,
     required String providerId})async{
     _storeSubLoading(load: true);
+    String cleanedPrice = price.replaceAll('\$', '');
     var body = {
-      'description': 'Ab voluptatum quis q',
-      'start_date': '2010-11-10',
-      'renewal_date': '2017-08-24',
-      'billing_cycle': 'Yearly',
-      'price': '65.0',
-      'reminder_duration': '1 week',
-      'category_id': '2',
-      'user_id': '2',
-      'provider_id': '1'
+      'description': description.toString(),
+      'start_date': startDate.toString(),
+      'renewal_date': renewalDate,
+      'billing_cycle': billingCycle,
+      'price': cleanedPrice,
+      'reminder_duration': reminderDuration,
+      'category_id': categoryID,
+      'user_id': userId,
+      'provider_id': providerId
     };
     try{
       Response response = await _apiService.storeSubscriptions(params: body);
       if(response.statusCode == 200){
         _storeSubLoading(load: false);
         FlutterToast.toastMessage(message: "Subscription added successfully",);
+        Get.to(()=>SubscriptionInfo(subscriptionInfoData: {}),);
         if (kDebugMode) {
           print("hit successfully");
         }
