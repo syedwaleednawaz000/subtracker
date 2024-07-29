@@ -11,9 +11,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
@@ -27,7 +29,7 @@ class Subscription extends StatefulWidget {
 }
 
 class _SubscriptionState extends State<Subscription> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _monthlyPriceController = TextEditingController();
   Map<String, dynamic> _selectedOption = {
     'Select Subscription Provider': "Select Subscription Provider"
   };
@@ -107,6 +109,7 @@ class _SubscriptionState extends State<Subscription> {
   };
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
+  TextEditingController descriptionController = TextEditingController();
 
   Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -135,7 +138,7 @@ class _SubscriptionState extends State<Subscription> {
               Text(
                 'Subcategories of $category',
                 style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Divider(),
               ...subcategories.map((subcat) {
@@ -175,25 +178,25 @@ class _SubscriptionState extends State<Subscription> {
 
   void _incrementText() {
     setState(() {
-      String text = _controller.text;
+      String text = _monthlyPriceController.text;
       text = text.replaceAll(RegExp(r'[^0-9-]'),
           ''); // Remove all non-numeric characters except for the negative sign
       int currentValue =
           int.tryParse(text) ?? 0; // Parse current text to an integer
       currentValue += 1; // Increment the value
-      _controller.text = currentValue.toString();
+      _monthlyPriceController.text = currentValue.toString();
     });
   }
 
   void _decrementText() {
     setState(() {
-      String text = _controller.text;
+      String text = _monthlyPriceController.text;
       text = text.replaceAll(RegExp(r'[^0-9-]'),
           ''); // Remove all non-numeric characters except for the negative sign
       int currentValue =
           int.tryParse(text) ?? 0; // Parse current text to an integer
       currentValue -= 1; // Decrement the value
-      _controller.text = currentValue.toString();
+      _monthlyPriceController.text = currentValue.toString();
     });
   }
 
@@ -208,13 +211,13 @@ class _SubscriptionState extends State<Subscription> {
     dateInputController.text = _dateFormat.format(currentDate);
     renewalDateController.text = _dateFormat.format(currentDate);
 
-    _controller!.addListener(_formatInput);
+    _monthlyPriceController!.addListener(_formatInput);
   }
 
   void _formatInput() {
-    String currentValue = _controller!.text;
+    String currentValue = _monthlyPriceController!.text;
     if (currentValue.isNotEmpty && !currentValue.startsWith("\$")) {
-      _controller!.value = TextEditingValue(
+      _monthlyPriceController!.value = TextEditingValue(
         text: "\$" + currentValue.replaceAll("\$", ""),
         selection: TextSelection.collapsed(offset: currentValue.length + 1),
       );
@@ -279,6 +282,7 @@ class _SubscriptionState extends State<Subscription> {
     if (picked != null && picked != _selectedDate1) {
       setState(() {
         _selectedDate1 = picked;
+        print("this is my selected value $selectedValue1");
         renewalDateController.text = _dateFormat1.format(picked);
       });
     }
@@ -286,8 +290,8 @@ class _SubscriptionState extends State<Subscription> {
 
   @override
   void dispose() {
-    _controller.removeListener(_formatInput);
-    _controller.dispose();
+    _monthlyPriceController.removeListener(_formatInput);
+    _monthlyPriceController.dispose();
     super.dispose();
   }
 
@@ -322,22 +326,27 @@ class _SubscriptionState extends State<Subscription> {
   Widget build(BuildContext context) {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+      backgroundColor: Provider
+          .of<ThemeChanger>(context)
+          .themeData == darkMode
           ? const Color(0XFF1C1C23)
           : Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+
               /// Above container
               Container(
                 height: MySize.scaleFactorHeight * 515,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color:
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFF353542)
-                            : const Color(0XFFF1F1FF),
+                    Provider
+                        .of<ThemeChanger>(context)
+                        .themeData == darkMode
+                        ? const Color(0XFF353542)
+                        : const Color(0XFFF1F1FF),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(MySize.size24),
                         bottomRight: Radius.circular(MySize.size24))),
@@ -363,9 +372,10 @@ class _SubscriptionState extends State<Subscription> {
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: MySize.size16,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFFA2A2B5)
                                   : const Color(0XFF424252),
                             ),
@@ -382,8 +392,10 @@ class _SubscriptionState extends State<Subscription> {
                       style: TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.w700,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
+                        color: Provider
+                            .of<ThemeChanger>(context)
+                            .themeData ==
+                            darkMode
                             ? Colors.white
                             : const Color(0XFF1C1C23),
                       ),
@@ -414,8 +426,10 @@ class _SubscriptionState extends State<Subscription> {
                       style: TextStyle(
                         fontSize: MySize.size14,
                         fontWeight: FontWeight.w600,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
+                        color: Provider
+                            .of<ThemeChanger>(context)
+                            .themeData ==
+                            darkMode
                             ? Colors.white
                             : const Color(0XFF333339),
                       ),
@@ -428,7 +442,7 @@ class _SubscriptionState extends State<Subscription> {
                       children: [
                         Tooltip(
                           message:
-                              "If the provider is already listed, you can select it from here instead of adding a new one.",
+                          "If the provider is already listed, you can select it from here instead of adding a new one.",
                           decoration: BoxDecoration(
                             color: Colors.blue,
                             // Set the background color of the tooltip
@@ -451,31 +465,35 @@ class _SubscriptionState extends State<Subscription> {
                         SizedBox(
                           width: MySize.size4,
                         ),
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                        Provider
+                            .of<ThemeChanger>(context)
+                            .themeData == darkMode
                             ? Text(
-                                'Select Provider',
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFF666680)
-                                      : const Color(0XFF666680),
-                                ),
-                              )
+                          'Select Provider',
+                          style: TextStyle(
+                            fontSize: MySize.size12,
+                            fontWeight: FontWeight.w500,
+                            color: Provider
+                                .of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFF666680)
+                                : const Color(0XFF666680),
+                          ),
+                        )
                             : Text(
-                                'Select Subscription Provider',
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFF666680)
-                                      : const Color(0XFF666680),
-                                ),
-                              ),
+                          'Select Subscription Provider',
+                          style: TextStyle(
+                            fontSize: MySize.size12,
+                            fontWeight: FontWeight.w500,
+                            color: Provider
+                                .of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFF666680)
+                                : const Color(0XFF666680),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -492,9 +510,10 @@ class _SubscriptionState extends State<Subscription> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(17),
                             border: Border.all(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFFFFFFFF).withOpacity(.1)
                                   : const Color(0XFF353542).withOpacity(.4),
                             )),
@@ -503,7 +522,7 @@ class _SubscriptionState extends State<Subscription> {
                             const Padding(
                               padding: EdgeInsets.all(8.0),
                               child:
-                                  Icon(Icons.search, color: Color(0xff666680)),
+                              Icon(Icons.search, color: Color(0xff666680)),
                             ),
                             const SizedBox(width: 8),
                             Text(
@@ -512,9 +531,10 @@ class _SubscriptionState extends State<Subscription> {
                               style: TextStyle(
                                 fontSize: MySize.size12,
                                 fontWeight: FontWeight.w500,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
+                                color: Provider
+                                    .of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
                                     ? const Color(0XFFA2A2B5)
                                     : const Color(0XFFA2A2B5),
                               ),
@@ -549,9 +569,11 @@ class _SubscriptionState extends State<Subscription> {
                   fontSize: MySize.size12,
                   fontWeight: FontWeight.w500,
                   color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF666680)
-                          : const Color(0XFF666680),
+                  Provider
+                      .of<ThemeChanger>(context)
+                      .themeData == darkMode
+                      ? const Color(0XFF666680)
+                      : const Color(0XFF666680),
                 ),
               ),
               SizedBox(
@@ -563,8 +585,10 @@ class _SubscriptionState extends State<Subscription> {
                   height: 100,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
+                      color: Provider
+                          .of<ThemeChanger>(context)
+                          .themeData ==
+                          darkMode
                           ? const Color(0XFFFFFFFF).withOpacity(.1)
                           : const Color(0XFF353542).withOpacity(.4),
                       width: 1.5,
@@ -572,13 +596,16 @@ class _SubscriptionState extends State<Subscription> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: TextFormField(
+                    controller: descriptionController,
                     cursorColor:
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFFFFFFFF)
-                            : const Color(0XFF1C1C23),
+                    Provider
+                        .of<ThemeChanger>(context)
+                        .themeData == darkMode
+                        ? const Color(0XFFFFFFFF)
+                        : const Color(0XFF1C1C23),
                     decoration: const InputDecoration(
                         contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         isDense: true,
                         border: InputBorder.none),
                   ),
@@ -593,8 +620,10 @@ class _SubscriptionState extends State<Subscription> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MySize.size16),
                       border: Border.all(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
+                        color: Provider
+                            .of<ThemeChanger>(context)
+                            .themeData ==
+                            darkMode
                             ? const Color(0XFFFFFFFF).withOpacity(.1)
                             : const Color(0XFF353542).withOpacity(.4),
                       )),
@@ -645,8 +674,10 @@ class _SubscriptionState extends State<Subscription> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MySize.size16),
                       border: Border.all(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
+                        color: Provider
+                            .of<ThemeChanger>(context)
+                            .themeData ==
+                            darkMode
                             ? const Color(0XFFFFFFFF).withOpacity(.1)
                             : const Color(0XFF353542).withOpacity(.4),
                       )),
@@ -713,18 +744,19 @@ class _SubscriptionState extends State<Subscription> {
                       ],
                     ),
                     items: items
-                        .map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
+                        .map((String item) =>
+                        DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: TextStyle(
+                              fontSize: MySize.size14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ))
                         .toList(),
                     value: selectedValue1,
                     onChanged: (String? value) {
@@ -802,18 +834,18 @@ class _SubscriptionState extends State<Subscription> {
                     ),
                     items: billingCycleData
                         .map((String billingCycleDataItem) =>
-                            DropdownMenuItem<String>(
-                              value: billingCycleDataItem,
-                              child: Text(
-                                billingCycleDataItem,
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
+                        DropdownMenuItem<String>(
+                          value: billingCycleDataItem,
+                          child: Text(
+                            billingCycleDataItem,
+                            style: TextStyle(
+                              fontSize: MySize.size14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ))
                         .toList(),
                     value: selectedValue2,
                     onChanged: (String? value) {
@@ -886,60 +918,60 @@ class _SubscriptionState extends State<Subscription> {
                     padding: EdgeInsets.all(MySize.size8),
                     child: _imageFile != null
                         ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: Image.file(
+                            File(_imageFile!.path),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(
+                          width: MySize.size20,
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Expanded(
-                                flex: 6,
-                                child: Image.file(
-                                  File(_imageFile!.path),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                width: MySize.size20,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          _pickImage();
-                                        },
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: MySize.size20,
-                                        )),
-                                    Text(
-                                      "Upload\nImage",
-                                      style: TextStyle(
-                                          fontSize: MySize.size10,
-                                          fontWeight: FontWeight.w600),
-                                    )
-                                  ],
-                                ),
+                              IconButton(
+                                  onPressed: () {
+                                    _pickImage();
+                                  },
+                                  icon: Icon(
+                                    Icons.edit,
+                                    size: MySize.size20,
+                                  )),
+                              Text(
+                                "Upload\nImage",
+                                style: TextStyle(
+                                    fontSize: MySize.size10,
+                                    fontWeight: FontWeight.w600),
                               )
                             ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.upload,
-                                  size: MySize.size20,
-                                ),
-                                SizedBox(
-                                  height: MySize.size10,
-                                ),
-                                const Text('No image selected.'),
-                              ],
-                            ),
                           ),
+                        )
+                      ],
+                    )
+                        : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.upload,
+                            size: MySize.size20,
+                          ),
+                          SizedBox(
+                            height: MySize.size10,
+                          ),
+                          const Text('No image selected.'),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -960,27 +992,27 @@ class _SubscriptionState extends State<Subscription> {
                       onTap: _pickDocument,
                       child: _filePath != null
                           ? Text(
-                              textAlign: TextAlign.center,
-                              'File path: $_filePath',
-                              style: TextStyle(
-                                fontSize: MySize.size14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey,
-                              ),
-                            )
+                        textAlign: TextAlign.center,
+                        'File path: $_filePath',
+                        style: TextStyle(
+                          fontSize: MySize.size14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                      )
                           : Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.upload,
-                                    size: MySize.size20,
-                                  ),
-                                  const Text('No document selected.'),
-                                ],
-                              ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.upload,
+                              size: MySize.size20,
                             ),
+                            const Text('No document selected.'),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -994,7 +1026,7 @@ class _SubscriptionState extends State<Subscription> {
 
               Padding(
                 padding:
-                    EdgeInsets.only(left: MySize.size24, right: MySize.size24),
+                EdgeInsets.only(left: MySize.size24, right: MySize.size24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -1007,42 +1039,48 @@ class _SubscriptionState extends State<Subscription> {
                         width: MySize.scaleFactorWidth * 48,
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFFCFCFFC).withOpacity(.15)
                                   : const Color(0XFFCFCFFC).withOpacity(.15),
                             ),
                             color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61).withOpacity(.1)
-                                    : const Color(0XFF4E4E61).withOpacity(.2),
+                            Provider
+                                .of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFF4E4E61).withOpacity(.1)
+                                : const Color(0XFF4E4E61).withOpacity(.2),
                             borderRadius: BorderRadius.circular(16)),
                         child: Icon(Icons.remove,
                             size: MySize.size30,
                             color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61)
-                                    : const Color(0XFF353542)),
+                            Provider
+                                .of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFF4E4E61)
+                                : const Color(0XFF353542)),
                       ),
                     ),
                     Column(
                       children: [
                         Text(
-                          'Mothly price',
+                          'Monthly price',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: MySize.size12,
                               fontWeight: FontWeight.w600,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFF83839C)
                                   : const Color(
-                                      0XFF83839C) //: Color(0XFF333339),
-                              ),
+                                  0XFF83839C) //: Color(0XFF333339),
+                          ),
                         ),
                         SizedBox(
                           height: MySize.size4,
@@ -1050,7 +1088,7 @@ class _SubscriptionState extends State<Subscription> {
                         SizedBox(
                           width: 100,
                           child: TextFormField(
-                            controller: _controller,
+                            controller: _monthlyPriceController,
                             keyboardType: const TextInputType.numberWithOptions(
                               decimal: true,
                               signed: true,
@@ -1063,9 +1101,10 @@ class _SubscriptionState extends State<Subscription> {
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: MySize.size24,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
                                   ? Colors.white
                                   : const Color(0XFF333339),
                             ),
@@ -1075,24 +1114,27 @@ class _SubscriptionState extends State<Subscription> {
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: MySize.size24,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
+                                color: Provider
+                                    .of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
                                     ? Colors.white
                                     : const Color(0XFF333339),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
+                                      color: Provider
+                                          .of<ThemeChanger>(context)
+                                          .themeData ==
+                                          darkMode
                                           ? const Color(0XFF353542)
                                           : const Color(0XFF353542))),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
+                                      color: Provider
+                                          .of<ThemeChanger>(context)
+                                          .themeData ==
+                                          darkMode
                                           ? const Color(0XFF353542)
                                           : const Color(0XFF353542))),
                             ),
@@ -1109,25 +1151,30 @@ class _SubscriptionState extends State<Subscription> {
                         width: MySize.scaleFactorWidth * 48,
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFFCFCFFC).withOpacity(.15)
                                   : const Color(0XFFCFCFFC).withOpacity(.15),
                             ),
                             color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61).withOpacity(.1)
-                                    : const Color(0XFF4E4E61).withOpacity(.2),
+                            Provider
+                                .of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFF4E4E61).withOpacity(.1)
+                                : const Color(0XFF4E4E61).withOpacity(.2),
                             borderRadius: BorderRadius.circular(16)),
                         child: Icon(Icons.add,
                             size: MySize.size30,
                             color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61)
-                                    : const Color(0XFF353542)),
+                            Provider
+                                .of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFF4E4E61)
+                                : const Color(0XFF353542)),
                       ),
                     ),
                   ],
@@ -1138,52 +1185,68 @@ class _SubscriptionState extends State<Subscription> {
               ),
 
               /// Add this subscription button
-              InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            SubscriptionInfo(subscriptionInfoData: {}),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: MySize.scaleFactorHeight * 48,
-                    width: MySize.scaleFactorWidth * 324,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(MySize.size24),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: AppColors.purpleBE,
-                            spreadRadius: 2,
-                            blurRadius: 25,
-                            offset: Offset(0, 9),
+              Consumer<SubscriptionProvider>(
+                builder: (context, subscriptionProvider, child) {
+                  return InkWell(
+                      onTap: () {
+                        subscriptionProvider.storeSubscription(
+                            description: descriptionController.text.trim(),
+                            startDate: _dateFormat.format(_selectedDate!),
+                            renewalDate: _dateFormat.format(_selectedDate1!),
+                            billingCycle: selectedValue1.toString(),
+                            userId: AppConstant.getUserID,
+                            price: _monthlyPriceController.text.trim(),
+                            reminderDuration: selectedValue2.toString(),
+                            categoryID:"2",
+                            providerId: "2");
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SubscriptionInfo(subscriptionInfoData: {}),
                           ),
-                          BoxShadow(
-                            color: AppColors.purpleFF,
-                            offset: Offset(-5, 0),
-                          ),
-                          BoxShadow(
-                            color: AppColors.purpleFF,
-                            offset: Offset(5, 0),
-                          )
-                        ]),
-                    child: Center(
-                      child: Text(
-                        'Add this subscription',
-                        style: TextStyle(
-                          fontSize: MySize.size14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Regular-Poppins',
-                          color: Provider.of<ThemeChanger>(context).themeData ==
+                        );
+                      },
+                      child: Container(
+                        height: MySize.scaleFactorHeight * 48,
+                        width: MySize.scaleFactorWidth * 324,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(MySize.size24),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: AppColors.purpleBE,
+                                spreadRadius: 2,
+                                blurRadius: 25,
+                                offset: Offset(0, 9),
+                              ),
+                              BoxShadow(
+                                color: AppColors.purpleFF,
+                                offset: Offset(-5, 0),
+                              ),
+                              BoxShadow(
+                                color: AppColors.purpleFF,
+                                offset: Offset(5, 0),
+                              )
+                            ]),
+                        child: Center(
+                          child: Text(
+                            'Add this subscription',
+                            style: TextStyle(
+                              fontSize: MySize.size14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Regular-Poppins',
+                              color: Provider
+                                  .of<ThemeChanger>(context)
+                                  .themeData ==
                                   darkMode
-                              ? Colors.white
-                              : Colors.white,
+                                  ? Colors.white
+                                  : Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )),
+                      ));
+                },),
               const SizedBox(
                 height: 20,
               ),
