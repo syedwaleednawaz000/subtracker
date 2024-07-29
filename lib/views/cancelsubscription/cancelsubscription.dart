@@ -63,62 +63,67 @@ class CancelSubscription extends StatelessWidget {
               height: MySize.size54,
             ),
           Consumer<SubscriptionProvider>(builder: (context, subscriptionProvider, child) {
-            return ListView.builder(
+            return subscriptionProvider.activeSubscriptionData.isEmpty ?
+            const Center(child: CircularProgressIndicator(color: Colors.green),):
+            subscriptionProvider.activeSubscriptionData['data'].length == 0 ?
+            const Center(child: Text("Active subscription are not available "),):
+            ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: subscriptionProvider.activeSubscriptionData['data'].length,
               itemBuilder: (context, index) {
-              return             InkWell(
-                onTap: () {
-
-                },
-                child: Container(
-                  height: MySize.scaleFactorHeight * 68,
-                  width: MySize.scaleFactorWidth * 288,
-                  decoration: BoxDecoration(
-                    color:
-                    Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Color(0XFF4E4E61).withOpacity(.2)
-                        : Color(0XFFF1F1FF),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border(
-                        top: BorderSide(color: Colors.white.withOpacity(.15)),
-                        left: BorderSide(color: Colors.white.withOpacity(.15)),
-                        // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                        bottom: BorderSide.none
+                var finalData = subscriptionProvider.activeSubscriptionData['data'][index];
+                return             InkWell(
+                  onTap: () {
+                    subscriptionProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
+                  },
+                  child: Container(
+                    height: MySize.scaleFactorHeight * 68,
+                    width: MySize.scaleFactorWidth * 288,
+                    decoration: BoxDecoration(
+                      color:
+                      Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? Color(0XFF4E4E61).withOpacity(.2)
+                          : Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border(
+                          top: BorderSide(color: Colors.white.withOpacity(.15)),
+                          left: BorderSide(color: Colors.white.withOpacity(.15)),
+                          // right: BorderSide(color: Colors.white.withOpacity(.5)),
+                          bottom: BorderSide.none
+                      ),
                     ),
-                  ),
-                  child: Stack(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Yearly',
-                              style: TextStyle(
-                                color: Color(0XFF83839C),
+                    child: Stack(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Yearly',
+                                style: TextStyle(
+                                  color: Color(0XFF83839C),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+
+                              TextWidgetInterMedium(
+                                title: '\$39.95',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
+                                // color: AppColors.whiteFF
                               ),
-                            ),
-
-                            TextWidgetInterMedium(
-                              title: '\$39.95',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              // color: AppColors.whiteFF
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SubscribeStackWidget(),
-                    ],
+                        const SubscribeStackWidget(),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },);
+                );
+              },);
           },),
             SizedBox(
               height: MySize.size48,
