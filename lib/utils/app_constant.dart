@@ -7,9 +7,11 @@ import 'my_size.dart';
 
 class AppConstant {
   static String saveUserToken = 'saveUserToken';
+  static String saveUserID = 'saveUserID';
   static String saveUserEmail = 'saveUserEmail';
   static String saveUserPassword = 'saveUserPassword';
   static String getUserToken = '';
+  static String getUserID = '';
   static String getUserEmail = '';
   static String getUserPassword = '';
   ///variables

@@ -11,6 +11,8 @@ class AppUrl{
   static String changePassword = "changePassword";
   static String updatePassword = "change-password";
   static String subscriptions = "subscriptions";
+  static String getSubscriptions = "subscriptions";
+  static String termsAndConditions = "settings/terms_and_conditions";
   static String addCategories = "categories";
   static String storeUserCategories = "user-categories";
   static String getCategories = "categories";
@@ -36,6 +38,7 @@ class AppUrl{
   static String getLanguages = "languages";
   static String updateLanguages = "user/update-language";
   static String getCurrencies = "currencies";
+  static String getFaqs = "faqs";
   static String getPlans = "getPlans";
   static String storePlan = "storePlan";
   static String plansCancel = "plans/";

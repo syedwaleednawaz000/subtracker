@@ -1,10 +1,14 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get/route_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/app_url.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
 
 class APIClient {
@@ -36,6 +40,7 @@ class APIClient {
 
   /// for Get request.
   Future<Response> get({required String url,}) async {
+    print("this is header ${headers}");
     try {
       final response = await _dio.get(
         url,
@@ -46,6 +51,9 @@ class APIClient {
       );
       return response;
     } on DioError catch (error) {
+      if(error.response!.statusCode == 401){
+        cleanLocalData();
+      }
       String content = error.response?.toString() ?? "Error occurred without a response.";
       // Handle error or log content if needed
       rethrow;
@@ -77,7 +85,9 @@ class APIClient {
           FlutterToast.toastMessage(message: map['message'],isError: true);
           print("This is an error in Dio: ${map['message'].toString()}");
         }
-
+        if(error.response!.statusCode == 401){
+          cleanLocalData();
+        }
       }
       rethrow;
     }
@@ -97,6 +107,17 @@ class APIClient {
       return response;
     } on DioException catch (error) {
       if (error.response != null) {
+        if(error.response!.statusCode == 401){
+          Map<String, dynamic> map = jsonDecode(error.response.toString());
+          if(map['message'] == null){
+            FlutterToast.toastMessage(message: map['error'],isError: true);
+            print("This is an error in Dio: ${map['error'].toString()}");
+          }else{
+            FlutterToast.toastMessage(message: map['message'],isError: true);
+            print("This is an error in Dio: ${map['message'].toString()}");
+          }
+          cleanLocalData();
+        }
         String content = error.response.toString();
         Map<String, dynamic> map = jsonDecode(error.response.toString());
         // AppConstants.flutterToast(message: map['message']);
@@ -168,5 +189,13 @@ class APIClient {
       rethrow;
     }
     return response;
+  }
+
+  Future<void> cleanLocalData()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(AppConstant.saveUserToken);
+    FlutterToast.toastMessage(message: "Unauthenticated",isError: true);
+    Get.offAll(()=>const LoginScreen());
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }

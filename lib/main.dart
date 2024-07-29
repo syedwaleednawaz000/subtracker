@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
+import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/email_notification_provider.dart';
+import 'package:sub_tracker/Provider/faqs_provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
@@ -13,6 +16,9 @@ import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
+import 'package:sub_tracker/Provider/subscription_provider.dart';
+import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
+import 'package:sub_tracker/Provider/ticket_provider.dart';
 import 'package:sub_tracker/Provider/two_factor_auth_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_url.dart';
@@ -64,11 +70,16 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ChangePasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PlanProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => FaqsProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SubscriptionProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => TicketProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => TermAndConditionProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
-        return MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: themeChanger.themeData,
           home: const SplashScreen(),

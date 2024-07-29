@@ -22,7 +22,12 @@ class LanguageSelection extends StatefulWidget {
 }
 
 class _LanguageSelectionState extends State<LanguageSelection> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<LanguageProvider>(context,listen: false).getLanguages());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

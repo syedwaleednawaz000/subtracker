@@ -20,10 +20,10 @@ class ProfileProvider extends ChangeNotifier{
     _isDeleted = load;
     notifyListeners();
   }
-  bool _isUpdate = false;
-  bool get isUpdated => _isUpdate;
+  bool _isUpdateProfile = false;
+  bool get isUpdated => _isUpdateProfile;
   void _updateLoading({required bool load}){
-    _isUpdate = load;
+    _isUpdateProfile = load;
     notifyListeners();
   }
   Future<void> updateProfile({required String  email ,required String name , required String phone})async{
@@ -53,23 +53,35 @@ class ProfileProvider extends ChangeNotifier{
       print("this is error ${error.toString()}");
     }
   }
-  Future<void> deleteAccount({required String  email ,required String password})async{
+
+  bool _isDeleteAccount = false;
+  bool get isDeleteAccount => _isDeleteAccount;
+  void _deleteAccountLoading({required bool load}){
+    _isDeleteAccount = load;
+    notifyListeners();
+  }
+  Future<void> deleteAccount({required BuildContext context})async{
+    _deleteAccountLoading(load: true);
     var body = {};
     print("this is the body ${body}");
     try{
       Response response = await _apiService.deleteAccount(params: body);
       if(response.statusCode == 200){
-        FlutterToast.toastMessage(message: "Account Deleted successfully",);
+        _deleteAccountLoading(load: false);
+        FlutterToast.toastMessage(message: response.data['message'],);
+        cleanLocalData(context: context);
         if (kDebugMode) {
           print("hit successfully");
         }
 
       }else{
+        _deleteAccountLoading(load: false);
         if (kDebugMode) {
           print("hit successfully in else ");
         }
       }
     }catch(error){
+      _deleteAccountLoading(load: false);
       print("this is error ${error.toString()}");
     }
   }

@@ -31,8 +31,9 @@ class LoginProvider extends ChangeNotifier{
     try{
       Response response = await _apiService.login(params: body);
       if(response.statusCode == 200){
+        Map<String , dynamic> map= response.data;
         _loginLoading(load: false);
-        storeLocalData(userToken: response.data['access_token']);
+        storeLocalData(userData: map);
 
         if(rememberMe == true){
           storeRememberMe(email: email,password: password);
@@ -60,10 +61,12 @@ class LoginProvider extends ChangeNotifier{
   }
 
 
-  Future<void> storeLocalData({String? userToken})async{
+  Future<void> storeLocalData({required Map<String , dynamic> userData})async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(AppConstant.saveUserToken, userToken.toString());
-    AppConstant.getUserToken = userToken.toString();
+    prefs.setString(AppConstant.saveUserToken, userData['access_token'].toString());
+    prefs.setString(AppConstant.saveUserID, userData['user']['id'].toString());
+    AppConstant.getUserToken = userData['access_token'].toString();
+    AppConstant.getUserID = userData['user']['id'].toString();
     notifyListeners();
   }
 
