@@ -110,6 +110,7 @@ class _SubscriptionState extends State<Subscription> {
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
   TextEditingController descriptionController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -200,7 +201,6 @@ class _SubscriptionState extends State<Subscription> {
     });
   }
 
-  ///
   @override
   void initState() {
     super.initState();
@@ -211,7 +211,7 @@ class _SubscriptionState extends State<Subscription> {
     dateInputController.text = _dateFormat.format(currentDate);
     renewalDateController.text = _dateFormat.format(currentDate);
 
-    _monthlyPriceController!.addListener(_formatInput);
+    _monthlyPriceController.addListener(_formatInput);
   }
 
   void _formatInput() {
@@ -331,647 +331,611 @@ class _SubscriptionState extends State<Subscription> {
           : Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              /// Above container
-              Container(
-                height: MySize.scaleFactorHeight * 515,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color:
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFF353542)
-                            : const Color(0XFFF1F1FF),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(MySize.size24),
-                        bottomRight: Radius.circular(MySize.size24))),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 22),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Image.asset(AppImages.backArrow),
-                          ),
-                          SizedBox(
-                            width: MySize.scaleFactorWidth * 145,
-                          ),
-                          Text(
-                            'New',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: MySize.size16,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0XFFA2A2B5)
-                                  : const Color(0XFF424252),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: MySize.size20,
-                    ),
-                    Text(
-                      'Add new\nsubscription',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w700,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? Colors.white
-                            : const Color(0XFF1C1C23),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          AppImages.halfOneDriveLogo1,
-                        ),
-                        SizedBox(
-                          width: MySize.scaleFactorWidth * 86,
-                        ),
-                        const TresorlyContainer(),
-                        SizedBox(
-                          width: MySize.scaleFactorWidth * 91.2,
-                        ),
-                        Image.asset(AppImages.halfSpotifyLogo1)
-                      ],
-                    ),
-                    SizedBox(
-                      height: MySize.size16,
-                    ),
-                    Text(
-                      'Tresorly',
-                      style: TextStyle(
-                        fontSize: MySize.size14,
-                        fontWeight: FontWeight.w600,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? Colors.white
-                            : const Color(0XFF333339),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MySize.size15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Tooltip(
-                          message:
-                              "If the provider is already listed, you can select it from here instead of adding a new one.",
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            // Set the background color of the tooltip
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: GestureDetector(
-                              onTap: () {
-                                // AlertDialog(
-                                //   backgroundColor: Color(0XFF101828).withOpacity(.3),
-                                //   title: Text("If the provider is already listed, you can select it from here instead of adding a new one",
-                                //   style: TextStyle(
-                                //     fontSize: 10,
-                                //
-                                //   ),
-                                //   ),
-                                // );
-                              },
-                              child: Image.asset(AppImages.exclMark)),
-                        ),
-                        SizedBox(
-                          width: MySize.size4,
-                        ),
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Text(
-                                'Select Provider',
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFF666680)
-                                      : const Color(0XFF666680),
-                                ),
-                              )
-                            : Text(
-                                'Select Subscription Provider',
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFF666680)
-                                      : const Color(0XFF666680),
-                                ),
-                              ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MySize.size10,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showCategories(context);
-                      },
-                      child: Container(
-                        // padding: EdgeInsets.symmetric(horizontal: MySize.size2,),
-                        height: MySize.size40,
-                        width: MySize.scaleFactorWidth * 340,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(17),
-                            border: Border.all(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0XFFFFFFFF).withOpacity(.1)
-                                  : const Color(0XFF353542).withOpacity(.4),
-                            )),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                /// Above container
+                Container(
+                  height: MySize.scaleFactorHeight * 515,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0XFF353542)
+                          : const Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(MySize.size24),
+                          bottomRight: Radius.circular(MySize.size24))),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 22),
                         child: Row(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child:
-                                  Icon(Icons.search, color: Color(0xff666680)),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Image.asset(AppImages.backArrow),
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(
+                              width: MySize.scaleFactorWidth * 145,
+                            ),
                             Text(
-                              _selectedOption.values.first ??
-                                  "Select subscription Provider",
+                              'New',
+                              textAlign: TextAlign.start,
                               style: TextStyle(
-                                fontSize: MySize.size12,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w400,
+                                fontSize: MySize.size16,
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
                                     ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFFA2A2B5),
+                                    : const Color(0XFF424252),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(
-                height: 14,
-              ),
-              SizedBox(
-                height: 4,
-                child: ListView(
-                  children: [
-                    SizedBox(
-                      height: MySize.size34,
-                    ),
-                  ],
-                ),
-              ),
-
-              /// below container
-              Text(
-                'Description',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: MySize.size12,
-                  fontWeight: FontWeight.w500,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF666680)
-                          : const Color(0XFF666680),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size4,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                          ? const Color(0XFFFFFFFF).withOpacity(.1)
-                          : const Color(0XFF353542).withOpacity(.4),
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: TextFormField(
-                    controller: descriptionController,
-                    cursorColor:
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFFFFFFFF)
-                            : const Color(0XFF1C1C23),
-                    decoration: const InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        isDense: true,
-                        border: InputBorder.none),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size12,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(MySize.size16),
-                      border: Border.all(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFFFFFFFF).withOpacity(.1)
-                            : const Color(0XFF353542).withOpacity(.4),
-                      )),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MySize.size10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Start Date:",
-                          style: TextStyle(
-                            fontSize: MySize.size16,
-                            fontFamily: '',
-                            fontWeight: FontWeight.w600,
+                      SizedBox(
+                        height: MySize.size20,
+                      ),
+                      Text(
+                        'Add new\nsubscription',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.w700,
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? Colors.white
+                              : const Color(0XFF1C1C23),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            AppImages.halfOneDriveLogo1,
                           ),
-                        ),
-                        SizedBox(
-                          width: MySize.size10,
-                        ),
-                        Text(
-                          _dateFormat.format(_selectedDate!),
-                          style: TextStyle(
-                            fontSize: MySize.size16,
-                            fontFamily: '',
-                            fontWeight: FontWeight.w600,
+                          SizedBox(
+                            width: MySize.scaleFactorWidth * 86,
                           ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                            onPressed: () {
-                              _selectDate(context);
-                            },
-                            icon: Icon(
-                              Icons.calendar_today,
-                              color: Colors.black,
-                              size: MySize.size18,
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size12,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(MySize.size16),
-                      border: Border.all(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFFFFFFFF).withOpacity(.1)
-                            : const Color(0XFF353542).withOpacity(.4),
-                      )),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MySize.size10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Renewal Date:",
-                          style: TextStyle(
-                            fontSize: MySize.size16,
-                            fontFamily: '',
-                            fontWeight: FontWeight.w600,
+                          const TresorlyContainer(),
+                          SizedBox(
+                            width: MySize.scaleFactorWidth * 91.2,
                           ),
+                          Image.asset(AppImages.halfSpotifyLogo1)
+                        ],
+                      ),
+                      SizedBox(
+                        height: MySize.size16,
+                      ),
+                      Text(
+                        'Tresorly',
+                        style: TextStyle(
+                          fontSize: MySize.size14,
+                          fontWeight: FontWeight.w600,
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? Colors.white
+                              : const Color(0XFF333339),
                         ),
-                        SizedBox(
-                          width: MySize.size10,
-                        ),
-                        Text(
-                          _dateFormat.format(_selectedDate1!),
-                          style: TextStyle(
-                            fontSize: MySize.size16,
-                            fontFamily: '',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                            onPressed: () {
-                              _renewalDate(context);
-                            },
-                            icon: Icon(
-                              Icons.calendar_today,
-                              color: Colors.black,
-                              size: MySize.size18,
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size12,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: Row(
-                      children: [
-                        SizedBox(width: MySize.size4),
-                        Expanded(
-                          child: Text(
-                            'Billing Cycle',
-                            style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                      ),
+                      SizedBox(
+                        height: MySize.size15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Tooltip(
+                            message:
+                                "If the provider is already listed, you can select it from here instead of adding a new one.",
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              // Set the background color of the tooltip
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            overflow: TextOverflow.ellipsis,
+                            child: GestureDetector(
+                                onTap: () {
+                                  // AlertDialog(
+                                  //   backgroundColor: Color(0XFF101828).withOpacity(.3),
+                                  //   title: Text("If the provider is already listed, you can select it from here instead of adding a new one",
+                                  //   style: TextStyle(
+                                  //     fontSize: 10,
+                                  //
+                                  //   ),
+                                  //   ),
+                                  // );
+                                },
+                                child: Image.asset(AppImages.exclMark)),
                           ),
-                        ),
-                      ],
-                    ),
-                    items: items
-                        .map((String item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                    value: selectedValue1,
-                    onChanged: (String? value) {
-                      setState(() {
-                        selectedValue1 = value;
-                      });
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: MySize.size50,
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        color: Colors.white,
-                      ),
-                      elevation: 0,
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_forward_ios_outlined,
-                      ),
-                      iconSize: 14,
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.grey,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: MySize.size200,
-                      direction: DropdownDirection.right,
-                      width: MySize.size140,
-                      elevation: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.white,
-                      ),
-                      offset: const Offset(-20, 0),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: MaterialStateProperty.all<double>(6),
-                        thumbVisibility: MaterialStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.only(left: 14, right: 14),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size12,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    isExpanded: true,
-                    hint: Row(
-                      children: [
-                        SizedBox(width: MySize.size4),
-                        Expanded(
-                          child: Text(
-                            'Reminder Duration',
-                            style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                          SizedBox(
+                            width: MySize.size4,
                           ),
-                        ),
-                      ],
-                    ),
-                    items: billingCycleData
-                        .map((String billingCycleDataItem) =>
-                            DropdownMenuItem<String>(
-                              value: billingCycleDataItem,
-                              child: Text(
-                                billingCycleDataItem,
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                          Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? Text(
+                                  'Select Provider',
+                                  style: TextStyle(
+                                    fontSize: MySize.size12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Provider.of<ThemeChanger>(context)
+                                                .themeData ==
+                                            darkMode
+                                        ? const Color(0XFF666680)
+                                        : const Color(0XFF666680),
+                                  ),
+                                )
+                              : Text(
+                                  'Select Subscription Provider',
+                                  style: TextStyle(
+                                    fontSize: MySize.size12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Provider.of<ThemeChanger>(context)
+                                                .themeData ==
+                                            darkMode
+                                        ? const Color(0XFF666680)
+                                        : const Color(0XFF666680),
+                                  ),
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                        .toList(),
-                    value: selectedValue2,
-                    onChanged: (String? value) {
-                      setState(() {
-                        selectedValue2 = value;
-                      });
-                    },
-                    buttonStyleData: ButtonStyleData(
-                      height: MySize.size50,
-                      width: double.infinity,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        color: Colors.white,
+                        ],
                       ),
-                      elevation: 0,
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_forward_ios_outlined,
+                      SizedBox(
+                        height: MySize.size10,
                       ),
-                      iconSize: 14,
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.grey,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: MySize.size200,
-                      direction: DropdownDirection.right,
-                      width: MySize.size140,
-                      elevation: 2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Colors.white,
-                      ),
-                      offset: const Offset(-20, 0),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius: const Radius.circular(40),
-                        thickness: MaterialStateProperty.all<double>(6),
-                        thumbVisibility: MaterialStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.only(left: 14, right: 14),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size12,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: MySize.size24),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(MySize.size30)),
-                width: double.infinity,
-                height: MySize.size100,
-                child: GestureDetector(
-                  onTap: () {
-                    _pickImage();
-                  },
-                  child: DottedBorder(
-                    borderType: BorderType.RRect,
-                    strokeWidth: 1,
-                    // borderPadding: EdgeInsets.all(8),
-                    radius: Radius.circular(MySize.size10),
-                    padding: EdgeInsets.all(MySize.size8),
-                    child: _imageFile != null
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                      GestureDetector(
+                        onTap: () {
+                          showCategories(context);
+                        },
+                        child: Container(
+                          // padding: EdgeInsets.symmetric(horizontal: MySize.size2,),
+                          height: MySize.size40,
+                          width: MySize.scaleFactorWidth * 340,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(17),
+                              border: Border.all(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0XFFFFFFFF).withOpacity(.1)
+                                    : const Color(0XFF353542).withOpacity(.4),
+                              )),
+                          child: Row(
                             children: [
-                              Expanded(
-                                flex: 6,
-                                child: Image.file(
-                                  File(_imageFile!.path),
-                                  fit: BoxFit.cover,
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.search,
+                                    color: Color(0xff666680)),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                _selectedOption.values.first ??
+                                    "Select subscription Provider",
+                                style: TextStyle(
+                                  fontSize: MySize.size12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
+                                      ? const Color(0XFFA2A2B5)
+                                      : const Color(0XFFA2A2B5),
                                 ),
                               ),
-                              SizedBox(
-                                width: MySize.size20,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          _pickImage();
-                                        },
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: MySize.size20,
-                                        )),
-                                    Text(
-                                      "Upload\nImage",
-                                      style: TextStyle(
-                                          fontSize: MySize.size10,
-                                          fontWeight: FontWeight.w600),
-                                    )
-                                  ],
-                                ),
-                              )
                             ],
-                          )
-                        : Center(
-                            child: Column(
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 14,
+                ),
+                SizedBox(
+                  height: 4,
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: MySize.size34,
+                      ),
+                    ],
+                  ),
+                ),
+
+                /// below container
+                Text(
+                  'Description',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: MySize.size12,
+                    fontWeight: FontWeight.w500,
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF666680)
+                            : const Color(0XFF666680),
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size4,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    maxLines: 3,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter price';
+                      }
+                      return null;
+                    },
+                    controller: descriptionController,
+                    cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0XFFFFFFFF)
+                        : const Color(0XFF1C1C23),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      isDense: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? const Color(0XFFFFFFFF).withOpacity(.1)
+                              : const Color(0XFF353542).withOpacity(.4),
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: MySize.size12,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(MySize.size16),
+                        border: Border.all(
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? const Color(0XFFFFFFFF).withOpacity(.1)
+                              : const Color(0XFF353542).withOpacity(.4),
+                        )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: MySize.size10),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Start Date:",
+                            style: TextStyle(
+                              fontSize: MySize.size16,
+                              fontFamily: '',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: MySize.size10,
+                          ),
+                          Text(
+                            _dateFormat.format(_selectedDate!),
+                            style: TextStyle(
+                              fontSize: MySize.size16,
+                              fontFamily: '',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {
+                                _selectDate(context);
+                              },
+                              icon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.black,
+                                size: MySize.size18,
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size12,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(MySize.size16),
+                        border: Border.all(
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? const Color(0XFFFFFFFF).withOpacity(.1)
+                              : const Color(0XFF353542).withOpacity(.4),
+                        )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: MySize.size10),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Renewal Date:",
+                            style: TextStyle(
+                              fontSize: MySize.size16,
+                              fontFamily: '',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: MySize.size10,
+                          ),
+                          Text(
+                            _dateFormat.format(_selectedDate1!),
+                            style: TextStyle(
+                              fontSize: MySize.size16,
+                              fontFamily: '',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {
+                                _renewalDate(context);
+                              },
+                              icon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.black,
+                                size: MySize.size18,
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size12,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2<String>(
+                      isExpanded: true,
+                      hint: Row(
+                        children: [
+                          SizedBox(width: MySize.size4),
+                          Expanded(
+                            child: Text(
+                              'Billing Cycle',
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      items: items
+                          .map((String item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: TextStyle(
+                                    fontSize: MySize.size14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                          .toList(),
+                      value: selectedValue1,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedValue1 = value;
+                        });
+                      },
+                      buttonStyleData: ButtonStyleData(
+                        height: MySize.size50,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(left: 14, right: 14),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.black26,
+                          ),
+                          color: Colors.white,
+                        ),
+                        elevation: 0,
+                      ),
+                      iconStyleData: const IconStyleData(
+                        icon: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                        ),
+                        iconSize: 14,
+                        iconEnabledColor: Colors.black,
+                        iconDisabledColor: Colors.grey,
+                      ),
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: MySize.size200,
+                        direction: DropdownDirection.right,
+                        width: MySize.size140,
+                        elevation: 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Colors.white,
+                        ),
+                        offset: const Offset(-20, 0),
+                        scrollbarTheme: ScrollbarThemeData(
+                          radius: const Radius.circular(40),
+                          thickness: MaterialStateProperty.all<double>(6),
+                          thumbVisibility:
+                              MaterialStateProperty.all<bool>(true),
+                        ),
+                      ),
+                      menuItemStyleData: const MenuItemStyleData(
+                        height: 40,
+                        padding: EdgeInsets.only(left: 14, right: 14),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size12,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2<String>(
+                      isExpanded: true,
+                      hint: Row(
+                        children: [
+                          SizedBox(width: MySize.size4),
+                          Expanded(
+                            child: Text(
+                              'Reminder Duration',
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      items: billingCycleData
+                          .map((String billingCycleDataItem) =>
+                              DropdownMenuItem<String>(
+                                value: billingCycleDataItem,
+                                child: Text(
+                                  billingCycleDataItem,
+                                  style: TextStyle(
+                                    fontSize: MySize.size14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                          .toList(),
+                      value: selectedValue2,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedValue2 = value;
+                        });
+                      },
+                      buttonStyleData: ButtonStyleData(
+                        height: MySize.size50,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(left: 14, right: 14),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.black26,
+                          ),
+                          color: Colors.white,
+                        ),
+                        elevation: 0,
+                      ),
+                      iconStyleData: const IconStyleData(
+                        icon: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                        ),
+                        iconSize: 14,
+                        iconEnabledColor: Colors.black,
+                        iconDisabledColor: Colors.grey,
+                      ),
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: MySize.size200,
+                        direction: DropdownDirection.right,
+                        width: MySize.size140,
+                        elevation: 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Colors.white,
+                        ),
+                        offset: const Offset(-20, 0),
+                        scrollbarTheme: ScrollbarThemeData(
+                          radius: const Radius.circular(40),
+                          thickness: MaterialStateProperty.all<double>(6),
+                          thumbVisibility:
+                              MaterialStateProperty.all<bool>(true),
+                        ),
+                      ),
+                      menuItemStyleData: const MenuItemStyleData(
+                        height: 40,
+                        padding: EdgeInsets.only(left: 14, right: 14),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size12,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: MySize.size24),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(MySize.size30)),
+                  width: double.infinity,
+                  height: MySize.size100,
+                  child: GestureDetector(
+                    onTap: () {
+                      _pickImage();
+                    },
+                    child: DottedBorder(
+                      borderType: BorderType.RRect,
+                      strokeWidth: 1,
+                      // borderPadding: EdgeInsets.all(8),
+                      radius: Radius.circular(MySize.size10),
+                      padding: EdgeInsets.all(MySize.size8),
+                      child: _imageFile != null
+                          ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.upload,
-                                  size: MySize.size20,
+                                Expanded(
+                                  flex: 6,
+                                  child: Image.file(
+                                    File(_imageFile!.path),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                                 SizedBox(
-                                  height: MySize.size10,
+                                  width: MySize.size20,
                                 ),
-                                const Text('No image selected.'),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            _pickImage();
+                                          },
+                                          icon: Icon(
+                                            Icons.edit,
+                                            size: MySize.size20,
+                                          )),
+                                      Text(
+                                        "Upload\nImage",
+                                        style: TextStyle(
+                                            fontSize: MySize.size10,
+                                            fontWeight: FontWeight.w600),
+                                      )
+                                    ],
+                                  ),
+                                )
                               ],
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size12,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: DottedBorder(
-                    borderType: BorderType.RRect,
-                    strokeWidth: 1,
-                    // borderPadding: EdgeInsets.all(8),
-                    radius: Radius.circular(MySize.size10),
-                    padding: EdgeInsets.all(MySize.size8),
-                    child: GestureDetector(
-                      onTap: _pickDocument,
-                      child: _filePath != null
-                          ? Text(
-                              textAlign: TextAlign.center,
-                              'File path: $_filePath',
-                              style: TextStyle(
-                                fontSize: MySize.size14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey,
-                              ),
                             )
                           : Center(
                               child: Column(
@@ -982,99 +946,126 @@ class _SubscriptionState extends State<Subscription> {
                                     Icons.upload,
                                     size: MySize.size20,
                                   ),
-                                  const Text('No document selected.'),
+                                  SizedBox(
+                                    height: MySize.size10,
+                                  ),
+                                  const Text('No image selected.'),
                                 ],
                               ),
                             ),
                     ),
                   ),
                 ),
-              ),
-
-              SizedBox(
-                height: MySize.size30,
-              ),
-
-              /// row of price customizing
-
-              Padding(
-                padding:
-                    EdgeInsets.only(left: MySize.size24, right: MySize.size24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        _decrementText();
-                      },
-                      child: Container(
-                        height: MySize.scaleFactorHeight * 48,
-                        width: MySize.scaleFactorWidth * 48,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0XFFCFCFFC).withOpacity(.15)
-                                  : const Color(0XFFCFCFFC).withOpacity(.15),
-                            ),
-                            color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61).withOpacity(.1)
-                                    : const Color(0XFF4E4E61).withOpacity(.2),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: Icon(Icons.remove,
-                            size: MySize.size30,
-                            color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61)
-                                    : const Color(0XFF353542)),
+                SizedBox(
+                  height: MySize.size12,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: DottedBorder(
+                      borderType: BorderType.RRect,
+                      strokeWidth: 1,
+                      // borderPadding: EdgeInsets.all(8),
+                      radius: Radius.circular(MySize.size10),
+                      padding: EdgeInsets.all(MySize.size8),
+                      child: GestureDetector(
+                        onTap: _pickDocument,
+                        child: _filePath != null
+                            ? Text(
+                                textAlign: TextAlign.center,
+                                'File path: $_filePath',
+                                style: TextStyle(
+                                  fontSize: MySize.size14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                ),
+                              )
+                            : Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.upload,
+                                      size: MySize.size20,
+                                    ),
+                                    const Text('No document selected.'),
+                                  ],
+                                ),
+                              ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          'Monthly price',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: MySize.size12,
-                              fontWeight: FontWeight.w600,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0XFF83839C)
-                                  : const Color(
-                                      0XFF83839C) //: Color(0XFF333339),
+                  ),
+                ),
+
+                SizedBox(
+                  height: MySize.size30,
+                ),
+
+                /// row of price customizing
+
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MySize.size24, right: MySize.size24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          _decrementText();
+                        },
+                        child: Container(
+                          height: MySize.scaleFactorHeight * 48,
+                          width: MySize.scaleFactorWidth * 48,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                    : const Color(0XFFCFCFFC).withOpacity(.15),
                               ),
-                        ),
-                        SizedBox(
-                          height: MySize.size4,
-                        ),
-                        SizedBox(
-                          width: 100,
-                          child: TextFormField(
-                            controller: _monthlyPriceController,
-                            keyboardType: TextInputType.number,
-                            // inputFormatters: <TextInputFormatter>[
-                            //   FilteringTextInputFormatter.allow(
-                            //       RegExp(r'^\$?\d*\.?\d{0,2}')),
-                            //   // Allow only digits and up to 2 decimal places
-                            // ],
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: MySize.size24,
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
-                                  ? Colors.white
-                                  : const Color(0XFF333339),
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(left: 20),
-                              hintText: "\$0.0",
-                              hintStyle: TextStyle(
+                                  ? const Color(0XFF4E4E61).withOpacity(.1)
+                                  : const Color(0XFF4E4E61).withOpacity(.2),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: Icon(Icons.remove,
+                              size: MySize.size30,
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? const Color(0XFF4E4E61)
+                                  : const Color(0XFF353542)),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'Monthly price',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: MySize.size12,
+                                fontWeight: FontWeight.w600,
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0XFF83839C)
+                                    : const Color(
+                                        0XFF83839C) //: Color(0XFF333339),
+                                ),
+                          ),
+                          SizedBox(
+                            height: MySize.size4,
+                          ),
+                          SizedBox(
+                            width: 100,
+                            child: TextFormField(
+                              controller: _monthlyPriceController,
+                              keyboardType: TextInputType.number,
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: MySize.size24,
                                 color: Provider.of<ThemeChanger>(context)
@@ -1083,123 +1074,142 @@ class _SubscriptionState extends State<Subscription> {
                                     ? Colors.white
                                     : const Color(0XFF333339),
                               ),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? const Color(0XFF353542)
-                                          : const Color(0XFF353542))),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? const Color(0XFF353542)
-                                          : const Color(0XFF353542))),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(left: 20),
+                                hintText: "\$0.0",
+                                hintStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: MySize.size24,
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
+                                      ? Colors.white
+                                      : const Color(0XFF333339),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Provider.of<ThemeChanger>(context)
+                                                        .themeData ==
+                                                    darkMode
+                                                ? const Color(0XFF353542)
+                                                : const Color(0XFF353542))),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            Provider.of<ThemeChanger>(context)
+                                                        .themeData ==
+                                                    darkMode
+                                                ? const Color(0XFF353542)
+                                                : const Color(0XFF353542))),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        _incrementText();
-                      },
-                      child: Container(
-                        height: MySize.scaleFactorHeight * 48,
-                        width: MySize.scaleFactorWidth * 48,
-                        decoration: BoxDecoration(
-                            border: Border.all(
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _incrementText();
+                        },
+                        child: Container(
+                          height: MySize.scaleFactorHeight * 48,
+                          width: MySize.scaleFactorWidth * 48,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0XFFCFCFFC).withOpacity(.15)
+                                    : const Color(0XFFCFCFFC).withOpacity(.15),
+                              ),
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
-                                  ? const Color(0XFFCFCFFC).withOpacity(.15)
-                                  : const Color(0XFFCFCFFC).withOpacity(.15),
-                            ),
-                            color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61).withOpacity(.1)
-                                    : const Color(0XFF4E4E61).withOpacity(.2),
-                            borderRadius: BorderRadius.circular(16)),
-                        child: Icon(Icons.add,
-                            size: MySize.size30,
-                            color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61)
-                                    : const Color(0XFF353542)),
+                                  ? const Color(0XFF4E4E61).withOpacity(.1)
+                                  : const Color(0XFF4E4E61).withOpacity(.2),
+                              borderRadius: BorderRadius.circular(16)),
+                          child: Icon(Icons.add,
+                              size: MySize.size30,
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? const Color(0XFF4E4E61)
+                                  : const Color(0XFF353542)),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: MySize.size38,
-              ),
+                SizedBox(
+                  height: MySize.size38,
+                ),
 
-              /// Add this subscription button
-              Consumer<SubscriptionProvider>(
-                builder: (context, subscriptionProvider, child) {
-                  return InkWell(
-                      onTap: () {
-                        subscriptionProvider.storeSubscription(
-                            description: descriptionController.text.trim(),
-                            startDate: _dateFormat.format(_selectedDate!),
-                            renewalDate: _dateFormat.format(_selectedDate1!),
-                            billingCycle: selectedValue1.toString(),
-                            userId: AppConstant.getUserID,
-                            price: _monthlyPriceController.text.trim(),
-                            reminderDuration: selectedValue2.toString(),
-                            categoryID: "2",
-                            providerId: "2");
-                      },
-                      child: Container(
-                        height: MySize.scaleFactorHeight * 48,
-                        width: MySize.scaleFactorWidth * 324,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MySize.size24),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: AppColors.purpleBE,
-                                spreadRadius: 2,
-                                blurRadius: 25,
-                                offset: Offset(0, 9),
-                              ),
-                              BoxShadow(
-                                color: AppColors.purpleFF,
-                                offset: Offset(-5, 0),
-                              ),
-                              BoxShadow(
-                                color: AppColors.purpleFF,
-                                offset: Offset(5, 0),
-                              )
-                            ]),
-                        child: subscriptionProvider.isStoreSub == true
-                            ? const Center(child: CircularProgressIndicator())
-                            : Center(
-                                child: Text(
-                                  'Add this subscription',
-                                  style: TextStyle(
-                                    fontSize: MySize.size14,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Regular-Poppins',
-                                    color: Provider.of<ThemeChanger>(context)
-                                                .themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : Colors.white,
+                /// Add this subscription button
+                Consumer<SubscriptionProvider>(
+                  builder: (context, subscriptionProvider, child) {
+                    return InkWell(
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            subscriptionProvider.storeSubscription(
+                                description: descriptionController.text.trim(),
+                                startDate: _dateFormat.format(_selectedDate!),
+                                renewalDate:
+                                    _dateFormat.format(_selectedDate1!),
+                                billingCycle: selectedValue1.toString(),
+                                userId: AppConstant.getUserID,
+                                price: _monthlyPriceController.text.trim(),
+                                reminderDuration: selectedValue2.toString(),
+                                categoryID: "2",
+                                providerId: "2");
+                          }
+                        },
+                        child: Container(
+                          height: MySize.scaleFactorHeight * 48,
+                          width: MySize.scaleFactorWidth * 324,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(MySize.size24),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColors.purpleBE,
+                                  spreadRadius: 2,
+                                  blurRadius: 25,
+                                  offset: Offset(0, 9),
+                                ),
+                                BoxShadow(
+                                  color: AppColors.purpleFF,
+                                  offset: Offset(-5, 0),
+                                ),
+                                BoxShadow(
+                                  color: AppColors.purpleFF,
+                                  offset: Offset(5, 0),
+                                )
+                              ]),
+                          child: subscriptionProvider.isStoreSub == true
+                              ? const Center(child: CircularProgressIndicator())
+                              : Center(
+                                  child: Text(
+                                    'Add this subscription',
+                                    style: TextStyle(
+                                      fontSize: MySize.size14,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Regular-Poppins',
+                                      color: Provider.of<ThemeChanger>(context)
+                                                  .themeData ==
+                                              darkMode
+                                          ? Colors.white
+                                          : Colors.white,
+                                    ),
                                   ),
                                 ),
-                              ),
-                      ));
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                        ));
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
       ),

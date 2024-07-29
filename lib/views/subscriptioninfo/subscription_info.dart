@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+import '../../Provider/subscription_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -21,17 +22,9 @@ class SubscriptionInfo extends StatefulWidget {
 }
 
 class _SubscriptionInfoState extends State<SubscriptionInfo> {
-  ///
-  String _selectedOption = 'Never';
 
-  void _selectOption(String option) {
-    setState(() {
-      _selectedOption = option;
-    });
-    Navigator.pop(context);
-  }
 
-  ///
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,18 +86,22 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           onTap: () {
                                             Get.back();
                                           },
-                                          child: Image.asset(
-                                            AppImages.downwardArrow,
-                                            width: MySize.size20,
-                                            height: MySize.size20,
-                                            color: Provider.of<ThemeChanger>(
-                                                            context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0XFFA2A2B5)
-                                                : const Color(0XFF424252),
+                                          child: Transform.rotate(
+                                            angle: 3.14 / 2,
+                                            child: Image.asset(
+                                              AppImages.downwardArrow,
+                                              width: MySize.size20,
+                                              height: MySize.size20,
+                                              color: Provider.of<ThemeChanger>(
+                                                              context)
+                                                          .themeData ==
+                                                      darkMode
+                                                  ? const Color(0XFFA2A2B5)
+                                                  : const Color(0XFF424252),
+                                            ),
                                           ),
                                         ),
+
                                         const Spacer(),
                                         Text(
                                           'Subscription info',
@@ -121,19 +118,29 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           ),
                                         ),
                                         const Spacer(), // Add Spacer here
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Image.asset(
-                                            AppImages.trash,
-                                            scale: 1.2,
-                                            color: Provider.of<ThemeChanger>(
-                                                            context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0XFFA2A2B5)
-                                                : const Color(0XFF424252),
-                                          ),
-                                        ),
+                                        Consumer<SubscriptionProvider>(
+                                          builder: (context,
+                                              subscriptionProvider, child) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                subscriptionProvider
+                                                    .deleteSubscription(
+                                                        context: context,
+                                                        subscriptionID: "18");
+                                              },
+                                              child: Image.asset(
+                                                AppImages.trash,
+                                                scale: 1.2,
+                                                color: Provider.of<ThemeChanger>(
+                                                                context)
+                                                            .themeData ==
+                                                        darkMode
+                                                    ? const Color(0XFFA2A2B5)
+                                                    : const Color(0XFF424252),
+                                              ),
+                                            );
+                                          },
+                                        )
                                       ],
                                     ),
                                   ),
@@ -317,16 +324,23 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                               SubscriptionInfoRow(
                                                 text: 'Category',
                                                 text2: "Netflix",
-                                                icon: Image.asset(
-                                                  AppImages.arrowLeft,
-                                                  width: MySize.size14,
-                                                  height: MySize.size14,
-                                                  color: Provider.of<ThemeChanger>(
-                                                                  context)
-                                                              .themeData ==
-                                                          darkMode
-                                                      ? const Color(0XFFA2A2B5)
-                                                      : const Color(0XFFA2A2B5),
+                                                icon: GestureDetector(
+                                                  onTap: () {
+                                                    print("pressed");
+                                                  },
+                                                  child: Image.asset(
+                                                    AppImages.arrowLeft,
+                                                    width: MySize.size14,
+                                                    height: MySize.size14,
+                                                    color: Provider.of<ThemeChanger>(
+                                                                    context)
+                                                                .themeData ==
+                                                            darkMode
+                                                        ? const Color(
+                                                            0XFFA2A2B5)
+                                                        : const Color(
+                                                            0XFFA2A2B5),
+                                                  ),
                                                 ),
                                               ),
                                               SizedBox(height: MySize.size16),
@@ -497,60 +511,76 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           ),
                                         ),
                                         SizedBox(height: MySize.size25),
-                                        InkWell(
-                                          onTap: () {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) => const Settings(),
-                                            //   ),
-                                            // );
-                                          },
-                                          child: Container(
-                                            height:
-                                                MySize.scaleFactorHeight * 48,
-                                            width:
-                                                MySize.scaleFactorWidth * 288,
-                                            decoration: BoxDecoration(
-                                              color: Provider.of<ThemeChanger>(
-                                                              context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? Colors.white.withOpacity(.1)
-                                                  : const Color(0XFFF7F7FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      MySize.size24),
-                                              border: Border.all(
-                                                color:
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                            .withOpacity(.15)
-                                                        : Colors.white
-                                                            .withOpacity(.15),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Save',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Provider.of<ThemeChanger>(
-                                                                  context)
-                                                              .themeData ==
-                                                          darkMode
-                                                      ? const Color(0XFFFFFFFF)
-                                                      : const Color(0XFF424252),
+                                        Consumer<SubscriptionProvider>(
+                                          builder: (context,
+                                              getSubscriptionProvider, child) {
+                                            return InkWell(
+                                              onTap: () {
+                                                getSubscriptionProvider
+                                                    .getSubscriptions();
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRoute(
+                                                //     builder: (context) => const Settings(),
+                                                //   ),
+                                                // );
+                                              },
+                                              child: Container(
+                                                height:
+                                                    MySize.scaleFactorHeight *
+                                                        48,
+                                                width: MySize.scaleFactorWidth *
+                                                    288,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      Provider.of<ThemeChanger>(
+                                                                      context)
+                                                                  .themeData ==
+                                                              darkMode
+                                                          ? Colors.white
+                                                              .withOpacity(.1)
+                                                          : const Color(
+                                                              0XFFF7F7FF),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          MySize.size24),
+                                                  border: Border.all(
+                                                    color:
+                                                        Provider.of<ThemeChanger>(
+                                                                        context)
+                                                                    .themeData ==
+                                                                darkMode
+                                                            ? Colors.white
+                                                                .withOpacity(
+                                                                    .15)
+                                                            : Colors.white
+                                                                .withOpacity(
+                                                                    .15),
+                                                  ),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Save',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontSize: MySize.size14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Provider.of<ThemeChanger>(
+                                                                      context)
+                                                                  .themeData ==
+                                                              darkMode
+                                                          ? const Color(
+                                                              0XFFFFFFFF)
+                                                          : const Color(
+                                                              0XFF424252),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ),
+                                            );
+                                          },
+                                        )
                                       ],
                                     ),
                                   ),
