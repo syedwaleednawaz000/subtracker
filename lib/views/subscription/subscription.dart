@@ -704,8 +704,15 @@ class _SubscriptionState extends State<Subscription> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: MySize.size24),
                   child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
+
+                    child: DropdownButtonFormField2<String>(
                       isExpanded: true,
+
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(MySize.size20),
+                        )
+                      ),
                       hint: Row(
                         children: [
                           SizedBox(width: MySize.size4),
@@ -724,17 +731,17 @@ class _SubscriptionState extends State<Subscription> {
                       ),
                       items: items
                           .map((String item) => DropdownMenuItem<String>(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: TextStyle(
-                                    fontSize: MySize.size14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ))
+                        value: item,
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ))
                           .toList(),
                       value: selectedValue1,
                       onChanged: (String? value) {
@@ -742,65 +749,38 @@ class _SubscriptionState extends State<Subscription> {
                           selectedValue1 = value;
                         });
                       },
-                      buttonStyleData: ButtonStyleData(
-                        height: MySize.size50,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: Colors.black26,
-                          ),
-                          color: Colors.white,
-                        ),
-                        elevation: 0,
-                      ),
-                      iconStyleData: const IconStyleData(
-                        icon: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                        ),
-                        iconSize: 14,
-                        iconEnabledColor: Colors.black,
-                        iconDisabledColor: Colors.grey,
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                        maxHeight: MySize.size200,
-                        direction: DropdownDirection.right,
-                        width: MySize.size140,
-                        elevation: 2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: Colors.white,
-                        ),
-                        offset: const Offset(-20, 0),
-                        scrollbarTheme: ScrollbarThemeData(
-                          radius: const Radius.circular(40),
-                          thickness: MaterialStateProperty.all<double>(6),
-                          thumbVisibility:
-                              MaterialStateProperty.all<bool>(true),
-                        ),
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                        padding: EdgeInsets.only(left: 14, right: 14),
-                      ),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select a billing cycle';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
+
                 SizedBox(
                   height: MySize.size12,
                 ),
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: MySize.size24),
                   child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
+
+                    child: DropdownButtonFormField2<String>(
                       isExpanded: true,
+
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(MySize.size20),
+                          )
+                      ),
                       hint: Row(
                         children: [
                           SizedBox(width: MySize.size4),
                           Expanded(
                             child: Text(
-                              'Reminder Duration',
+                              'Renewal Date',
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,
@@ -812,19 +792,18 @@ class _SubscriptionState extends State<Subscription> {
                         ],
                       ),
                       items: billingCycleData
-                          .map((String billingCycleDataItem) =>
-                              DropdownMenuItem<String>(
-                                value: billingCycleDataItem,
-                                child: Text(
-                                  billingCycleDataItem,
-                                  style: TextStyle(
-                                    fontSize: MySize.size14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ))
+                          .map((String item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: TextStyle(
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ))
                           .toList(),
                       value: selectedValue2,
                       onChanged: (String? value) {
@@ -832,48 +811,12 @@ class _SubscriptionState extends State<Subscription> {
                           selectedValue2 = value;
                         });
                       },
-                      buttonStyleData: ButtonStyleData(
-                        height: MySize.size50,
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(left: 14, right: 14),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: Colors.black26,
-                          ),
-                          color: Colors.white,
-                        ),
-                        elevation: 0,
-                      ),
-                      iconStyleData: const IconStyleData(
-                        icon: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                        ),
-                        iconSize: 14,
-                        iconEnabledColor: Colors.black,
-                        iconDisabledColor: Colors.grey,
-                      ),
-                      dropdownStyleData: DropdownStyleData(
-                        maxHeight: MySize.size200,
-                        direction: DropdownDirection.right,
-                        width: MySize.size140,
-                        elevation: 2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: Colors.white,
-                        ),
-                        offset: const Offset(-20, 0),
-                        scrollbarTheme: ScrollbarThemeData(
-                          radius: const Radius.circular(40),
-                          thickness: MaterialStateProperty.all<double>(6),
-                          thumbVisibility:
-                              MaterialStateProperty.all<bool>(true),
-                        ),
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                        padding: EdgeInsets.only(left: 14, right: 14),
-                      ),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please select a Renewal Date';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
