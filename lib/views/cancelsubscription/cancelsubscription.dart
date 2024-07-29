@@ -73,7 +73,7 @@ class CancelSubscription extends StatelessWidget {
               itemCount: subscriptionProvider.activeSubscriptionData['data'].length,
               itemBuilder: (context, index) {
                 var finalData = subscriptionProvider.activeSubscriptionData['data'][index];
-                return             InkWell(
+                return  InkWell(
                   onTap: () {
                     subscriptionProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
                   },

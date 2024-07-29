@@ -131,9 +131,14 @@ class ProfileProvider extends ChangeNotifier{
       print("this is error ${error.toString()}");
     }
   }
+
   Future<void> cleanLocalData({required BuildContext context})async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(AppConstant.saveUserToken);
+    prefs.remove(AppConstant.saveUserID);
+    AppConstant.getUserToken = '';
+    AppConstant.getUserID = '';
+    // prefs.clear();
     FlutterToast.toastMessage(message: "Successfully Logout");
     Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -142,9 +147,9 @@ class ProfileProvider extends ChangeNotifier{
   XFile? updatePic ;
   Future<void> picPicture()async{
     final ImagePicker picker = ImagePicker();
-    final XFile? _image = await picker.pickImage(source: ImageSource.gallery);
-    if(_image != null){
-      updatePic = _image;
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if(image != null){
+      updatePic = image;
       notifyListeners();
     }
   }
