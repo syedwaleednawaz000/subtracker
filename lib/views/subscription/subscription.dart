@@ -310,7 +310,13 @@ class _SubscriptionState extends State<Subscription> {
     '1 Month',
     '1 Year',
   ];
-  String? selectedValue;
+  final List<String> billingCycleData = [
+    'weekly',
+    'Monthly',
+    'Yearly',
+  ];
+  String? selectedValue1;
+  String? selectedValue2;
 
   @override
   Widget build(BuildContext context) {
@@ -695,7 +701,7 @@ class _SubscriptionState extends State<Subscription> {
                         SizedBox(width: MySize.size4),
                         Expanded(
                           child: Text(
-                            'Select Item',
+                            'Billing Cycle',
                             style: TextStyle(
                               fontSize: MySize.size14,
                               fontWeight: FontWeight.bold,
@@ -720,10 +726,99 @@ class _SubscriptionState extends State<Subscription> {
                               ),
                             ))
                         .toList(),
-                    value: selectedValue,
+                    value: selectedValue1,
                     onChanged: (String? value) {
                       setState(() {
-                        selectedValue = value;
+                        selectedValue1 = value;
+                      });
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: MySize.size50,
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: Colors.black26,
+                        ),
+                        color: Colors.white,
+                      ),
+                      elevation: 0,
+                    ),
+                    iconStyleData: const IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.black,
+                      iconDisabledColor: Colors.grey,
+                    ),
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: MySize.size200,
+                      direction: DropdownDirection.right,
+                      width: MySize.size140,
+                      elevation: 2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Colors.white,
+                      ),
+                      offset: const Offset(-20, 0),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: MaterialStateProperty.all<double>(6),
+                        thumbVisibility: MaterialStateProperty.all<bool>(true),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                      padding: EdgeInsets.only(left: 14, right: 14),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MySize.size12,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: Row(
+                      children: [
+                        SizedBox(width: MySize.size4),
+                        Expanded(
+                          child: Text(
+                            'Reminder Duration',
+                            style: TextStyle(
+                              fontSize: MySize.size14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    items: billingCycleData
+                        .map((String billingCycleDataItem) =>
+                            DropdownMenuItem<String>(
+                              value: billingCycleDataItem,
+                              child: Text(
+                                billingCycleDataItem,
+                                style: TextStyle(
+                                  fontSize: MySize.size14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                        .toList(),
+                    value: selectedValue2,
+                    onChanged: (String? value) {
+                      setState(() {
+                        selectedValue2 = value;
                       });
                     },
                     buttonStyleData: ButtonStyleData(
@@ -853,17 +948,40 @@ class _SubscriptionState extends State<Subscription> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: DottedBorder(
-                  borderType: BorderType.RRect,
-                  strokeWidth: 1,
-                  // borderPadding: EdgeInsets.all(8),
-                  radius: Radius.circular(MySize.size10),
-                  padding: EdgeInsets.all(MySize.size8),
-                  child: GestureDetector(
-                    onTap: _pickDocument,
-                    child: _filePath != null
-                        ? Text('File path: $_filePath')
-                        : const Text('No document selected.'),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    strokeWidth: 1,
+                    // borderPadding: EdgeInsets.all(8),
+                    radius: Radius.circular(MySize.size10),
+                    padding: EdgeInsets.all(MySize.size8),
+                    child: GestureDetector(
+                      onTap: _pickDocument,
+                      child: _filePath != null
+                          ? Text(
+                              textAlign: TextAlign.center,
+                              'File path: $_filePath',
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.upload,
+                                    size: MySize.size20,
+                                  ),
+                                  const Text('No document selected.'),
+                                ],
+                              ),
+                            ),
+                    ),
                   ),
                 ),
               ),
