@@ -27,6 +27,7 @@ class AppUrl{
   static String geTotalBudgets = "budgets";
   static String getNotifications = "notifications";
   static String updateProfile = "update-profile";
+  static String getProfile = "profile";
   static String deleteAccount = "delete-account";
   static String enableTwoFactorAuth = "two-factor-auth/enable";
   static String disableTwoFactorAuth = "two-factor-auth/disable";

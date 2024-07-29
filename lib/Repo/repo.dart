@@ -161,7 +161,11 @@ class ApiService {
       url: AppUrl.termsAndConditions,
     );
   }
-
+  Future<Response> getProfile() {
+    return apiClient.get(
+      url: AppUrl.getProfile,
+    );
+  }
   //Todo here all delete method
   Future<Response> deleteAccount({var params}) {
     return apiClient.delete(url: AppUrl.deleteAccount, params: params);
