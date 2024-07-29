@@ -128,4 +128,7 @@ class SubscriptionProvider extends ChangeNotifier{
       print("this is error ${error.toString()}");
     }
   }
+
+
+
 }

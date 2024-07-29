@@ -138,9 +138,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     child: TabBarView(
                       controller: _tabController,
                       children: [
+                        data['subscriptions'].length == 0 ?Center(child: Text("Not found"),):
                         SubscriptionWidget(
                           subscriptions: data['subscriptions'],
                         ),
+                        data['upcommingbills'].length == 0 ?Center(child: Text("Not found"),):
                         UpComingBillWidget(upComingBills: data['upcommingbills'])
                       ],
                     ),

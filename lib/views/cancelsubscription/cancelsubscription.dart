@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import '../../theme/theme.dart';
@@ -21,10 +22,11 @@ class CancelSubscription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.microtask(() => Provider.of<SubscriptionProvider>(context,listen: false).activeSubscriptions());
     return SafeArea(
         child: Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF1C1C23)
+          ? const Color(0XFF1C1C23)
           : Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -60,61 +62,64 @@ class CancelSubscription extends StatelessWidget {
             SizedBox(
               height: MySize.size54,
             ),
-            InkWell(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const PaymentScreen(),
-                //   ),
-                // );
-              },
-              child: Container(
-                height: MySize.scaleFactorHeight * 68,
-                width: MySize.scaleFactorWidth * 288,
-                decoration: BoxDecoration(
-                  color:
-                  Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? Color(0XFF4E4E61).withOpacity(.2)
-                      : Color(0XFFF1F1FF),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border(
-                      top: BorderSide(color: Colors.white.withOpacity(.15)),
-                      left: BorderSide(color: Colors.white.withOpacity(.15)),
-                      // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                      bottom: BorderSide.none
+          Consumer<SubscriptionProvider>(builder: (context, subscriptionProvider, child) {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: subscriptionProvider.activeSubscriptionData['data'].length,
+              itemBuilder: (context, index) {
+              return             InkWell(
+                onTap: () {
+
+                },
+                child: Container(
+                  height: MySize.scaleFactorHeight * 68,
+                  width: MySize.scaleFactorWidth * 288,
+                  decoration: BoxDecoration(
+                    color:
+                    Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? Color(0XFF4E4E61).withOpacity(.2)
+                        : Color(0XFFF1F1FF),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border(
+                        top: BorderSide(color: Colors.white.withOpacity(.15)),
+                        left: BorderSide(color: Colors.white.withOpacity(.15)),
+                        // right: BorderSide(color: Colors.white.withOpacity(.5)),
+                        bottom: BorderSide.none
+                    ),
                   ),
-                ),
-                child: Stack(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Yearly',
-                            style: TextStyle(
-                              color: Color(0XFF83839C),
+                  child: Stack(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Yearly',
+                              style: TextStyle(
+                                color: Color(0XFF83839C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+
+                            TextWidgetInterMedium(
+                              title: '\$39.95',
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
+                              // color: AppColors.whiteFF
                             ),
-                          ),
-
-                          TextWidgetInterMedium(
-                            title: '\$39.95',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            // color: AppColors.whiteFF
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SubscribeStackWidget(),
-                  ],
+                      const SubscribeStackWidget(),
+                    ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },);
+          },),
             SizedBox(
               height: MySize.size48,
             ),

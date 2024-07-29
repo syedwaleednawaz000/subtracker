@@ -71,12 +71,14 @@ class _FaqsScreenState extends State<FaqsScreen> {
                 // ),
 
                 Consumer<FaqsProvider>(builder: (context, faqsProvider, child) {
-                  return faqsProvider.isFaqs ? Center(child: CircularProgressIndicator(color: Colors.green,),):
-                  faqsProvider.faqsData == null ? const Center(child: Text("Faqs ar enot available"),):
+                  return faqsProvider.isFaqs ?
+                  const Center(child: CircularProgressIndicator(color: Colors.green,),):
+                  faqsProvider.faqsData['data'] == null ?
+                  const Center(child: Text(""),):
                   ListView.builder(
                     itemCount: faqsProvider.faqsData['data'].length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       var finalData =  faqsProvider.faqsData['data'][index];
                       return Container(
