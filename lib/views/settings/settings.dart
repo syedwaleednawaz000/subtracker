@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
-import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
+import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';

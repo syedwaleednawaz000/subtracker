@@ -12,7 +12,7 @@ import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/views/base/settingIcon_screen.dart';
 import 'package:sub_tracker/views/welcomeScreen/welcome_screen.dart';
 
-import '../../bottom_nav/bottom_navBar.dart';
+import '../bottomnavbar/bottom_navBar.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';

@@ -26,7 +26,7 @@ import 'package:sub_tracker/utils/app_url.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
-import 'bottom_nav/bottomNotifier.dart';
+import 'Provider/bottom_bar_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
     MySize().init(context);
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => BottomNotifier()),
+        ChangeNotifierProvider(create: (BuildContext context) => BottomBarProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CounterNotifier()),
         ChangeNotifierProvider(create: (BuildContext context) => ThemeChanger()),
         ChangeNotifierProvider(create: (BuildContext context) => LoginProvider()),

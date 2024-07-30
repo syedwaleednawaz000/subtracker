@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 
-import '../../bottom_nav/bottom_navBar.dart';
+import '../bottomnavbar/bottom_navBar.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
