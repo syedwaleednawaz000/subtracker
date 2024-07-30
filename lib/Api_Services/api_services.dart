@@ -15,29 +15,31 @@ class APIClient {
   // APIClient(){_initializePreferences();}
    Map<String, dynamic>? headers;
   Dio _dio = Dio();
-   void _initializePreferences() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      if(prefs.get(AppConstant.saveUserToken) != null){
-        var token = prefs.get(AppConstant.saveUserToken);
-        _setHeaders(token: token.toString());
-      }else{
-        _setHeaders(token: '');
-      }
 
-   }
 
-   void _setHeaders({required String token }) {
+   Future<void> _setHeaders() async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     if(prefs.get(AppConstant.saveUserToken) != null){
+       // var token = prefs.get(AppConstant.saveUserToken);
        headers = {
          'Content-Type': 'application/json',
          'Accept': 'application/json',
-         'Authorization': 'Bearer $token',
+         'Authorization': 'Bearer ${prefs.get(AppConstant.saveUserToken).toString()}',
 
-     };
+       };
+     }else{
+       headers = {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json',
+         'Authorization': 'Bearer ',
+
+       };
+     }
    }
 
 
   APIClient() {
-    _initializePreferences();
+    _setHeaders();
     BaseOptions baseOptions = BaseOptions(
       receiveTimeout: const Duration(seconds: 30),
       connectTimeout: const Duration(seconds: 30),

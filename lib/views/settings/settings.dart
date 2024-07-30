@@ -13,6 +13,7 @@ import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/FAQs_screen/faqs.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
@@ -154,8 +155,13 @@ class _SettingsState extends State<Settings> {
                   children: [
                     SizedBox(height: MySize.size40),
                     Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                      final profileImageUrl = profileProvider.userData['data']['profile_image'];
-                      return profileImageUrl != null && profileImageUrl.isNotEmpty
+                      String profileImageUrl= "";
+                      if(profileProvider.userData != null){
+                        if(profileProvider.userData['data'] != null){
+                          profileImageUrl = profileProvider.userData['data']['profile_image']??"";
+                        }
+                      }
+                       return profileImageUrl != null && profileImageUrl.isNotEmpty
                           ? CachedNetworkImage(
                         imageUrl: profileImageUrl,
                         imageBuilder: (context, imageProvider) => Container(
@@ -210,7 +216,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(height: MySize.size8),
              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
               return  Text(
-                '${profileProvider.userData['data']['name']}',
+                '${profileProvider.userData['data'] != null ?profileProvider.userData['data']['name']:""}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   // color: isDarkMode ? AppColors.whiteFF : Color(0XFF424252),
@@ -308,7 +314,15 @@ class _SettingsState extends State<Settings> {
                                 return Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileProvider.screens[index]));
+                                      if(index == 0){
+                                        if(profileProvider.userData['data'] != null){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileProvider.screens[index]));
+                                        }else{
+                                          FlutterToast.toastMessage(message: "User data not found please try again",isError: true);
+                                        }
+                                      }else{
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => profileProvider.screens[index]));
+                                      }
                                     },
                                     child: ListTile(
                                       dense: true,
