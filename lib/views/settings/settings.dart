@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
-import 'package:sub_tracker/bottom_nav/bottom_navBar.dart';
+import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
@@ -57,7 +57,7 @@ class _SettingsState extends State<Settings> {
 
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
   List<AssetImage> leadingAccImage = [
-    AssetImage(AppImages.manIcon),
+    const AssetImage(AppImages.manIcon),
     AssetImage(AppImages.language),
     AssetImage(AppImages.currency),
     AssetImage(AppImages.password)
@@ -101,10 +101,10 @@ class _SettingsState extends State<Settings> {
       child: Scaffold(
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Color(0XFF1C1C23)
-                : Color(0XFFF7F7FF),
+                ? const Color(0XFF1C1C23)
+                : const Color(0XFFF7F7FF),
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(70),
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: AppBar(
@@ -119,7 +119,7 @@ class _SettingsState extends State<Settings> {
               title: Text(
                 'Settings',
                 style: TextStyle(
-                    color: Color(0XFFA2A2B5),
+                    color: const Color(0XFFA2A2B5),
                     fontSize: MySize.size16,
                     fontWeight: FontWeight.w400),
               ),
@@ -131,7 +131,7 @@ class _SettingsState extends State<Settings> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NotificationsScreen()));
+                                builder: (context) => const NotificationsScreen()));
                       },
                       child: Image.asset(
                         AppImages.notificationIcon,
@@ -139,8 +139,8 @@ class _SettingsState extends State<Settings> {
                         width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? Color(0XFFA2A2B5)
-                            : Color(0XFF424252),
+                            ? const Color(0XFFA2A2B5)
+                            : const Color(0XFF424252),
                       )),
                 )
               ],
@@ -234,21 +234,21 @@ class _SettingsState extends State<Settings> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? Colors.white.withOpacity(.1)
-                            : Color(0XFFF1F1FF),
+                            : const Color(0XFFF1F1FF),
                         border: Border(
                           top: BorderSide(
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
-                                  ? Color(0xFFCFCFFC).withOpacity(.15)
-                                  : Color(0xFFCFCFFC).withOpacity(.15)),
+                                  ? const Color(0xFFCFCFFC).withOpacity(.15)
+                                  : const Color(0xFFCFCFFC).withOpacity(.15)),
 
                           left: BorderSide(
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
-                                  ? Color(0xFFCFCFFC).withOpacity(.15)
-                                  : Color(0xFFCFCFFC).withOpacity(.15)),
+                                  ? const Color(0xFFCFCFFC).withOpacity(.15)
+                                  : const Color(0xFFCFCFFC).withOpacity(.15)),
                         ),
                       ),
                       child: Center(
@@ -259,7 +259,7 @@ class _SettingsState extends State<Settings> {
                                           .themeData ==
                                       darkMode
                                   ? Colors.white
-                                  : Color(0XFF424252),
+                                  : const Color(0XFF424252),
                               fontSize: 12,
                               fontWeight: FontWeight.w600),
                         ),
@@ -283,23 +283,20 @@ class _SettingsState extends State<Settings> {
 
                     /// Account Container
                     Container(
-                      // padding: EdgeInsets.symmetric(horizontal: MySize.size20, vertical: MySize.size16),
                       width: MySize.scaleFactorWidth * 338,
                       height: 390,
                       decoration: BoxDecoration(
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? Color(0XFF4E4E61).withOpacity(.2)
+                            ? const Color(0XFF4E4E61).withOpacity(.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
-                          // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
                         ),
-                        // border: Border.all(width: MySize.size2, color: AppColors.whiteFc.withOpacity(0.10)),
                       ),
                       child: Column(
                         children: [
@@ -483,7 +480,7 @@ class _SettingsState extends State<Settings> {
                               Provider.of<ThemeChanger>(context, listen: false)
                                   .toggleTheme();
                             },
-                            activeTrackColor: Color(0XFF758AFF),
+                            activeTrackColor: const Color(0XFF758AFF),
                             // focusColor: Colors.pink,
                             autofocus: true,
                             // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.green,
@@ -492,11 +489,11 @@ class _SettingsState extends State<Settings> {
                                         darkMode
                                     ? Colors.white
                                     : Colors.white),
-                            inactiveTrackColor: Color(0XFF4E4E61),
+                            inactiveTrackColor: const Color(0XFF4E4E61),
                             trackOutlineColor: const MaterialStatePropertyAll(
                                 Color(0x00000000)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                         ],
@@ -529,7 +526,7 @@ class _SettingsState extends State<Settings> {
                         // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? Color(0XFF4E4E61).withOpacity(.2)
+                            ? const Color(0XFF4E4E61).withOpacity(.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
@@ -555,7 +552,7 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ManagePlan()));
+                                        builder: (context) => const ManagePlan()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -563,7 +560,7 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Image.asset(AppImages.plan),
                                   text: 'Manage Plan',
                                   text2: 'Plan',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -576,7 +573,7 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => PaymentScreen()));
+                                        builder: (context) => const PaymentScreen()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -584,7 +581,7 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Image.asset(AppImages.payment),
                                   text: 'Manage Payment',
                                   text2: 'Cards',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -601,7 +598,7 @@ class _SettingsState extends State<Settings> {
                                             const CancelSubscription()));
                               },
                               child: Padding(
-                                padding: EdgeInsets.only(right: 5),
+                                padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
                                   imageIcon: Stack(
                                     children: [
@@ -618,7 +615,7 @@ class _SettingsState extends State<Settings> {
                                   ),
                                   text: 'Cancel Subscription',
                                   text2: 'Cancel',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -632,7 +629,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: MySize.size32),
-                      child: Align(
+                      child: const Align(
                           alignment: Alignment.topLeft,
                           child: Text(
                             'Help & Support',
@@ -657,7 +654,7 @@ class _SettingsState extends State<Settings> {
                         // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? Color(0XFF4E4E61).withOpacity(.2)
+                            ? const Color(0XFF4E4E61).withOpacity(.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
@@ -681,7 +678,7 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => FaqsScreen()));
+                                        builder: (context) => const FaqsScreen()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -689,7 +686,7 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Image.asset(AppImages.faqs),
                                   text: 'FAQs',
                                   text2: 'FAQ',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -703,7 +700,7 @@ class _SettingsState extends State<Settings> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ContactSupport()));
+                                            const ContactSupport()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -711,7 +708,7 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Image.asset(AppImages.contsupport),
                                   text: 'Contact Support',
                                   text2: 'Support',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -725,7 +722,7 @@ class _SettingsState extends State<Settings> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            TermsOfServices()));
+                                            const TermsOfServices()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -733,7 +730,7 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Image.asset(AppImages.terms),
                                   text: 'Terms & Services',
                                   text2: 'Legal',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -746,7 +743,7 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => PrivPolicy()));
+                                        builder: (context) => const PrivPolicy()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -754,7 +751,7 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Image.asset(AppImages.privpolicy),
                                   text: 'Privacy Policy',
                                   text2: 'Legal',
-                                  text2Color: Color(0XFFA2A2B5),
+                                  text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
                               ),
@@ -781,7 +778,7 @@ class _SettingsState extends State<Settings> {
                           // color: Theme.of(context).colorScheme.secondary,
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                              ? Color(0XFF4E4E61).withOpacity(.2)
+                              ? const Color(0XFF4E4E61).withOpacity(.2)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(16),
                           border: Border(
@@ -820,7 +817,7 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Container(
@@ -833,7 +830,7 @@ class _SettingsState extends State<Settings> {
                         // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? Color(0XFF4E4E61).withOpacity(.2)
+                            ? const Color(0XFF4E4E61).withOpacity(.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
@@ -846,12 +843,12 @@ class _SettingsState extends State<Settings> {
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.verified_sharp,
                             color: Color(0XFFA2A2B5),
                             size: 22,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 14,
                           ),
                           TextWidgetInterRegular(
@@ -859,8 +856,8 @@ class _SettingsState extends State<Settings> {
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           ),
-                          Spacer(),
-                          Text(
+                          const Spacer(),
+                          const Text(
                             '2.0.24 ',
                             style: TextStyle(
                               fontSize: 14,
@@ -870,7 +867,7 @@ class _SettingsState extends State<Settings> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     )
                     // BNavBar()

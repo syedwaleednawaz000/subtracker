@@ -4,10 +4,10 @@ import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
 import 'package:sub_tracker/views/subscription/subscription.dart';
-import '../theme/theme.dart';
-import '../views/calendar_screen/calendar_screen.dart';
-import '../views/home_screen/home_screen.dart';
-import 'bottomNotifier.dart';
+import '../../theme/theme.dart';
+import '../calendar_screen/calendar_screen.dart';
+import '../home_screen/home_screen.dart';
+import '../../Provider/bottom_bar_provider.dart';
 
 class BnavBar extends StatefulWidget {
   const BnavBar({super.key});
@@ -23,7 +23,12 @@ class _BnavBarState extends State<BnavBar> {
     const CalendarScreen(),
     const Settings(),
   ];
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<BottomBarProvider>(context,listen: false).selection(0));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -76,7 +81,7 @@ class _BnavBarState extends State<BnavBar> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Consumer<BottomNotifier>(
+                  Consumer<BottomBarProvider>(
                     builder: (context, value, child) {
                       print('consumer tapped');
                       return IconButton(
@@ -91,7 +96,7 @@ class _BnavBarState extends State<BnavBar> {
                       );
                     },
                   ),
-                  Consumer<BottomNotifier>(builder: (context, value, child) {
+                  Consumer<BottomBarProvider>(builder: (context, value, child) {
                     return IconButton(
                       icon: Image.asset(AppImages.dashboardIcon,
                           width: 18,
@@ -107,7 +112,7 @@ class _BnavBarState extends State<BnavBar> {
                   Container(
                     width: size.width * 0.20,
                   ),
-                  Consumer<BottomNotifier>(builder: (context, value, index) {
+                  Consumer<BottomBarProvider>(builder: (context, value, index) {
                     return IconButton(
                       icon: Image.asset(AppImages.calendarIcon,
                           width: 18,
@@ -120,7 +125,7 @@ class _BnavBarState extends State<BnavBar> {
                       // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
                     );
                   }),
-                  Consumer<BottomNotifier>(
+                  Consumer<BottomBarProvider>(
                     builder: (context, value, child) {
                       return IconButton(
                         icon: Icon(Icons.settings,
@@ -140,7 +145,7 @@ class _BnavBarState extends State<BnavBar> {
           ],
         ),
       ),
-      body: Consumer<BottomNotifier>(builder: (context, value, child) {
+      body: Consumer<BottomBarProvider>(builder: (context, value, child) {
         return _screens[value.selectedIndex];
       }),
     );

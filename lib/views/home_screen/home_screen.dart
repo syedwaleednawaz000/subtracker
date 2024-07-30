@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
 
                   SizedBox(
-                    height: 250,
+                    height: MySize.size100,
                     child: TabBarView(
                       controller: _tabController,
                       children: [
