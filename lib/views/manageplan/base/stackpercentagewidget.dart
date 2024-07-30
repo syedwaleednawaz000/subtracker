@@ -15,7 +15,7 @@ class StackPercentageWidget extends StatelessWidget {
     return  Positioned(
       left: MySize.scaleFactorHeight * 160,
       child: Container(
-        height: MySize.scaleFactorHeight * 20,
+        // height: MySize.scaleFactorHeight * 20,
         width: MySize.scaleFactorWidth * 70,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MySize.size12),

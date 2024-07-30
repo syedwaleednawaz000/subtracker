@@ -13,10 +13,12 @@ class MonthlyPercentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Positioned(
-      bottom: MySize.size2,
+      top: MySize.size64,
+     // bottom: MySize.size2,
       left: MySize.scaleFactorHeight * 145,
       child: Container(
-        height: MySize.scaleFactorHeight * 20,
+        padding: EdgeInsets.symmetric(vertical: MySize.size4),
+       // height: MySize.scaleFactorHeight * 20,
         width: MySize.scaleFactorWidth * 105,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MySize.size12),
@@ -59,17 +61,11 @@ class MonthlyPercentWidget2 extends StatelessWidget {
       left: MySize.scaleFactorHeight * 156,
       child: Container(
         // margin: EdgeInsets.only(left: 20),
-        height: MySize.scaleFactorHeight * 20,
+       // height: MySize.scaleFactorHeight * 20,
         width: MySize.scaleFactorWidth * 105,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MySize.size12),
             boxShadow: const [
-              // BoxShadow(
-              //   color: AppColors.purpleBE,
-              //   spreadRadius: 1,
-              //   blurRadius: 25,
-              //   offset: Offset(0, 2),
-              // ),
               BoxShadow(
                 color: AppColors.purpleFF,
                 offset: Offset(-5,0),
