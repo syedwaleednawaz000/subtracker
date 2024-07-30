@@ -7,6 +7,7 @@ import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import 'package:sub_tracker/views/spending_budgets/addNew_category.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../Provider/category_provider.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
@@ -119,45 +120,97 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: MySize.size20,
+                height: MySize.size42,
               ),
-              Stack(
-                children: [
-                  // const RoundProgessBar(),
-                  Image.asset(
-                    AppImages.half_chartIcon,
-                    height: 165,
-                    width: 250,
-                  ),
-                  Positioned(
-                    left: 100,
-                    top: 75,
-                    child: Text(
-                      '\$82,97',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : const Color(0XFF424252)),
+              SizedBox(
+                height: MySize.scaleFactorHeight*160,
+                child: SfRadialGauge(
+                  axes: <RadialAxis>[
+                    RadialAxis(
+                      startAngle: 180,
+                      endAngle: 360,
+                      radiusFactor: 01.2,
+                      showLabels: false,
+                      showTicks: false,
+                      axisLineStyle: const AxisLineStyle(
+                        thickness: 0.07,
+                        cornerStyle: CornerStyle.bothCurve,
+                        color: Colors.black,
+                        thicknessUnit: GaugeSizeUnit.factor,
+                      ),
+                      pointers: const <GaugePointer>[
+                        RangePointer(
+                          value: 75,
+                          cornerStyle: CornerStyle.bothCurve,
+                          width: 0.15,
+                          sizeUnit: GaugeSizeUnit.factor,
+                          color: Color(0xFFDB23FD),
+                        ),
+                        RangePointer(
+                          value: 42,
+                          cornerStyle: CornerStyle.endCurve,
+                          width: 0.15,
+                          sizeUnit: GaugeSizeUnit.factor,
+                          color: Colors.black,
+                        ),
+                        RangePointer(
+                          value: 40,
+                          cornerStyle: CornerStyle.bothCurve,
+                          width: 0.15,
+                          sizeUnit: GaugeSizeUnit.factor,
+                          color: Color(0xFF7689FF),
+                        ),
+                        RangePointer(
+                          value: 22,
+                          cornerStyle: CornerStyle.bothCurve,
+                          width: 0.15,
+                          sizeUnit: GaugeSizeUnit.factor,
+                          color: Colors.black,
+                        ),
+                        RangePointer(
+                          value: 20,
+                          cornerStyle: CornerStyle.endCurve,
+                          width: 0.15,
+                          sizeUnit: GaugeSizeUnit.factor,
+                          color: Color(0xFF02E3E5),
+                        ),
+                        RangePointer(
+                          value: 00,
+                          cornerStyle: CornerStyle.bothCurve,
+                          width: 0.15,
+                          sizeUnit: GaugeSizeUnit.factor,
+                          color: Colors.black,
+                        ),
+                      ],
+                      annotations: const <GaugeAnnotation>[
+                        GaugeAnnotation(
+                          angle: 90,
+                          positionFactor: 00,
+                          widget: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                '\$82,97',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'of \$2,000 budget',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Positioned(
-                    left: 88,
-                    top: 115,
-                    child: Text(
-                      'of \$2,000 budget',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? const Color(0XFFA2A2B5)
-                              : const Color(0XFFA2A2B5)),
-                    ),
-                  )
-                ],
+                  ],
+                ),
               ),
               Container(
                 height: MySize.size60,
