@@ -32,6 +32,7 @@ class ShowDialogBox extends StatelessWidget {
                   titlePadding: EdgeInsets.only(top: MySize.size30),
                   title: Column(
                     children: [
+                      // SizedBox(width: MySize.size20,),
                       Text('Delete Account',
                         style: TextStyle(
                           fontSize: MySize.size18,
