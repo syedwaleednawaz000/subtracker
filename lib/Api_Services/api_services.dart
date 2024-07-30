@@ -12,34 +12,11 @@ import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
 
 class APIClient {
-  // APIClient(){_initializePreferences();}
-   Map<String, dynamic>? headers;
+
   Dio _dio = Dio();
 
 
-   Future<void> _setHeaders() async {
-     SharedPreferences prefs = await SharedPreferences.getInstance();
-     if(prefs.get(AppConstant.saveUserToken) != null){
-       // var token = prefs.get(AppConstant.saveUserToken);
-       headers = {
-         'Content-Type': 'application/json',
-         'Accept': 'application/json',
-         'Authorization': 'Bearer ${prefs.get(AppConstant.saveUserToken).toString()}',
-
-       };
-     }else{
-       headers = {
-         'Content-Type': 'application/json',
-         'Accept': 'application/json',
-         'Authorization': 'Bearer ',
-
-       };
-     }
-   }
-
-
   APIClient() {
-    _setHeaders();
     BaseOptions baseOptions = BaseOptions(
       receiveTimeout: const Duration(seconds: 30),
       connectTimeout: const Duration(seconds: 30),
@@ -59,6 +36,14 @@ class APIClient {
 
   /// for Get request.
   Future<Response> get({required String url,}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic>? headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${prefs.getString(AppConstant.saveUserToken) != null?
+      prefs.getString(AppConstant.saveUserToken).toString():
+      AppConstant.saveUserToken}',
+    };
     print("this is header ${headers}");
     try {
       final response = await _dio.get(
@@ -81,6 +66,14 @@ class APIClient {
 
   /// for Post request.
   Future<Response> post({required String url, dynamic params,}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic>? headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${prefs.getString(AppConstant.saveUserToken) != null?
+      prefs.getString(AppConstant.saveUserToken).toString():
+      AppConstant.saveUserToken}',
+    };
     try {
       final response = await _dio.post(
         url,
@@ -114,6 +107,14 @@ class APIClient {
 
   /// for delete request
   Future<Response> delete({required String url, dynamic params,}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic>? headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${prefs.getString(AppConstant.saveUserToken) != null?
+      prefs.getString(AppConstant.saveUserToken).toString():
+      AppConstant.saveUserToken}',
+    };
     try {
       final response = await _dio.delete(
         url,
@@ -148,6 +149,14 @@ class APIClient {
   }
   // patch
   Future<Response> patch({required String url, dynamic params,}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic>? headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${prefs.getString(AppConstant.saveUserToken) != null?
+      prefs.getString(AppConstant.saveUserToken).toString():
+      AppConstant.saveUserToken}',
+    };
     try {
       final response = await _dio.patch(
         url,
@@ -171,6 +180,14 @@ class APIClient {
   }
   /// for Put Request.
   Future<Response> put({required String url, dynamic params,}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic>? headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${prefs.getString(AppConstant.saveUserToken) != null?
+      prefs.getString(AppConstant.saveUserToken).toString():
+      AppConstant.saveUserToken}',
+    };
     try {
       final response = await _dio.put(
         url,
@@ -193,7 +210,14 @@ class APIClient {
 
   /// for download Request.
   Future<Response> download(String url, String pathName, void Function(int, int)? onReceiveProgress) async {
-    // logger.i("${AppConstant.getUserToken}this is my user token");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic>? headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ${prefs.getString(AppConstant.saveUserToken) != null?
+      prefs.getString(AppConstant.saveUserToken).toString():
+      AppConstant.saveUserToken}',
+    };
     Response response;
     try {
       response = await _dio.download(
