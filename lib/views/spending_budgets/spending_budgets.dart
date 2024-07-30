@@ -134,31 +134,59 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                         showLabels: false,
                         showTicks: false,
                         axisLineStyle: const AxisLineStyle(
-                          thickness: 0.08,
+                          thickness: 0.07,
                           cornerStyle: CornerStyle.bothCurve,
                           color: Colors.black,
                           thicknessUnit: GaugeSizeUnit.factor,
                         ),
-                        pointers:  const <GaugePointer>[
+                        pointers: const <GaugePointer>[
                           RangePointer(
-                            value: 30,
+                            value: 75,
                             cornerStyle: CornerStyle.bothCurve,
                             width: 0.15,
                             sizeUnit: GaugeSizeUnit.factor,
-                            gradient: SweepGradient(
-                              colors: <Color>[
-                                Color(0xFF00C9FF),
-                                Color(0xFF92FE9D),
-                                Color(0xFFFFDD00),
-                              ],
-                              stops: <double>[0.1, 1.1, 1.5],
-                            ),
+                            color: Color(0xFFDB23FD),
+                          ),
+                          RangePointer(
+                            value: 42,
+                            cornerStyle: CornerStyle.endCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Colors.black,
+                          ),
+                          RangePointer(
+                            value: 40,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Color(0xFF7689FF),
+                          ),
+                          RangePointer(
+                            value: 22,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Colors.black,
+                          ),
+                          RangePointer(
+                            value: 20,
+                            cornerStyle: CornerStyle.endCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Color(0xFF02E3E5),
+                          ),
+                          RangePointer(
+                            value: 00,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Colors.black,
                           ),
                         ],
                         annotations: const <GaugeAnnotation>[
                           GaugeAnnotation(
                             angle: 90,
-                            positionFactor: 0.1,
+                            positionFactor: 00,
                             widget: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
