@@ -792,6 +792,15 @@ class _SettingsState extends State<Settings> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
+                            Image.asset(
+                              AppImages.logout,
+                              color: Provider.of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
+                                  ? Colors.white
+                                  : Colors.red,
+                            ),
+                            SizedBox(width: MySize.size22,),
                             Text(
                               'Logout',
                               style: TextStyle(
@@ -805,14 +814,8 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             const Spacer(),
-                            Image.asset(
-                              AppImages.logout,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Colors.white
-                                  : Colors.red,
-                            ),
+                            Image.asset(AppImages.arrowLeft),
+
                           ],
                         ),
                       ),

@@ -36,7 +36,7 @@ class _SettingRowListState extends State<SettingRowList> {
           Container(
             child: widget.imageIcon,
           ),
-        SizedBox(width: 16),
+        SizedBox(width: MySize.size22),
         Text(
           widget.text,
           style: TextStyle(

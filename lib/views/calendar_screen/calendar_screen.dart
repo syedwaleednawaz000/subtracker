@@ -65,88 +65,88 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ? const Color(0XFF1C1C23)
             : const Color(0XFFF7F7FF),
         // backgroundColor: Color(0XFF4E4E61),
-        body: Column(
-          children: [
-            Container(
-              height: MySize.scaleFactorHeight * 389,
-              // width: MySize.scaleFactorWidth * 375,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(MySize.size24),
-                    bottomRight: Radius.circular(MySize.size24)),
-                color: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode
-                    ? const Color(0XFF353542)
-                    : const Color(0XFFFFFFFF)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Subs\nSchedule',
-                      style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : const Color(0XFF424252),
-                          fontSize: 42,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Poppins_Regular'
-                      ),),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: MySize.scaleFactorHeight * 389,
+                // width: MySize.scaleFactorWidth * 375,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(MySize.size24),
+                      bottomRight: Radius.circular(MySize.size24)),
+                  color: Provider.of<ThemeChanger>(context).themeData ==
+                      darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Subs\nSchedule',
+                        style: TextStyle(
+                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? const Color(0XFFFFFFFF)
+                                : const Color(0XFF424252),
+                            fontSize: 42,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Poppins_Regular'
+                        ),),
 
-                    const SizedBox(height: 8,),
-                    Row(
-                      children: [
-                        Text(
-                          '3 subscriptions for today',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? const Color(0xFFA2A2B5)
-                                : const Color(0xFFA2A2B5),
-                            fontFamily: 'Poppins_Regular',
+                      const SizedBox(height: 8,),
+                      Row(
+                        children: [
+                          Text(
+                            '3 subscriptions for today',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0xFFA2A2B5)
+                                  : const Color(0xFFA2A2B5),
+                              fontFamily: 'Poppins_Regular',
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        DropdownButton2<int>(dropdownStyleData: DropdownStyleData(
-                          maxHeight: 200,
+                          const Spacer(),
+                          DropdownButton2<int>(dropdownStyleData: DropdownStyleData(
+                            maxHeight: 200,
 
-                        ),
-                          value: _selectedMonth,
-                          onChanged: (int? newValue) {
-                            if (newValue != null) {
-                              setState(() {
-                                _selectedMonth = newValue;
-                              });
-                            }
-                          },
-                          items: List.generate(12, (index) => index + 1).map((month) {
-                            return DropdownMenuItem<int>(
-                              value: month,
-                              child: Text(DateFormat('MMM').format(DateTime(0, month))),
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    CalendarContainer(
-                      selectedMonth: _selectedMonth,
-                      onDateSelected: (DateTime date) {
-                        setState(() {
-                          _selectedDate = date;
-                        });
-                        print('Selected Date: ${date.toLocal()}');
-                      },
-                    ),
-                  ],
+                          ),
+                            value: _selectedMonth,
+                            onChanged: (int? newValue) {
+                              if (newValue != null) {
+                                setState(() {
+                                  _selectedMonth = newValue;
+                                });
+                              }
+                            },
+                            items: List.generate(12, (index) => index + 1).map((month) {
+                              return DropdownMenuItem<int>(
+                                value: month,
+                                child: Text(DateFormat('MMM').format(DateTime(0, month))),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      CalendarContainer(
+                        selectedMonth: _selectedMonth,
+                        onDateSelected: (DateTime date) {
+                          setState(() {
+                            _selectedDate = date;
+                          });
+                          print('Selected Date: ${date.toLocal()}');
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
+              Padding(
                 padding: const EdgeInsets.only(left: 24, right: 24, top: 18),
                 child: Column(
                   children: [
@@ -154,7 +154,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-
+          
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                   Text('January',
@@ -203,57 +203,69 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       : const Color(0xFFA2A2B5),
                                   fontFamily: 'Poppins_Regular'
                               ),),
-
+          
                           ],
                         ),
                       ],
                     ),
                     const SizedBox(height: 24,),
-                    Expanded(
-                      child: GridView.count(
-                        crossAxisSpacing: 8,
+                    GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        scrollDirection: Axis.vertical,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionInfo(subscriptionInfoData: {},)));
-                            },
-                            child: SubsContainer(
-                              title: 'SignNTrack',
-                              subtitle: '\$5.99',
-                              imageIcon: Image.asset(AppImages.subtrackrIcon, height: 40, width: 40,),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionInfo(subscriptionInfoData: {},)));
-                            },
-                            child: SubsContainer(
-                              title: 'Profilio',
-                              subtitle: '\$18.99',
-                              imageIcon: Image.asset(AppImages.profilioIcon, height: 40, width: 40,),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SubscriptionInfo(subscriptionInfoData: {},)));
-                            },
-                            child: SubsContainer(
-                              title: 'Microsoft ',
-                              subtitle: '\$5.99',
-                              imageIcon: Image.asset(AppImages.tresorlyIcon, height: 40, width: 40,),
-                            ),
-                          ),
-                        ],
+                        crossAxisSpacing: 8,
+                        // mainAxisSpacing: 10
                       ),
-                    ),
+                      itemCount: 3, // Update the item count based on your actual data
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        List<Map<String, String>> subscriptions = [
+                          {
+                            'title': 'SignNTrack',
+                            'subtitle': '\$5.99',
+                            'imageIcon': AppImages.subtrackrIcon,
+                          },
+                          {
+                            'title': 'Profilio',
+                            'subtitle': '\$18.99',
+                            'imageIcon': AppImages.profilioIcon,
+                          },
+                          {
+                            'title': 'Microsoft',
+                            'subtitle': '\$5.99',
+                            'imageIcon': AppImages.tresorlyIcon,
+                          },
+                        ];
+          
+                        final subscription = subscriptions[index];
+          
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SubscriptionInfo(subscriptionInfoData: {}),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding:  EdgeInsets.only(bottom: MySize.size10),
+                            child: SubsContainer(
+                              title: subscription['title']!,
+                              subtitle: subscription['subtitle']!,
+                              imageIcon: Image.asset(subscription['imageIcon']!, height: 40, width: 40),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+          
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ));
   }
 }
