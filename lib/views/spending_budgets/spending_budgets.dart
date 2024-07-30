@@ -5,8 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/views/settings/base/showdialog.dart';
-import 'package:sub_tracker/views/spending_budgets/addNew_category.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../Provider/category_provider.dart';
 import '../../notification_screen/notification_screen.dart';

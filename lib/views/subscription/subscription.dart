@@ -93,6 +93,7 @@ class _SubscriptionState extends State<Subscription> {
       'Nintendo Switch Online',
       'EA Play',
       'Apple Arcade',
+      'Humble Bundle', // Added new entry
     ],
     'Other Services': [
       'Amazon Prime',
@@ -460,7 +461,7 @@ class _SubscriptionState extends State<Subscription> {
                           Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Text(
-                                  'Select Provider',
+                                  'Select Subscription Provider',
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
