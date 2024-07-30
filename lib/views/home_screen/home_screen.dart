@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     Future.microtask(() => Provider.of<SubscriptionProvider>(context,listen: false).getSubscriptions());
+    Future.microtask(() => Provider.of<ProfileProvider>(context,listen: false).getProfile(userID: ""));
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -136,9 +138,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     child: TabBarView(
                       controller: _tabController,
                       children: [
+                        data['subscriptions'].length == 0 ?Center(child: Text("Not found"),):
                         SubscriptionWidget(
                           subscriptions: data['subscriptions'],
                         ),
+                        data['upcommingbills'].length == 0 ?Center(child: Text("Not found"),):
                         UpComingBillWidget(upComingBills: data['upcommingbills'])
                       ],
                     ),

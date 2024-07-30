@@ -2,13 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/privacy_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 
-class PrivPolicy extends StatelessWidget {
+class PrivPolicy extends StatefulWidget {
   const PrivPolicy({super.key});
 
+  @override
+  State<PrivPolicy> createState() => _PrivPolicyState();
+}
+
+class _PrivPolicyState extends State<PrivPolicy> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<PrivacyAndPolicyProvider>(context,listen: false).privacyAndPolicy());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,176 +87,25 @@ class PrivPolicy extends StatelessWidget {
                 SizedBox(
                   height: MySize.size16,
                 ),
-                Padding(
+              Consumer<PrivacyAndPolicyProvider>(builder: (context, privacyAndPolicyProvider, child) {
+                return                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32),
                   child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        AppImages.privText,
+                        privacyAndPolicyProvider.privacyAndPolicyData['value']??"",
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
                             color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode
+                                darkMode
                                 ? Colors.white
                                 : const Color(0XFF333339),
                             fontFamily: 'Poppins_Regular'),
                       )),
-                ),
-                SizedBox(
-                  height: MySize.size18,
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: MySize.size32, right: MySize.size32),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                'Diam quam dignissim dignissim tellus tellus eu\nsed a. Et nec suspendisse ante sed odio sit mauris\nnec sit. Adipiscing ipsum lacus in penatibus tortor\nfaucibus nisl diam.',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                          TextSpan(
-                            text: 'Aenean non ut malesuada\n ',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                          TextSpan(
-                            text:
-                                'gravida vel integer suspendisse arcu velit. Facilisis\nvel lectus a nisi. Vitae donec ipsum eu nulla\npellentesque semper. Dapibus egestas diam mi\neleifend risus nunc enim.',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                          TextSpan(
-                            text:
-                                'Natoque pellentesque\namet interdum ut felis. Vitae integer posuere\n',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                          TextSpan(
-                            text:
-                                'euismod ut amet. Diam amet egestas pretium a\nultrices auctor cras scelerisque. In porttitor sed.',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MySize.size18,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: MySize.size32),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        AppImages.privText,
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode
-                                ? Colors.white
-                                : const Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'),
-                      )),
-                ),
-                SizedBox(
-                  height: MySize.size18,
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: MySize.size32, right: MySize.size32),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                'Diam quam dignissim dignissim tellus tellus eu\nsed a. Et nec suspendisse ante sed odio sit mauris\nnec sit. Adipiscing ipsum lacus in penatibus tortor\nfaucibus nisl diam.',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                          TextSpan(
-                            text: 'Aenean non ut malesuada\n ',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                          TextSpan(
-                            text:
-                                'gravida vel integer suspendisse arcu velit. Facilisis\nvel lectus a nisi. Vitae donec ipsum eu nulla\npellentesque semper. Dapibus egestas diam mi\neleifend risus nunc enim.',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color:
-                                    Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                        ? Colors.white
-                                        : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30,),
+                );
+
+              },)
               ],
             ),
 

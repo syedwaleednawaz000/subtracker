@@ -76,21 +76,24 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                     ),
                   ),
                 ),
-                Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
-                 return termAndConditionProvider.isTermAndCondition ?
-                     const Center(child: CircularProgressIndicator(color: Colors.green),):
-                  termAndConditionProvider.termAndConditionData == null ?
-                    const Center(child: Text("term and condition not available"),):
-                  Text("${termAndConditionProvider.termAndConditionData['value']}",textAlign: TextAlign.left,style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Colors.white
-                          : Color(0XFF333339),
-                      fontFamily: 'Poppins_Regular'
-                  ),);
-                  }
-                  )
+                Padding(
+                  padding: EdgeInsets.only(left: MySize.size32,right: MySize.size14),
+                  child: Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
+                   return termAndConditionProvider.isTermAndCondition ?
+                       const Center(child: CircularProgressIndicator(color: Colors.green),):
+                    termAndConditionProvider.termAndConditionData == null ?
+                      const Center(child: Text("term and condition not available"),):
+                    Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",textAlign: TextAlign.left,style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? Colors.white
+                            : Color(0XFF333339),
+                        fontFamily: 'Poppins_Regular'
+                    ),);
+                    }
+                    ),
+                )
               ],
             ),
           ],

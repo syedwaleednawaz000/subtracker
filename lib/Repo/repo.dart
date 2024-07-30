@@ -155,13 +155,26 @@ class ApiService {
       url: AppUrl.getSubscriptions,
     );
   }
-
+  Future<Response> activeSubscriptions({var params}) {
+    return apiClient.get(
+      url: AppUrl.activeSubscriptions,
+    );
+  }
   Future<Response> getTermAndCondition({var params}) {
     return apiClient.get(
       url: AppUrl.termsAndConditions,
     );
   }
-
+  Future<Response> privacyAndPolicy({var params}) {
+    return apiClient.get(
+      url: AppUrl.privacyAndPolicy,
+    );
+  }
+  Future<Response> getProfile() {
+    return apiClient.get(
+      url: AppUrl.getProfile,
+    );
+  }
   //Todo here all delete method
   Future<Response> deleteAccount({var params}) {
     return apiClient.delete(url: AppUrl.deleteAccount, params: params);

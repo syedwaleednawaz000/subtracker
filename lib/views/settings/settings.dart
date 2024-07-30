@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
@@ -74,13 +76,13 @@ class _SettingsState extends State<Settings> {
     'Manage Payment',
     'Cancel Subscription'
   ];
+@override
+  void initState() {
+    // TODO: implement initState
+  Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false).getScreen());
+    super.initState();
+  }
 
-  final List<Widget> screens = const [
-    PersonalData(),
-    LanguageSelection(),
-    CurrencySelection(),
-    ChangePassword(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -151,28 +153,73 @@ class _SettingsState extends State<Settings> {
                 Column(
                   children: [
                     SizedBox(height: MySize.size40),
-                    Container(
-                      height: MySize.size72,
-                      width: MySize.size72,
-                      decoration: BoxDecoration(
+                    Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                      final profileImageUrl = profileProvider.userData['data']['profile_image'];
+                      return profileImageUrl != null && profileImageUrl.isNotEmpty
+                          ? CachedNetworkImage(
+                        imageUrl: profileImageUrl,
+                        imageBuilder: (context, imageProvider) => Container(
+                          height: MySize.size72,
+                          width: MySize.size72,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(90),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(90),
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          height: MySize.size72,
+                          width: MySize.size72,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(90),
+                            image: DecorationImage(
+                              image: AssetImage(AppImages.person),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      )
+                          : Container(
+                        height: MySize.size72,
+                        width: MySize.size72,
+                        decoration: BoxDecoration(
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(90),
                           image: DecorationImage(
-                              image: AssetImage(AppImages.person))),
-                      // child: Text(AppImages.person),
-                    ),
+                            image: AssetImage(AppImages.person),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    }),
                     SizedBox(height: MySize.size8),
-                    Text(
-                      'John Doe',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          // color: isDarkMode ? AppColors.whiteFF : Color(0XFF424252),
-                          // color: Theme.of(context).colorScheme.primary,
-                          fontSize: MySize.size20,
-                          fontWeight: FontWeight.w700),
-                    ),
+             Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return  Text(
+                '${profileProvider.userData['data']['name']}',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  // color: isDarkMode ? AppColors.whiteFF : Color(0XFF424252),
+                  // color: Theme.of(context).colorScheme.primary,
+                    fontSize: MySize.size20,
+                    fontWeight: FontWeight.w700),
+              );
+            },),
                     SizedBox(height: MySize.size8),
-
                     Container(
                       height: 36,
                       width: 70,
@@ -258,44 +305,44 @@ class _SettingsState extends State<Settings> {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => screens[index]));
-                                  },
-                                  child: ListTile(
-                                    dense: true,
-                                    leading: Image(image: leadingAccImage[index]),
-                                    title: Text(
-                                      titleText[index],
-                                      style: TextStyle(
-                                        fontSize: MySize.size14,
-                                        fontWeight: FontWeight.w600,
+                                return Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileProvider.screens[index]));
+                                    },
+                                    child: ListTile(
+                                      dense: true,
+                                      leading: Image(image: leadingAccImage[index]),
+                                      title: Text(
+                                        titleText[index],
+                                        style: TextStyle(
+                                          fontSize: MySize.size14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      trailing: SizedBox(
+                                        width: 132,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  trailText[index],
+                                                  style: const TextStyle(
+                                                    color: Color(0XFFA2A2B5),
+                                                  ),
+                                                )),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Image.asset(AppImages.arrowLeft),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    trailing: SizedBox(
-                                      width: 132,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                trailText[index],
-                                                style: const TextStyle(
-                                                  color: Color(0XFFA2A2B5),
-                                                ),
-                                              )),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Image.asset(AppImages.arrowLeft),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
+                                  );
+                                },);
                               },
                             ),
                           ),

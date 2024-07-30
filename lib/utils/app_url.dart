@@ -12,7 +12,9 @@ class AppUrl{
   static String updatePassword = "change-password";
   static String subscriptions = "subscriptions";
   static String getSubscriptions = "subscriptions";
+  static String activeSubscriptions = "user/active-subscriptions";
   static String termsAndConditions = "settings/terms_and_conditions";
+  static String privacyAndPolicy = "settings/privacy_policy";
   static String addCategories = "categories";
   static String storeUserCategories = "user-categories";
   static String getCategories = "categories";
@@ -27,6 +29,7 @@ class AppUrl{
   static String geTotalBudgets = "budgets";
   static String getNotifications = "notifications";
   static String updateProfile = "update-profile";
+  static String getProfile = "profile";
   static String deleteAccount = "delete-account";
   static String enableTwoFactorAuth = "two-factor-auth/enable";
   static String disableTwoFactorAuth = "two-factor-auth/disable";

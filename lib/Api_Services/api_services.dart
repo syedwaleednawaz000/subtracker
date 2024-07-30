@@ -12,15 +12,32 @@ import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
 
 class APIClient {
-  late final prefs =  SharedPreferences.getInstance();
+  // APIClient(){_initializePreferences();}
+   Map<String, dynamic>? headers;
   Dio _dio = Dio();
-  Map<String, dynamic> headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': 'Bearer ${AppConstant.getUserToken}'
-  };
+   void _initializePreferences() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if(prefs.get(AppConstant.saveUserToken) != null){
+        var token = prefs.get(AppConstant.saveUserToken);
+        _setHeaders(token: token.toString());
+      }else{
+        _setHeaders(token: '');
+      }
+
+   }
+
+   void _setHeaders({required String token }) {
+       headers = {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json',
+         'Authorization': 'Bearer $token',
+
+     };
+   }
+
 
   APIClient() {
+    _initializePreferences();
     BaseOptions baseOptions = BaseOptions(
       receiveTimeout: const Duration(seconds: 30),
       connectTimeout: const Duration(seconds: 30),

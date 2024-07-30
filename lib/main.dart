@@ -13,6 +13,7 @@ import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
+import 'package:sub_tracker/Provider/privacy_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => TicketProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TermAndConditionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => PrivacyAndPolicyProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {

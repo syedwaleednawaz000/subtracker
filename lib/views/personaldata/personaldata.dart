@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/views/change_password/change_password.dart';
@@ -15,16 +17,20 @@ import '../base/text_widgets.dart';
 import '../settings/settings.dart';
 
 class PersonalData extends StatefulWidget {
-  const PersonalData({super.key});
+
+   const PersonalData({super.key});
 
   @override
   State<PersonalData> createState() => _PersonalDataState();
 }
 
 class _PersonalDataState extends State<PersonalData> {
-  final TextEditingController _emailEditingController = TextEditingController();
-  final TextEditingController _nameEditingController = TextEditingController();
-  final TextEditingController _phoneNumberEditingController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false).updateTextFieldData());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +70,69 @@ class _PersonalDataState extends State<PersonalData> {
             const SizedBox(
               height: 40,
             ),
-
-Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-   return             Container(
-     height: MySize.size72,
-     width: MySize.size72,
-     decoration: BoxDecoration(
-       color: Colors.transparent,
-       borderRadius: BorderRadius.circular(90),
-     ),
-     child:profileProvider.updatePic == null ?
-     Image.asset(AppImages.person) :
-     Image.file(File(profileProvider.updatePic!.path.toString())),
-   );
-},),
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              final profileImageUrl = profileProvider.userData['data']['profile_image'];
+              return  Container(
+                height: MySize.size72,
+                width: MySize.size72,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(90),
+                ),
+                child:profileProvider.updatePic == null ?
+                profileImageUrl != null && profileImageUrl.isNotEmpty
+                    ?CachedNetworkImage(
+                  imageUrl: profileImageUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: MySize.size72,
+                    width: MySize.size72,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(90),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      height: MySize.size72,
+                      width: MySize.size72,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(90),
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    height: MySize.size72,
+                    width: MySize.size72,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(90),
+                      image: DecorationImage(
+                        image: AssetImage(AppImages.person),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ):
+                Container(
+                        height: MySize.size72,
+                        width: MySize.size72,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(90),),
+                    child: Image.asset(AppImages.person)) :
+                Container(
+                    height: MySize.size72,
+                    width: MySize.size72,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(90),),
+                    child: Image.file(File(profileProvider.updatePic!.path.toString()))),
+              );
+            },),
             SizedBox(
               height: MySize.size8,
             ),
@@ -129,169 +184,174 @@ Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
             SizedBox(
               height: MySize.size19,
             ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 37, right: 38),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('E-mail address',
-                    style: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+        Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+          return      Padding(
+            padding: const EdgeInsets.only(left: 37, right: 38),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('E-mail address',
+                  style: TextStyle(
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size4,
+                ),
+                TextFormField(
+                  controller: profileProvider.emailEditingController,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.only(
+                      left: MySize.size20,
+                      right: MySize.size20,
                     ),
-                  ),
-                  SizedBox(
-                    height: MySize.size4,
-                  ),
-                  TextFormField(
-                    controller: _emailEditingController,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: EdgeInsets.only(
-                        left: MySize.size20,
-                        right: MySize.size20,
-                      ),
-                      hintText: 'Email',
-                      hintStyle: TextStyle(
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
                         fontSize: MySize.size12,
                         fontFamily: 'Poppins_Regular'
-                      ),
-                      suffixIcon: Icon(
-                        Icons.email,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
-                          )
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
-                          )
-                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 37, right: 38),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Name',
-                    style: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500
+                    suffixIcon: Icon(
+                      Icons.email,
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  TextFormField(
-                    controller: _nameEditingController,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                      hintText: 'Name',
-                      hintStyle: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
-                        fontSize: MySize.size12,
-                          fontFamily: 'Poppins_Regular'
-                      ),
-                      suffixIcon: Icon(
-                        Icons.person_rounded,
-                        // color: Color(0XFF666680),
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
-                      ),
-
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
                         )
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
-                          )
-                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                        )
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          );
+        }),
             const SizedBox(
               height: 24,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 37, right: 38),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Phone No.',
-                  style: TextStyle(
-                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                      // fontFamily: 'Poppins_Regular'
-                  ),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  TextFormField(
-                    controller: _phoneNumberEditingController,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                      hintText: 'Phone No.',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Poppins_Regular',
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
-                        fontSize: MySize.size12,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.phone,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
-                          )
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
-                          )
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return             Padding(
+                padding: const EdgeInsets.only(left: 37, right: 38),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Name',
+                      style: TextStyle(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    TextFormField(
+                      controller: profileProvider.nameEditingController,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                        hintText: 'Name',
+                        hintStyle: TextStyle(
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                            fontSize: MySize.size12,
+                            fontFamily: 'Poppins_Regular'
+                        ),
+                        suffixIcon: Icon(
+                          Icons.person_rounded,
+                          // color: Color(0XFF666680),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                            )
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                            )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+            const SizedBox(
+              height: 24,
             ),
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return             Padding(
+                padding: const EdgeInsets.only(left: 37, right: 38),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Phone No.',
+                      style: TextStyle(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        // fontFamily: 'Poppins_Regular'
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    TextFormField(
+                      controller: profileProvider.phoneNumberEditingController,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                        hintText: 'Phone No.',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Poppins_Regular',
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                          fontSize: MySize.size12,
+                        ),
+                        suffixIcon: Icon(
+                          Icons.phone,
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                            )
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                            )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
 
             const Spacer(),
             Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
               return             CustomSaveButton(
                 loading: profileProvider.isUpdated,
                 onTap: (){
-                  profileProvider.updateProfile(email: _emailEditingController.text.trim(),
-                      name: _nameEditingController.text.trim(), phone: _phoneNumberEditingController.text.trim());
+                  profileProvider.updateProfile(email: profileProvider.emailEditingController.text.trim(),
+                      name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
                 },
                 titleText: 'Update',);
             },)

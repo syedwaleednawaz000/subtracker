@@ -16,9 +16,7 @@ class FaqsProvider with ChangeNotifier {
     notifyListeners();
   }
   Future<void> getFaqs()async{
-    if(faqsData == null){
       _loginLoading(load: true);
-    }
     try{
       Response response = await _apiService.getFaqs(params: {});
       if(response.statusCode == 200){
