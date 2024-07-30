@@ -10,6 +10,7 @@ import '../settings/settings.dart';
 import 'base/subscriptioninforow.dart';
 
 class SubscriptionInfo extends StatefulWidget {
+
   const SubscriptionInfo({super.key, required subscriptionInfoData});
 
   @override
