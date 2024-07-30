@@ -396,23 +396,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Color(0XFFF7F7FF),
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(MySize.size72),
-      //   child: Padding(
-      //     padding: EdgeInsets.only(left: MySize.size3, top: MySize.size25),
-      //     child: GestureDetector(
-      //       onTap: () {
-      //         Navigator.pop(context);
-      //       },
-      //       child: const CustomAppBar(
-      //         text: 'Manage Payment',
-      //         icon: Icons.arrow_back_rounded,
-      //       ),
-      //     ),
-      //   ),
-      // ),
-
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
@@ -426,8 +410,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Image.asset(AppImages.backArrow, scale: 4.9,color: Color(0XFFA2A2B5),)),
-            title:  Text('Manage Payment',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+                child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
+            title:  Text('Manage Payment',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
           ),
         ),
       ),
@@ -445,92 +429,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
               child: Text('Payment Method',
                 style: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? Color(0XFFFFFFFF)
-                      : Color(0XFF424252),
+                      ? const Color(0XFFFFFFFF)
+                      : const Color(0XFF424252),
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins_Regular'
                 ),
               ),
             ),
-            // SingleChildScrollView(
-            //  scrollDirection: Axis.horizontal,
-            //   child: Row(
-            //     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       InkWell(
-            //         onTap: (){
-            //           setState(() {
-            //             tap = ! tap;
-            //           });
-            //         },
-            //         child: Container(
-            //           height: 110, width: 124,
-            //           decoration: BoxDecoration(
-            //               color: tap ? Color(0XFF17508F) : AppColors.whiteColor,
-            //               borderRadius: BorderRadius.all(Radius.circular(20)),
-            //           ),
-            //           child: Column(
-            //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //             children: [
-            //               Image.asset(AppImagess.debit_cardIcon, height: 50, width: 75, color: tap ? AppColors.whiteColor :  Color(0XFF17508F),),
-            //               TextWidgetInterRegular(title: 'Credit Card', fontSize: 12, fontWeight: FontWeight.w500, color: tap ? AppColors.whiteColor :  Color(0XFF17508F))
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //       const SizedBox(width: 15,),
-            //       InkWell(
-            //         onTap: (){
-            //           setState(() {
-            //             tap1 = ! tap1;
-            //           });
-            //         },
-            //         child: Container(
-            //           height: 110, width: 124,
-            //           decoration: BoxDecoration(
-            //             color: tap1 ? Color(0XFF17508F) : AppColors.whiteColor,
-            //             borderRadius: const BorderRadius.all(Radius.circular(20)),
-            //           ),
-            //           child: Column(
-            //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //             children: [
-            //               Image.asset(AppImagess.credit_cardIcon, height: 50, width: 75,color: tap1 ? AppColors.whiteColor :  Color(0XFF17508F),),
-            //               TextWidgetInterRegular(title: 'Debit Card', fontSize: 12, fontWeight: FontWeight.w500,
-            //                   color: tap1 ? AppColors.whiteColor :  Color(0XFF17508F))
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //       const SizedBox(width: 15,),
-            //       InkWell(
-            //         onTap: (){
-            //           setState(() {
-            //             tap2 = ! tap2;
-            //           });
-            //         },
-            //         child: Container(
-            //           height: 110, width: 124,
-            //           decoration: BoxDecoration(
-            //             color: tap2 ? Color(0XFF17508F) : AppColors.whiteColor,
-            //             borderRadius: const BorderRadius.all(Radius.circular(20)),
-            //           ),
-            //           child: Column(
-            //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //             children: [
-            //               Image.asset(AppImagess.paypalIcon, height: 50, width: 75,color: tap2 ? AppColors.whiteColor :  Color(0XFF17508F),),
-            //               TextWidgetInterRegular(
-            //                   title: 'Pay pal', fontSize: 12, fontWeight: FontWeight.w500, color: tap2 ? AppColors.whiteColor :  Color(0XFF17508F))
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //       const SizedBox(width: 15,),
-            //     ],
-            //   ),
-            // ),
-
-
             SizedBox(
               height: 180,
               child: SingleChildScrollView(
@@ -560,13 +466,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   color: isSelected
                                       ?  Provider.of<ThemeChanger>(context)
                                            .themeData == darkMode
-                                              ?  Color(0XFF758AFF)
-                                              :  Color(0XFF758AFF)
+                                              ?  const Color(0XFF758AFF)
+                                              :  const Color(0XFF758AFF)
                                       : Provider.of<ThemeChanger>(context)
                                            .themeData == darkMode
-                                              ?  Color(0XFF272730)
-                                              :  Color(0XFFF1F1FF),
-                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                              ?  const Color(0XFF272730)
+                                              :  const Color(0XFFF1F1FF),
+                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -606,7 +512,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 15),
+                            const SizedBox(height: 15),
                             Stack(
                               alignment: Alignment.center,
                               children: [
@@ -615,7 +521,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   width: 19,
                                   decoration: BoxDecoration(
                                     color: isSelected? Colors.white : Colors.transparent,
-                                    border: Border.fromBorderSide(BorderSide(color: Color(0XFFD0D5DD), width: 1)),
+                                    border: const Border.fromBorderSide(BorderSide(color: Color(0XFFD0D5DD), width: 1)),
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -623,7 +529,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   height: 8,
                                   width: 8,
                                   decoration: BoxDecoration(
-                                    color: isSelected ? Color(0XFF1C1C23) : Colors.transparent,
+                                    color: isSelected ? const Color(0XFF1C1C23) : Colors.transparent,
                                     shape: BoxShape.circle,
                                   ),
                                 ),
@@ -639,7 +545,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(left: 37,),
+              padding: const EdgeInsets.only(left: 37,right: 37),
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -655,15 +561,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       color:  Provider.of<ThemeChanger>(context)
                           .themeData == darkMode
-                          ? Color(0XFF272730)
-                          :  Color(0XFFF1F1FF),
-                  // border: Border.all(
-                  //   width: 1,
-                  //   color: Provider.of<ThemeChanger>(context)
-                  //       .themeData == darkMode
-                  //       ? Color(0XFF757784).withOpacity(.2)
-                  //       :  Color(0XFF757784).withOpacity(.2),
-                  // )
+                          ? const Color(0XFF272730)
+                          :  const Color(0XFFF1F1FF),
+
                   ),
                   child: const Row(
                     children: [
@@ -706,7 +606,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               height: 8,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 45),
+              padding:  EdgeInsets.only(left: MySize.size36,right: MySize.size36),
               child: Container(
                 height: 50,
                 width: 332,
@@ -720,8 +620,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color:  Provider.of<ThemeChanger>(context)
                         .themeData == darkMode
-                        ?  Color(0XFF272730)
-                        :  Color(0XFFF1F1FF)
+                        ?  const Color(0XFF272730)
+                        :  const Color(0XFFF1F1FF)
                 ),
                     // color: const Color(0XFF272730)),
                 child: Padding(
@@ -729,7 +629,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Row(
                     children: [
                       Image.asset(
-                        AppImages.payment,
+                        AppImages.payment2,
                         height: 24,
                         width: 34,
                       ),
@@ -752,7 +652,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(left: 45),
+              padding: const EdgeInsets.only(left: 47),
               child: TextWidgetInterMedium(
                   title: 'Billing',
                   fontSize: 14,
@@ -764,7 +664,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               height: 8,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 45),
+              padding:  EdgeInsets.only(left: MySize.size34,right: MySize.size34),
               child: Container(
                 height: 50,
                 width: 332,
@@ -778,8 +678,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(5)),
                     color:  Provider.of<ThemeChanger>(context)
                         .themeData == darkMode
-                        ?  Color(0XFF272730)
-                        :  Color(0XFFF1F1FF)
+                        ?  const Color(0XFF272730)
+                        :  const Color(0XFFF1F1FF)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15, right: 10),
@@ -795,21 +695,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             color:  Provider.of<ThemeChanger>(context)
                                 .themeData == darkMode
                                 ?  Colors.white
-                                :  Color(0XFF424252)
+                                :  const Color(0XFF424252)
                         ),
                         ),
                       ),
                       const Spacer(),
                       Padding(
-                        padding: const EdgeInsets.only(right: 28),
+                        padding:  EdgeInsets.only(right: MySize.size16),
                         child:  Text('39.95 CHF',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
                               color:  Provider.of<ThemeChanger>(context)
                               .themeData == darkMode
-                              ?  Color(0XFFD2D2D2).withOpacity(.9)
-                              :  Color(0XFF424252)
+                              ?  const Color(0XFFD2D2D2).withOpacity(.9)
+                              :  const Color(0XFF424252)
                           ),
                         ),
                       ),
@@ -823,7 +723,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               height: 15,
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 37),
+              padding:  EdgeInsets.only(right: MySize.size36),
               child: Align(
                   alignment: Alignment.centerRight,
                   child: Text('Total: 24.50CHF',
@@ -832,12 +732,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     color:  Provider.of<ThemeChanger>(context)
                         .themeData == darkMode
                         ?  Colors.white.withOpacity(.6)
-                        :  Color(0XFF000000).withOpacity(.6),
+                        :  const Color(0XFF000000).withOpacity(.6),
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),)),),
 
-            Spacer(),
+            const Spacer(),
             CustomSaveButton(
                titleText: 'Save',
             ),

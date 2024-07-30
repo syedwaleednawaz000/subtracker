@@ -63,6 +63,7 @@ class AppImages {
   static String  delete = 'assets/icons/delete.png';
   static String  darkmode = 'assets/icons/darkmode.png';
   static String  payment = 'assets/icons/payment.png';
+  static String  payment2 = 'assets/images/Payment_icon.png';
   static String  plan = 'assets/icons/plan.png';
   static String  faqs = 'assets/icons/faqs.png';
   static String  contsupport = 'assets/icons/contact.png';

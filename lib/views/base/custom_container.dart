@@ -9,6 +9,7 @@ import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import '../../theme/theme.dart';
+import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
 import 'circular_ProgressBar.dart';
@@ -112,16 +113,20 @@ class _CustomContainerState extends State<CustomContainer> {
                   ),
                   Positioned(
                     right: 24,
-                    top: 33,
+                    top: 31,
                     child: InkWell(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
                       },
-                      child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? const Color(0XFFC1C1CD)
-                              :  const Color(0XFFC1C1CD)
-                      ),
+                      child: Image.asset(
+                        AppImages.notificationIcon,
+                        height: 25,
+                        width: 25,
+                        color: Provider.of<ThemeChanger>(context).themeData ==
+                            darkMode
+                            ? const Color(0XFFA2A2B5)
+                            : const Color(0XFF424252),
+                      )
                     ),)
                 ],
               ),

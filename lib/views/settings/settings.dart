@@ -794,6 +794,8 @@ class _SettingsState extends State<Settings> {
                           children: [
                             Image.asset(
                               AppImages.logout,
+                              height: 20,
+                              width: 20,
                               color: Provider.of<ThemeChanger>(context)
                                   .themeData ==
                                   darkMode

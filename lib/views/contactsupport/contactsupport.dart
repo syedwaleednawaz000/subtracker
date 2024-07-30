@@ -35,7 +35,7 @@ class ContactSupport extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
-              title:  Text('Spending & Budgets',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+              title:  Text('Support',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
             ),
           ),
         ),
@@ -106,7 +106,6 @@ class ContactSupport extends StatelessWidget {
                   DropdownMenuEntry(value: 1, label: 'Account and Billing', ),
                   DropdownMenuEntry(value: 2, label: 'App Functionality',),
                   DropdownMenuEntry(value: 3, label: 'Subscription Management',),
-                  DropdownMenuEntry(value: 4, label: 'Other Issues',),
                   DropdownMenuEntry(value: 5, label: 'Data and Privacy',),
                   DropdownMenuEntry(value: 6, label: 'Other Issues',),
 

@@ -41,7 +41,9 @@ class _FaqsScreenState extends State<FaqsScreen> {
               Navigator.pop(context);
             },
             text: 'FAQs',
-            icon: Icons.arrow_back_rounded,
+            // the back icon is inside the Custom App Bar
+            icon: Icons.abc,
+            //icon: Icons.arrow_back_rounded,
           ),
         ),
       ),

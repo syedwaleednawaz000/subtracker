@@ -70,7 +70,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(
-            padding: EdgeInsets.only(left: 8, top: MySize.size25),
+            padding: EdgeInsets.only(left: 8, top: MySize.size24),
             child: AppBar(
               automaticallyImplyLeading: false,
               scrolledUnderElevation: 0,

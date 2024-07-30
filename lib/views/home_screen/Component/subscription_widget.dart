@@ -12,7 +12,8 @@ class SubscriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return                         Center(child: ListView.builder(
+    return Center(
+      child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: subscriptions.length,
@@ -26,13 +27,13 @@ class SubscriptionWidget extends StatelessWidget {
           },
           child: Container(
             height: 64,
-            width: 260,
+            width: 328,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? Color(0XFF353542)
-                      : Color(0XFF353542).withOpacity(.1),
+                      ? const Color(0XFF353542)
+                      : const Color(0XFF353542).withOpacity(.1),
                   width: 1
               ),
             ),
@@ -41,7 +42,7 @@ class SubscriptionWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(
                       left: MySize.size12, right: MySize.size15),
-                  child: Image.asset(AppImages.subtrackrIcon,  height: 40, width: 40,),
+                //  child: Image.asset(AppImages.subtrackrIcon,  height: 40, width: 40,),
                 ),
                 TextWidgetInterMedium(
                   title: '${finalData['provider'] == null ? "":finalData['provider']['name']}',
