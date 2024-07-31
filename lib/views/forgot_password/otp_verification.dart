@@ -30,20 +30,18 @@ class _OTPVerificationState extends State<OTPVerification> {
     Future.microtask(() =>
         Provider.of<CounterNotifier>(context, listen: false).StartTimer());
     super.initState();
-    defaultPinTheme = PinTheme(
+    defaultPinTheme = const PinTheme(
       width: 40,
       height: 40,
-      textStyle: const TextStyle(
+      textStyle: TextStyle(
           fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
-        borderRadius: BorderRadius.circular(20),
+
       ),
     );
 
     focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: const Color.fromRGBO(114, 178, 238, 1)),
-      borderRadius: BorderRadius.circular(8),
+
     );
 
     submittedPinTheme = defaultPinTheme.copyWith(

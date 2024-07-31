@@ -76,8 +76,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: _selectedDate != null && _selectedDate!.isAtSameMomentAs(date)
-                    ? Colors.blueAccent // Selected color
-                    : colors[index], // Default color
+                    ?Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF4E4E61) : const Color(0XFF4E4E6133).withOpacity(.20)// Selected color
+                    : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFD3DAFF) : const Color(0XFFF1F1FF).withOpacity(.15)// Selected color
+                , // Default color
                 borderRadius: BorderRadius.circular(MySize.size16),
                 border: Border.all(color: Colors.grey.withOpacity(0.3)),
               ),

@@ -391,7 +391,7 @@ class _SubscriptionState extends State<Subscription> {
                           fontWeight: FontWeight.w700,
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                              ? Colors.white
+                              ? const Color(0xffFFFFFF)
                               : const Color(0XFF1C1C23),
                         ),
                       ),
@@ -437,21 +437,15 @@ class _SubscriptionState extends State<Subscription> {
                             message:
                                 "If the provider is already listed, you can select it from here instead of adding a new one.",
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                                  ? Colors.white
+                                  : const Color(0XFF333339),
                               // Set the background color of the tooltip
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: GestureDetector(
                                 onTap: () {
-                                  // AlertDialog(
-                                  //   backgroundColor: Color(0XFF101828).withOpacity(.3),
-                                  //   title: Text("If the provider is already listed, you can select it from here instead of adding a new one",
-                                  //   style: TextStyle(
-                                  //     fontSize: 10,
-                                  //
-                                  //   ),
-                                  //   ),
-                                  // );
                                 },
                                 child: Image.asset(AppImages.exclMark)),
                           ),
@@ -494,7 +488,6 @@ class _SubscriptionState extends State<Subscription> {
                           showCategories(context);
                         },
                         child: Container(
-                          // padding: EdgeInsets.symmetric(horizontal: MySize.size2,),
                           height: MySize.size40,
                           width: MySize.scaleFactorWidth * 340,
                           decoration: BoxDecoration(
@@ -586,9 +579,9 @@ class _SubscriptionState extends State<Subscription> {
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? const Color(0XFFFFFFFF).withOpacity(.1)
-                              : const Color(0XFF353542).withOpacity(.4),
-                          width: 1.5,
+                              ? const Color(0xff353542)
+                              : const Color(0xff353542).withOpacity(.10),
+                          width: 1,
                         ),
                       ),
                     ),
@@ -606,8 +599,8 @@ class _SubscriptionState extends State<Subscription> {
                         border: Border.all(
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                              ? const Color(0XFFFFFFFF).withOpacity(.1)
-                              : const Color(0XFF353542).withOpacity(.4),
+                              ? const Color(0xff353542)
+                              : const Color(0XFF353542).withOpacity(.10),
                         )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: MySize.size10),
@@ -616,6 +609,11 @@ class _SubscriptionState extends State<Subscription> {
                           Text(
                             "Start Date:",
                             style: TextStyle(
+                              color: Provider.of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
+                                  ? const Color(0XFFA2A2B5)
+                                  : const Color(0XFFA2A2B5),
                               fontSize: MySize.size16,
                               fontFamily: '',
                               fontWeight: FontWeight.w600,
@@ -639,7 +637,11 @@ class _SubscriptionState extends State<Subscription> {
                               },
                               icon: Icon(
                                 Icons.calendar_today,
-                                color: Colors.black,
+                                color: Provider.of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                                 size: MySize.size18,
                               ))
                         ],
@@ -668,6 +670,11 @@ class _SubscriptionState extends State<Subscription> {
                           Text(
                             "Renewal Date:",
                             style: TextStyle(
+                              color: Provider.of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
+                                  ? const Color(0XFFA2A2B5)
+                                  : const Color(0XFFA2A2B5),
                               fontSize: MySize.size16,
                               fontFamily: '',
                               fontWeight: FontWeight.w600,
@@ -691,8 +698,11 @@ class _SubscriptionState extends State<Subscription> {
                               },
                               icon: Icon(
                                 Icons.calendar_today,
-                                color: Colors.black,
-                                size: MySize.size18,
+                                color: Provider.of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),                                size: MySize.size18,
                               ))
                         ],
                       ),
@@ -723,7 +733,12 @@ class _SubscriptionState extends State<Subscription> {
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: Provider.of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
+
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -738,7 +753,11 @@ class _SubscriptionState extends State<Subscription> {
                           style: TextStyle(
                             fontSize: MySize.size14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Provider.of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFFA2A2B5)
+                                : const Color(0XFFA2A2B5),
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -767,10 +786,8 @@ class _SubscriptionState extends State<Subscription> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: MySize.size24),
                   child: DropdownButtonHideUnderline(
-
                     child: DropdownButtonFormField2<String>(
                       isExpanded: true,
-
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(MySize.size20),
@@ -785,7 +802,11 @@ class _SubscriptionState extends State<Subscription> {
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: Provider.of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFFA2A2B5),
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -800,7 +821,11 @@ class _SubscriptionState extends State<Subscription> {
                           style: TextStyle(
                             fontSize: MySize.size14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Provider.of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? const Color(0XFFA2A2B5)
+                                : const Color(0XFFA2A2B5),
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -889,11 +914,23 @@ class _SubscriptionState extends State<Subscription> {
                                   Icon(
                                     Icons.upload,
                                     size: MySize.size20,
+                                    color: Provider.of<ThemeChanger>(context)
+                                        .themeData ==
+                                        darkMode
+                                        ? const Color(0xffFFFFFF)
+                                        : const Color(0XFFA2A2B5),
                                   ),
                                   SizedBox(
                                     height: MySize.size10,
                                   ),
-                                  const Text('No image selected.'),
+                                   Text('No image selected.',
+                                  style: TextStyle(
+                                    color: Provider.of<ThemeChanger>(context)
+                                        .themeData ==
+                                        darkMode
+                                        ? const Color(0xffFFFFFF)
+                                        : const Color(0XFFA2A2B5),
+                                  ),),
                                 ],
                               ),
                             ),
@@ -933,8 +970,20 @@ class _SubscriptionState extends State<Subscription> {
                                     Icon(
                                       Icons.upload,
                                       size: MySize.size20,
+                                      color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                          darkMode
+                                          ? const Color(0xffFFFFFF)
+                                          : const Color(0XFFA2A2B5),
                                     ),
-                                    const Text('No document selected.'),
+                                     Text('No document selected.',
+                                    style: TextStyle(
+                                      color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                          darkMode
+                                          ? const Color(0xffFFFFFF)
+                                          : const Color(0XFFA2A2B5),
+                                    ),),
                                   ],
                                 ),
                               ),

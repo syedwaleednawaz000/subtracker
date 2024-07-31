@@ -279,7 +279,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         text2:
                                         widget.subscriptionInfoData[
                                         'description'] ??
-                                            "",
+                                            "Music App",
                                         icon: Image.asset(
                                           AppImages.arrowLeft,
                                           width: MySize.size14,
@@ -321,7 +321,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         text2:
                                         widget.subscriptionInfoData[
                                         'start_date'] ??
-                                            "",
+                                            "08.01.2022",
                                         icon: Image.asset(
                                           AppImages.arrowLeft,
                                           width: MySize.size14,
@@ -340,7 +340,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         text2:
                                         widget.subscriptionInfoData[
                                         'renewal_date'] ??
-                                            "",
+                                            "07.01.2023",
                                         icon: Image.asset(
                                           AppImages.arrowLeft,
                                           width: MySize.size14,
@@ -359,7 +359,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         text2:
                                         widget.subscriptionInfoData[
                                         'billing_cycle'] ??
-                                            "",
+                                            "Monthly",
                                         icon: Image.asset(
                                           AppImages.arrowLeft,
                                           width: MySize.size14,
@@ -378,7 +378,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         text2:
                                         widget.subscriptionInfoData[
                                         'reminder'] ??
-                                            "",
+                                            "Never",
                                         icon: Image.asset(
                                           AppImages.arrowLeft,
                                           width: MySize.size14,

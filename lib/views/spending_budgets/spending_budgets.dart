@@ -228,7 +228,9 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   children: [
                     TextWidgetInterMedium(
                         title: 'Your budgets are on track',
-                        // color: AppColors.white100,
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+                        const Color(0xFFFFFFFF) :
+                        const Color(0xff424252),
                         fontSize: MySize.size14),
                     SizedBox(
                       width: MySize.size25,
