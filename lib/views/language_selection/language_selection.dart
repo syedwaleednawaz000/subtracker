@@ -31,7 +31,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Colors.white,
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
@@ -55,10 +55,10 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           leadingIcon: AssetImage(AppImages.psFlag,),
           trailingText: '()',
         ),
-          SizedBox(height: 45,),
+          const SizedBox(height: 45,),
 
 
-          CustomSaveButton(text: "",onTap: (){}),
+          CustomSaveButton(text: "Save",onTap: (){}),
         ],
       ),
     );
@@ -80,22 +80,22 @@ class LanguageTiles extends StatelessWidget {
 
     List<String> namingLists = [ 'English (UK)', 'Pakistan', 'Iran', 'English (UK)', 'Pakistan', 'English (UK)', 'Iran', 'English (UK)', 'English (UK)', ];
     List<String> namingLists_urdu = ['(English)', '(اردو)', '(فارسی)', 'English ', '(اردو)', 'English', '(فارسی)', 'English', 'English', ];
-    List<AssetImage>  iconsList = [AssetImage(AppImages.psFlag),AssetImage(AppImages.pkFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag), AssetImage(AppImages.gbFlag),];
+    List<AssetImage>  iconsList = [const AssetImage(AppImages.psFlag),const AssetImage(AppImages.pkFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag),];
     List<Color> listColors = [
-      Color(0XFF758AFF), Color(0XFFF1F1FF), Color(0XFFF1F1FF),
-      Color(0XFFF1F1FF), Color(0XFFF1F1FF), Color(0XFFF1F1FF),
-      Color(0XFFF1F1FF), Color(0XFFF1F1FF), Color(0XFFF1F1FF)
+      const Color(0XFF758AFF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
+      const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
+      const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF)
     ];
     List<Color> containerColors = [
-      Color(0XFF758AFF), Color(0XFF272730), Color(0XFF272730),
-      Color(0XFF272730), Color(0XFF272730), Color(0XFF272730),
-      Color(0XFF272730), Color(0XFF272730), Color(0XFF272730),
+      const Color(0XFF758AFF), const Color(0XFF272730), const Color(0XFF272730),
+      const Color(0XFF272730), const Color(0XFF272730), const Color(0XFF272730),
+      const Color(0XFF272730), const Color(0XFF272730), const Color(0XFF272730),
     ];
     List<Color> titleColors = [
-      Color(0XFFFFFFFF), Color(0XFF1C1C23), Color(0XFF1C1C23),
+      const Color(0XFFFFFFFF), const Color(0XFF1C1C23), const Color(0XFF1C1C23),
 
-      Color(0XFF1C1C23),Color(0XFF1C1C23),Color(0XFF1C1C23),
-      Color(0XFF1C1C23),Color(0XFF1C1C23),Color(0XFF1C1C23),
+      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
+      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
     ];
     List<Color> trailColors = [
       const Color(0XFFFFFFFF), const Color(0XFF1C1C23), const Color(0XFF1C1C23),
@@ -124,13 +124,13 @@ class LanguageTiles extends StatelessWidget {
                           : (Provider.of<ThemeChanger>(context).themeData == darkMode ? containerColors[index] : listColors[index]),
                     ),
                     child: ListTile(
-                      tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF272730) : listColors[index],
+                      tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
                       dense: true,
                       title: Text(
                         '${namingLists[index]}',
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Color(0XFF1C1C23),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -140,7 +140,7 @@ class LanguageTiles extends StatelessWidget {
                         '${namingLists_urdu[index]}',
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : Color(0XFF1C1C23),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : const Color(0XFF1C1C23),
                         ),
                       ),
                     ),
@@ -206,7 +206,7 @@ class CustomSaveButton extends StatelessWidget {
                     : const Color(0XFFF1F1FF),
               ),
               child: Center(
-                child: loading == true ? CircularProgressIndicator(color: Colors.green,): Text(
+                child: loading == true ? const CircularProgressIndicator(color: Colors.green,): Text(
                   text,
                   style: TextStyle(
                     fontSize: 14,

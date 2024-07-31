@@ -515,15 +515,10 @@ class _SettingsState extends State<Settings> {
                     SizedBox(
                       height: MySize.size8,
                     ),
-
                     /// Subscription plans
                     Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 14, vertical: MySize.size20),
-                      // height: MySize.scaleFactorHeight * 170,
                       width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
-                        // color: AppColors.grey61.withOpacity(.20),
-                        // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
@@ -532,16 +527,12 @@ class _SettingsState extends State<Settings> {
                         border: Border(
                           top: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10),
-                              width: 2),
-                          // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
+                              width: 2,
+                          ),
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10),
                               width: 2),
                         ),
-                        // border: Border.all(
-                        //   width: MySize.size2,
-                        //   color: AppColors.whiteFc.withOpacity(0.10),
-                        // ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(14.0),
@@ -603,12 +594,12 @@ class _SettingsState extends State<Settings> {
                                   imageIcon: Stack(
                                     children: [
                                       Positioned(
+                                        left: 8,
                                         child: Image.asset(
                                           AppImages.crossIcon,
                                           scale: 3,
                                           color: Colors.red,
                                         ),
-                                        left: 8,
                                       ),
                                       Image.asset(AppImages.payment),
                                     ],
