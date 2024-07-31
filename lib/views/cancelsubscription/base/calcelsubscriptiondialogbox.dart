@@ -126,7 +126,6 @@
 //   }
 // }
 
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -138,122 +137,150 @@ import '../../base/text_widgets.dart';
 
 class CancelSubsDialogBox extends StatelessWidget {
   String planID;
-   CancelSubsDialogBox({required this.planID,super.key});
+  CancelSubsDialogBox({required this.planID, super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: (){
-          showDialog(
-            context: context,
-            builder: (context) {
-              return BackdropFilter(
-                filter:
-                ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                child: AlertDialog(
-                    // backgroundColor:,
-                    backgroundColor: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ?  Color(0XFF1C1C23) :  Color(0XFFF1F1FF),
-                    // surfaceTintColor: Colors.red,
-                    titlePadding: EdgeInsets.only(top: 25),
-                    title: Column(
-                      children: [
-                        Text('Cancel Subscription',
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+              child: AlertDialog(
+                  // backgroundColor:,
+                  backgroundColor:
+                      Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? const Color(0XFF1C1C23)
+                          : const Color(0XFFF1F1FF),
+                  // surfaceTintColor: Colors.red,
+                  titlePadding: const EdgeInsets.only(top: 25),
+                  title: Column(
+                    children: [
+                      Text(
+                        'Cancel Subscription',
                         style: TextStyle(
                           fontSize: 18,
                           color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode ? Colors.white : Color(0XFF1c1c23),
+                                  darkMode
+                              ? Colors.white
+                              : const Color(0XFF1c1c23),
                           fontWeight: FontWeight.w600,
                         ),
-                        ),
-                        SizedBox(height: MySize.size8,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child:  Text(
-                            textAlign: TextAlign.center,
-                            'Are you sure you want to delete the\naccount?',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? Colors.white
-                                  : Color(0XFF424252),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: MySize.size20,
-                        ),
-                        const Divider(color: AppColors.grey61,),
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.center,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Decline',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? Colors.red : Colors.red,
-                              ),
-                              )
-                            ),
-                            SizedBox(
-                              width: MySize.size10,
-                            ),
-                Consumer<PlanProvider>(builder: (context, planProvider, child) {
-                  return                             TextButton(
-                    onPressed: () {
-                      planProvider.cancelPlan(context: context, planID: planID);
-
-                    },
-                    child: planProvider.isCancel? SizedBox(
-                        height: MySize.size20,
-                        width: MySize.size20,
-                        child: CircularProgressIndicator(color: Colors.blue,)): Padding(
-                        padding: const EdgeInsets.only(left: 40),
-                        child: Text('Accept',
+                      ),
+                      SizedBox(
+                        height: MySize.size8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          'Are you sure you want to delete the\naccount?',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Color(0XFF2B83F2) : Color(0XFF2B83F2),
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? Colors.white
+                                    : const Color(0XFF424252),
                           ),
-                        )
-                    ),
-                  );
-                },),
-                          ],
-                        )
-                      ],
-                    )),
-              );
-            },
-          );
-        },
-        child: Container(
-            height: MySize.scaleFactorHeight * 48,
-            width: MySize.scaleFactorWidth * 288,
-            decoration: BoxDecoration(
-                color: Colors.white.withOpacity(.1),
-                borderRadius: BorderRadius.circular(MySize.size24),
-                border: Border.all(
-                  color: Colors.white.withOpacity(.15),
-                )
-            ),
-            child: Center(
-              child: TextWidgetInterMedium(
-                  title: 'Cancel Subscription',
-                  // color: AppColors.whiteFF,
-                  fontSize: MySize.size14,
-                  fontWeight: FontWeight.w600),
-            ),
-            ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MySize.size20,
+                      ),
+                      const Divider(
+                        color: AppColors.grey61,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Decline',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
+                                      ? Colors.red
+                                      : Colors.red,
+                                ),
+                              )),
+                          SizedBox(
+                            width: MySize.size10,
+                          ),
+                          Consumer<PlanProvider>(
+                            builder: (context, planProvider, child) {
+                              return TextButton(
+                                onPressed: () {
+                                  planProvider.cancelPlan(
+                                      context: context, planID: planID);
+                                },
+                                child: planProvider.isCancel
+                                    ? SizedBox(
+                                        height: MySize.size20,
+                                        width: MySize.size20,
+                                        child: const CircularProgressIndicator(
+                                          color: Colors.blue,
+                                        ))
+                                    : Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 40),
+                                        child: Text(
+                                          'Accept',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: Provider.of<ThemeChanger>(
+                                                            context)
+                                                        .themeData ==
+                                                    darkMode
+                                                ? const Color(0XFF2B83F2)
+                                                : const Color(0XFF2B83F2),
+                                          ),
+                                        )),
+                              );
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+            );
+          },
         );
-    }
+      },
+      child: Container(
+        height: MySize.scaleFactorHeight * 48,
+        width: MySize.scaleFactorWidth * 288,
+        decoration: BoxDecoration(
+          color: const Color(0xffF1F1FF).withOpacity(.30),
+          borderRadius: BorderRadius.circular(MySize.size24),
+        ),
+        child: Center(
+          child: Container(
+              height: 48,
+              width: 288,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(MySize.size40),
+                color: const Color(0xffF1F1FF),
+              ),
+              child: Center(
+                  child: TextWidgetInterMedium(
+                title: 'Cancel Subscription',
+                color: const Color(0xff1C1C23),
+                fontSize: MySize.size14,
+                fontWeight: FontWeight.w600,
+              ))),
+        ),
+      ),
+    );
+  }
 }
-

@@ -52,8 +52,8 @@ class CancelSubscription extends StatelessWidget {
                       fontSize: MySize.size16,
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFA2A2B5)
-                          : Color(0XFFA2A2B5),
+                          ? const Color(0XFFA2A2B5)
+                          : const Color(0XFFA2A2B5),
                     ),
                   ),
                 ],
@@ -83,8 +83,8 @@ class CancelSubscription extends StatelessWidget {
                     decoration: BoxDecoration(
                       color:
                       Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFF4E4E61).withOpacity(.2)
-                          : Color(0XFFF1F1FF),
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          : const Color(0XFFF1F1FF),
                       borderRadius: BorderRadius.circular(16),
                       border: Border(
                           top: BorderSide(color: Colors.white.withOpacity(.15)),
@@ -138,7 +138,7 @@ class CancelSubscription extends StatelessWidget {
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
                     color: Provider.of<ThemeChanger>(context)
-                        .themeData == darkMode ? Colors.white : Color(0XFF424252),
+                        .themeData == darkMode ? Colors.white : const Color(0XFF424252),
                   ),),
 
               ),
@@ -152,8 +152,8 @@ class CancelSubscription extends StatelessWidget {
               decoration: BoxDecoration(
                 color:
                 Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? Color(0XFF4E4E61).withOpacity(.2)
-                    : Color(0XFFF1F1FF),
+                    ? const Color(0XFF4E4E61).withOpacity(.2)
+                    : const Color(0XFFF1F1FF),
                 borderRadius: BorderRadius.circular(16),
                 border: Border(
                     top: BorderSide(color: Colors.white.withOpacity(.15)),
@@ -167,7 +167,7 @@ class CancelSubscription extends StatelessWidget {
                 children: [
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.plan,    color: Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode ? Colors.white : Color(0XFFC1C1CD),),
+                        darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Subscription Tracking',
                   ),
                   SizedBox(
@@ -175,7 +175,7 @@ class CancelSubscription extends StatelessWidget {
                   ),
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.notify,    color: Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode ? Colors.white : Color(0XFFC1C1CD),),
+                        darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Alerts and Notifications',
                   ),
                   SizedBox(
@@ -184,7 +184,7 @@ class CancelSubscription extends StatelessWidget {
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.chart,
                       color: Provider.of<ThemeChanger>(context).themeData ==
-                          darkMode ? Colors.white : Color(0XFFC1C1CD),
+                          darkMode ? Colors.white : const Color(0XFFC1C1CD),
                     ),
                     text: 'Financial Overview',
                   ),
@@ -193,7 +193,7 @@ class CancelSubscription extends StatelessWidget {
                   ),
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.analytics,    color: Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode ? Colors.white : Color(0XFFC1C1CD),),
+                        darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Spending Analytics',
                   ),
                   SizedBox(
@@ -201,7 +201,7 @@ class CancelSubscription extends StatelessWidget {
                   ),
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.contsupport,    color: Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode ? Colors.white : Color(0XFFC1C1CD),),
+                        darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Customer Support',
                   ),
                 ],
@@ -210,15 +210,15 @@ class CancelSubscription extends StatelessWidget {
           ],
         ),
       ),
-          bottomNavigationBar:       Container(
+          bottomNavigationBar:Container(
             height: 114,
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(24), topRight: Radius.circular(24)),
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? Color(0XFF353542).withOpacity(.7)
-                    : Color(0XFFF1F1FF).withOpacity(.8),
+                    ? const Color(0XFF353542).withOpacity(.7)
+                    : const Color(0XFFF1F1FF).withOpacity(.8),
                 boxShadow: [
                   BoxShadow(
                       offset: const Offset(0, 4),
