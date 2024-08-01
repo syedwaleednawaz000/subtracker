@@ -43,4 +43,32 @@ class RegisterProvider extends ChangeNotifier{
     }
   }
 
+
+  String _password = '';
+  int _strengthLevel = 0;
+  final List<Color> _colors = [
+    const Color(0XFFFF0000), // Weak (Red)
+    const Color(0XFFFFA500), // Medium (Orange)
+    const Color(0XFFFFFF00), // Strong (Yellow)
+    const Color(0XFF00FF00), // Very Strong (Green)
+  ];
+
+  String get password => _password;
+  int get strengthLevel => _strengthLevel;
+  List<Color> get colors => _colors;
+
+  void updatePassword(String value) {
+    _password = value;
+    _strengthLevel = _calculatePasswordStrength(_password);
+    notifyListeners();
+  }
+
+  int _calculatePasswordStrength(String password) {
+    int strength = 0;
+    if (password.length >= 8) strength++;
+    if (password.contains(RegExp(r'[A-Z]'))) strength++;
+    if (password.contains(RegExp(r'[0-9]'))) strength++;
+    if (password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) strength++;
+    return strength;
+  }
 }

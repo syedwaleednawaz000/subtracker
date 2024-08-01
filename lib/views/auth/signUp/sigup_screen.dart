@@ -185,83 +185,43 @@ class _SignupScreenState extends State<SignupScreen> {
                        const SizedBox(
                          height: 10,
                        ),
-                       CustomTextFormField(
-                         controller: confirmPasswordController,
-                         text: 'Confirm Password',
-                         hintText: 'Confirm Password',
-                          obscureText: isSelected2,
-                          validator: validatePassword,
-                         suffixIcons: IconButton(onPressed: (){
-                           setState(() {
-                             isSelected2 = !isSelected2;
-                           });
-                         }, icon: isSelected2
-                             ? Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3))
-                             : Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)),
-                       ),
+                   Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                     return                        CustomTextFormField(
+                       onChanged: (newValue){
+                         registerProvider.updatePassword(newValue);
+                       },
+                       controller: confirmPasswordController,
+                       text: 'Confirm Password',
+                       hintText: 'Confirm Password',
+                       obscureText: isSelected2,
+                       validator: validatePassword,
+                       suffixIcons: IconButton(onPressed: (){
+                         setState(() {
+                           isSelected2 = !isSelected2;
+                         });
+                       }, icon: isSelected2
+                           ? Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3))
+                           : Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)),
+                     );
+                   },),
                        const SizedBox(
                          height: 10,
                        ),
-                       // Column(
-                       //   crossAxisAlignment: CrossAxisAlignment.start,
-                       //   mainAxisAlignment: MainAxisAlignment.start,
-                       //   children: [
-                       //     const Text('Password',
-                       //       textAlign: TextAlign.center,
-                       //       style: TextStyle(
-                       //         fontSize: 14,
-                       //         fontWeight: FontWeight.w400,
-                       //         color: Color(0XFF666680)
-                       //       ),),
-                       //     const SizedBox(
-                       //       height: 4,
-                       //     ),
-                       //     TextFormField(
-                       //       style: const TextStyle(
-                       //           color:  Color(0XFF666680)
-                       //       ),
-                       //     obscureText: isSelected,
-                       //       decoration: InputDecoration(
-                       //           isDense: true,
-                       //           contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                       //           hintText: 'Passwod',
-                       //           hintStyle:  TextStyle(
-                       //             fontFamily: 'Poppins_Regular',
-                       //             fontSize: 14,
-                       //             fontWeight: FontWeight.w400,
-                       //             color: const Color(0XFF666680).withOpacity(.3),
-                       //           ),
-                       //           suffixIcon: IconButton(onPressed: (){
-                       //             setState(() {
-                       //               isSelected = !isSelected;
-                       //             });
-                       //           }, icon: isSelected
-                       //               ? Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)
-                       //               : Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3),)),
-                       //           border: OutlineInputBorder(
-                       //               borderRadius: BorderRadius.circular(16),
-                       //               borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                       //               focusedBorder: OutlineInputBorder(
-                       //           borderRadius: BorderRadius.circular(16),
-                       //         borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                       //       ),
-                       //       enabledBorder: OutlineInputBorder(
-                       //         borderRadius: BorderRadius.circular(16),
-                       //         borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                       //
-                       //           )
-                       //       ),
-                       //
-                       //     ),
-                       //   ],
-                       // ),
-                       const SizedBox(
-                         height: 10,
-                       ),
-
-                      const Padding(
-                         padding: EdgeInsets.only(left: 5, right: 5, top: 16, bottom: 16),
-                         child: StepProgressIndicator(totalSteps: 4, gradientColor: LinearGradient(colors: [Color(0XFF353542),Color(0XFF353542) ]),),
+                       Padding(
+                         padding: const EdgeInsets.only(left: 5, right: 5, top: 16, bottom: 16),
+                         child:  Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                           return StepProgressIndicator(
+                             totalSteps: 4,
+                             currentStep: registerProvider.strengthLevel,
+                             size: 8,
+                             padding: 0,
+                             selectedColor: registerProvider.strengthLevel == 0
+                                 ? Colors.grey
+                                 : registerProvider.colors[registerProvider.strengthLevel - 1],
+                             unselectedColor: Color(0XFF353542),
+                             roundedEdges: Radius.circular(10),
+                           );
+                         },),
                        ),
 
                        Padding(
@@ -441,12 +401,13 @@ class _SignupScreenState extends State<SignupScreen> {
 }
 
   class CustomTextFormField extends StatelessWidget {
-    const CustomTextFormField({
+     CustomTextFormField({
       super.key,
       required this.hintText,
       required this.text,
       this.suffixIcons,
       this.prefixIcons,
+      this.onChanged,
       required this.validator,
       this.obscureText,
       required this.controller,
@@ -457,6 +418,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final String text;
     final IconButton? suffixIcons;
     final Icon? prefixIcons;
+    void Function(String)? onChanged;
     final FormFieldValidator<String> validator;
     final bool? obscureText ;
 
@@ -477,6 +439,7 @@ class _SignupScreenState extends State<SignupScreen> {
             height: 4,
           ),
           TextFormField(
+            onChanged: onChanged,
             controller: controller,
             obscureText: obscureText ?? false,
             validator: validator,
