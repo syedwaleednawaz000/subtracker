@@ -32,10 +32,11 @@ class _BnavBarState extends State<BnavBar> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    bool isDarkMode = Provider.of<ThemeChanger>(context).themeData == darkMode;
     print('build tapped');
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
+          ?  Colors.black
           : const Color(0XFFF7F7FF),
       bottomNavigationBar: Container(
         width: size.width,
@@ -53,13 +54,13 @@ class _BnavBarState extends State<BnavBar> {
           children: [
             PhysicalModel(
               color: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-              const Color(0xff1c1c23):
+               Colors.black:
               const Color(0xfff7f7ff).withOpacity(.6),
               clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.circular(18),
               child: CustomPaint(
                 size: Size(size.width, 55),
-                painter: BNBCustomPainter(),
+                painter: BNBCustomPainter(isDarkMode),
               ),
             ),
             Center(
@@ -93,11 +94,6 @@ class _BnavBarState extends State<BnavBar> {
                             color: value.isSelected(0)
                              ? Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffFFFFFF) : const Color(0xffA2A2B5)
                              : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xff758AFF):const Color(0xffA2A2B5) ,
-
-
-
-
-
                         ),
                         onPressed: () => value.selection(0),
                       );
@@ -163,10 +159,14 @@ class _BnavBarState extends State<BnavBar> {
 }
 
 class BNBCustomPainter extends CustomPainter {
+  final bool isDarkMode;
+
+  BNBCustomPainter(this.isDarkMode);
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = Colors.white
+      ..color = isDarkMode ? Color(0xff4E4E61) : Colors.white
       ..style = PaintingStyle.fill;
 
     Path path = Path();
