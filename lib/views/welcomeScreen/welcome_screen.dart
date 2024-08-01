@@ -28,12 +28,12 @@ class WelcomeScreen extends StatelessWidget {
               Container(
                 height: 300, width: double.infinity,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Color(0XFF3F3F4B), Color(0XFF1C1C23), ]),
+                  gradient: const LinearGradient(colors: [Color(0XFF3F3F4B), Color(0XFF1C1C23), ]),
 
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                       blurRadius: 4,
                       color: AppColors.black00.withOpacity(.25)
                     )
@@ -58,16 +58,16 @@ class WelcomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 50),
                       child: InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterWithM()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterWithM()));
                         },
                         child: Row(
                           children: [
                             Container(
                               height: 52, width: 190,
                               decoration: BoxDecoration(
-                                color: Color(0XFF424252),
+                                color: const Color(0XFF424252),
                                 // color: Colors.blue,
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(30),
                                   topRight: Radius.circular(0),
                                   bottomRight: Radius.circular(30),
@@ -75,7 +75,7 @@ class WelcomeScreen extends StatelessWidget {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    offset: Offset(-4, 8),
+                                    offset: const Offset(-4, 8),
                                     blurRadius: 25,
                                     color: Colors.white.withOpacity(.2)
                                   )

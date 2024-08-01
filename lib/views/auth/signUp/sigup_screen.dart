@@ -219,6 +219,7 @@ class _SignupScreenState extends State<SignupScreen> {
                        const SizedBox(
                          height: 10,
                        ),
+
                        Padding(
                          padding: const EdgeInsets.only(left: 5, right: 5, top: 16, bottom: 16),
                          child:  Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
@@ -250,11 +251,7 @@ class _SignupScreenState extends State<SignupScreen> {
                              ),),
                          ),
                        ),
-                       // TextWidgetInterBold(
-                       //     title:
-                       //     'Use 8 or more characters with a mix of letters, \nnumbers & symbols to be secure.',
-                       //     color: AppColors.grey30.withOpacity(.3)),
-                       const SizedBox(
+                        const SizedBox(
                          height: 12,
                        ),
                        Row(
