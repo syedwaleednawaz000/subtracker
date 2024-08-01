@@ -39,7 +39,7 @@ class _PersonalDataState extends State<PersonalData> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Color(0XFFF7F7FF),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
         body: Column(
           children: [
             Padding(
@@ -55,11 +55,11 @@ class _PersonalDataState extends State<PersonalData> {
                       },
                       child: Image.asset(AppImages.backArrow, height: 20,)),
                   SizedBox(
-                    width: MySize.scaleFactorWidth * 120,
+                    width: MySize.scaleFactorWidth * 110,
                   ),
                   Text('Personal Data',
                     style: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFFA2A2B5) : Color(0XFFA2A2B5),
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
                       fontSize: MySize.size16,
                       fontWeight: FontWeight.w400,
                     ),
@@ -158,23 +158,23 @@ class _PersonalDataState extends State<PersonalData> {
                   decoration: BoxDecoration(
                     borderRadius:  BorderRadius.circular(16),
                     color:   Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode ? Colors.white.withOpacity(.1) : Color(0XFFF1F1FF),
+                        darkMode ? Colors.white.withOpacity(.1) : const Color(0XFFF1F1FF),
                     border: Border(
                       top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0xFFCFCFFC).withOpacity(.15)
-                          : Color(0xFFCFCFFC).withOpacity(.15)),
+                          ? const Color(0xFFCFCFFC).withOpacity(.15)
+                          : const Color(0xFFCFCFFC).withOpacity(.15)),
 
                       left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0xFFCFCFFC).withOpacity(.15)
-                          : Color(0xFFCFCFFC).withOpacity(.15)),
+                          ? const Color(0xFFCFCFFC).withOpacity(.15)
+                          : const Color(0xFFCFCFFC).withOpacity(.15)),
                     ),
                   ),
                   child: Center(
                     child: Text('Change',
                       style: TextStyle(
-                          color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Color(0XFF424252),
+                          color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF424252),
                           fontSize: 12, fontWeight: FontWeight.w600),),
                   ),
                 ),
@@ -192,7 +192,7 @@ class _PersonalDataState extends State<PersonalData> {
               children: [
                 Text('E-mail address',
                   style: TextStyle(
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
@@ -210,24 +210,24 @@ class _PersonalDataState extends State<PersonalData> {
                     ),
                     hintText: 'Email',
                     hintStyle: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680).withOpacity(.4),
                         fontSize: MySize.size12,
                         fontFamily: 'Poppins_Regular'
                     ),
                     suffixIcon: Icon(
                       Icons.email,
-                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680).withOpacity(.4),
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                         )
                     ),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                         )
                     ),
                   ),
@@ -247,7 +247,7 @@ class _PersonalDataState extends State<PersonalData> {
                   children: [
                     Text('Name',
                       style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                           fontSize: 12,
                           fontWeight: FontWeight.w500
                       ),
@@ -262,26 +262,26 @@ class _PersonalDataState extends State<PersonalData> {
                         contentPadding: const EdgeInsets.only(left: 20, right: 20),
                         hintText: 'Name',
                         hintStyle: TextStyle(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680).withOpacity(.4),
                             fontSize: MySize.size12,
                             fontFamily: 'Poppins_Regular'
                         ),
                         suffixIcon: Icon(
                           Icons.person_rounded,
                           // color: Color(0XFF666680),
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680).withOpacity(.4),
                         ),
 
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                             )
                         ),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                             )
                         ),
                       ),
@@ -301,7 +301,7 @@ class _PersonalDataState extends State<PersonalData> {
                   children: [
                     Text('Phone No.',
                       style: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         // fontFamily: 'Poppins_Regular'
@@ -319,23 +319,23 @@ class _PersonalDataState extends State<PersonalData> {
                         hintText: 'Phone No.',
                         hintStyle: TextStyle(
                           fontFamily: 'Poppins_Regular',
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680).withOpacity(.4),
                           fontSize: MySize.size12,
                         ),
                         suffixIcon: Icon(
                           Icons.phone,
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680).withOpacity(.4),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680).withOpacity(.4),
                         ),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                             )
                         ),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                             )
                         ),
                       ),
@@ -382,12 +382,12 @@ class CustomSaveButton extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(24), topRight: Radius.circular(24)),
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
-              ? Color(0XFF353542).withOpacity(.7)
-              : Color(0XFFF1F1FF).withOpacity(.86),
+              ? const Color(0XFF353542).withOpacity(.7)
+              : const Color(0XFFF1F1FF).withOpacity(.86),
 
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
                 blurRadius: 4,
                 color: AppColors.black00.withOpacity(.25)
             )
@@ -410,8 +410,8 @@ class CustomSaveButton extends StatelessWidget {
                   ),
                     color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode
-                        ? Color(0XFFFFFFFF).withOpacity(.1)
-                        : Color(0XFFF1F1FF),
+                        ? const Color(0XFFFFFFFF).withOpacity(.1)
+                        : const Color(0XFFF1F1FF),
                     ),
                 child: Center(
                   child: loading == true ? const CircularProgressIndicator(color: Colors.green,): Text(
@@ -423,7 +423,7 @@ class CustomSaveButton extends StatelessWidget {
                       Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Colors.white
-                          : Color(0XFF1c1c23),
+                          : const Color(0XFF1c1c23),
                     ),
                   ),
                 )),

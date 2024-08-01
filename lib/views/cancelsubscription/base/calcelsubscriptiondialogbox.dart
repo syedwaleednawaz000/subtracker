@@ -261,7 +261,9 @@ class CancelSubsDialogBox extends StatelessWidget {
         height: MySize.scaleFactorHeight * 48,
         width: MySize.scaleFactorWidth * 288,
         decoration: BoxDecoration(
-          color: const Color(0xffF1F1FF).withOpacity(.30),
+          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+              ? const Color(0XFF353542).withOpacity(.7)
+              : const Color(0XFFF1F1FF).withOpacity(.86),
           borderRadius: BorderRadius.circular(MySize.size24),
         ),
         child: Center(
@@ -270,12 +272,17 @@ class CancelSubsDialogBox extends StatelessWidget {
               width: 288,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(MySize.size40),
-                color: const Color(0xffF1F1FF),
+                color: Provider.of<ThemeChanger>(context).themeData ==
+                    darkMode
+                    ? const Color(0XFFFFFFFF).withOpacity(.1)
+                    : const Color(0XFFF1F1FF),
               ),
               child: Center(
                   child: TextWidgetInterMedium(
                 title: 'Cancel Subscription',
-                color: const Color(0xff1C1C23),
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ?  Colors.white
+                        :  Colors.black,
                 fontSize: MySize.size14,
                 fontWeight: FontWeight.w600,
               ))),

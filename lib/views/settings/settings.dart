@@ -57,7 +57,7 @@ class _SettingsState extends State<Settings> {
 
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
   List<AssetImage> leadingAccImage = [
-    const AssetImage(AppImages.manIcon),
+    AssetImage(AppImages.manIcon,),
     AssetImage(AppImages.language),
     AssetImage(AppImages.currency),
     AssetImage(AppImages.password)
@@ -194,7 +194,8 @@ class _SettingsState extends State<Settings> {
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(90),
                             image: DecorationImage(
-                              image: AssetImage(AppImages.person),
+                              image: AssetImage(AppImages.person,),
+
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -219,8 +220,6 @@ class _SettingsState extends State<Settings> {
                 '${profileProvider.userData['data'] != null ?profileProvider.userData['data']['name']:""}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  // color: isDarkMode ? AppColors.whiteFF : Color(0XFF424252),
-                  // color: Theme.of(context).colorScheme.primary,
                     fontSize: MySize.size20,
                     fontWeight: FontWeight.w700),
               );
@@ -284,7 +283,7 @@ class _SettingsState extends State<Settings> {
                     /// Account Container
                     Container(
                       width: MySize.scaleFactorWidth * 338,
-                      height: 390,
+                      height: 400,
                       decoration: BoxDecoration(
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
@@ -323,7 +322,7 @@ class _SettingsState extends State<Settings> {
                                     },
                                     child: ListTile(
                                       dense: true,
-                                      leading: Image(image: leadingAccImage[index]),
+                                      leading: Image(image: leadingAccImage[index] , height: 20,),
                                       title: Text(
                                         titleText[index],
                                         style: TextStyle(
@@ -372,6 +371,7 @@ class _SettingsState extends State<Settings> {
                                       dense: true,
                                       leading: Image(
                                         image: leadingImage[index],
+                                        height: 18,
                                       ),
                                       title: Text(
                                         titleText2[index],
@@ -438,8 +438,6 @@ class _SettingsState extends State<Settings> {
                       height: MySize.scaleFactorHeight * 64,
                       width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
-                        // color: AppColors.grey61.withOpacity(.20),
-                        // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
                             : Colors.white,
@@ -447,19 +445,16 @@ class _SettingsState extends State<Settings> {
                         border: Border(
                           top: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
-                          // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
                         ),
-                        // border: Border.all(width: MySize.size2, color: AppColors.whiteFc.withOpacity(0.10)),
                       ),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const SizedBox(
                             width: 12,
                           ),
-                          Image.asset(AppImages.darkmode),
+                          Image.asset(AppImages.darkmode,height: 20,),
                           const SizedBox(
                             width: 18,
                           ),
@@ -548,7 +543,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.plan),
+                                  imageIcon: Image.asset(AppImages.plan,height: 20,),
                                   text: 'Manage Plan',
                                   text2: 'Plan',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -569,7 +564,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.payment),
+                                  imageIcon: Image.asset(AppImages.payment,height: 20,),
                                   text: 'Manage Payment',
                                   text2: 'Cards',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -597,11 +592,12 @@ class _SettingsState extends State<Settings> {
                                         left: 8,
                                         child: Image.asset(
                                           AppImages.crossIcon,
-                                          scale: 3,
+                                          height: 15,
+
                                           color: Colors.red,
                                         ),
                                       ),
-                                      Image.asset(AppImages.payment),
+                                      Image.asset(AppImages.payment,height: 20,),
                                     ],
                                   ),
                                   text: 'Cancel Subscription',
@@ -637,12 +633,9 @@ class _SettingsState extends State<Settings> {
 
                     /// Help and support container
                     Container(
-                      // padding: EdgeInsets.symmetric( horizontal: MySize.size20, vertical: MySize.size24),
                       height: MySize.scaleFactorHeight * 190,
                       width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
-                        // color: AppColors.grey61.withOpacity(.20),
-                        // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
@@ -651,14 +644,10 @@ class _SettingsState extends State<Settings> {
                         border: Border(
                           top: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
-                          // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
                         ),
-                        // border: Border.all(
-                        //   width: MySize.size2,
-                        //   color: AppColors.whiteFc.withOpacity(0.10),
-                        // ),
+
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(14.0),
@@ -674,7 +663,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.faqs),
+                                  imageIcon: Image.asset(AppImages.faqs,height: 20,),
                                   text: 'FAQs',
                                   text2: 'FAQ',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -696,7 +685,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.contsupport),
+                                  imageIcon: Image.asset(AppImages.contsupport,height: 20,),
                                   text: 'Contact Support',
                                   text2: 'Support',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -718,7 +707,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.terms),
+                                  imageIcon: Image.asset(AppImages.terms,height: 20,),
                                   text: 'Terms & Services',
                                   text2: 'Legal',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -739,7 +728,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.privpolicy),
+                                  imageIcon: Image.asset(AppImages.privpolicy,height: 20,),
                                   text: 'Privacy Policy',
                                   text2: 'Legal',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -775,7 +764,6 @@ class _SettingsState extends State<Settings> {
                           border: Border(
                             top: BorderSide(
                                 color: AppColors.whiteFc.withOpacity(0.10)),
-                            // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
                             left: BorderSide(
                                 color: AppColors.whiteFc.withOpacity(0.10)),
                           ),
@@ -790,7 +778,7 @@ class _SettingsState extends State<Settings> {
                               color: Provider.of<ThemeChanger>(context)
                                   .themeData ==
                                   darkMode
-                                  ? Colors.white
+                                  ? Color(0XFFA2A2B5)
                                   : Colors.red,
                             ),
                             SizedBox(width: MySize.size22,),
@@ -822,8 +810,6 @@ class _SettingsState extends State<Settings> {
                       height: MySize.scaleFactorHeight * 64,
                       width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
-                        // color: AppColors.grey61.withOpacity(.20),
-                        // color: Theme.of(context).colorScheme.secondary,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
@@ -832,7 +818,6 @@ class _SettingsState extends State<Settings> {
                         border: Border(
                           top: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
-                          // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
                         ),

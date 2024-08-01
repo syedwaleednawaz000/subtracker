@@ -32,7 +32,6 @@ class ShowDialogBox extends StatelessWidget {
                   titlePadding: EdgeInsets.only(top: MySize.size30),
                   title: Column(
                     children: [
-                      // SizedBox(width: MySize.size20,),
                       Text('Delete Account',
                         style: TextStyle(
                           fontSize: MySize.size18,
@@ -114,8 +113,8 @@ class ShowDialogBox extends StatelessWidget {
       },
       child: SettingRowList(
         text: 'Delete Account',
-        color: Color(0XFFB50000),
-        imageIcon: Image.asset(AppImages.delete, color: Color(0XFFB50000),),
+        color: const Color(0XFFB50000),
+        imageIcon: Image.asset(AppImages.delete,height: 20, color: const Color(0XFFB50000),),
       ),
     );
   }

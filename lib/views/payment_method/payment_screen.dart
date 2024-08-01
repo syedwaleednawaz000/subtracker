@@ -599,7 +599,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   title: 'Cards',
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  // color: Colors.white
+                color:Provider.of<ThemeChanger>(context).themeData ==
+                    darkMode
+                    ? Color(0XFFFFFFFF)
+                    : Colors.black,
     ),
             ),
             const SizedBox(
@@ -639,8 +642,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       TextWidgetInterMedium(
                         title: '**** **** **** 1234',
                         fontSize: 16,
-                        // color: Colors.white,
                         fontWeight: FontWeight.w400,
+                        color:Provider.of<ThemeChanger>(context).themeData ==
+                            darkMode
+                            ? const Color(0XFFFFFFFF)
+                            : Colors.black,
                       )
                     ],
                   ),
@@ -657,7 +663,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   title: 'Billing',
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  // color: Colors.white
+                color:Provider.of<ThemeChanger>(context).themeData ==
+                    darkMode
+                    ? const Color(0XFFFFFFFF)
+                    : Colors.black,
               ),
             ),
             const SizedBox(
