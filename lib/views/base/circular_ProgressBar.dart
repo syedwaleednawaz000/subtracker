@@ -99,10 +99,16 @@ class CircularProgressBarWidget extends StatelessWidget {
                 width: MySize.size120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(MySize.size16),
+                  border: Border.all(
+                    width: 1,
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0xFFFFFFFF).withOpacity(0.10)
+                          : Colors.transparent),
                   color:
                       Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFFFFFFFF).withOpacity(.10)
-                          : const Color(0XFFF1F1FF),
+                          ? const Color(0xFF4E4E61).withOpacity(0.20)
+                          : const Color(0xFFCFCFFC).withOpacity(0.3),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
