@@ -77,6 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
         backgroundColor: const Color(0XFF1C1C23),
         resizeToAvoidBottomInset: false,
+
         body: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
@@ -87,16 +88,27 @@ class _SignupScreenState extends State<SignupScreen> {
               key: _formKey,
               child: Column(
                 children: [
+
                   const Padding(
                     padding: EdgeInsets.only(
-                        top: 28, bottom: 165, left: 115, right: 115),
+                         left: 115, right: 115),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60,right: 280),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
+                  ),
+                  const SizedBox(height: 100,),
                   const Text( 'Create Account',
                     style: TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 24,
                         color: Colors.white
                     ),
                   ),
+
                       Padding(
                         padding: const EdgeInsets.only(left: 24, right: 24, top: 22),                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
