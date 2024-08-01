@@ -131,16 +131,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(MySize.size16),
+                             color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? const Color(0xFF000000)
+                                : const Color(0xFFF1F1FF),
 
-                              gradient:  const LinearGradient(
-                                colors: [
-                                  Color(0xFFF1F1FF),
-                                  Color(0xFFF1F1FF),
-                                  // Color(0xFFFFFFFF).withOpacity(0.15),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
+                            
                             ),
                             child: DropdownButton2<int>(
                               dropdownStyleData: DropdownStyleData(
