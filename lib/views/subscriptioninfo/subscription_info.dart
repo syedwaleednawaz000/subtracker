@@ -219,8 +219,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                     horizontal: MySize.size20,
                                     vertical: MySize.size16,
                                   ),
-                                  height:
-                                  MySize.scaleFactorHeight * 370,
+                                  // height:
+                                  // MySize.scaleFactorHeight * 370,
                                   width: MySize.scaleFactorWidth * 288,
                                   decoration: BoxDecoration(
                                     color: Provider.of<ThemeChanger>(
@@ -482,6 +482,45 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                     ],
                                   ),
                                 ),
+                                SizedBox(height: MySize.size20,),
+                                Consumer<SubscriptionProvider>(
+                                  builder: (context, getSubscriptionProvider, child) {
+                                    return InkWell(
+                                      onTap: () {
+                                        getSubscriptionProvider.getSubscriptions();
+                                      },
+                                      child: Container(
+                                        height: MySize.scaleFactorHeight * 48,
+                                        margin: EdgeInsets.only(bottom: 18,right: 20,left: 20),
+                                        width: MySize.scaleFactorWidth * 288,
+                                        decoration: BoxDecoration(
+                                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                              ? Colors.white.withOpacity(.1)
+                                              : const Color(0XFFF7F7FF),
+                                          borderRadius: BorderRadius.circular(MySize.size24),
+                                          border: Border.all(
+                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? Colors.white.withOpacity(.15)
+                                                : Colors.white.withOpacity(.15),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Save',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: MySize.size14,
+                                              fontWeight: FontWeight.w600,
+                                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                  ? const Color(0XFFFFFFFF)
+                                                  : const Color(0XFF424252),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                )
                               ],
                             ),
                           )
@@ -492,44 +531,6 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                 ),
               )),
         ),
-      ),
-      bottomNavigationBar: Consumer<SubscriptionProvider>(
-        builder: (context, getSubscriptionProvider, child) {
-          return InkWell(
-            onTap: () {
-              getSubscriptionProvider.getSubscriptions();
-            },
-            child: Container(
-              height: MySize.scaleFactorHeight * 48,
-              margin: EdgeInsets.only(bottom: 18,right: 20,left: 20),
-              width: MySize.scaleFactorWidth * 288,
-              decoration: BoxDecoration(
-                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? Colors.white.withOpacity(.1)
-                    : const Color(0XFFF7F7FF),
-                borderRadius: BorderRadius.circular(MySize.size24),
-                border: Border.all(
-                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? Colors.white.withOpacity(.15)
-                      : Colors.white.withOpacity(.15),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  'Save',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: MySize.size14,
-                    fontWeight: FontWeight.w600,
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0XFFFFFFFF)
-                        : const Color(0XFF424252),
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }
