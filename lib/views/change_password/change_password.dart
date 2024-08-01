@@ -190,7 +190,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
                             hintText: 'Enter new Confirm Password',
                             hintStyle: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+                              Color(0XFF666680).withOpacity(.6) :
+                              Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
                             ),
                             suffixIcon: Icon(
