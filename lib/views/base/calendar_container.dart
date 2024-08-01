@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/my_size.dart';
 
-
 class CalendarContainer extends StatefulWidget {
   final int selectedMonth;
   final ValueChanged<DateTime> onDateSelected;
@@ -29,7 +28,8 @@ class _CalendarContainerState extends State<CalendarContainer> {
     // Set the current date as selected by default if it's in the current month
     DateTime now = DateTime.now();
     if (now.month == widget.selectedMonth) {
-      _selectedDate = now; // Set the current date as selected if it's in the selected month
+      _selectedDate =
+          now; // Set the current date as selected if it's in the selected month
     }
   }
 
@@ -40,15 +40,26 @@ class _CalendarContainerState extends State<CalendarContainer> {
     DateTime firstDayOfMonth = DateTime(year, widget.selectedMonth, 1);
     int lastDayOfMonth = DateTime(year, widget.selectedMonth + 1, 0).day;
 
-    List<String> titleText = List.generate(lastDayOfMonth, (index) => (index + 1).toString().padLeft(2, '0'));
-    List<String> subtitleText = List.generate(lastDayOfMonth, (index) => DateFormat('E').format(DateTime(year, widget.selectedMonth, index + 1)).substring(0, 2).toUpperCase());
+    List<String> titleText = List.generate(
+        lastDayOfMonth, (index) => (index + 1).toString().padLeft(2, '0'));
+    List<String> subtitleText = List.generate(
+        lastDayOfMonth,
+        (index) => DateFormat('E')
+            .format(DateTime(year, widget.selectedMonth, index + 1))
+            .substring(0, 2)
+            .toUpperCase());
 
     List<Color> colors = List.generate(lastDayOfMonth, (index) {
       DateTime date = DateTime(year, widget.selectedMonth, index + 1);
-      if (_selectedDate != null && date.year == _selectedDate!.year && date.month == _selectedDate!.month && date.day == _selectedDate!.day) {
+      if (_selectedDate != null &&
+          date.year == _selectedDate!.year &&
+          date.month == _selectedDate!.month &&
+          date.day == _selectedDate!.day) {
         return Colors.blueAccent; // Selected color
       } else {
-        return index % 2 == 0 ? const Color(0XFFF1F1FF) : const Color(0XFFF1F1FF); // Default color
+        return index % 2 == 0
+            ? const Color(0XFFF1F1FF)
+            : const Color(0XFFF1F1FF); // Default color
       }
     });
 
@@ -63,21 +74,30 @@ class _CalendarContainerState extends State<CalendarContainer> {
           return GestureDetector(
             onTap: () {
               setState(() {
-                if (_selectedDate != null && _selectedDate!.isAtSameMomentAs(date)) {
+                if (_selectedDate != null &&
+                    _selectedDate!.isAtSameMomentAs(date)) {
                   _selectedDate = null; // Deselect if already selected
                 } else {
                   _selectedDate = date; // Select the new date
                 }
-                widget.onDateSelected(_selectedDate ?? DateTime(0)); // Pass the selected date or default
+                widget.onDateSelected(_selectedDate ??
+                    DateTime(0)); // Pass the selected date or default
               });
             },
             child: Container(
               width: 60,
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: _selectedDate != null && _selectedDate!.isAtSameMomentAs(date)
-                    ?Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF4E4E61) : const Color(0XFF4E4E6133).withOpacity(.20)// Selected color
-                    : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFD3DAFF) : const Color(0XFFF1F1FF).withOpacity(.15)// Selected color
+                color: _selectedDate != null &&
+                        _selectedDate!.isAtSameMomentAs(date)
+                    ? Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ?  Colors.grey
+                        : const Color(0XFF4E4E61)
+                            .withOpacity(.20) // Selected color
+                    : Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0XFFF1F1FF)
+                            .withOpacity(.15) // Selected color
                 , // Default color
                 borderRadius: BorderRadius.circular(MySize.size16),
                 border: Border.all(color: Colors.grey.withOpacity(0.3)),
@@ -87,23 +107,38 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 children: [
                   Text(
                     titleText[index],
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                            ? const Color(0xFF000000)
+                            :  Colors.black),
                   ),
                   Text(
                     subtitleText[index],
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                            ? const Color(0xFF000000)
+                            : Colors.black),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   // Show the icon if this date is selected
-                  if (_selectedDate != null && _selectedDate!.isAtSameMomentAs(date))
+                  if (_selectedDate != null &&
+                      _selectedDate!.isAtSameMomentAs(date))
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
                       decoration: const BoxDecoration(
-                        color:Colors.red,
+                        color: Colors.red,
                         shape: BoxShape.circle,
-
                       ),
-                    ) ,// // Adjust icon color as needed
+                    ), // // Adjust icon color as needed
                 ],
               ),
             ),
@@ -113,7 +148,6 @@ class _CalendarContainerState extends State<CalendarContainer> {
     );
   }
 }
-
 
 // class CalendarContainer extends StatefulWidget {
 //   final int selectedMonth; // Add this line to accept the selected month

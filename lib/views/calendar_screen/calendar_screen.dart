@@ -1,14 +1,11 @@
-
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
-import '../../utils/app_colors.dart';
+
 import '../../utils/my_size.dart';
 import '../base/calendar_container.dart';
 import '../base/subscription_container.dart';
@@ -23,7 +20,6 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   int _selectedMonth = DateTime.now().month;
-  DateTime? _selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +32,36 @@ class _CalendarScreenState extends State<CalendarScreen> {
             child: AppBar(
               automaticallyImplyLeading: false,
               scrolledUnderElevation: 0,
-              backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                  ? const Color(0XFF353542)
-                  : const Color(0XFFFFFFFF),
+              backgroundColor:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF),
               elevation: 0,
               centerTitle: true,
-              title:  Text('Calendar',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+              title: Text(
+                'Calendar',
+                style: TextStyle(
+                    color: const Color(0XFFA2A2B5),
+                    fontSize: MySize.size16,
+                    fontWeight: FontWeight.w400),
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25),
                   child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NotificationsScreen()));
                       },
-                      child: Image.asset(AppImages.notificationIcon, height: 25, width: 25,
+                      child: Image.asset(
+                        AppImages.notificationIcon,
+                        height: 25,
+                        width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
-                            darkMode
+                                darkMode
                             ? const Color(0XFFA2A2B5)
                             : const Color(0XFF424252),
                       )),
@@ -61,9 +70,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
           ),
         ),
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF1C1C23)
-            : const Color(0XFFF7F7FF),
+        backgroundColor:
+            Provider.of<ThemeChanger>(context).themeData == darkMode
+                ? const Color(0XFF1C1C23)
+                : const Color(0XFFF7F7FF),
         // backgroundColor: Color(0XFF4E4E61),
         body: SingleChildScrollView(
           child: Column(
@@ -72,63 +82,102 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 height: MySize.scaleFactorHeight * 389,
                 // width: MySize.scaleFactorWidth * 375,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(MySize.size24),
-                      bottomRight: Radius.circular(MySize.size24)),
-                  color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode
-                      ? const Color(0XFF353542)
-                      : const Color(0XFFFFFFFF)
-                ),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(MySize.size24),
+                        bottomRight: Radius.circular(MySize.size24)),
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF353542)
+                            : const Color(0XFFFFFFFF)),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Subs\nSchedule',
+                      Text(
+                        'Subs\nSchedule',
                         style: TextStyle(
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? const Color(0XFFFFFFFF)
-                                : const Color(0XFF424252),
-                            fontSize: 42,
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF424252),
+                            fontSize: MySize.size40,
                             fontWeight: FontWeight.w700,
-                            fontFamily: 'Poppins_Regular'
-                        ),),
-
-                      const SizedBox(height: 8,),
+                            fontFamily: 'Inter'),
+                      ),
+                       SizedBox(
+                        height: MySize.size22,
+                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             '3 subscriptions for today',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: MySize.size14,
                               fontWeight: FontWeight.w600,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
                                   ? const Color(0xFFA2A2B5)
                                   : const Color(0xFFA2A2B5),
-                              fontFamily: 'Poppins_Regular',
+                              fontFamily: 'Inter',
                             ),
                           ),
                           const Spacer(),
-                          DropdownButton2<int>(dropdownStyleData: DropdownStyleData(
-                            maxHeight: 200,
+                          Container(
 
-                          ),
-                            value: _selectedMonth,
-                            onChanged: (int? newValue) {
-                              if (newValue != null) {
-                                setState(() {
-                                  _selectedMonth = newValue;
-                                });
-                              }
-                            },
-                            items: List.generate(12, (index) => index + 1).map((month) {
-                              return DropdownMenuItem<int>(
-                                value: month,
-                                child: Text(DateFormat('MMM').format(DateTime(0, month))),
-                              );
-                            }).toList(),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(MySize.size16),
+
+                              gradient:  const LinearGradient(
+                                colors: [
+                                  Color(0xFFF1F1FF),
+                                  Color(0xFFF1F1FF),
+                                  // Color(0xFFFFFFFF).withOpacity(0.15),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                            child: DropdownButton2<int>(
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: MySize.size200,
+                              ),
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Inter',
+                                color: Provider.of<ThemeChanger>(
+                                    context)
+                                    .themeData ==
+                                    darkMode
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+
+                              value: _selectedMonth,
+
+                              underline: const SizedBox.shrink(),
+                              onChanged: (int? newValue) {
+                                if (newValue != null) {
+                                  setState(() {
+                                    _selectedMonth = newValue;
+                                  });
+                                }
+                              },
+                              items: List.generate(12, (index) => index + 1)
+                                  .map((month) {
+                                return DropdownMenuItem<int>(
+                                  value: month,
+                                  child: Text(DateFormat('MMM')
+                                      .format(DateTime(0, month))),
+                                );
+                              }).toList(),
+
+                            ),
                           ),
                         ],
                       ),
@@ -137,7 +186,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         selectedMonth: _selectedMonth,
                         onDateSelected: (DateTime date) {
                           setState(() {
-                            _selectedDate = date;
                           });
                           print('Selected Date: ${date.toLocal()}');
                         },
@@ -154,68 +202,82 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-          
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                  Text('January',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                          darkMode
-                          ? const Color(0xFFFFFFFF)
-                          : const Color(0xFF1C1C23),
-                      // fontFamily: 'Poppins_Regular'
-                  ),),
-                            Text('01.08.2022',
+                            Text(
+                              'January',
                               style: TextStyle(
-                                  fontSize: 14,
+                                fontSize: MySize.size20,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Inter',
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF1C1C23),
+                                // fontFamily: 'Poppins_Regular'
+                              ),
+                            ),
+                            Text(
+                              '01.08.2022',
+                              style: TextStyle(
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
+
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
                                       ? const Color(0xFFA2A2B5)
                                       : const Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'
-                              ),),
+                                  fontFamily: 'Inter'),
+                            ),
                           ],
                         ),
                         const Spacer(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('\$24.98',
+                            Text(
+                              '\$24.98',
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? const Color(0xFFFFFFFF)
-                                      : const Color(0xFF1C1C23),
-                                  // fontFamily: 'Poppins_Regular'
-                              ),),
-                            Text('in upcoming bills',
+                                fontSize: MySize.size20,
+                                fontWeight: FontWeight.w700,
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF1C1C23),
+                                fontFamily: 'Inter'
+                              ),
+                            ),
+                            Text(
+                              'in upcoming bills',
                               style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
                                       ? const Color(0xFFA2A2B5)
                                       : const Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'
-                              ),),
-          
+                                  fontFamily: 'Inter'),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24,),
+                     SizedBox(
+                      height: MySize.size24,
+                    ),
                     GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 8,
                         // mainAxisSpacing: 10
                       ),
-                      itemCount: 3, // Update the item count based on your actual data
+                      itemCount: 3,
+                      // Update the item count based on your actual data
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -237,30 +299,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             'imageIcon': AppImages.tresorlyIcon,
                           },
                         ];
-          
+
                         final subscription = subscriptions[index];
-          
+
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SubscriptionInfo(subscriptionInfoData: {}),
+                                builder: (context) =>
+                                    SubscriptionInfo(subscriptionInfoData: {}),
                               ),
                             );
                           },
                           child: Padding(
-                            padding:  EdgeInsets.only(bottom: MySize.size10),
+                            padding: EdgeInsets.only(bottom: MySize.size10),
                             child: SubsContainer(
                               title: subscription['title']!,
                               subtitle: subscription['subtitle']!,
-                              imageIcon: Image.asset(subscription['imageIcon']!, height: 40, width: 40),
+                              imageIcon: Image.asset(subscription['imageIcon']!,
+                                  height: MySize.size40, width: MySize.size40),
                             ),
                           ),
                         );
                       },
                     )
-          
                   ],
                 ),
               )
@@ -269,7 +332,3 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ));
   }
 }
-
-
-
-

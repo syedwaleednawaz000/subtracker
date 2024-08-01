@@ -85,6 +85,7 @@ class _MyAppState extends State<MyApp> {
 
           debugShowCheckedModeBanner: false,
           theme: themeChanger.themeData,
+
           home: const SplashScreen(),
         );
       }),
