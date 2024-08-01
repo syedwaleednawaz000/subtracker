@@ -114,6 +114,10 @@ class _ManagePlanState extends State<ManagePlan> {
                                             title: '\$${finalData['price']}',
                                             fontSize: MySize.size14,
                                             fontWeight: FontWeight.w600,
+                                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                                darkMode
+                                                ? Color(0XFFFFFFFF):Colors.black
+
                                           ),
                                         ],
                                       ),
@@ -168,35 +172,35 @@ class _ManagePlanState extends State<ManagePlan> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       manageplanrowlist(
-                        imageIcon: Image.asset(AppImages.plan),
+                        imageIcon: Image.asset(AppImages.plan,height: 20,),
                         text: 'Subscription Tracking',
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       manageplanrowlist(
-                        imageIcon: Image.asset(AppImages.notify),
+                        imageIcon: Image.asset(AppImages.notify,height: 20,),
                         text: 'Alerts and Notifications',
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       manageplanrowlist(
-                        imageIcon: Image.asset(AppImages.chart),
+                        imageIcon: Image.asset(AppImages.chart,height: 20,),
                         text: 'Financial Overview',
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       manageplanrowlist(
-                        imageIcon: Image.asset(AppImages.analytics),
+                        imageIcon: Image.asset(AppImages.analytics,height: 20,),
                         text: 'Spending Analytics',
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       manageplanrowlist(
-                        imageIcon: Image.asset(AppImages.contsupport),
+                        imageIcon: Image.asset(AppImages.contsupport,height: 20,),
                         text: 'Customer Support',
                       ),
                     ],

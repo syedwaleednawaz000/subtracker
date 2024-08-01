@@ -135,7 +135,7 @@ class CancelSubscription extends StatelessWidget {
                 child:  Text(  'Canceling now will immediately remove\nall access to features.',
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Provider.of<ThemeChanger>(context)
                         .themeData == darkMode ? Colors.white : const Color(0XFF424252),
@@ -166,7 +166,7 @@ class CancelSubscription extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   manageplanrowlist(
-                    imageIcon: Image.asset(AppImages.plan,    color: Provider.of<ThemeChanger>(context).themeData ==
+                    imageIcon: Image.asset(AppImages.plan,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Subscription Tracking',
                   ),
@@ -174,7 +174,7 @@ class CancelSubscription extends StatelessWidget {
                     height: MySize.size16,
                   ),
                   manageplanrowlist(
-                    imageIcon: Image.asset(AppImages.notify,    color: Provider.of<ThemeChanger>(context).themeData ==
+                    imageIcon: Image.asset(AppImages.notify,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Alerts and Notifications',
                   ),
@@ -182,7 +182,7 @@ class CancelSubscription extends StatelessWidget {
                     height: MySize.size16,
                   ),
                   manageplanrowlist(
-                    imageIcon: Image.asset(AppImages.chart,
+                    imageIcon: Image.asset(AppImages.chart, height: 20,
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : const Color(0XFFC1C1CD),
                     ),
@@ -192,7 +192,7 @@ class CancelSubscription extends StatelessWidget {
                     height: MySize.size16,
                   ),
                   manageplanrowlist(
-                    imageIcon: Image.asset(AppImages.analytics,    color: Provider.of<ThemeChanger>(context).themeData ==
+                    imageIcon: Image.asset(AppImages.analytics,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Spending Analytics',
                   ),
@@ -200,7 +200,7 @@ class CancelSubscription extends StatelessWidget {
                     height: MySize.size16,
                   ),
                   manageplanrowlist(
-                    imageIcon: Image.asset(AppImages.contsupport,    color: Provider.of<ThemeChanger>(context).themeData ==
+                    imageIcon: Image.asset(AppImages.contsupport, height: 20,   color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
                     text: 'Customer Support',
                   ),

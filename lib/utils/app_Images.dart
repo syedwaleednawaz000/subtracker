@@ -26,7 +26,7 @@ class AppImages {
   static const halfOneDriveLogo1 = 'assets/icons/halfonedrivelogo.png';
   // static const subtractIcon = 'assets/icons/subtract.png';
   static const additionIcon = 'assets/icons/add.png';
-  static String  faceID = 'assets/icons/faceid.png';
+  static String  faceID = 'assets/icons/faceID.png';
 
 
 

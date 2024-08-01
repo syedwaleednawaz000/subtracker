@@ -33,7 +33,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 23),
+                  padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 30),
                   child: Row(
                     children: [
                       GestureDetector(

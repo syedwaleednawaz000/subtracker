@@ -29,10 +29,8 @@ class _SettingRowListState extends State<SettingRowList> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (widget.imageIcon != null) // Check if imageIcon is provided
+        if (widget.imageIcon != null)
           Container(
             child: widget.imageIcon,
           ),

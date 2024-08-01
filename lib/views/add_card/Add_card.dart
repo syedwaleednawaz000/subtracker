@@ -200,7 +200,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       title: 'Name on card',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                        // color: Colors.white
+                      color:Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0XFFFFFFFF)
+                          : Colors.black,
                     ),
                     const SizedBox(height: 16,),
                     Container(
@@ -232,8 +235,14 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidgetInterMedium(title: 'Expiry', fontSize: 14, fontWeight: FontWeight.w500,
-                        // color: Colors.white
+                    TextWidgetInterMedium(
+                      title: 'Expiry',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color:Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0XFFFFFFFF)
+                          : Colors.black,
                     ),
                     const SizedBox(height: 16,),
                     Container(
@@ -274,7 +283,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       title: 'Card number',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                        // color: Colors.white
+                      color:Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0XFFFFFFFF)
+                          : Colors.black,
                     ),
                     const SizedBox(height: 16,),
                     Container(
@@ -312,7 +324,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidgetInterMedium(title: 'CVV', fontSize: 14, fontWeight: FontWeight.w500,
-                        // color: Colors.white
+                      color:Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode
+                          ? Color(0XFFFFFFFF)
+                          : Colors.black,
                     ),
                     const SizedBox(height: 16,),
                    Container(

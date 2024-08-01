@@ -23,7 +23,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF1C1C23)
+          ? const Color(0XFF1C1C23)
           : Colors.white,
       body: SafeArea(
         child: ListView(
@@ -31,7 +31,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 23, vertical: 13),
+                  padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 30),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -48,8 +48,8 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                             fontWeight: FontWeight.w400,
                             fontSize: MySize.size16,
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? Color(0XFFA2A2B5)
-                                : Color(0XFF333339),
+                                ? const Color(0XFFA2A2B5)
+                                : const Color(0XFF333339),
                             fontFamily: 'Poppins_Regular'
                         ),
                       ),
@@ -69,8 +69,8 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                           fontWeight: FontWeight.w800,
                           fontSize: 18,
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? Color(0XFFEEEEEE)
-                              : Color(0XFF1C1C23),
+                              ? const Color(0XFFEEEEEE)
+                              : const Color(0XFF1C1C23),
                           fontFamily: 'Poppins_Regular'
                       ),
                     ),
@@ -88,7 +88,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                         fontWeight: FontWeight.w400,
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? Colors.white
-                            : Color(0XFF333339),
+                            : const Color(0XFF333339),
                         fontFamily: 'Poppins_Regular'
                     ),);
                     }

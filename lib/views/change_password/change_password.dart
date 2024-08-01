@@ -52,11 +52,11 @@ class _ChangePasswordState extends State<ChangePassword> {
     MySize().init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF1C1C23) : Colors.white,
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(
-            padding: EdgeInsets.only(left: 4, top: 25  ),
+            padding: const EdgeInsets.only(left: 4, top: 25  ),
             child:  CustomAppBar(
               onTap: () {
                 Navigator.pop(context);
@@ -74,13 +74,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Current password',
                           style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
                               fontWeight: FontWeight.w500
                           ),
@@ -96,23 +96,23 @@ class _ChangePasswordState extends State<ChangePassword> {
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
                             hintText: 'Enter current password',
                             hintStyle: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
                             ),
                             suffixIcon: Icon(
                               Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                                 )
                             ),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                                 )
                             ),
                           ),
@@ -127,7 +127,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       children: [
                         Text('New Password',
                           style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
                               fontWeight: FontWeight.w500
                           ),
@@ -143,23 +143,23 @@ class _ChangePasswordState extends State<ChangePassword> {
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
                             hintText: 'Enter new password',
                             hintStyle: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
                             ),
                             suffixIcon: Icon(
                               Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                                 )
                             ),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                                 )
                             ),
                           ),
@@ -174,7 +174,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       children: [
                         Text('New Confirm Password',
                           style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680) : Color(0XFF666680),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
                               fontWeight: FontWeight.w500
                           ),
@@ -191,24 +191,24 @@ class _ChangePasswordState extends State<ChangePassword> {
                             hintText: 'Enter new Confirm Password',
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-                              Color(0XFF666680).withOpacity(.6) :
-                              Color(0XFF666680).withOpacity(.6),
+                              const Color(0XFF666680).withOpacity(.6) :
+                              const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
                             ),
                             suffixIcon: Icon(
                               Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF666680).withOpacity(.6) : Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                                 )
                             ),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),
                                 borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                                 )
                             ),
                           ),
@@ -216,10 +216,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                       ],
                     ),
                      Padding(
-                      padding: EdgeInsets.only(top: 28, ),
+                      padding: const EdgeInsets.only(top: 28, ),
                       child: StepProgressIndicator(totalSteps: 4,
-                       selectedColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
-                       unselectedColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1),
+                       selectedColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
+                       unselectedColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
                         // gradientColor: LinearGradient(
                         //     colors: [Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1)]),\
                       ),
@@ -229,7 +229,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
           Consumer<ChangePasswordProvider>(builder: (context, changePasswordProvider, child) {
             return             CustomSaveButton(
               loading: changePasswordProvider.isChangePassword,
