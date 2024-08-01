@@ -214,59 +214,6 @@ class _SignupScreenState extends State<SignupScreen> {
                        const SizedBox(
                          height: 10,
                        ),
-                       // Column(
-                       //   crossAxisAlignment: CrossAxisAlignment.start,
-                       //   mainAxisAlignment: MainAxisAlignment.start,
-                       //   children: [
-                       //     const Text('Password',
-                       //       textAlign: TextAlign.center,
-                       //       style: TextStyle(
-                       //         fontSize: 14,
-                       //         fontWeight: FontWeight.w400,
-                       //         color: Color(0XFF666680)
-                       //       ),),
-                       //     const SizedBox(
-                       //       height: 4,
-                       //     ),
-                       //     TextFormField(
-                       //       style: const TextStyle(
-                       //           color:  Color(0XFF666680)
-                       //       ),
-                       //     obscureText: isSelected,
-                       //       decoration: InputDecoration(
-                       //           isDense: true,
-                       //           contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                       //           hintText: 'Passwod',
-                       //           hintStyle:  TextStyle(
-                       //             fontFamily: 'Poppins_Regular',
-                       //             fontSize: 14,
-                       //             fontWeight: FontWeight.w400,
-                       //             color: const Color(0XFF666680).withOpacity(.3),
-                       //           ),
-                       //           suffixIcon: IconButton(onPressed: (){
-                       //             setState(() {
-                       //               isSelected = !isSelected;
-                       //             });
-                       //           }, icon: isSelected
-                       //               ? Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)
-                       //               : Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3),)),
-                       //           border: OutlineInputBorder(
-                       //               borderRadius: BorderRadius.circular(16),
-                       //               borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                       //               focusedBorder: OutlineInputBorder(
-                       //           borderRadius: BorderRadius.circular(16),
-                       //         borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                       //       ),
-                       //       enabledBorder: OutlineInputBorder(
-                       //         borderRadius: BorderRadius.circular(16),
-                       //         borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                       //
-                       //           )
-                       //       ),
-                       //
-                       //     ),
-                       //   ],
-                       // ),
                        const SizedBox(
                          height: 10,
                        ),
@@ -290,11 +237,7 @@ class _SignupScreenState extends State<SignupScreen> {
                              ),),
                          ),
                        ),
-                       // TextWidgetInterBold(
-                       //     title:
-                       //     'Use 8 or more characters with a mix of letters, \nnumbers & symbols to be secure.',
-                       //     color: AppColors.grey30.withOpacity(.3)),
-                       const SizedBox(
+                        const SizedBox(
                          height: 12,
                        ),
                        Row(

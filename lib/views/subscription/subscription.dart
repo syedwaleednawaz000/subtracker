@@ -563,6 +563,7 @@ class _SubscriptionState extends State<Subscription> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: TextFormField(
+
                     maxLines: 3,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
@@ -575,7 +576,14 @@ class _SubscriptionState extends State<Subscription> {
                         ? const Color(0XFFFFFFFF)
                         : const Color(0XFF1C1C23),
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+
+                      hintText: 'Please Add Some Description',
+                      hintStyle: TextStyle(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0xffffffff)
+                            :  Colors.black,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                       isDense: true,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -605,7 +613,7 @@ class _SubscriptionState extends State<Subscription> {
                               : const Color(0XFF353542).withOpacity(.10),
                         )),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: MySize.size10),
+                      padding: EdgeInsets.symmetric(horizontal: MySize.size30),
                       child: Row(
                         children: [
                           Text(
@@ -666,7 +674,7 @@ class _SubscriptionState extends State<Subscription> {
                               : const Color(0XFF353542).withOpacity(.4),
                         )),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: MySize.size10),
+                      padding: EdgeInsets.symmetric(horizontal: MySize.size30),
                       child: Row(
                         children: [
                           Text(
