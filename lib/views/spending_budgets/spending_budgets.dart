@@ -668,7 +668,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                     borderType: BorderType.RRect,
                     radius: Radius.circular(MySize.size12),
                     child: SizedBox(
-                      height: MySize.scaleFactorHeight * 61,
+                      height: MySize.scaleFactorHeight * 84,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -687,18 +687,18 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                           ),
                           SizedBox(width: MySize.size10),
                           Container(
-                            height: MySize.size20,
-                            width: MySize.size20,
+                            height: MySize.size16,
+                            width: MySize.size16,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(90),
+                              borderRadius: BorderRadius.circular(MySize.size90),
                               border: Border.all(
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
-                                    ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFFA2A2B5),
-                                width: 2,
+                                    ? const Color(0xFF4E4E61).withOpacity(0.4)
+                                    : const Color(0xFF4E4E61).withOpacity(0.4),
+                                width: 1.5,
                               ),
                             ),
                             child: Center(
@@ -709,7 +709,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                         darkMode
                                     ? const Color(0XFFA2A2B5)
                                     : const Color(0XFFA2A2B5),
-                                size: MySize.size12,
+                                size: MySize.size14,
                               ),
                             ),
                           ),
@@ -719,8 +719,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 60,
+               SizedBox(
+                height: MySize.size20,
               )
             ],
           ),

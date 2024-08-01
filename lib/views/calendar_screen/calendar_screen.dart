@@ -1,13 +1,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
-import '../../utils/app_colors.dart';
+
 import '../../utils/my_size.dart';
 import '../base/calendar_container.dart';
 import '../base/subscription_container.dart';
@@ -22,7 +20,6 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   int _selectedMonth = DateTime.now().month;
-  DateTime? _selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -103,51 +100,84 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             color:
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
-                                    ? const Color(0XFFFFFFFF)
-                                    : const Color(0XFF424252),
-                            fontSize: 42,
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF424252),
+                            fontSize: MySize.size40,
                             fontWeight: FontWeight.w700,
-                            fontFamily: 'Poppins_Regular'),
+                            fontFamily: 'Inter'),
                       ),
-                      const SizedBox(
-                        height: 8,
+                       SizedBox(
+                        height: MySize.size22,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             '3 subscriptions for today',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: MySize.size14,
                               fontWeight: FontWeight.w600,
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
                                   ? const Color(0xFFA2A2B5)
                                   : const Color(0xFFA2A2B5),
-                              fontFamily: 'Poppins_Regular',
+                              fontFamily: 'Inter',
                             ),
                           ),
                           const Spacer(),
-                          DropdownButton2<int>(
-                            dropdownStyleData: DropdownStyleData(
-                              maxHeight: 200,
+                          Container(
+
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(MySize.size16),
+
+                              gradient:  const LinearGradient(
+                                colors: [
+                                  Color(0xFFF1F1FF),
+                                  Color(0xFFF1F1FF),
+                                  // Color(0xFFFFFFFF).withOpacity(0.15),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
                             ),
-                            value: _selectedMonth,
-                            onChanged: (int? newValue) {
-                              if (newValue != null) {
-                                setState(() {
-                                  _selectedMonth = newValue;
-                                });
-                              }
-                            },
-                            items: List.generate(12, (index) => index + 1)
-                                .map((month) {
-                              return DropdownMenuItem<int>(
-                                value: month,
-                                child: Text(DateFormat('MMM')
-                                    .format(DateTime(0, month))),
-                              );
-                            }).toList(),
+                            child: DropdownButton2<int>(
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: MySize.size200,
+                              ),
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Inter',
+                                color: Provider.of<ThemeChanger>(
+                                    context)
+                                    .themeData ==
+                                    darkMode
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+
+                              value: _selectedMonth,
+
+                              underline: const SizedBox.shrink(),
+                              onChanged: (int? newValue) {
+                                if (newValue != null) {
+                                  setState(() {
+                                    _selectedMonth = newValue;
+                                  });
+                                }
+                              },
+                              items: List.generate(12, (index) => index + 1)
+                                  .map((month) {
+                                return DropdownMenuItem<int>(
+                                  value: month,
+                                  child: Text(DateFormat('MMM')
+                                      .format(DateTime(0, month))),
+                                );
+                              }).toList(),
+
+                            ),
                           ),
                         ],
                       ),
@@ -156,7 +186,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         selectedMonth: _selectedMonth,
                         onDateSelected: (DateTime date) {
                           setState(() {
-                            _selectedDate = date;
                           });
                           print('Selected Date: ${date.toLocal()}');
                         },
@@ -178,8 +207,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Text(
                               'January',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: MySize.size20,
                                 fontWeight: FontWeight.w700,
+                                fontFamily: 'Inter',
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
@@ -191,14 +221,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Text(
                               '01.08.2022',
                               style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
+
                                   color: Provider.of<ThemeChanger>(context)
                                               .themeData ==
                                           darkMode
                                       ? const Color(0xFFA2A2B5)
                                       : const Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'),
+                                  fontFamily: 'Inter'),
                             ),
                           ],
                         ),
@@ -209,34 +240,34 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Text(
                               '\$24.98',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: MySize.size20,
                                 fontWeight: FontWeight.w700,
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
                                     ? const Color(0xFFFFFFFF)
                                     : const Color(0xFF1C1C23),
-                                // fontFamily: 'Poppins_Regular'
+                                fontFamily: 'Inter'
                               ),
                             ),
                             Text(
                               'in upcoming bills',
                               style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
                                   color: Provider.of<ThemeChanger>(context)
                                               .themeData ==
                                           darkMode
                                       ? const Color(0xFFA2A2B5)
                                       : const Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'),
+                                  fontFamily: 'Inter'),
                             ),
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 24,
+                     SizedBox(
+                      height: MySize.size24,
                     ),
                     GridView.builder(
                       gridDelegate:
@@ -287,7 +318,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               title: subscription['title']!,
                               subtitle: subscription['subtitle']!,
                               imageIcon: Image.asset(subscription['imageIcon']!,
-                                  height: 40, width: 40),
+                                  height: MySize.size40, width: MySize.size40),
                             ),
                           ),
                         );
