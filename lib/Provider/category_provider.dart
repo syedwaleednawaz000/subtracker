@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:sub_tracker/views/subscription/base/dialog_box.dart';
 
 class CategoryProvider extends ChangeNotifier {
   final ApiService _apiService = ApiService();
@@ -159,5 +161,14 @@ class CategoryProvider extends ChangeNotifier {
     } catch (error) {
       _totalBudgetLoading(load: false);
     }
+  }
+
+  void displayDialog({required BuildContext context}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return DialogBoxWidget();
+      },
+    );
   }
 }
