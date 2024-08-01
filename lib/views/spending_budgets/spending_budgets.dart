@@ -82,7 +82,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               title: Text(
                 'Spending & Budgets',
                 style: TextStyle(
-                    color: const Color(0XFF424252),
+                    color: const Color(0xFF424252),
                     fontSize: MySize.size16,
                     fontWeight: FontWeight.w400),
               ),
@@ -99,8 +99,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                       },
                       child: Image.asset(
                         AppImages.notificationIcon,
-                        height: MySize.size22,
-                        width: MySize.size20,
+                        height: MySize.size25,
+                        width: MySize.size25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFFA2A2B5)
@@ -402,7 +402,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      'Please Enter New Category and its Price.',
+                                      'Please enter new category and its price.',
                                       style: TextStyle(
                                         color:
                                             Provider.of<ThemeChanger>(context)
@@ -592,16 +592,15 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       priceController?.clear();
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                         SnackBar(
+                                        SnackBar(
                                           backgroundColor: Colors.green,
                                           content: Center(
                                             child: Text(
                                               'New category is added',
                                               style: TextStyle(
-                                                fontSize: MySize.size14,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white
-                                              ),
+                                                  fontSize: MySize.size14,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white),
                                             ),
                                           ),
                                         ),
@@ -691,7 +690,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                             width: MySize.size16,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(MySize.size90),
+                              borderRadius:
+                                  BorderRadius.circular(MySize.size90),
                               border: Border.all(
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
@@ -719,7 +719,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   ),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: MySize.size20,
               )
             ],
