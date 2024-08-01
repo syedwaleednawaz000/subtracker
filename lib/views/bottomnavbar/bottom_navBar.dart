@@ -33,7 +33,6 @@ class _BnavBarState extends State<BnavBar> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     bool isDarkMode = Provider.of<ThemeChanger>(context).themeData == darkMode;
-    print('build tapped');
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ?  Colors.black
@@ -42,7 +41,6 @@ class _BnavBarState extends State<BnavBar> {
         width: size.width,
         height: 80,
         decoration:  BoxDecoration(
-
             boxShadow: [
               BoxShadow(
                   color: Colors.indigoAccent.withOpacity(0.2),
@@ -92,8 +90,8 @@ class _BnavBarState extends State<BnavBar> {
                             width: 18,
                             height: 18,
                             color: value.isSelected(0)
-                             ? Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffFFFFFF) : const Color(0xffA2A2B5)
-                             : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xff758AFF):const Color(0xffA2A2B5) ,
+                             ? Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffFFFFFF) : const Color(0xff758AFF)
+                                : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffA2A2B5) ,
                         ),
                         onPressed: () => value.selection(0),
                       );
@@ -106,8 +104,8 @@ class _BnavBarState extends State<BnavBar> {
                           height: 18,
                           // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
                         color: value.isSelected(1)
-                            ? Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xffFFFFFF) : const Color(0xffA2A2B5)
-                            : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffffffff) ,
+                            ? Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffFFFFFF) : const Color(0xff758AFF)
+                            : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffA2A2B5) ,
                       ),
                       onPressed: () => value.selection(1),
                       // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
@@ -123,8 +121,8 @@ class _BnavBarState extends State<BnavBar> {
                           height: 18,
                           // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
                         color: value.isSelected(2)
-                            ? Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xffFFFFFF) : const Color(0xffA2A2B5)
-                            : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffffffff) ,
+                            ? Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffFFFFFF) : const Color(0xff758AFF)
+                            : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffA2A2B5) ,
                       ),
                       onPressed: () => value.selection(2),
                       // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
@@ -136,8 +134,8 @@ class _BnavBarState extends State<BnavBar> {
                         icon: Icon(Icons.settings,
                             size: 22,
                           color: value.isSelected(3)
-                              ? Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xffFFFFFF) : const Color(0xffA2A2B5)
-                              : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffffffff) ,
+                              ? Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffFFFFFF) : const Color(0xff758AFF)
+                              : Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xffA2A2B5):const Color(0xffA2A2B5) ,
                         ),
                         // icon: Image.asset(AppImages.setting, width: 18, height: 18, color: AppColors.white100,),
                         onPressed: () => value.selection(3),
