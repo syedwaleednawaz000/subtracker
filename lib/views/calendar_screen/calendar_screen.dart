@@ -1,4 +1,3 @@
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,23 +35,36 @@ class _CalendarScreenState extends State<CalendarScreen> {
             child: AppBar(
               automaticallyImplyLeading: false,
               scrolledUnderElevation: 0,
-              backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                  ? const Color(0XFF353542)
-                  : const Color(0XFFFFFFFF),
+              backgroundColor:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF),
               elevation: 0,
               centerTitle: true,
-              title:  Text('Calendar',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+              title: Text(
+                'Calendar',
+                style: TextStyle(
+                    color: const Color(0XFFA2A2B5),
+                    fontSize: MySize.size16,
+                    fontWeight: FontWeight.w400),
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25),
                   child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NotificationsScreen()));
                       },
-                      child: Image.asset(AppImages.notificationIcon, height: 25, width: 25,
+                      child: Image.asset(
+                        AppImages.notificationIcon,
+                        height: 25,
+                        width: 25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
-                            darkMode
+                                darkMode
                             ? const Color(0XFFA2A2B5)
                             : const Color(0XFF424252),
                       )),
@@ -61,9 +73,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
           ),
         ),
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF1C1C23)
-            : const Color(0XFFF7F7FF),
+        backgroundColor:
+            Provider.of<ThemeChanger>(context).themeData == darkMode
+                ? const Color(0XFF1C1C23)
+                : const Color(0XFFF7F7FF),
         // backgroundColor: Color(0XFF4E4E61),
         body: SingleChildScrollView(
           child: Column(
@@ -72,31 +85,33 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 height: MySize.scaleFactorHeight * 389,
                 // width: MySize.scaleFactorWidth * 375,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(MySize.size24),
-                      bottomRight: Radius.circular(MySize.size24)),
-                  color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode
-                      ? const Color(0XFF353542)
-                      : const Color(0XFFFFFFFF)
-                ),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(MySize.size24),
+                        bottomRight: Radius.circular(MySize.size24)),
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF353542)
+                            : const Color(0XFFFFFFFF)),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Subs\nSchedule',
+                      Text(
+                        'Subs\nSchedule',
                         style: TextStyle(
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? const Color(0XFFFFFFFF)
-                                : const Color(0XFF424252),
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0XFFFFFFFF)
+                                    : const Color(0XFF424252),
                             fontSize: 42,
                             fontWeight: FontWeight.w700,
-                            fontFamily: 'Poppins_Regular'
-                        ),),
-
-                      const SizedBox(height: 8,),
+                            fontFamily: 'Poppins_Regular'),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       Row(
                         children: [
                           Text(
@@ -104,17 +119,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
                                   ? const Color(0xFFA2A2B5)
                                   : const Color(0xFFA2A2B5),
                               fontFamily: 'Poppins_Regular',
                             ),
                           ),
                           const Spacer(),
-                          DropdownButton2<int>(dropdownStyleData: DropdownStyleData(
-                            maxHeight: 200,
-
-                          ),
+                          DropdownButton2<int>(
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: 200,
+                            ),
                             value: _selectedMonth,
                             onChanged: (int? newValue) {
                               if (newValue != null) {
@@ -123,10 +140,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 });
                               }
                             },
-                            items: List.generate(12, (index) => index + 1).map((month) {
+                            items: List.generate(12, (index) => index + 1)
+                                .map((month) {
                               return DropdownMenuItem<int>(
                                 value: month,
-                                child: Text(DateFormat('MMM').format(DateTime(0, month))),
+                                child: Text(DateFormat('MMM')
+                                    .format(DateTime(0, month))),
                               );
                             }).toList(),
                           ),
@@ -154,68 +173,80 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-          
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                  Text('January',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                          darkMode
-                          ? const Color(0xFFFFFFFF)
-                          : const Color(0xFF1C1C23),
-                      // fontFamily: 'Poppins_Regular'
-                  ),),
-                            Text('01.08.2022',
+                            Text(
+                              'January',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF1C1C23),
+                                // fontFamily: 'Poppins_Regular'
+                              ),
+                            ),
+                            Text(
+                              '01.08.2022',
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
                                       ? const Color(0xFFA2A2B5)
                                       : const Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'
-                              ),),
+                                  fontFamily: 'Poppins_Regular'),
+                            ),
                           ],
                         ),
                         const Spacer(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('\$24.98',
+                            Text(
+                              '\$24.98',
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? const Color(0xFFFFFFFF)
-                                      : const Color(0xFF1C1C23),
-                                  // fontFamily: 'Poppins_Regular'
-                              ),),
-                            Text('in upcoming bills',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF1C1C23),
+                                // fontFamily: 'Poppins_Regular'
+                              ),
+                            ),
+                            Text(
+                              'in upcoming bills',
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
                                       ? const Color(0xFFA2A2B5)
                                       : const Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'
-                              ),),
-          
+                                  fontFamily: 'Poppins_Regular'),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24,),
+                    const SizedBox(
+                      height: 24,
+                    ),
                     GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 8,
                         // mainAxisSpacing: 10
                       ),
-                      itemCount: 3, // Update the item count based on your actual data
+                      itemCount: 3,
+                      // Update the item count based on your actual data
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -237,30 +268,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             'imageIcon': AppImages.tresorlyIcon,
                           },
                         ];
-          
+
                         final subscription = subscriptions[index];
-          
+
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SubscriptionInfo(subscriptionInfoData: {}),
+                                builder: (context) =>
+                                    SubscriptionInfo(subscriptionInfoData: {}),
                               ),
                             );
                           },
                           child: Padding(
-                            padding:  EdgeInsets.only(bottom: MySize.size10),
+                            padding: EdgeInsets.only(bottom: MySize.size10),
                             child: SubsContainer(
                               title: subscription['title']!,
                               subtitle: subscription['subtitle']!,
-                              imageIcon: Image.asset(subscription['imageIcon']!, height: 40, width: 40),
+                              imageIcon: Image.asset(subscription['imageIcon']!,
+                                  height: 40, width: 40),
                             ),
                           ),
                         );
                       },
                     )
-          
                   ],
                 ),
               )
@@ -269,7 +301,3 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ));
   }
 }
-
-
-
-

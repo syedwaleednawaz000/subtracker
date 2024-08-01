@@ -18,9 +18,12 @@ class _PrivPolicyState extends State<PrivPolicy> {
   @override
   void initState() {
     // TODO: implement initState
-    Future.microtask(() => Provider.of<PrivacyAndPolicyProvider>(context,listen: false).privacyAndPolicy());
+    Future.microtask(() =>
+        Provider.of<PrivacyAndPolicyProvider>(context, listen: false)
+            .privacyAndPolicy());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +36,8 @@ class _PrivPolicyState extends State<PrivPolicy> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 23),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 23, vertical: 23),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -54,10 +58,11 @@ class _PrivPolicyState extends State<PrivPolicy> {
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode
-                                ? const Color(0XFFA2A2B5)
-                                : const Color(0XFF1C1C23),
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0XFFA2A2B5)
+                                    : const Color(0XFF1C1C23),
                             fontFamily: 'Poppins_Regular'),
                       ),
                     ],
@@ -80,35 +85,38 @@ class _PrivPolicyState extends State<PrivPolicy> {
                                   darkMode
                               ? Colors.white
                               : const Color(0XFF1c1c23),
-                          fontFamily: 'Poppins_Regular' ),
+                          fontFamily: 'Poppins_Regular'),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: MySize.size16,
                 ),
-              Consumer<PrivacyAndPolicyProvider>(builder: (context, privacyAndPolicyProvider, child) {
-                return                 Padding(
-                  padding: EdgeInsets.only(left: MySize.size32),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        privacyAndPolicyProvider.privacyAndPolicyData['value']??"",
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? Colors.white
-                                : const Color(0XFF333339),
-                            fontFamily: 'Poppins_Regular'),
-                      )),
-                );
-
-              },)
+                Consumer<PrivacyAndPolicyProvider>(
+                  builder: (context, privacyAndPolicyProvider, child) {
+                    return Padding(
+                      padding: EdgeInsets.only(left: MySize.size32),
+                      child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            privacyAndPolicyProvider
+                                    .privacyAndPolicyData['value'] ??
+                                "",
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? Colors.white
+                                    : const Color(0XFF333339),
+                                fontFamily: 'Poppins_Regular'),
+                          )),
+                    );
+                  },
+                )
               ],
             ),
-
           ],
         ),
       ),
