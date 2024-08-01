@@ -197,8 +197,10 @@ class _SubscriptionState extends State<Subscription> {
           ''); // Remove all non-numeric characters except for the negative sign
       int currentValue =
           int.tryParse(text) ?? 0; // Parse current text to an integer
-      currentValue -= 1; // Decrement the value
-      _monthlyPriceController.text = currentValue.toString();
+      if(currentValue >= 2){
+        currentValue -= 1; // Decrement the value
+        _monthlyPriceController.text = currentValue.toString();
+      }
     });
   }
 

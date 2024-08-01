@@ -113,11 +113,11 @@ class CircularProgressBarWidget extends StatelessWidget {
                       style: TextStyle(
                         fontSize: MySize.size12,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Inter',
+                        // fontFamily: 'Inter',
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? Color(0XFFFFFFFF)
-                            : Color(0XFF424252),
+                            ? const Color(0XFFFFFFFF)
+                            : const Color(0XFF424252),
                       ),
                     ),
                   ],
@@ -135,8 +135,8 @@ class CircularSeekBarShadowPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Color(0XFF4F63BE).withOpacity(0.5)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 23);
+      ..color = const Color(0XFF4F63BE).withOpacity(0.5)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 23);
 
     final outerRadius = size.width / 2.9;
     final innerRadius = size.width / 3.2;

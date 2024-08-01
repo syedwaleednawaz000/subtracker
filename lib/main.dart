@@ -82,6 +82,7 @@ class _MyAppState extends State<MyApp> {
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
         return GetMaterialApp(
+
           debugShowCheckedModeBanner: false,
           theme: themeChanger.themeData,
 

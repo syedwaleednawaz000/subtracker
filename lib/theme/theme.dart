@@ -21,6 +21,7 @@ void toggleTheme() {
 }
 
 ThemeData lightMode = ThemeData(
+  fontFamily: 'Inter-Regular',
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
     background: Color(0XFFF7F7FF),
@@ -31,6 +32,7 @@ ThemeData lightMode = ThemeData(
 );
 
 ThemeData darkMode = ThemeData(
+  fontFamily: 'Inter-Regular',
     brightness: Brightness.dark,
     // backgroundColor: Color(0XFFF7F7FF),
     colorScheme: ColorScheme.dark(
