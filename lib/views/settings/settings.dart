@@ -57,7 +57,9 @@ class _SettingsState extends State<Settings> {
 
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
   List<AssetImage> leadingAccImage = [
-    AssetImage(AppImages.manIcon,),
+    AssetImage(
+      AppImages.manIcon,
+    ),
     AssetImage(AppImages.language),
     AssetImage(AppImages.currency),
     AssetImage(AppImages.password)
@@ -77,13 +79,13 @@ class _SettingsState extends State<Settings> {
     'Manage Payment',
     'Cancel Subscription'
   ];
-@override
+  @override
   void initState() {
     // TODO: implement initState
-  Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false).getScreen());
+    Future.microtask(
+        () => Provider.of<ProfileProvider>(context, listen: false).getScreen());
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,8 @@ class _SettingsState extends State<Settings> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const NotificationsScreen()));
+                                builder: (context) =>
+                                    const NotificationsScreen()));
                       },
                       child: Image.asset(
                         AppImages.notificationIcon,
@@ -154,76 +157,84 @@ class _SettingsState extends State<Settings> {
                 Column(
                   children: [
                     SizedBox(height: MySize.size40),
-                    Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                      String profileImageUrl= "";
-                      if(profileProvider.userData != null){
-                        if(profileProvider.userData['data'] != null){
-                          profileImageUrl = profileProvider.userData['data']['profile_image']??"";
+                    Consumer<ProfileProvider>(
+                        builder: (context, profileProvider, child) {
+                      String profileImageUrl = "";
+                      if (profileProvider.userData != null) {
+                        if (profileProvider.userData['data'] != null) {
+                          profileImageUrl = profileProvider.userData['data']
+                                  ['profile_image'] ??
+                              "";
                         }
                       }
-                       return profileImageUrl != null && profileImageUrl.isNotEmpty
+                      return profileImageUrl != null &&
+                              profileImageUrl.isNotEmpty
                           ? CachedNetworkImage(
-                        imageUrl: profileImageUrl,
-                        imageBuilder: (context, imageProvider) => Container(
-                          height: MySize.size72,
-                          width: MySize.size72,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(90),
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            height: MySize.size72,
-                            width: MySize.size72,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(90),
-                            ),
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          height: MySize.size72,
-                          width: MySize.size72,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(90),
-                            image: DecorationImage(
-                              image: AssetImage(AppImages.person,),
-
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      )
+                              imageUrl: profileImageUrl,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                height: MySize.size72,
+                                width: MySize.size72,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(90),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  height: MySize.size72,
+                                  width: MySize.size72,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(90),
+                                  ),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                height: MySize.size72,
+                                width: MySize.size72,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(90),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      AppImages.person,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            )
                           : Container(
-                        height: MySize.size72,
-                        width: MySize.size72,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(90),
-                          image: DecorationImage(
-                            image: AssetImage(AppImages.person),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
+                              height: MySize.size72,
+                              width: MySize.size72,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(90),
+                                image: DecorationImage(
+                                  image: AssetImage(AppImages.person),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
                     }),
                     SizedBox(height: MySize.size8),
-             Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-              return  Text(
-                '${profileProvider.userData['data'] != null ?profileProvider.userData['data']['name']:""}',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: MySize.size20,
-                    fontWeight: FontWeight.w700),
-              );
-            },),
+                    Consumer<ProfileProvider>(
+                      builder: (context, profileProvider, child) {
+                        return Text(
+                          '${profileProvider.userData['data'] != null ? profileProvider.userData['data']['name'] : ""}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: MySize.size20,
+                              fontWeight: FontWeight.w700),
+                        );
+                      },
+                    ),
                     SizedBox(height: MySize.size8),
                     Container(
                       height: 36,
@@ -241,7 +252,6 @@ class _SettingsState extends State<Settings> {
                                       darkMode
                                   ? const Color(0xFFCFCFFC).withOpacity(.15)
                                   : const Color(0xFFCFCFFC).withOpacity(.15)),
-
                           left: BorderSide(
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
@@ -307,52 +317,76 @@ class _SettingsState extends State<Settings> {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
-                                return Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      if(index == 0){
-                                        if(profileProvider.userData['data'] != null){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileProvider.screens[index]));
-                                        }else{
-                                          FlutterToast.toastMessage(message: "User data not found please try again",isError: true);
+                                return Consumer<ProfileProvider>(
+                                  builder: (context, profileProvider, child) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (index == 0) {
+                                          if (profileProvider
+                                                  .userData['data'] !=
+                                              null) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        profileProvider
+                                                            .screens[index]));
+                                          } else {
+                                            FlutterToast.toastMessage(
+                                                message:
+                                                    "User data not found please try again",
+                                                isError: true);
+                                          }
+                                        } else {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      profileProvider
+                                                          .screens[index]));
                                         }
-                                      }else{
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => profileProvider.screens[index]));
-                                      }
-                                    },
-                                    child: ListTile(
-                                      dense: true,
-                                      leading: Image(image: leadingAccImage[index] , height: 20,),
-                                      title: Text(
-                                        titleText[index],
-                                        style: TextStyle(
-                                          fontSize: MySize.size14,
-                                          fontWeight: FontWeight.w600,
+                                      },
+                                      child: ListTile(
+                                        dense: true,
+                                        leading: Image(
+                                          image: leadingAccImage[index],
+                                          height: MySize.size22,
                                         ),
-                                      ),
-                                      trailing: SizedBox(
-                                        width: 132,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  trailText[index],
-                                                  style: const TextStyle(
-                                                    color: Color(0XFFA2A2B5),
+                                        title: Text(
+                                          titleText[index],
+                                          style: TextStyle(
+                                            fontSize: MySize.size14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        trailing: SizedBox(
+                                            width: 132,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Text(
+                                                    trailText[index],
+                                                    style: const TextStyle(
+                                                      color: Color(0XFFA2A2B5),
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
-                                                )),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Image.asset(AppImages.arrowLeft),
-                                          ],
-                                        ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Image.asset(
+                                                    AppImages.arrowLeft),
+                                              ],
+                                            )),
                                       ),
-                                    ),
-                                  );
-                                },);
+                                    );
+                                  },
+                                );
                               },
                             ),
                           ),
@@ -371,7 +405,7 @@ class _SettingsState extends State<Settings> {
                                       dense: true,
                                       leading: Image(
                                         image: leadingImage[index],
-                                        height: 18,
+                                        height: MySize.size20,
                                       ),
                                       title: Text(
                                         titleText2[index],
@@ -389,11 +423,15 @@ class _SettingsState extends State<Settings> {
                                                 _switchValues[index] = newvalue;
                                               });
                                             },
-                                            activeTrackColor: const Color(0XFF758AFF),
+                                            activeTrackColor:
+                                                const Color(0XFF758AFF),
                                             autofocus: true,
                                             thumbColor:
                                                 MaterialStateProperty.all(
-                                                    Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                    Provider.of<ThemeChanger>(
+                                                                    context)
+                                                                .themeData ==
+                                                            darkMode
                                                         ? Colors.white
                                                         : Colors.white),
                                             inactiveTrackColor:
@@ -407,8 +445,7 @@ class _SettingsState extends State<Settings> {
                                 ),
                               ),
                               const Padding(
-                                padding:
-                                    EdgeInsets.only(left: 18, bottom: 10),
+                                padding: EdgeInsets.only(left: 18, bottom: 10),
                                 child: ShowDialogBox(),
                               ),
                             ],
@@ -438,7 +475,8 @@ class _SettingsState extends State<Settings> {
                       height: MySize.scaleFactorHeight * 64,
                       width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -454,7 +492,10 @@ class _SettingsState extends State<Settings> {
                           const SizedBox(
                             width: 12,
                           ),
-                          Image.asset(AppImages.darkmode,height: 20,),
+                          Image.asset(
+                            AppImages.darkmode,
+                            height: 20,
+                          ),
                           const SizedBox(
                             width: 18,
                           ),
@@ -510,6 +551,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(
                       height: MySize.size8,
                     ),
+
                     /// Subscription plans
                     Container(
                       width: MySize.scaleFactorWidth * 328,
@@ -521,8 +563,8 @@ class _SettingsState extends State<Settings> {
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10),
-                              width: 2,
+                            color: AppColors.whiteFc.withOpacity(0.10),
+                            width: 2,
                           ),
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10),
@@ -538,12 +580,16 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const ManagePlan()));
+                                        builder: (context) =>
+                                            const ManagePlan()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.plan,height: 20,),
+                                  imageIcon: Image.asset(
+                                    AppImages.plan,
+                                    height: 20,
+                                  ),
                                   text: 'Manage Plan',
                                   text2: 'Plan',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -559,12 +605,16 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const PaymentScreen()));
+                                        builder: (context) =>
+                                            const PaymentScreen()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.payment,height: 20,),
+                                  imageIcon: Image.asset(
+                                    AppImages.payment,
+                                    height: 20,
+                                  ),
                                   text: 'Manage Payment',
                                   text2: 'Cards',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -593,11 +643,13 @@ class _SettingsState extends State<Settings> {
                                         child: Image.asset(
                                           AppImages.crossIcon,
                                           height: 15,
-
                                           color: Colors.red,
                                         ),
                                       ),
-                                      Image.asset(AppImages.payment,height: 20,),
+                                      Image.asset(
+                                        AppImages.payment,
+                                        height: 20,
+                                      ),
                                     ],
                                   ),
                                   text: 'Cancel Subscription',
@@ -647,7 +699,6 @@ class _SettingsState extends State<Settings> {
                           left: BorderSide(
                               color: AppColors.whiteFc.withOpacity(0.10)),
                         ),
-
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(14.0),
@@ -658,12 +709,16 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const FaqsScreen()));
+                                        builder: (context) =>
+                                            const FaqsScreen()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.faqs,height: 20,),
+                                  imageIcon: Image.asset(
+                                    AppImages.faqs,
+                                    height: 20,
+                                  ),
                                   text: 'FAQs',
                                   text2: 'FAQ',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -685,7 +740,10 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.contsupport,height: 20,),
+                                  imageIcon: Image.asset(
+                                    AppImages.contsupport,
+                                    height: 20,
+                                  ),
                                   text: 'Contact Support',
                                   text2: 'Support',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -707,7 +765,10 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.terms,height: 20,),
+                                  imageIcon: Image.asset(
+                                    AppImages.terms,
+                                    height: 20,
+                                  ),
                                   text: 'Terms & Services',
                                   text2: 'Legal',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -723,12 +784,16 @@ class _SettingsState extends State<Settings> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const PrivPolicy()));
+                                        builder: (context) =>
+                                            const PrivPolicy()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Image.asset(AppImages.privpolicy,height: 20,),
+                                  imageIcon: Image.asset(
+                                    AppImages.privpolicy,
+                                    height: 20,
+                                  ),
                                   text: 'Privacy Policy',
                                   text2: 'Legal',
                                   text2Color: const Color(0XFFA2A2B5),
@@ -776,12 +841,14 @@ class _SettingsState extends State<Settings> {
                               height: 20,
                               width: 20,
                               color: Provider.of<ThemeChanger>(context)
-                                  .themeData ==
-                                  darkMode
+                                          .themeData ==
+                                      darkMode
                                   ? Color(0XFFA2A2B5)
                                   : Colors.red,
                             ),
-                            SizedBox(width: MySize.size22,),
+                            SizedBox(
+                              width: MySize.size22,
+                            ),
                             Text(
                               'Logout',
                               style: TextStyle(
@@ -796,7 +863,6 @@ class _SettingsState extends State<Settings> {
                             ),
                             const Spacer(),
                             Image.asset(AppImages.arrowLeft),
-
                           ],
                         ),
                       ),
