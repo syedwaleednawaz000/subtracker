@@ -609,8 +609,8 @@ class _SubscriptionState extends State<Subscription> {
                         border: Border.all(
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                              ? const Color(0xff353542)
-                              : const Color(0XFF353542).withOpacity(.10),
+                              ? const Color(0xffffffff)
+                              :  Colors.black,
                         )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: MySize.size30),
@@ -668,10 +668,9 @@ class _SubscriptionState extends State<Subscription> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(MySize.size16),
                         border: Border.all(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? const Color(0XFFFFFFFF).withOpacity(.1)
-                              : const Color(0XFF353542).withOpacity(.4),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? const Color(0xffffffff)
+                              :  Colors.black,
                         )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: MySize.size30),
@@ -870,6 +869,9 @@ class _SubscriptionState extends State<Subscription> {
                       _pickImage();
                     },
                     child: DottedBorder(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0xffffffff)
+                        :  Colors.black,
                       borderType: BorderType.RRect,
                       strokeWidth: 1,
                       // borderPadding: EdgeInsets.all(8),
@@ -955,6 +957,9 @@ class _SubscriptionState extends State<Subscription> {
                   child: SizedBox(
                     width: double.infinity,
                     child: DottedBorder(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? const Color(0xffffffff)
+                          :  Colors.black,
                       borderType: BorderType.RRect,
                       strokeWidth: 1,
                       // borderPadding: EdgeInsets.all(8),
