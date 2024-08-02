@@ -318,9 +318,9 @@ class _SubscriptionState extends State<Subscription> {
     '1 Year',
   ];
   final List<String> billingCycleData = [
-    'weekly',
-    'Monthly',
-    'Yearly',
+    '1 week',
+    '1 month',
+    '1 year',
   ];
   String? selectedValue1;
   String? selectedValue2;
@@ -577,7 +577,7 @@ class _SubscriptionState extends State<Subscription> {
                         : const Color(0XFF1C1C23),
                     decoration: InputDecoration(
 
-                      hintText: 'Please Add Some Description',
+                      hintText: 'Description',
                       hintStyle: TextStyle(
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? const Color(0xffffffff)
@@ -808,7 +808,7 @@ class _SubscriptionState extends State<Subscription> {
                           SizedBox(width: MySize.size4),
                           Expanded(
                             child: Text(
-                              'Renewal Date',
+                              'Reminder duration',
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,

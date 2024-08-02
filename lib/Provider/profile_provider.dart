@@ -82,6 +82,7 @@ class ProfileProvider extends ChangeNotifier{
       Response response = await _apiService.updateProfile(params: formData);
       if(response.statusCode == 200){
         _updateLoading(load: false);
+        updatePic= null;
         getProfile(userID: "");
         FlutterToast.toastMessage(message: "Profile updated successfully",);
         if (kDebugMode) {
