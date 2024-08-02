@@ -211,21 +211,14 @@ class CancelSubscription extends StatelessWidget {
         ),
       ),
           bottomNavigationBar:Container(
-            height: 114,
+            height: MySize.size48,
+            margin: EdgeInsets.only(left: MySize.size35,right: MySize.size35,bottom:MySize.size35 ),
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+                borderRadius:  BorderRadius.circular(100),
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
                     ? const Color(0XFF353542).withOpacity(.7)
                     : const Color(0XFFF1F1FF).withOpacity(.8),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 4,
-                      color: AppColors.black00.withOpacity(.25)
-                  )
-                ]
             ),
             child:  CancelSubsDialogBox(planID: "2"),
           ),
