@@ -75,12 +75,11 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             Center(
                               child: CustomContainer(
-                                activeSubscription:
-                                    data['activesub'].toString(),
-                                highestSubscription: data['highsub'].toString(),
-                                lowestSubscription: data['lowsub'].toString(),
-                                monthlyBill: data['monthlybill'].toString(),
-                                totalBudget: data['totalBudget'].toString(),
+                                activeSubscription: data['activesub'].toString()  == null ?data['activesub'].toString():"0",
+                                highestSubscription: data['highsub'].toString() == null ?data['highsub'].toString():"0",
+                                lowestSubscription: data['lowsub'].toString() == null ? data['lowsub'].toString():"0",
+                                monthlyBill: data['monthlybill'].toString() == null ?data['monthlybill'].toString():"0",
+                                totalBudget: data['totalBudget'].toString() == null ?data['totalBudget'].toString():"0",
                               ),
                             ),
                             SizedBox(
