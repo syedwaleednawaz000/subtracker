@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -157,72 +158,69 @@ class _SettingsState extends State<Settings> {
                 Column(
                   children: [
                     SizedBox(height: MySize.size40),
-                    Consumer<ProfileProvider>(
-                        builder: (context, profileProvider, child) {
-                      String profileImageUrl = "";
-                      if (profileProvider.userData != null) {
-                        if (profileProvider.userData['data'] != null) {
-                          profileImageUrl = profileProvider.userData['data']
-                                  ['profile_image'] ??
-                              "";
-                        }
-                      }
-                      return profileImageUrl != null &&
-                              profileImageUrl.isNotEmpty
-                          ? CachedNetworkImage(
-                              imageUrl: profileImageUrl,
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                height: MySize.size72,
-                                width: MySize.size72,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(90),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                    Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                      final profileImageUrl = profileProvider.userData['data']['profile_image'];
+                      return  Container(
+                        height: MySize.size72,
+                        width: MySize.size72,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(90),
+                        ),
+                        child:profileProvider.updatePic == null ?
+                        profileImageUrl != null && profileImageUrl.isNotEmpty
+                            ?CachedNetworkImage(
+                          imageUrl: profileImageUrl,
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(90),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
                               ),
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  height: MySize.size72,
-                                  width: MySize.size72,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(90),
-                                  ),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                height: MySize.size72,
-                                width: MySize.size72,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(90),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      AppImages.person,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Container(
+                            ),
+                          ),
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
                               height: MySize.size72,
                               width: MySize.size72,
                               decoration: BoxDecoration(
-                                color: Colors.transparent,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(90),
-                                image: DecorationImage(
-                                  image: AssetImage(AppImages.person),
-                                  fit: BoxFit.cover,
-                                ),
                               ),
-                            );
-                    }),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(90),
+                              image: DecorationImage(
+                                image: AssetImage(AppImages.person),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ):
+                        Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(90),),
+                            child: Image.asset(AppImages.person)) :
+                        Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(90),),
+                            child: Image.file(File(profileProvider.updatePic!.path.toString()))),
+                      );
+                    },),
                     SizedBox(height: MySize.size8),
                     Consumer<ProfileProvider>(
                       builder: (context, profileProvider, child) {
@@ -236,41 +234,46 @@ class _SettingsState extends State<Settings> {
                       },
                     ),
                     SizedBox(height: MySize.size8),
-                    Container(
-                      height: 36,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? Colors.white.withOpacity(.1)
-                            : const Color(0XFFF1F1FF),
-                        border: Border(
-                          top: BorderSide(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0xFFCFCFFC).withOpacity(.15)
-                                  : const Color(0xFFCFCFFC).withOpacity(.15)),
-                          left: BorderSide(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0xFFCFCFFC).withOpacity(.15)
-                                  : const Color(0xFFCFCFFC).withOpacity(.15)),
+                    GestureDetector(
+                      onTap: (){
+                        Provider.of<ProfileProvider>(context,listen: false).picPicture();
+                      },
+                      child: Container(
+                        height: 36,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? Colors.white.withOpacity(.1)
+                              : const Color(0XFFF1F1FF),
+                          border: Border(
+                            top: BorderSide(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFCFCFFC).withOpacity(.15)
+                                    : const Color(0xFFCFCFFC).withOpacity(.15)),
+                            left: BorderSide(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFCFCFFC).withOpacity(.15)
+                                    : const Color(0xFFCFCFFC).withOpacity(.15)),
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Change',
-                          style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Colors.white
-                                  : const Color(0XFF424252),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
+                        child: Center(
+                          child: Text(
+                            'Change',
+                            style: TextStyle(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? Colors.white
+                                    : const Color(0XFF424252),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
                     ),

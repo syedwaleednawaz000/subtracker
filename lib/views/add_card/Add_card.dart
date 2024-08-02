@@ -198,7 +198,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   children: [
                     TextWidgetInterMedium(
                       title: 'Name on card',
-                      fontSize: 14,
+                      fontSize: MySize.size14,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
@@ -224,7 +224,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 'Olivia Rhye', style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode ? Colors.white : const Color(0XFF424252),
-                              fontSize: 14, fontWeight: FontWeight.w400,
+                              fontSize: MySize.size14, fontWeight: FontWeight.w400,
                             ),
                             ),),
                       )),
@@ -237,7 +237,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   children: [
                     TextWidgetInterMedium(
                       title: 'Expiry',
-                      fontSize: 14,
+                      fontSize: MySize.size14,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
@@ -261,7 +261,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           '06   2024', style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode ? Colors.white : const Color(0XFF424252),
-                          fontSize: 14, fontWeight: FontWeight.w400,
+                          fontSize: MySize.size14, fontWeight: FontWeight.w400,
                         ),
                         ),
                       ),
@@ -281,14 +281,14 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   children: [
                     TextWidgetInterMedium(
                       title: 'Card number',
-                      fontSize: 14,
+                      fontSize: MySize.size14,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
-                    const SizedBox(height: 16,),
+                     SizedBox(height: MySize.size16,),
                     Container(
                       height: MySize.size44, width: MySize.size180,
                       decoration: BoxDecoration(
@@ -300,17 +300,17 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderRadius: BorderRadius.circular(8)
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
+                        padding:  EdgeInsets.only(left: MySize.size10),
                         child: Row(
                           children: [
                             Image.asset(AppImages.payment2,height: MySize.size50,width: MySize.size30,),
                             Center(
                                 child: Text(
-                                  '  1234 1234 1234 1234', style: TextStyle(
+                                  '  1234 1234 1234 1234',overflow: TextOverflow.ellipsis, style: TextStyle(
                                   color:Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? Colors.white
                                   : const Color(0XFF424252),
-                                  fontSize: 11, fontWeight: FontWeight.w400,
+                                  fontSize: MySize.size10, fontWeight: FontWeight.w400,
                                 // color: Colors.white
                             ))),
                           ],
@@ -323,7 +323,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidgetInterMedium(title: 'CVV', fontSize: 14, fontWeight: FontWeight.w500,
+                    TextWidgetInterMedium(title: 'CVV', fontSize: MySize.size12, fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Color(0XFFFFFFFF)

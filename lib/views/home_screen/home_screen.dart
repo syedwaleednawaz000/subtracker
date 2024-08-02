@@ -75,12 +75,11 @@ class _HomeScreenState extends State<HomeScreen>
                           children: [
                             Center(
                               child: CustomContainer(
-                                activeSubscription:
-                                    data['activesub'].toString(),
-                                highestSubscription: data['highsub'].toString(),
-                                lowestSubscription: data['lowsub'].toString(),
-                                monthlyBill: data['monthlybill'].toString(),
-                                totalBudget: data['totalBudget'].toString(),
+                                activeSubscription: data['activesub'].toString()  == null ?data['activesub'].toString():"0",
+                                highestSubscription: data['highsub'].toString() == null ?data['highsub'].toString():"0",
+                                lowestSubscription: data['lowsub'].toString() == null ? data['lowsub'].toString():"0",
+                                monthlyBill: data['monthlybill'].toString() == null ?data['monthlybill'].toString():"0",
+                                totalBudget: data['totalBudget'].toString() == null ?data['totalBudget'].toString():"0",
                               ),
                             ),
                             SizedBox(
@@ -105,30 +104,19 @@ class _HomeScreenState extends State<HomeScreen>
                                       : const Color(0XFFFFFFFF),
                                 ),
                                 child: TabBar(
-
                                   indicatorPadding:
                                       const EdgeInsets.symmetric(vertical: 3),
                                   indicator: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(MySize.size16),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? [
-                                              const Color(0xFFCFCFFC)
-                                                  .withOpacity(0.15),
-                                              const Color(0xFFCFCFFC),
-                                                  ]
-                                                : [
-                                                    const Color(0xFFCFCFFC)
-                                                        .withOpacity(0.15),
-                                                    const Color(0xFFCFCFFC),
-                                                  ],
-                                      ),
+                                    borderRadius:
+                                        BorderRadius.circular(MySize.size16),
+                                    color: Provider.of<ThemeChanger>(context)
+                                                .themeData ==
+                                            darkMode
+                                        ? const Color(0xFF4E4E61)
+                                            .withOpacity(0.20)
+                                        : const Color(0xFFCFCFFC)
+                                            .withOpacity(0.3),
+
                                   ),
                                   indicatorColor: Colors.transparent,
                                   controller: _tabController,

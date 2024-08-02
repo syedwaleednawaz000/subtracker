@@ -25,14 +25,13 @@ class LineColorContainer extends StatelessWidget {
       height: MySize.scaleFactorHeight * 68,
       width: MySize.scaleFactorWidth * 104,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFFCFCFFC).withOpacity(0.15),
-            const Color(0xFFCFCFFC).withOpacity(0),
-          ],
-        ),
+        color: Provider.of<ThemeChanger>(context)
+            .themeData ==
+            darkMode
+            ? const Color(0xFF4E4E61)
+            .withOpacity(0.20)
+            : const Color(0xFFCFCFFC)
+            .withOpacity(0.3),
         borderRadius: BorderRadius.circular(MySize.size16),
       ),
       child: CustomPaint(

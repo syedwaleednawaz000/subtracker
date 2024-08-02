@@ -136,13 +136,15 @@ class _PersonalDataState extends State<PersonalData> {
             SizedBox(
               height: MySize.size8,
             ),
-            TextWidgetInterBold(
-              align: TextAlign.center,
-              title: 'John Doe',
-              fontSize: MySize.size20,
-              fontWeight: FontWeight.w700,
-              // color: AppColors.whiteFF,
-            ),
+            Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+              return  TextWidgetInterBold(
+                align: TextAlign.center,
+                title: profileProvider.userData['data']['name'],
+                fontSize: MySize.size20,
+                fontWeight: FontWeight.w700,
+                // color: AppColors.whiteFF,
+              );
+            },),
             SizedBox(
               height: MySize.size8,
             ),

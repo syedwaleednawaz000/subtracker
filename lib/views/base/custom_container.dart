@@ -94,7 +94,7 @@ class _CustomContainerState extends State<CustomContainer> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LineColorContainer(
-                      borderColor: AppColors.pinkLine,
+                      borderColor: const Color(0xFF758AFF),
                       titleText: 'Active subs',
                       numberCount: '${widget.activeSubscription}',
                     ),
@@ -102,7 +102,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       width: MySize.scaleFactorWidth * 14,
                     ),
                     LineColorContainer(
-                      borderColor: AppColors.purpleLine,
+                      borderColor: const Color(0xFFDC23FF),
                       titleText: 'Highest subs',
                       numberCount: '\$ ${widget.highestSubscription}',
                     ),

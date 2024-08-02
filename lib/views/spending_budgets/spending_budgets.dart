@@ -227,14 +227,16 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+
                     TextWidgetInterMedium(
                         title: 'Your budgets are on track',
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0xFFFFFFFF)
-                            : const Color(0xFF424252),
-                        fontSize: MySize.size14,
-                        fontWeight: FontWeight.w600),
+                      fontSize: MySize.size16,
+                      fontWeight: FontWeight.w600,
+                      color: Provider.of<ThemeChanger>(context)
+                          .themeData ==
+                          darkMode
+                          ? const Color(0XFFFFFFFF)
+                          : const Color(0XFF424252),),
                     SizedBox(
                       width: MySize.size8,
                     ),
