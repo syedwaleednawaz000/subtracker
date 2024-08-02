@@ -60,9 +60,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
       height: MySize.size32,
     ),
   ];
-  TextEditingController? addCategoryController = TextEditingController();
-  TextEditingController? priceController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +80,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               title: Text(
                 'Spending & Budgets',
                 style: TextStyle(
-                    color: const Color(0XFF424252),
+                    color: const Color(0xFF424252),
                     fontSize: MySize.size16,
                     fontWeight: FontWeight.w400),
               ),
@@ -99,8 +97,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                       },
                       child: Image.asset(
                         AppImages.notificationIcon,
-                        height: MySize.size22,
-                        width: MySize.size20,
+                        height: MySize.size25,
+                        width: MySize.size25,
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFFA2A2B5)
@@ -370,293 +368,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                     horizontal: MySize.size24, vertical: MySize.size8),
                 child: GestureDetector(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Consumer<CategoryProvider>(
-                          builder: (context, categoryProvider, child) {
-                            return AlertDialog(
-                              backgroundColor:
-                                  Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? Colors.white
-                                      : Colors.black,
-                              title: Center(
-                                child: Text(
-                                  'Spending & Budgets',
-                                  style: TextStyle(
-                                    color: Provider.of<ThemeChanger>(context)
-                                                .themeData ==
-                                            darkMode
-                                        ? const Color(0xFF000000)
-                                        : const Color(0xFFFFFFFF),
-                                    fontSize: MySize.size16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              content: Form(
-                                key: _formKey,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Please Enter New Category and its Price.',
-                                      style: TextStyle(
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0xFF000000)
-                                                : Colors.grey,
-                                        fontSize: MySize.size14,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    SizedBox(height: MySize.size20),
-                                    TextFormField(
-                                      cursorColor:
-                                          Provider.of<ThemeChanger>(context)
-                                                      .themeData ==
-                                                  darkMode
-                                              ? Colors.black
-                                              : Colors.white,
-                                      style: TextStyle(
-                                        fontSize: MySize.size14,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Inter',
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.black
-                                                : Colors.white,
-                                      ),
-                                      controller: addCategoryController,
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.trim().isEmpty) {
-                                          return 'Please enter category name';
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                MySize.size20),
-                                            borderSide: BorderSide(
-                                                color:
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : AppColors.grey20)),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              MySize.size20),
-                                          borderSide: BorderSide(
-                                            color: Provider.of<ThemeChanger>(
-                                                            context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.black
-                                                : Colors
-                                                    .white, // Color for unselected border
-                                          ),
-                                        ),
-                                        labelText: 'Category',
-                                        hintText: 'Enter Category',
-                                        hintStyle: TextStyle(
-                                            fontSize: MySize.size12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Provider.of<ThemeChanger>(
-                                                            context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.grey
-                                                : Colors.grey,
-                                            fontFamily: 'Inter-Medium'),
-                                        labelStyle: TextStyle(
-                                          color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    TextFormField(
-                                      cursorColor:
-                                          Provider.of<ThemeChanger>(context)
-                                                      .themeData ==
-                                                  darkMode
-                                              ? Colors.black
-                                              : Colors.white,
-                                      style: TextStyle(
-                                        fontSize: MySize.size14,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Inter',
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.black
-                                                : Colors.white,
-                                      ),
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.trim().isEmpty) {
-                                          return 'Please enter price';
-                                        }
-                                        return null;
-                                      },
-                                      controller: priceController,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                MySize.size20),
-                                            borderSide: BorderSide(
-                                                color:
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : AppColors.grey20)),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              MySize.size20),
-                                          borderSide: BorderSide(
-                                            color: Provider.of<ThemeChanger>(
-                                                            context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.black
-                                                : Colors
-                                                    .white, // Color for unselected border
-                                          ),
-                                        ),
-                                        labelText: 'Price',
-                                        hintText: 'Enter Price',
-                                        hintStyle: TextStyle(
-                                            fontSize: MySize.size12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Provider.of<ThemeChanger>(
-                                                            context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.grey
-                                                : Colors.grey,
-                                            fontFamily: 'Inter-Medium'),
-                                        labelStyle: TextStyle(
-                                          color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? Colors.black
-                                                  : Colors.white,
-                                        ),
-                                      ),
-                                      keyboardType: TextInputType.number,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text(
-                                    'Add',
-                                    style: TextStyle(
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? Colors.lightBlue
-                                          : Colors.lightBlue,
-                                      fontSize: MySize.size16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      categoryProvider.addCategories(
-                                        categoryName:
-                                            addCategoryController!.text.trim(),
-
-                                        // price: priceController.text.trim(),
-                                      );
-                                      addCategoryController?.clear();
-                                      priceController?.clear();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                         SnackBar(
-                                          backgroundColor: Colors.green,
-                                          content: Center(
-                                            child: Text(
-                                              'New category is added',
-                                              style: TextStyle(
-                                                fontSize: MySize.size14,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                      Navigator.of(context).pop();
-                                    }
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? Colors.redAccent
-                                          : Colors.redAccent,
-                                      fontSize: MySize.size15,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    addCategoryController?.clear();
-                                    priceController?.clear();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        backgroundColor: Colors.redAccent,
-                                        content: Center(
-                                          child: Text(
-                                            'Cancelling to add new',
-                                            style: TextStyle(
-                                              color: Provider.of<ThemeChanger>(
-                                                              context,
-                                                              listen: false)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? Colors.white
-                                                  : Colors.white,
-                                              fontSize: MySize.size14,
-                                              fontFamily: 'Inter',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    );
+                    Provider.of<CategoryProvider>(context,listen: false).displayDialog(context: context);
                   },
                   child: DottedBorder(
                     dashPattern: const [6, 6, 6, 6],
@@ -691,7 +403,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                             width: MySize.size16,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(MySize.size90),
+                              borderRadius:
+                                  BorderRadius.circular(MySize.size90),
                               border: Border.all(
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
@@ -719,7 +432,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   ),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: MySize.size20,
               )
             ],
