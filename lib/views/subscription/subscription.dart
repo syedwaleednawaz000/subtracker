@@ -328,7 +328,6 @@ class _SubscriptionState extends State<Subscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? const Color(0XFF1C1C23)
           : Colors.white,
