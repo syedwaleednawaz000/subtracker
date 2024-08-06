@@ -18,6 +18,7 @@ class AppUrl{
   static String termsAndConditions = "settings/terms_and_conditions";
   static String privacyAndPolicy = "settings/privacy_policy";
   static String addCategories = "categories";
+  static String getTicketIssuesTypes = "ticket-issues";
   static String storeUserCategories = "user-categories";
   static String getAllCategory = "subscription-categories";
   static String editeCategories = "categories/";//at the end id 2

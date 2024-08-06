@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
@@ -10,9 +11,20 @@ import '../settings/settings.dart';
 import 'base/formfieldcomponent.dart';
 
 
-class ContactSupport extends StatelessWidget {
+class ContactSupport extends StatefulWidget {
   const ContactSupport({super.key});
 
+  @override
+  State<ContactSupport> createState() => _ContactSupportState();
+}
+
+class _ContactSupportState extends State<ContactSupport> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<ContactWithSupportProvider>(context,listen: false).getTicketIssuesTypes());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(

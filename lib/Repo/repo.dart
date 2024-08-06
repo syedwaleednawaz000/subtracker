@@ -165,6 +165,11 @@ class ApiService {
       url: AppUrl.getSpendingBudget,
     );
   }
+  Future<Response> getTicketIssuesTypes() {
+    return apiClient.get(
+      url: AppUrl.getTicketIssuesTypes,
+    );
+  }
   Future<Response> activeSubscriptions({var params}) {
     return apiClient.get(
       url: AppUrl.activeSubscriptions,

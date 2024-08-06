@@ -295,6 +295,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Consumer<ScheduleProvider>(builder: (context, scheduleProvider, child) {
                       return scheduleProvider.isLoading ?   const CircularProgressIndicator(color: Colors.green,)
+                      :scheduleProvider.scheduleData.isEmpty ? const Center(child: Text("Please try again",style: TextStyle(color: Colors.black),),)
                           : scheduleProvider.scheduleData['data']['providers'].length ==0 ?
                       const Center(child: Text("Upcoming bills not available",style: TextStyle(color: Colors.black),),):
                       GridView.builder(
