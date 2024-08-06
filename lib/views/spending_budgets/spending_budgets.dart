@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
@@ -358,13 +359,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                           left: MySize.size20,
                                           right: MySize.size25),
                                       child: LinearColorBarWidget(color: randomColors[index],progress: progressPercentage),
-                                      // child: LinearColorBar(
-                                      //     index: index,
-                                      //     lineMaxSteps: lineMaxSteps,
-                                      //     lineCurrentSteps: lineCurrentSteps,
-                                      //     gradientColors: gradientColors
-                                      //
-                                      // ),
+
                                     )
                                   ],
                                 ),
@@ -478,14 +473,47 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Total budget:'),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: priceController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter total budget',
+                  const SizedBox(height: 10,),
+                  SizedBox(
+                    height: MySize.size60,width: MySize.scaleFactorWidth*260,
+                    child: TextFormField(
+                      cursorColor: Colors.black38,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                      ],
+                      controller: priceController,
+                      decoration:  InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: MySize.size10,horizontal: MySize.size10),
+                        hintText: 'Enter total budget',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(MySize.size16),
+                          borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
+                              .themeData ==
+                              darkMode
+                              ? const Color(0XFFFFFFFF)
+                              : Colors.black45),),
 
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(MySize.size16),
+                          borderSide:  BorderSide(
+                            color: Provider.of<ThemeChanger>(context)
+                              .themeData ==
+                              darkMode
+                              ? const Color(0XFFFFFFFF)
+                              : Colors.black45),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(MySize.size16),
+                          borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
+                              .themeData ==
+                              darkMode
+                              ? const Color(0XFFFFFFFF)
+                              : Colors.black45),),
+                        ),
+                      ),
                     ),
-                  ),
+
                 ],
               ),
             ],
