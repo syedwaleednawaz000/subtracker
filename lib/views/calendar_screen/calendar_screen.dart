@@ -294,7 +294,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       height: MySize.size24,
                     ),
                     Consumer<ScheduleProvider>(builder: (context, scheduleProvider, child) {
-                      return scheduleProvider.scheduleData.isEmpty ?   const CircularProgressIndicator(color: Colors.green,)
+                      return scheduleProvider.isLoading ?   const CircularProgressIndicator(color: Colors.green,)
                           : scheduleProvider.scheduleData['data']['providers'].length ==0 ?
                       const Center(child: Text("Upcoming bills not available",style: TextStyle(color: Colors.black),),):
                       GridView.builder(
