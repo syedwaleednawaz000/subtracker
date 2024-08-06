@@ -1,9 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../Provider/subscription_provider.dart';
 import '../../theme/theme.dart';
@@ -22,6 +24,16 @@ class SubscriptionInfo extends StatefulWidget {
 }
 
 class _SubscriptionInfoState extends State<SubscriptionInfo> {
+  String _name = "Unknown";
+  String _descrip = "Music App";
+  String _selectedCategory = "Netflix";
+  String _selectedReminder = "Reminder";
+  String _selectedBilling = "Billing Reminder";
+  String _startDate = "Start Date";
+  String _renDate = "Renewal Date";
+
+
+
 
 
 
@@ -252,53 +264,28 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                     children: [
                                       SubscriptionInfoRow(
                                         text: 'Name',
-                                        text2:
-                                        "${widget.subscriptionInfoData['provider'] == null ? "unknown" : widget.subscriptionInfoData['provider']['name']}",
+                                        text2: _name,
                                         icon: GestureDetector(
                                           onTap: () {
-                                            Navigator.pop(context);
+                                            _showNameDialog(context: context);
                                           },
                                           child: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
-                                            color: Provider.of<ThemeChanger>(
-                                                context)
-                                                .themeData ==
-                                                darkMode
-                                                ? const Color(
-                                                0XFFA2A2B5)
-                                                : const Color(
-                                                0XFFA2A2B5),
+                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
                                           ),
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
                                       SubscriptionInfoRow(
                                         text: 'Description',
-                                        text2:
-                                        widget.subscriptionInfoData[
-                                        'description'] ??
-                                            "Music App",
-                                        icon: Image.asset(
-                                          AppImages.arrowLeft,
-                                          width: MySize.size14,
-                                          height: MySize.size14,
-                                          color: Provider.of<ThemeChanger>(
-                                              context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0XFFA2A2B5)
-                                              : const Color(0XFFA2A2B5),
-                                        ),
-                                      ),
-                                      SizedBox(height: MySize.size16),
-                                      SubscriptionInfoRow(
-                                        text: 'Category',
-                                        text2: "Netflix",
+                                        text2: _descrip,
                                         icon: GestureDetector(
-                                          onTap: () {
-                                            print("pressed");
+                                          onTap: (){
+                                            _showDescripDialog(context: context);
                                           },
                                           child: Image.asset(
                                             AppImages.arrowLeft,
@@ -308,87 +295,123 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                                 context)
                                                 .themeData ==
                                                 darkMode
-                                                ? const Color(
-                                                0XFFA2A2B5)
-                                                : const Color(
-                                                0XFFA2A2B5),
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
                                           ),
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
                                       SubscriptionInfoRow(
+                                        text: 'Category',
+                                        text2: _selectedCategory,
+                                        icon: GestureDetector(
+                                          onTapDown: (TapDownDetails details) {
+                                            _showCategPopupMenu(context, details.globalPosition);
+                                          },
+                                          child: Image.asset(
+                                            AppImages.arrowLeft,
+                                            width: MySize.size14,
+                                            height: MySize.size14,
+                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: MySize.size6),
+                                      SizedBox(height: MySize.size16),
+                                      SubscriptionInfoRow(
                                         text: 'Start Date',
-                                        text2:
-                                        widget.subscriptionInfoData[
-                                        'start_date'] ??
-                                            "08.01.2022",
-                                        icon: Image.asset(
-                                          AppImages.arrowLeft,
-                                          width: MySize.size14,
-                                          height: MySize.size14,
-                                          color: Provider.of<ThemeChanger>(
-                                              context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0XFFA2A2B5)
-                                              : const Color(0XFFA2A2B5),
+                                        text2:_startDate,
+                                        icon: GestureDetector(
+                                          onTap: () async {
+                                            DateTime? selectedDate = await _selectDate(context);
+                                            if (selectedDate != null) {
+                                              setState(() {
+                                                _startDate = "${selectedDate.day.toString().padLeft(2, '0')}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.year}";
+                                              });
+                                            }
+                                          },
+                                          child: Image.asset(
+                                            AppImages.arrowLeft,
+                                            width: MySize.size14,
+                                            height: MySize.size14,
+                                            color: Provider.of<ThemeChanger>(
+                                                context)
+                                                .themeData ==
+                                                darkMode
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
                                       SubscriptionInfoRow(
                                         text: 'Renewal Date',
-                                        text2:
-                                        widget.subscriptionInfoData[
-                                        'renewal_date'] ??
-                                            "07.01.2023",
-                                        icon: Image.asset(
-                                          AppImages.arrowLeft,
-                                          width: MySize.size14,
-                                          height: MySize.size14,
-                                          color: Provider.of<ThemeChanger>(
-                                              context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0XFFA2A2B5)
-                                              : const Color(0XFFA2A2B5),
+                                        text2:_renDate,
+
+                                        icon: GestureDetector(
+                                          onTap: () async {
+                                            DateTime? selectedDate = await _renewalDate(context);
+                                            if (selectedDate != null) {
+                                              setState(() {
+                                                _renDate = "${selectedDate.day.toString().padLeft(2, '0')}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.year}";
+                                              });
+                                            }
+                                          },
+                                          child: Image.asset(
+                                            AppImages.arrowLeft,
+                                            width: MySize.size14,
+                                            height: MySize.size14,
+                                            color: Provider.of<ThemeChanger>(
+                                                context)
+                                                .themeData ==
+                                                darkMode
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
                                       SubscriptionInfoRow(
                                         text: 'Billing Cycle',
-                                        text2:
-                                        widget.subscriptionInfoData[
-                                        'billing_cycle'] ??
-                                            "Monthly",
-                                        icon: Image.asset(
-                                          AppImages.arrowLeft,
-                                          width: MySize.size14,
-                                          height: MySize.size14,
-                                          color: Provider.of<ThemeChanger>(
-                                              context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0XFFA2A2B5)
-                                              : const Color(0XFFA2A2B5),
+                                        text2: _selectedBilling,
+                                        icon: GestureDetector(
+                                          onTapDown: (TapDownDetails details) {
+                                            _showBillingPopupMenu(context, details.globalPosition);
+                                          },
+                                          child: Image.asset(
+                                            AppImages.arrowLeft,
+                                            width: MySize.size14,
+                                            height: MySize.size14,
+                                            color: Provider.of<ThemeChanger>(
+                                                context)
+                                                .themeData ==
+                                                darkMode
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
                                       SubscriptionInfoRow(
                                         text: 'Reminder',
-                                        text2:
-                                        widget.subscriptionInfoData[
-                                        'reminder'] ??
-                                            "Never",
-                                        icon: Image.asset(
-                                          AppImages.arrowLeft,
-                                          width: MySize.size14,
-                                          height: MySize.size14,
-                                          color: Provider.of<ThemeChanger>(
-                                              context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0XFFA2A2B5)
-                                              : const Color(0XFFA2A2B5),
+                                        text2:_selectedReminder,
+                                        icon: GestureDetector(
+                                          onTapDown: (TapDownDetails details) {
+                                            _showRemiderPopupMenu(context, details.globalPosition);
+                                          },
+                                          child: Image.asset(
+                                            AppImages.arrowLeft,
+                                            width: MySize.size14,
+                                            height: MySize.size14,
+                                            color: Provider.of<ThemeChanger>(
+                                                context)
+                                                .themeData ==
+                                                darkMode
+                                                ? const Color(0XFFA2A2B5)
+                                                : const Color(0XFFA2A2B5),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(height: MySize.size26),
@@ -491,7 +514,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       },
                                       child: Container(
                                         height: MySize.scaleFactorHeight * 48,
-                                        margin: EdgeInsets.only(bottom: 18,right: 20,left: 20),
+                                        margin: const EdgeInsets.only(bottom: 18,right: 20,left: 20),
                                         width: MySize.scaleFactorWidth * 288,
                                         decoration: BoxDecoration(
                                           color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -534,4 +557,253 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
       ),
     );
   }
+  void _showNameDialog({required BuildContext context}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        TextEditingController nameController = TextEditingController();
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: const Text('Enter Your Name'),
+              content: TextField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: "Name"),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'CANCEL',
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                  onPressed: () {
+                    nameController.clear();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _name = nameController.text.isEmpty ? 'unknown' : nameController.text;
+                    });
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+  void _showDescripDialog({required BuildContext context}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        TextEditingController descripController = TextEditingController();
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: const Text('Enter Description'),
+              content: TextField(
+                controller: descripController,
+                decoration: const InputDecoration(hintText: "Description"),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'CANCEL',
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                  onPressed: () {
+                    descripController.clear(); // Clear the text field
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+                TextButton(
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _descrip = descripController.text.isEmpty ? 'Music App' : descripController.text;
+                    });
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+  void _showCategPopupMenu(BuildContext context, Offset tapPosition) async {
+    final selected =  await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
+      ),
+      items: [
+         const PopupMenuItem<String>(
+          value: 'Netflix',
+          child: Text('Netflix'),
+        ),
+         const PopupMenuItem<String>(
+          value: 'Amazon',
+          child: Text('Amazon'),
+        ),
+         const PopupMenuItem<String>(
+          value: 'Prime',
+          child: Text('Prime'),
+        ),const PopupMenuItem<String>(
+          value: 'Disney+',
+          child: Text('Disney+'),
+        ),
+      ],
+      elevation: 8.0,
+    );
+
+    if (selected != null) {
+      setState(() {
+        _selectedCategory = selected;
+      });
+      print(_selectedCategory); // Handle menu selection
+    }
+  }
+  void _showRemiderPopupMenu(BuildContext context, Offset tapPosition) async {
+    final selected =  await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
+      ),
+      items: [
+         const PopupMenuItem<String>(
+          value: '1 Week',
+          child: Text("1 Week"),
+        ),
+         const PopupMenuItem<String>(
+          value: '1 Month',
+          child: Text('1 Month'),
+        ),
+         const PopupMenuItem<String>(
+          value: '1 Year',
+          child: Text('1 Year'),
+        ),
+      ],
+      elevation: 8.0,
+    );
+
+    if (selected != null) {
+      setState(() {
+        _selectedReminder = selected;
+      });
+      print(_selectedReminder); // Handle menu selection
+    }
+  }
+  void _showBillingPopupMenu(BuildContext context, Offset tapPosition) async {
+    final selected =  await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
+      ),
+      items: [
+         const PopupMenuItem<String>(
+          value: '1 Week',
+          child: Text("1 Week"),
+        ),
+         const PopupMenuItem<String>(
+          value: '1 Month',
+          child: Text('1 Month'),
+        ),
+         const PopupMenuItem<String>(
+          value: '1 Year',
+          child: Text('1 Year'),
+        ),
+      ],
+      elevation: 8.0,
+    );
+
+    if (selected != null) {
+      setState(() {
+        _selectedBilling = selected;
+      });
+      print(_selectedBilling); // Handle menu selection
+    }
+  }
+
+
+  Future<DateTime?> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    DateTime firstDate = DateTime(2000);
+    DateTime lastDate = DateTime(2050);
+
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.blue,
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: Colors.black,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: DatePickerDialog(
+            initialDate: initialDate,
+            firstDate: firstDate,
+            lastDate: lastDate,
+          ),
+        );
+      },
+    );
+  }
+  Future<DateTime?> _renewalDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    DateTime firstDate = DateTime(2000);
+    DateTime lastDate = DateTime(2050);
+
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.blue,
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: Colors.black,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: DatePickerDialog(
+            initialDate: initialDate,
+            firstDate: firstDate,
+            lastDate: lastDate,
+          ),
+        );
+      },
+    );
+  }
 }
+
+
+
