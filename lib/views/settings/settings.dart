@@ -94,8 +94,8 @@ class _SettingsState extends State<Settings> {
     CurrencyProvider currencyProvider = Provider.of<CurrencyProvider>(context);
     List<String> trailText = [
       'Data',
-      "${languageProvider.selectedLanguage.toString()} ${languageProvider.selectedTranslation.toString()}",
-      '${currencyProvider.selectedCountry.toString()} ${currencyProvider.selectedCurrency.toString()}',
+      "${languageProvider.selectedTranslation.toString()}",
+      '${currencyProvider.selectedCurrency.toString()}',
       'Password',
     ];
 
@@ -368,16 +368,13 @@ class _SettingsState extends State<Settings> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    trailText[index],
-                                                    style: const TextStyle(
-                                                      color: Color(0XFFA2A2B5),
-                                                    ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                Text(
+                                                  trailText[index],
+                                                  maxLines: 2,
+                                                  style: const TextStyle(
+                                                    color: Color(0XFFA2A2B5),
                                                   ),
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                                 const SizedBox(
                                                   width: 10,

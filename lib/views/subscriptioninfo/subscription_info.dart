@@ -1,17 +1,14 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../Provider/subscription_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
-import '../settings/settings.dart';
 import 'base/subscriptioninforow.dart';
 
 class SubscriptionInfo extends StatefulWidget {
@@ -24,6 +21,8 @@ class SubscriptionInfo extends StatefulWidget {
 }
 
 class _SubscriptionInfoState extends State<SubscriptionInfo> {
+
+
   String _name = "Unknown";
   String _descrip = "Music App";
   String _selectedCategory = "Netflix";
@@ -31,11 +30,6 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
   String _selectedBilling = "Billing Reminder";
   String _startDate = "Start Date";
   String _renDate = "Renewal Date";
-
-
-
-
-
 
 
   @override
@@ -803,6 +797,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
       },
     );
   }
+
+
 }
 
 
