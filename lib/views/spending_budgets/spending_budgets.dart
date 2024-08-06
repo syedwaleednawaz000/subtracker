@@ -470,7 +470,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Set total budget for this category $categoryName'),
+                  Text('Set total budget for this $categoryName'),
                 ],
               ),
               const SizedBox(height: 20),
