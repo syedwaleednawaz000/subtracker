@@ -135,6 +135,7 @@ class SubscriptionProvider extends ChangeNotifier{
       Response response = await _apiService.getSubscriptions(params: {});
       if(response.statusCode == 200){
         _subscriptionLoading(load: false);
+        subscriptionData = {};
         subscriptionData = response.data;
         if (kDebugMode) {
           print("hit successfully getSubscriptions $subscriptionData");
