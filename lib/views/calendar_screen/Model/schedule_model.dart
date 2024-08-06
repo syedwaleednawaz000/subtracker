@@ -77,7 +77,7 @@ class Providers {
 
 class Subscription {
   int? id;
-  String? name;
+  Null? name;
   String? description;
   String? startDate;
   String? renewalDate;
