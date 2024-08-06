@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
@@ -18,6 +19,7 @@ import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
+import 'package:sub_tracker/views/subscription/model/all_category_model.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
 import 'package:intl/intl.dart';
 
@@ -30,9 +32,7 @@ class Subscription extends StatefulWidget {
 
 class _SubscriptionState extends State<Subscription> {
   final TextEditingController _monthlyPriceController = TextEditingController();
-  Map<String, dynamic> _selectedOption = {
-    'Select Subscription Provider': "Select Subscription Provider"
-  };
+
 
   ///
   final Map<String, List<String>> categories = {
@@ -109,26 +109,20 @@ class _SubscriptionState extends State<Subscription> {
     ],
   };
   final ImagePicker _picker = ImagePicker();
-  XFile? _imageFile;
+  XFile? _imagePhoto;
   TextEditingController descriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImageForPhoto() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      _imageFile = image;
+      _imagePhoto = image;
     });
   }
 
-  void _selectOption(String category, String subcategory) {
-    setState(() {
-      _selectedOption = {category: subcategory};
-    });
-    Navigator.pop(context);
-  }
 
-  void showSubcategories(BuildContext context, String category) {
-    final subcategories = categories[category] ?? [];
+  void showSubcategories(BuildContext context, Categories category) {
+    final subcategories = category.providers ?? [];
 
     showModalBottomSheet(
       context: context,
@@ -138,15 +132,16 @@ class _SubscriptionState extends State<Subscription> {
           child: ListView(
             children: [
               Text(
-                'Subcategories of $category',
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                'Subcategories of ${category.name}',
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Divider(),
-              ...subcategories.map((subcat) {
+              ...subcategories.map((subCat) {
                 return ListTile(
-                  title: Text(subcat),
-                  onTap: () => _selectOption(category, subcat),
+                  title: Text(subCat.name ?? ""),
+                  onTap: () {
+                    Provider.of<CategoryProvider>(context,listen: false).setAllCategoryValue(categoryID: category.id.toString(),categoryName: category.name.toString(),subCategoryID: subCat.id.toString(),subCategoryName: subCat.name.toString());
+                  }
                 );
               }).toList(),
             ],
@@ -156,16 +151,18 @@ class _SubscriptionState extends State<Subscription> {
     );
   }
 
-  void showCategories(BuildContext context) {
+  void showCategories(BuildContext context, CategoryProvider provider) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return provider.isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Container(
           padding: const EdgeInsets.all(16.0),
           child: ListView(
-            children: categories.keys.map((category) {
+            children: provider.categories.map((category) {
               return ListTile(
-                title: Text(category),
+                title: Text(category.name ?? ""),
                 onTap: () {
                   Navigator.pop(context);
                   showSubcategories(context, category);
@@ -285,7 +282,7 @@ class _SubscriptionState extends State<Subscription> {
     if (picked != null && picked != _selectedDate1) {
       setState(() {
         _selectedDate1 = picked;
-        print("this is my selected value $selectedValue1");
+        print("this is my selected value $billingValue");
         renewalDateController.text = _dateFormat1.format(picked);
       });
     }
@@ -298,7 +295,7 @@ class _SubscriptionState extends State<Subscription> {
     super.dispose();
   }
 
-  String? _filePath;
+  FilePickerResult? _filePath;
 
   Future<void> _pickDocument() async {
     final result = await FilePicker.platform.pickFiles(
@@ -307,7 +304,8 @@ class _SubscriptionState extends State<Subscription> {
     );
     if (result != null) {
       setState(() {
-        _filePath = result.files.single.path;
+        _filePath = result;
+        // _filePath = result.files.single.path;
       });
     }
   }
@@ -322,8 +320,8 @@ class _SubscriptionState extends State<Subscription> {
     '1 month',
     '1 year',
   ];
-  String? selectedValue1;
-  String? selectedValue2;
+  String? billingValue;
+  String? remindDurationValue;
 
   @override
   Widget build(BuildContext context) {
@@ -417,17 +415,19 @@ class _SubscriptionState extends State<Subscription> {
                       SizedBox(
                         height: MySize.size16,
                       ),
-                      Text(
-                        'Tresorly',
-                        style: TextStyle(
-                          fontSize: MySize.size14,
-                          fontWeight: FontWeight.w600,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? Colors.white
-                              : const Color(0XFF333339),
-                        ),
-                      ),
+                      Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
+                        return                       Text(
+                          categoryProvider.categoryName.isEmpty ? 'Tresorly':categoryProvider.categoryName,
+                          style: TextStyle(
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.w600,
+                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? Colors.white
+                                : const Color(0XFF333339),
+                          ),
+                        );
+                      },),
                       SizedBox(
                         height: MySize.size15,
                       ),
@@ -484,47 +484,49 @@ class _SubscriptionState extends State<Subscription> {
                       SizedBox(
                         height: MySize.size10,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          showCategories(context);
-                        },
-                        child: Container(
-                          height: MySize.size40,
-                          width: MySize.scaleFactorWidth * 340,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(17),
-                              border: Border.all(
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0XFFFFFFFF).withOpacity(.1)
-                                    : const Color(0XFF353542).withOpacity(.4),
-                              )),
-                          child: Row(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.search,
-                                    color: Color(0xff666680)),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                _selectedOption.values.first ??
-                                    "Select subscription Provider",
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFFA2A2B5)
-                                      : const Color(0XFFA2A2B5),
-                                ),
-                              ),
-                            ],
-                          ),
+            Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
+              return                       GestureDetector(
+                onTap: () {
+                  showCategories(context, categoryProvider);
+                },
+                child: Container(
+                  height: MySize.size40,
+                  width: MySize.scaleFactorWidth * 340,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(17),
+                      border: Border.all(
+                        color: Provider.of<ThemeChanger>(context)
+                            .themeData ==
+                            darkMode
+                            ? const Color(0XFFFFFFFF).withOpacity(.1)
+                            : const Color(0XFF353542).withOpacity(.4),
+                      )),
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.search,
+                            color: Color(0xff666680)),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        categoryProvider.subCategoryName == ""?
+                            "Select subscription Provider":categoryProvider.subCategoryName,
+                        style: TextStyle(
+                          fontSize: MySize.size12,
+                          fontWeight: FontWeight.w500,
+                          color: Provider.of<ThemeChanger>(context)
+                              .themeData ==
+                              darkMode
+                              ? const Color(0XFFA2A2B5)
+                              : const Color(0XFFA2A2B5),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              );
+            },),
                     ],
                   ),
                 ),
@@ -771,10 +773,10 @@ class _SubscriptionState extends State<Subscription> {
                         ),
                       ))
                           .toList(),
-                      value: selectedValue1,
+                      value: billingValue,
                       onChanged: (String? value) {
                         setState(() {
-                          selectedValue1 = value;
+                          billingValue = value;
                         });
                       },
                       validator: (value) {
@@ -839,15 +841,15 @@ class _SubscriptionState extends State<Subscription> {
                         ),
                       ))
                           .toList(),
-                      value: selectedValue2,
+                      value: remindDurationValue,
                       onChanged: (String? value) {
                         setState(() {
-                          selectedValue2 = value;
+                          remindDurationValue = value;
                         });
                       },
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select a Renewal Date';
+                          return 'Please select a remind duration';
                         }
                         return null;
                       },
@@ -865,7 +867,7 @@ class _SubscriptionState extends State<Subscription> {
                   height: MySize.size100,
                   child: GestureDetector(
                     onTap: () {
-                      _pickImage();
+                      _pickImageForPhoto();
                     },
                     child: DottedBorder(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -876,7 +878,7 @@ class _SubscriptionState extends State<Subscription> {
                       // borderPadding: EdgeInsets.all(8),
                       radius: Radius.circular(MySize.size10),
                       padding: EdgeInsets.all(MySize.size8),
-                      child: _imageFile != null
+                      child: _imagePhoto != null
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -884,7 +886,7 @@ class _SubscriptionState extends State<Subscription> {
                                 Expanded(
                                   flex: 6,
                                   child: Image.file(
-                                    File(_imageFile!.path),
+                                    File(_imagePhoto!.path),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -900,7 +902,7 @@ class _SubscriptionState extends State<Subscription> {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            _pickImage();
+                                            _pickImageForPhoto();
                                           },
                                           icon: Icon(
                                             Icons.edit,
@@ -1154,62 +1156,65 @@ class _SubscriptionState extends State<Subscription> {
                 /// Add this subscription button
                 Consumer<SubscriptionProvider>(
                   builder: (context, subscriptionProvider, child) {
-                    return InkWell(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            subscriptionProvider.storeSubscription(
+                    return Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
+                      return InkWell(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              subscriptionProvider.storeSubscription(
+                                image: _imagePhoto,
+                                document: _filePath ,
+                                providerId: categoryProvider.subCategoryID,
                                 description: descriptionController.text.trim(),
                                 startDate: _dateFormat.format(_selectedDate!),
-                                renewalDate:
-                                    _dateFormat.format(_selectedDate1!),
-                                billingCycle: selectedValue1.toString(),
-                                userId: AppConstant.getUserID,
+                                renewalDate: _dateFormat.format(_selectedDate1!),
+                                billingCycle: billingValue.toString(),
+                                categoryID: categoryProvider.categoryID,
                                 price: _monthlyPriceController.text.trim(),
-                                reminderDuration: selectedValue2.toString(),
-                                categoryID: "2",
-                                providerId: "2");
-                          }
-                        },
-                        child: Container(
-                          height: MySize.scaleFactorHeight * 48,
-                          width: MySize.scaleFactorWidth * 324,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(MySize.size24),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: AppColors.purpleBE,
-                                  spreadRadius: 2,
-                                  blurRadius: 25,
-                                  offset: Offset(0, 9),
-                                ),
-                                BoxShadow(
-                                  color: AppColors.purpleFF,
-                                  offset: Offset(-5, 0),
-                                ),
-                                BoxShadow(
-                                  color: AppColors.purpleFF,
-                                  offset: Offset(5, 0),
-                                )
-                              ]),
-                          child: subscriptionProvider.isStoreSub == true
-                              ? const Center(child: CircularProgressIndicator())
-                              : Center(
-                                  child: Text(
-                                    'Add this subscription',
-                                    style: TextStyle(
-                                      fontSize: MySize.size14,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Regular-Poppins',
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? Colors.white
-                                          : Colors.white,
-                                    ),
+                                reminderDuration: remindDurationValue.toString(),
+                              );
+                            }
+                          },
+                          child: Container(
+                            height: MySize.scaleFactorHeight * 48,
+                            width: MySize.scaleFactorWidth * 324,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(MySize.size24),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: AppColors.purpleBE,
+                                    spreadRadius: 2,
+                                    blurRadius: 25,
+                                    offset: Offset(0, 9),
                                   ),
+                                  BoxShadow(
+                                    color: AppColors.purpleFF,
+                                    offset: Offset(-5, 0),
+                                  ),
+                                  BoxShadow(
+                                    color: AppColors.purpleFF,
+                                    offset: Offset(5, 0),
+                                  )
+                                ]),
+                            child: subscriptionProvider.isStoreSub == true
+                                ? const Center(child: CircularProgressIndicator())
+                                : Center(
+                              child: Text(
+                                'Add this subscription',
+                                style: TextStyle(
+                                  fontSize: MySize.size14,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Regular-Poppins',
+                                  color: Provider.of<ThemeChanger>(context)
+                                      .themeData ==
+                                      darkMode
+                                      ? Colors.white
+                                      : Colors.white,
                                 ),
-                        ));
+                              ),
+                            ),
+                          ));
+                    },);
                   },
                 ),
                 const SizedBox(

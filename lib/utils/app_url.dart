@@ -12,12 +12,14 @@ class AppUrl{
   static String updatePassword = "changeUserPassword";
   static String subscriptions = "subscriptions";
   static String getSubscriptions = "subscriptions";
+  static String getScheduleData = "subscription-schedule/";
+  static String getSpendingBudget = "budget/calculate-budget-spend";
   static String activeSubscriptions = "user/active-subscriptions";
   static String termsAndConditions = "settings/terms_and_conditions";
   static String privacyAndPolicy = "settings/privacy_policy";
   static String addCategories = "categories";
   static String storeUserCategories = "user-categories";
-  static String getCategories = "categories";
+  static String getAllCategory = "subscription-categories";
   static String editeCategories = "categories/";//at the end id 2
   static String deleteCategories = "categories/";//at the end id
   static String deleteSubscriptions = "subscriptions/";//at the end id

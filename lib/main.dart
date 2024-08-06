@@ -16,6 +16,7 @@ import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
@@ -27,6 +28,7 @@ import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
 import 'Provider/bottom_bar_provider.dart';
+import 'Provider/spending_budget_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,6 +79,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => TermAndConditionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PrivacyAndPolicyProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SpendingBudgetProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {

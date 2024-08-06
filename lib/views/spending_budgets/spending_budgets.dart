@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -24,43 +25,23 @@ class SpendingBudgets extends StatefulWidget {
 }
 
 class _SpendingBudgetsState extends State<SpendingBudgets> {
-  List<String> titleText = ['Auto & Transport', 'Entertainment', 'Security'];
-  List<String> subtitleText = [
-    '\$375 left to spend',
-    '\$375 left to spend',
-    '\$375 left to spend'
-  ];
-
-  List<String> trailTitle = ['\$25.99', '\$50.99', '\$5.99'];
-  List<String> trailSubtitle = ['of \$400', 'of \$600', 'of \$600'];
-
   List<Color> gradientColors = [
     AppColors.accent100,
     const Color(0XFF758AFF),
     AppColors.purpleLine
   ];
 
-  List<int> lineMaxSteps = [30, 30, 30];
-  List<int> lineCurrentSteps = [10, 18, 24];
+  // List<int> lineMaxSteps = [30, 30, 30];
+  // List<int> lineCurrentSteps = [10, 18, 24];
 
-  List<Widget> myIcon = [
-    Image.asset(
-      AppImages.carIcon,
-      width: MySize.size32,
-      height: MySize.size32,
-    ),
-    Image.asset(
-      AppImages.starsIcon,
-      width: MySize.size32,
-      height: MySize.size32,
-    ),
-    Image.asset(
-      AppImages.fingerIcon,
-      width: MySize.size32,
-      height: MySize.size32,
-    ),
-  ];
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() =>
+        Provider.of<SpendingBudgetProvider>(context, listen: false)
+            .getSpendingBudget());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -227,16 +208,15 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
                     TextWidgetInterMedium(
-                        title: 'Your budgets are on track',
+                      title: 'Your budgets are on track',
                       fontSize: MySize.size16,
                       fontWeight: FontWeight.w600,
-                      color: Provider.of<ThemeChanger>(context)
-                          .themeData ==
-                          darkMode
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
                           ? const Color(0XFFFFFFFF)
-                          : const Color(0XFF424252),),
+                          : const Color(0XFF424252),
+                    ),
                     SizedBox(
                       width: MySize.size8,
                     ),
@@ -248,121 +228,184 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               SizedBox(
                 height: MySize.size16,
               ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: titleText.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: MySize.size8),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: MySize.size24),
-                          child: Container(
-                            height: MySize.scaleFactorHeight * 96,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(MySize.size16),
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0XFF4E4E61).withOpacity(0.2)
-                                    : const Color(0XFFF1F1FF),
-                                border: Border.all(
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFFCFCFFC)
-                                          .withOpacity(0.15)
-                                      : const Color(0XFFCFCFFC)
-                                          .withOpacity(0.15),
-                                )),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    titleText[index],
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: MySize.size16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? const Color(0XFFFFFFFF)
-                                          : const Color(0XFF424252),
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    subtitleText[index],
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: MySize.size12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? const Color(0xFFA2A2B5)
-                                          : const Color(0xFFA2A2B5),
-                                    ),
-                                  ),
-                                  leading: myIcon[index],
-                                  trailing: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        trailTitle[index],
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size14,
-                                          fontWeight: FontWeight.w600,
-                                          color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? const Color(0XFFFFFFFF)
-                                                  : const Color(0XFF424252),
-                                        ),
-                                      ),
-                                      Text(
-                                        trailSubtitle[index],
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size12,
-                                          fontWeight: FontWeight.w500,
-                                          color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? const Color(0XFFA2A2B5)
-                                                  : const Color(0XFFA2A2B5),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: MySize.size5,
-                                      left: MySize.size20,
-                                      right: MySize.size25),
-                                  child: LinearColorBar(
-                                      index: index,
-                                      lineMaxSteps: lineMaxSteps,
-                                      lineCurrentSteps: lineCurrentSteps,
-                                      gradientColors: gradientColors),
-                                )
-                              ],
-                            ),
+              Consumer<SpendingBudgetProvider>(
+                builder: (context, spendingBudgetProvider, child) {
+                  return spendingBudgetProvider.isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.green,
                           ),
-                        ),
-                      ],
-                    ),
-                  );
+                        )
+                      : spendingBudgetProvider.spendingBudgetData.isEmpty
+                          ? const Center(
+                              child: Text("Error please try again"),
+                            )
+                          : spendingBudgetProvider
+                                      .spendingBudgetData['data'].length ==
+                                  0
+                              ? const Center(
+                                  child: Text("Data not found"),
+                                )
+                              : ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: spendingBudgetProvider
+                                      .spendingBudgetData['data'].length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    var finalData = spendingBudgetProvider
+                                        .spendingBudgetData['data'][index];
+                                    return Padding(
+                                      padding:
+                                          EdgeInsets.only(bottom: MySize.size8),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: MySize.size24),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                showBudgetDialog(context , finalData['name']);
+                                              },
+
+                                              child: Container(
+                                                height:
+                                                    MySize.scaleFactorHeight * 96,
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            MySize.size16),
+                                                    color: Provider.of<ThemeChanger>(
+                                                                    context)
+                                                                .themeData ==
+                                                            darkMode
+                                                        ? const Color(0XFF4E4E61)
+                                                            .withOpacity(0.2)
+                                                        : const Color(0XFFF1F1FF),
+                                                    border: Border.all(
+                                                      color:
+                                                          Provider.of<ThemeChanger>(
+                                                                          context)
+                                                                      .themeData ==
+                                                                  darkMode
+                                                              ? const Color(
+                                                                      0XFFCFCFFC)
+                                                                  .withOpacity(
+                                                                      0.15)
+                                                              : const Color(
+                                                                      0XFFCFCFFC)
+                                                                  .withOpacity(
+                                                                      0.15),
+                                                    )),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ListTile(
+                                                      title: Text(
+                                                        finalData['name'] ?? "",
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                          fontSize: MySize.size16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: Provider.of<ThemeChanger>(
+                                                                          context)
+                                                                      .themeData ==
+                                                                  darkMode
+                                                              ? const Color(
+                                                                  0XFFFFFFFF)
+                                                              : const Color(
+                                                                  0XFF424252),
+                                                        ),
+                                                      ),
+                                                      subtitle: Text(
+                                                        "\$${finalData['left_to_spend'] ?? "0"} left to spend",
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                          fontSize: MySize.size12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Provider.of<ThemeChanger>(
+                                                                          context)
+                                                                      .themeData ==
+                                                                  darkMode
+                                                              ? const Color(
+                                                                  0xFFA2A2B5)
+                                                              : const Color(
+                                                                  0xFFA2A2B5),
+                                                        ),
+                                                      ),
+                                                      leading: Image.asset(
+                                                        AppImages.carIcon,
+                                                        width: MySize.size32,
+                                                        height: MySize.size32,
+                                                      ),
+                                                      trailing: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "\$${finalData['price'] ?? "0"}",
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: TextStyle(
+                                                              fontSize:
+                                                                  MySize.size14,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                              color: Provider.of<ThemeChanger>(
+                                                                              context)
+                                                                          .themeData ==
+                                                                      darkMode
+                                                                  ? const Color(
+                                                                      0XFFFFFFFF)
+                                                                  : const Color(
+                                                                      0XFF424252),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "of \$${finalData['total_budget'] ?? "0"}",
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: TextStyle(
+                                                              fontSize:
+                                                                  MySize.size12,
+                                                              fontWeight:
+                                                                  FontWeight.w500,
+                                                              color: Provider.of<ThemeChanger>(
+                                                                              context)
+                                                                          .themeData ==
+                                                                      darkMode
+                                                                  ? const Color(
+                                                                      0XFFA2A2B5)
+                                                                  : const Color(
+                                                                      0XFFA2A2B5),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          bottom: MySize.size5,
+                                                          left: MySize.size20,
+                                                          right: MySize.size25),
+
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                 },
               ),
               Padding(
@@ -370,7 +413,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                     horizontal: MySize.size24, vertical: MySize.size8),
                 child: GestureDetector(
                   onTap: () {
-                    Provider.of<CategoryProvider>(context,listen: false).displayDialog(context: context);
+                    Provider.of<CategoryProvider>(context, listen: false)
+                        .displayDialog(context: context);
                   },
                   child: DottedBorder(
                     dashPattern: const [6, 6, 6, 6],
@@ -443,4 +487,66 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
       ),
     );
   }
+
+
+  void showBudgetDialog(BuildContext context, String categoryName) {
+    TextEditingController priceController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(child: Text('Budget and Price')),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('This is the budget of $categoryName'),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Price:'),
+                  TextField(
+                    controller: priceController,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter price',
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel', style: TextStyle(color: Colors.red)),
+                ),
+                const SizedBox(width: 18),
+                TextButton(
+                  onPressed: () {
+                    // Handle the submission of data here
+                    print('Price: ${priceController.text}');
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Submit', style: TextStyle(color: Colors.blue)),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
