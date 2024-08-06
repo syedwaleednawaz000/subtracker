@@ -83,48 +83,58 @@ class _ContactSupportState extends State<ContactSupport> {
                   ),
                 ),
                 SizedBox(height: MySize.size10,),
-                DropdownMenu(
-                  hintText:"Select Issue",
-                  textStyle:  TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0XFFFFFFFF)
-                        : const Color(0XFFD2D2D2),
+        Consumer<ContactWithSupportProvider>(
+          builder: (context, issuesProvider, child) {
+            if (issuesProvider.isLoading) {
+              return const Center(child: CircularProgressIndicator(color: Colors.green,));
+            } else if (issuesProvider.issues.isEmpty) {
+              return const Center(child: Text('No issues found'));
+            } else {
+              return DropdownMenu(
+                onSelected: (value) {
+                  print("this is ${value}");
+                },
+                hintText: "Select Issue",
+                textStyle: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFFFFFFFF)
+                      : const Color(0XFFD2D2D2),
                 ),
-                  width: MySize.scaleFactorWidth* 340,
-                    inputDecorationTheme: InputDecorationTheme(
-                      constraints: const BoxConstraints(
-                        maxWidth: 330,
-                        maxHeight: 50
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:  BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? const Color(0XFF757784)
-                                  : const Color(0XFFE2E2E2),),
-                        borderRadius: const BorderRadius.all(Radius.circular(4))
-                      ),
-                      focusedBorder:  OutlineInputBorder(
-                        borderSide:  BorderSide(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? const Color(0XFF757784)
-                                : const Color(0XFFE2E2E2),
-                        ),
-                      ),
-                      isDense: true,
-
+                width: MySize.scaleFactorWidth * 340,
+                inputDecorationTheme: InputDecorationTheme(
+                  constraints: const BoxConstraints(
+                      maxWidth: 330,
+                      maxHeight: 50
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF757784)
+                            : const Color(0XFFE2E2E2),),
+                      borderRadius: const BorderRadius.all(Radius.circular(4))
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? const Color(0XFF757784)
+                          : const Color(0XFFE2E2E2),
                     ),
-                    dropdownMenuEntries: const [
-                  DropdownMenuEntry(value: 1, label: 'Account and Billing', ),
-                  DropdownMenuEntry(value: 2, label: 'App Functionality',),
-                  DropdownMenuEntry(value: 3, label: 'Subscription Management',),
-                  DropdownMenuEntry(value: 5, label: 'Data and Privacy',),
-                  DropdownMenuEntry(value: 6, label: 'Other Issues',),
-
-                ],
-                trailingIcon: const Icon(Icons.expand_more),
+                  ),
+                  isDense: true,
                 ),
+                dropdownMenuEntries: issuesProvider.issues.map((issue) {
+                  return DropdownMenuEntry(
+                    value: issue['id'],
+                    label: issue['title'],
+                  );
+                }).toList(),
+                trailingIcon: const Icon(Icons.expand_more),
+              );
+            }
+          },
+        ),
 
                 SizedBox(height: MySize.size14,),
                 Text( 'Subject',

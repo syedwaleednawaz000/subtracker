@@ -9,24 +9,28 @@ import 'package:sub_tracker/views/calendar_screen/Model/schedule_model.dart';
 
 class ContactWithSupportProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
-  // List<ScheduleModel> scheduleModelData = [];
-  Map<String , dynamic> issuesType = {};
-  bool isLoading = false;
+  bool _isLoading = true;
+  List<dynamic> _issues = [];
+
+  bool get isLoading => _isLoading;
+  List<dynamic> get issues => _issues;
   Future<void> getTicketIssuesTypes() async {
-    isLoading = true;
+    _isLoading = true;
     notifyListeners();
     try {
       Response response = await _apiService.getTicketIssuesTypes();
       if (response.statusCode == 200) {
-        isLoading = false;
-        issuesType = response.data;
+        _isLoading = false;
+        final data = response.data;
+        _issues = data['data'];
         notifyListeners();
       }
     } catch (error) {
-      isLoading = false;
+      _isLoading = false;
       notifyListeners();
       log("Error fetching getTicketIssuesTypes: $error");
     } finally {
+      _isLoading = false;
       print("its final ");
       notifyListeners();
     }
