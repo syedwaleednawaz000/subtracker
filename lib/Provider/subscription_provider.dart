@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,40 +29,62 @@ class SubscriptionProvider extends ChangeNotifier{
     _isStoreSub = load;
     notifyListeners();
   }
-  Future<void> storeSubscription({required String  description ,required String startDate ,
-    required String renewalDate, required String billingCycle, required String userId,
-    required String price, required String reminderDuration, required String categoryID,
-    required String providerId})async{
+  Future<void> storeSubscription({
+    required String description,
+    required String startDate,
+    required String renewalDate,
+    required String billingCycle,
+    required String price,
+    required String reminderDuration,
+    required String categoryID,
+    required String providerId,
+    XFile? image,
+    FilePickerResult? document,
+  }) async {
     _storeSubLoading(load: true);
     String cleanedPrice = price.replaceAll('\$', '');
-    var body = {
-      'description': description.toString(),
-      'start_date': startDate.toString(),
+
+    FormData formData = FormData.fromMap({
+      'category_id': categoryID,
+      'provider_id': providerId,
+      'description': description,
+      'start_date': startDate,
       'renewal_date': renewalDate,
       'billing_cycle': billingCycle,
+      'reminder': reminderDuration,
       'price': cleanedPrice,
-      'reminder_duration': reminderDuration,
-      'category_id': categoryID,
-      'user_id': userId,
-      'provider_id': providerId
-    };
-    try{
-      Response response = await _apiService.storeSubscriptions(params: body);
-      if(response.statusCode == 200){
+    });
+
+    if (image != null) {
+      formData.files.add(MapEntry(
+        'image',
+        await MultipartFile.fromFile(image.path.toString(), filename: image.path.split('/').last),
+      ));
+    }
+    if (document != null) {
+      formData.files.add(MapEntry(
+        'document',
+        await MultipartFile.fromFile(document.files[0].path.toString(), filename: document.files[0].path.toString().split('/').last),
+      ));
+    }
+
+    try {
+      Response response = await _apiService.storeSubscriptions(params: formData);
+      if (response.statusCode == 200) {
         _storeSubLoading(load: false);
-        FlutterToast.toastMessage(message: "Subscription added successfully",);
-        Get.to(()=>SubscriptionInfo(subscriptionInfoData: {}),);
+        FlutterToast.toastMessage(message: "Subscription added successfully");
+        Get.back();
+        // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
         if (kDebugMode) {
           print("hit successfully");
         }
-        // Get.back();
-      }else{
+      } else {
         _storeSubLoading(load: false);
         if (kDebugMode) {
           print("hit successfully in else ");
         }
       }
-    }catch(error){
+    } catch (error) {
       _storeSubLoading(load: false);
       print("this is error ${error.toString()}");
     }

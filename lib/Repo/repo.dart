@@ -98,9 +98,9 @@ class ApiService {
     );
   }
 
-  Future<Response> getCategories({var params}) {
+  Future<Response> getAllCategory({var params}) {
     return apiClient.get(
-      url: AppUrl.getCategories,
+      url: AppUrl.getAllCategory,
     );
   }
 
@@ -153,6 +153,11 @@ class ApiService {
   Future<Response> getSubscriptions({var params}) {
     return apiClient.get(
       url: AppUrl.getSubscriptions,
+    );
+  }
+  Future<Response> getScheduleData({required String date}) {
+    return apiClient.get(
+      url: AppUrl.getScheduleData+date,
     );
   }
   Future<Response> activeSubscriptions({var params}) {

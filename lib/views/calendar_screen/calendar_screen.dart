@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
@@ -20,7 +21,12 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   int _selectedMonth = DateTime.now().month;
-
+  @override
+  void initState() {
+    Future.microtask(() => Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: ""));
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
@@ -113,19 +119,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            '3 subscriptions for today',
-                            style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.w600,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0xFFA2A2B5)
-                                  : const Color(0xFFA2A2B5),
-                              fontFamily: 'Inter',
-                            ),
-                          ),
+                          Consumer<ScheduleProvider>(builder: (context, scheduleProvider, child) {
+                            int length =0;
+                            if (scheduleProvider.scheduleModelData.isNotEmpty) {
+                              if(scheduleProvider.scheduleModelData[0].data!.providers!.isNotEmpty){
+                                length = scheduleProvider.scheduleModelData[0].data!.providers!.length;
+                              }else{
+                              print("provider is empty");
+                              }
+                            }else{
+                              print( "model data ia sempty");
+                            }
+                            return                           Text(
+                              '$length subscriptions for today',
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.w600,
+                                color: Provider.of<ThemeChanger>(context)
+                                    .themeData ==
+                                    darkMode
+                                    ? const Color(0xFFA2A2B5)
+                                    : const Color(0xFFA2A2B5),
+                                fontFamily: 'Inter',
+                              ),
+                            );
+                          },),
                           const Spacer(),
                           Container(
 
@@ -161,6 +179,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 if (newValue != null) {
                                   setState(() {
                                     _selectedMonth = newValue;
+                                    print('this is drop ${_selectedMonth} :: ${newValue}');
                                   });
                                 }
                               },
@@ -183,7 +202,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         onDateSelected: (DateTime date) {
                           setState(() {
                           });
-                          print('Selected Date: ${date.toLocal()}');
+                          final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
+                          Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: _dateFormat.format(date));
+                          // _dateFormat.format(date);
+                          print('Selected Date: ${_dateFormat.format(date)}');
                         },
                       ),
                     ],

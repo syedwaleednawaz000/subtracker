@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
@@ -24,18 +23,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  bool isSelected = false;
 
   @override
   void initState() {
-    Future.microtask(() =>
-        Provider.of<SubscriptionProvider>(context, listen: false)
-            .getSubscriptions());
-    Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false)
-        .getProfile(userID: ""));
+    Future.microtask(() => Provider.of<SubscriptionProvider>(context, listen: false).getSubscriptions());
+    Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false).getProfile(userID: ""));
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -51,10 +45,9 @@ class _HomeScreenState extends State<HomeScreen>
     MySize().init(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor:
-            Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF1C1C23)
-                : const Color(0XFFF7F7FF),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+            ? const Color(0XFF1C1C23)
+            : const Color(0XFFF7F7FF),
         body: Consumer<SubscriptionProvider>(
           builder: (context, subscriptionProvider, child) {
             var data;
@@ -63,151 +56,144 @@ class _HomeScreenState extends State<HomeScreen>
             }
             return subscriptionProvider.isSubscription
                 ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.green,
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            )
+                : subscriptionProvider.subscriptionData['data'] == null
+                ? const Center(child: Text("data are not available"))
+                : NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: CustomContainer(
+                          activeSubscription: data['activesub'].toString() == null ? data['activesub'].toString() : "0",
+                          highestSubscription: data['highsub'].toString() == null ? data['highsub'].toString() : "0",
+                          lowestSubscription: data['lowsub'].toString() == null ? data['lowsub'].toString() : "0",
+                          monthlyBill: data['monthlybill'].toString() == null ? data['monthlybill'].toString() : "0",
+                          totalBudget: data['totalBudget'].toString() == null ? data['totalBudget'].toString() : "0",
+                        ),
+                      ),
+                      SizedBox(
+                        height: MySize.scaleFactorHeight * 21,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: MySize.size24),
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            // horizontal: MySize.scaleFactorWidth * 9,
+                              vertical: MySize.scaleFactorHeight * 7),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(MySize.size16),
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFF0E0E12)
+                            // ? Colors.orange
+                                : const Color(0XFFFFFFFF),
+                          ),
+                          child: TabBar(
+                            indicatorPadding: const EdgeInsets.symmetric(vertical: 3),
+                            indicator: BoxDecoration(
+                              borderRadius: BorderRadius.circular(MySize.size16),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0xFF4E4E61).withOpacity(0.20)
+                                  : const Color(0xFFCFCFFC).withOpacity(0.3),
+                            ),
+                            indicatorColor: Colors.transparent,
+                            controller: _tabController,
+                            unselectedLabelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFFA2A2B5)
+                                : const Color(0XFFA2A2B5),
+                            labelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFFFFFFFF)
+                                : const Color(0XFF424252),
+                            tabs: [
+                              Tab(
+                                child: Center(
+                                  child: Text(
+                                    'Your subscriptions',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: MySize.size12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                child: Center(
+                                  child: Text(
+                                    'Upcoming bills',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: MySize.size12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MySize.scaleFactorHeight * 21,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              body: TabBarView(
+                controller: _tabController,
+                children: [
+                  data['subscriptions'].length == 0
+                      ? Center(
+                    child: Text(
+                      "No Data found",
+                      style: TextStyle(
+                          fontSize: MySize.size14,
+                          fontWeight: FontWeight.w600,
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black),
                     ),
                   )
-                : subscriptionProvider.subscriptionData['data'] == null
-                    ? const Center(child: Text("datae are not available"))
-                    : SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: CustomContainer(
-                                activeSubscription: data['activesub'].toString()  == null ?data['activesub'].toString():"0",
-                                highestSubscription: data['highsub'].toString() == null ?data['highsub'].toString():"0",
-                                lowestSubscription: data['lowsub'].toString() == null ? data['lowsub'].toString():"0",
-                                monthlyBill: data['monthlybill'].toString() == null ?data['monthlybill'].toString():"0",
-                                totalBudget: data['totalBudget'].toString() == null ?data['totalBudget'].toString():"0",
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.scaleFactorHeight * 21,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: MySize.size24),
-                              child: Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.symmetric(
-                                    // horizontal: MySize.scaleFactorWidth * 9,
-                                    vertical: MySize.scaleFactorHeight * 7),
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.circular(MySize.size16),
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFF0E0E12)
-                                      // ? Colors.orange
-                                      : const Color(0XFFFFFFFF),
-                                ),
-                                child: TabBar(
-                                  indicatorPadding:
-                                      const EdgeInsets.symmetric(vertical: 3),
-                                  indicator: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(MySize.size16),
-                                    color: Provider.of<ThemeChanger>(context)
-                                                .themeData ==
-                                            darkMode
-                                        ? const Color(0xFF4E4E61)
-                                            .withOpacity(0.20)
-                                        : const Color(0xFFCFCFFC)
-                                            .withOpacity(0.3),
-
-                                  ),
-                                  indicatorColor: Colors.transparent,
-                                  controller: _tabController,
-                                  unselectedLabelColor:
-                                      Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? const Color(0XFFA2A2B5)
-                                          : const Color(0XFFA2A2B5),
-                                  labelColor: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFFFFFFFF)
-                                      : const Color(0XFF424252),
-                                  tabs: [
-                                    Tab(
-                                      child: Center(
-                                        child: Text(
-                                          'Your subscriptions',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: MySize.size12,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: Center(
-                                        child: Text(
-                                          'Upcoming bills',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: MySize.size12,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.size100,
-                              child: TabBarView(
-                                controller: _tabController,
-                                children: [
-                                  data['subscriptions'].length == 0
-                                      ? Center(
-                                          child: Text(
-                                            "No Data found",
-                                            style: TextStyle(
-                                                fontSize: MySize.size14,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : Colors.black),
-                                          ),
-                                        )
-                                      : SubscriptionWidget(
-                                          subscriptions: data['subscriptions'],
-                                        ),
-                                  data['upcommingbills'].length == 0
-                                      ? Center(
-                                          child: Text(
-                                            "No Data found",
-                                            style: TextStyle(
-                                                fontSize: MySize.size14,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : Colors.black),
-                                          ),
-                                        )
-                                      : UpComingBillWidget(
-                                          upComingBills: data['upcommingbills'])
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                      : ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: data['subscriptions'].length,
+                    itemBuilder: (context, index) {
+                      return SubscriptionWidget(
+                        subscriptions: data['subscriptions'],
                       );
+                    },
+                  ),
+                  data['upcommingbills'].length == 0
+                      ? Center(
+                    child: Text(
+                      "No Data found",
+                      style: TextStyle(
+                          fontSize: MySize.size14,
+                          fontWeight: FontWeight.w600,
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black),
+                    ),
+                  )
+                      : ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: data['upcommingbills'].length,
+                    itemBuilder: (context, index) {
+                      return UpComingBillWidget(
+                        upComingBills: data['upcommingbills'],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
           },
         ),
       ),

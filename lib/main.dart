@@ -16,6 +16,7 @@ import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
@@ -77,6 +78,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => TermAndConditionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PrivacyAndPolicyProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => ScheduleProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {
