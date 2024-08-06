@@ -160,6 +160,11 @@ class ApiService {
       url: AppUrl.getScheduleData+date,
     );
   }
+  Future<Response> getSpendingBudget() {
+    return apiClient.get(
+      url: AppUrl.getSpendingBudget,
+    );
+  }
   Future<Response> activeSubscriptions({var params}) {
     return apiClient.get(
       url: AppUrl.activeSubscriptions,

@@ -13,6 +13,7 @@ class AppUrl{
   static String subscriptions = "subscriptions";
   static String getSubscriptions = "subscriptions";
   static String getScheduleData = "subscription-schedule/";
+  static String getSpendingBudget = "budget/calculate-budget-spend";
   static String activeSubscriptions = "user/active-subscriptions";
   static String termsAndConditions = "settings/terms_and_conditions";
   static String privacyAndPolicy = "settings/privacy_policy";

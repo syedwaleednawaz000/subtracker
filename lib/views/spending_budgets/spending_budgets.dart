@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -24,15 +25,9 @@ class SpendingBudgets extends StatefulWidget {
 }
 
 class _SpendingBudgetsState extends State<SpendingBudgets> {
-  List<String> titleText = ['Auto & Transport', 'Entertainment', 'Security'];
-  List<String> subtitleText = [
-    '\$375 left to spend',
-    '\$375 left to spend',
-    '\$375 left to spend'
-  ];
 
-  List<String> trailTitle = ['\$25.99', '\$50.99', '\$5.99'];
-  List<String> trailSubtitle = ['of \$400', 'of \$600', 'of \$600'];
+
+
 
   List<Color> gradientColors = [
     AppColors.accent100,
@@ -40,28 +35,16 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
     AppColors.purpleLine
   ];
 
-  List<int> lineMaxSteps = [30, 30, 30];
-  List<int> lineCurrentSteps = [10, 18, 24];
-
-  List<Widget> myIcon = [
-    Image.asset(
-      AppImages.carIcon,
-      width: MySize.size32,
-      height: MySize.size32,
-    ),
-    Image.asset(
-      AppImages.starsIcon,
-      width: MySize.size32,
-      height: MySize.size32,
-    ),
-    Image.asset(
-      AppImages.fingerIcon,
-      width: MySize.size32,
-      height: MySize.size32,
-    ),
-  ];
+  // List<int> lineMaxSteps = [30, 30, 30];
+  // List<int> lineCurrentSteps = [10, 18, 24];
 
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<SpendingBudgetProvider>(context,listen: false).getSpendingBudget());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
@@ -247,99 +230,108 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               ),
               SizedBox(
                 height: MySize.size16,
-              ),
-              ListView.builder(
+              ), 
+            Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
+              return spendingBudgetProvider.isLoading ?const Center(child: CircularProgressIndicator(color: Colors.green,),)
+                  : spendingBudgetProvider.spendingBudgetData.isEmpty ? const Center(child: Text("Error please try again"),)
+                  : spendingBudgetProvider.spendingBudgetData['data'].length ==0  ?  const Center(child: Text("Data not found"),)   :           ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: titleText.length,
+                itemCount: spendingBudgetProvider.spendingBudgetData['data'].length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  var finalData = spendingBudgetProvider.spendingBudgetData['data'][index];
                   return Padding(
                     padding: EdgeInsets.only(bottom: MySize.size8),
                     child: Column(
                       children: [
                         Padding(
                           padding:
-                              EdgeInsets.symmetric(horizontal: MySize.size24),
+                          EdgeInsets.symmetric(horizontal: MySize.size24),
                           child: Container(
                             height: MySize.scaleFactorHeight * 96,
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.circular(MySize.size16),
+                                BorderRadius.circular(MySize.size16),
                                 color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
+                                    .themeData ==
+                                    darkMode
                                     ? const Color(0XFF4E4E61).withOpacity(0.2)
                                     : const Color(0XFFF1F1FF),
                                 border: Border.all(
                                   color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
+                                      .themeData ==
+                                      darkMode
                                       ? const Color(0XFFCFCFFC)
-                                          .withOpacity(0.15)
+                                      .withOpacity(0.15)
                                       : const Color(0XFFCFCFFC)
-                                          .withOpacity(0.15),
+                                      .withOpacity(0.15),
                                 )),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ListTile(
                                   title: Text(
-                                    titleText[index],
+                                    finalData['name'] ??"",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: MySize.size16,
                                       fontWeight: FontWeight.w600,
                                       color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
+                                          .themeData ==
+                                          darkMode
                                           ? const Color(0XFFFFFFFF)
                                           : const Color(0XFF424252),
                                     ),
                                   ),
                                   subtitle: Text(
-                                    subtitleText[index],
+                                    "\$${finalData['left_to_spend']??"0"} left to spend",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: MySize.size12,
                                       fontWeight: FontWeight.w500,
                                       color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
+                                          .themeData ==
+                                          darkMode
                                           ? const Color(0xFFA2A2B5)
                                           : const Color(0xFFA2A2B5),
                                     ),
                                   ),
-                                  leading: myIcon[index],
+
+                                  leading:     Image.asset(
+                                    AppImages.carIcon,
+                                    width: MySize.size32,
+                                    height: MySize.size32,
+                                  ),
                                   trailing: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        trailTitle[index],
+                                        "\$${finalData['price']??"0"}",
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           fontSize: MySize.size14,
                                           fontWeight: FontWeight.w600,
                                           color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? const Color(0XFFFFFFFF)
-                                                  : const Color(0XFF424252),
+                                          Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                              darkMode
+                                              ? const Color(0XFFFFFFFF)
+                                              : const Color(0XFF424252),
                                         ),
                                       ),
                                       Text(
-                                        trailSubtitle[index],
+                                        "of \$${finalData['total_budget']??"0"}",
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           fontSize: MySize.size12,
                                           fontWeight: FontWeight.w500,
                                           color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
-                                                  ? const Color(0XFFA2A2B5)
-                                                  : const Color(0XFFA2A2B5),
+                                          Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                              darkMode
+                                              ? const Color(0XFFA2A2B5)
+                                              : const Color(0XFFA2A2B5),
                                         ),
                                       ),
                                     ],
@@ -350,11 +342,13 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       bottom: MySize.size5,
                                       left: MySize.size20,
                                       right: MySize.size25),
-                                  child: LinearColorBar(
-                                      index: index,
-                                      lineMaxSteps: lineMaxSteps,
-                                      lineCurrentSteps: lineCurrentSteps,
-                                      gradientColors: gradientColors),
+                                  // child: LinearColorBar(
+                                  //     index: index,
+                                  //     lineMaxSteps: lineMaxSteps,
+                                  //     lineCurrentSteps: lineCurrentSteps,
+                                  //     gradientColors: gradientColors
+                                  //
+                                  // ),
                                 )
                               ],
                             ),
@@ -364,7 +358,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                     ),
                   );
                 },
-              ),
+              );
+            },),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MySize.size24, vertical: MySize.size8),

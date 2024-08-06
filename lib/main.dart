@@ -28,6 +28,7 @@ import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
 import 'Provider/bottom_bar_provider.dart';
+import 'Provider/spending_budget_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,6 +80,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PrivacyAndPolicyProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SpendingBudgetProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {
