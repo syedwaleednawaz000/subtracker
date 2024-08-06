@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../Provider/category_provider.dart';
 import '../../notification_screen/notification_screen.dart';
@@ -25,18 +28,21 @@ class SpendingBudgets extends StatefulWidget {
 }
 
 class _SpendingBudgetsState extends State<SpendingBudgets> {
+  List<Color> generateRandomColors(int count) {
+    Random random = Random();
+    List<Color> colors = [];
+    for (int i = 0; i < count; i++) {
+      colors.add(Color.fromARGB(
+        255,
+        random.nextInt(256),
+        random.nextInt(256),
+        random.nextInt(256),
+      ));
+    }
+    return colors;
+  }
 
-
-
-
-  List<Color> gradientColors = [
-    AppColors.accent100,
-    const Color(0XFF758AFF),
-    AppColors.purpleLine
-  ];
-
-  // List<int> lineMaxSteps = [30, 30, 30];
-  // List<int> lineCurrentSteps = [10, 18, 24];
+  List<Color> randomColors = [];
 
 
   @override
@@ -230,7 +236,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               ),
               SizedBox(
                 height: MySize.size16,
-              ), 
+              ),
             Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
               return spendingBudgetProvider.isLoading ?const Center(child: CircularProgressIndicator(color: Colors.green,),)
                   : spendingBudgetProvider.spendingBudgetData.isEmpty ? const Center(child: Text("Error please try again"),)
@@ -240,6 +246,11 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   var finalData = spendingBudgetProvider.spendingBudgetData['data'][index];
+                  double totalBudget = finalData['total_budget'] != null? double.parse(finalData['total_budget'].toString()) : 1.0; // Avoid division by zero
+                  double spentBudget = finalData['price']!= null? double.parse(finalData['price'].toString()) : 0.0;
+                  double progressPercentage = (spentBudget / totalBudget) * 1;
+                  randomColors = generateRandomColors(spendingBudgetProvider.spendingBudgetData['data'].length);
+
                   return Padding(
                     padding: EdgeInsets.only(bottom: MySize.size8),
                     child: Column(
@@ -342,6 +353,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       bottom: MySize.size5,
                                       left: MySize.size20,
                                       right: MySize.size25),
+                                  child: LinearColorBarWidget(color: randomColors[index],progress: progressPercentage),
                                   // child: LinearColorBar(
                                   //     index: index,
                                   //     lineMaxSteps: lineMaxSteps,

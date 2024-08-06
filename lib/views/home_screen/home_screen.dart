@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen>
                         data['subscriptions'].length == 0
                             ? Center(
                           child: Text(
-                            "No Data found",
+                            "Your subscriptions are not available",
                             style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.w600,
@@ -195,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen>
                         data['upcommingbills'].length == 0
                             ? Center(
                           child: Text(
-                            "No Data found",
+                            "Your upcoming bills are not available",
                             style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.w600,
