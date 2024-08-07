@@ -153,9 +153,6 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
               );
             },
             ),
-
-
-
           ],
         ),
       ],
