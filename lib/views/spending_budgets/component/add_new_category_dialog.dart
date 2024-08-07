@@ -69,20 +69,29 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
               Row(
                 children: [
                   SizedBox(
-                    width: 103,
-                    child: Center(child: Text("Category"),),
+                    width: MySize.scaleFactorWidth*115,
+                    child: Center(child: Text("Category",
+                    style:TextStyle(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                    )
+                    ),),
                   ),
-                  SizedBox(width: 15,),
+                  SizedBox(width: MySize.size5,),
                   SizedBox(
                     width: 103,
-                    child: Center(child: Text("Provider"),),
+                    child: Center(child: Text("Provider",
+                    style: TextStyle(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                    ),
+                    ),),
                   ),
                 ],
               ),
+              SizedBox(height: MySize.size10,),
               Row(
                 children: [
                   SizedBox(
-                    width: 103,
+                    width: MySize.scaleFactorWidth*115,
                     child: GestureDetector(
                       onTap: pickCategoryImage,
                       child: SizedBox(
@@ -139,7 +148,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 15,),
+                  SizedBox(width: MySize.size15,),
                   SizedBox(
                     width: 103,
                     child: GestureDetector(

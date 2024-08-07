@@ -22,7 +22,11 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Center(child: Text('Set budget')),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.black,
+      title:  Center(child: Text('Set budget',
+      style: TextStyle(
+        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+      ),)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,20 +34,32 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Set total budget for ${widget.categoryName}'),
+              Text('Set total budget for ${widget.categoryName}',style: TextStyle(
+                color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+
+              ),),
             ],
           ),
           const SizedBox(height: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Total budget:'),
-              const SizedBox(height: 10),
+               Text('Total budget:',style: TextStyle(
+                color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                 ),
+               ),
+               SizedBox(height: MySize.size20),
               SizedBox(
-                height: MySize.size60,
+                height: MySize.size80,
                 width: MySize.scaleFactorWidth * 260,
                 child: TextFormField(
-                  cursorColor: Colors.black38,
+                  cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                  style: TextStyle(
+                    fontSize: MySize.size14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Inter',
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                  ),
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
@@ -51,29 +67,31 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
                   controller: priceController,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(vertical: MySize.size10, horizontal: MySize.size10),
+                    labelText: 'Total budget',
+                    labelStyle: TextStyle(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                    ),
                     hintText: 'Enter total budget',
+                    hintStyle: TextStyle(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+
+                    ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(MySize.size16),
-                      borderSide: BorderSide(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFFFFFFFF)
-                            : Colors.black45,
-                      ),
+                      borderRadius: BorderRadius.circular(MySize.size15),
+                      borderSide: BorderSide(color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : AppColors.grey20),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(MySize.size16),
+                      borderRadius: BorderRadius.circular(MySize.size15),
                       borderSide: BorderSide(
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFFFFFFFF)
-                            : Colors.black45,
+                            ?  Colors.black
+                            : Colors.white,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(MySize.size16),
+                      borderRadius: BorderRadius.circular(MySize.size15),
                       borderSide: BorderSide(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFFFFFFFF)
-                            : Colors.black45,
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white, // Color for unselected border
                       ),
                     ),
                   ),
