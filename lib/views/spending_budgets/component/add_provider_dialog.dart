@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,13 +27,18 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Center(child: Text('Add Provider')),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.black,
+      title:  Center(child: Text('Add Provider',
+        style: TextStyle(
+          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+        ),
+      )),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: MySize.size110,
+            width: MySize.size240,
             child: GestureDetector(
               onTap: pickProviderImage,
               child: DottedBorder(
@@ -41,11 +48,12 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
                 borderType: BorderType.RRect,
                 radius: Radius.circular(MySize.size12),
                 child: SizedBox(
-                  height: MySize.scaleFactorHeight * 70,
-                  width: MySize.size120, // Adjust width as needed
+                  height: MySize.scaleFactorHeight * 85,
+                  width: MySize.size240,
                   child: _pickProviderImage == null
                       ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
                       Text(
                         'Add  Image',
@@ -86,20 +94,37 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
               ),
             ),
           ),
-          const Text('Provider name:'),
-          const SizedBox(height: 10,),
+           SizedBox(height: MySize.size10,),
+           Text('Provider name:',
+            style: TextStyle(
+              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+
+            ),
+          ),
+           SizedBox(height: MySize.size20,),
           SizedBox(
             height: MySize.size60,width: MySize.scaleFactorWidth*260,
             child: TextFormField(
-              cursorColor: Colors.black38,
-              // keyboardType: const TextInputType.te,
-              // inputFormatters: <TextInputFormatter>[
-              //   FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-              // ],
+              cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+              style: TextStyle(
+                fontSize: MySize.size14,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Inter',
+                color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+              ),
               controller: priceController,
               decoration:  InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: MySize.size10,horizontal: MySize.size10),
+
+                labelText: ' Provider Name',
+                labelStyle: TextStyle(
+                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+                ),
                 hintText: 'Enter provider name',
+                hintStyle: TextStyle(
+                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
+
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(MySize.size16),
                   borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
@@ -109,21 +134,17 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
                       : Colors.black45),),
 
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(MySize.size16),
-                  borderSide:  BorderSide(
-                      color: Provider.of<ThemeChanger>(context)
-                          .themeData ==
-                          darkMode
-                          ? const Color(0XFFFFFFFF)
-                          : Colors.black45),
+                  borderRadius: BorderRadius.circular(MySize.size15),
+                  borderSide: BorderSide(
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white, // Color for unselected border
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(MySize.size16),
-                  borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
-                      .themeData ==
-                      darkMode
-                      ? const Color(0XFFFFFFFF)
-                      : Colors.black45),),
+                  borderRadius: BorderRadius.circular(MySize.size15),
+                  borderSide: BorderSide(
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white, // Color for unselected border
+                  ),
+                ),
               ),
             ),
           ),
