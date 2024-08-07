@@ -38,8 +38,12 @@ class SpendingBudgetProvider extends ChangeNotifier{
   Future<void> budgetSet({required String price , required String categoryID}) async {
     isBudgetSetLoading = true;
     notifyListeners();
+    Map<String , dynamic> body ={
+      'category_id': categoryID,
+      'budget': price
+    };
     try {
-      Response response = await _apiService.setBudget();
+      Response response = await _apiService.setBudget(params: body);
       if (response.statusCode == 200) {
         isBudgetSetLoading = false;
         getSpendingBudget();

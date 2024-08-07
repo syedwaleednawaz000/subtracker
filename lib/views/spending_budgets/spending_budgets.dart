@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
 import 'package:sub_tracker/views/spending_budgets/component/set_budget_dialog.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -255,7 +256,11 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
 
                     return GestureDetector(
                       onTap: (){
-                        showBudgetDialog(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
+                        if(finalData['total_budget'] == null){
+                          showBudgetDialog(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
+                        }else{
+                          FlutterToast.toastMessage(message: "Budget is already set");
+                        }
                       },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: MySize.size8),
