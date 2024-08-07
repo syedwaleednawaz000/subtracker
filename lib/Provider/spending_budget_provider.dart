@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/calendar_screen/Model/schedule_model.dart';
@@ -42,6 +43,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
       if (response.statusCode == 200) {
         isBudgetSetLoading = false;
         getSpendingBudget();
+        Get.back();
         FlutterToast.toastMessage(message: "Budget set Successfully");
         notifyListeners();
       }

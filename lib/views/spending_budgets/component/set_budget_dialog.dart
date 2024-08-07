@@ -89,7 +89,7 @@ class SetBudgetDialog extends StatelessWidget {
               return             TextButton(
                 onPressed: () {
                   spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: categoryId);
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
                 },
                 child: const Text('Submit', style: TextStyle(color: Colors.blue)),
               );
