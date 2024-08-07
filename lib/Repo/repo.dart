@@ -89,10 +89,13 @@ class ApiService {
   Future<Response> addCategories({var params}) {
     return apiClient.post(url: AppUrl.addCategories, params: params);
   }
-
+  Future<Response> addProviderInUserCategory({var params}) {
+    return apiClient.post(url: AppUrl.addProviderInUserCategory, params: params);
+  }
   Future<Response> storeSubscriptions({var params}) {
     return apiClient.post(url: AppUrl.subscriptions, params: params);
   }
+
 
   Future<Response> sendSupportRequest({var params}) {
     return apiClient.post(url: AppUrl.sendSupportRequest, params: params);

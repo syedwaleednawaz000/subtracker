@@ -13,12 +13,13 @@ class AppUrl{
   static String subscriptions = "subscriptions";
   static String sendSupportRequest = "tickets";
   static String getSubscriptions = "subscriptions";
+  static String addCategories = "categories";
+  static String addProviderInUserCategory = "providers/add";
   static String getScheduleData = "subscription-schedule/";
   static String getSpendingBudget = "budget/calculate-budget-spend";
   static String activeSubscriptions = "user/active-subscriptions";
   static String termsAndConditions = "settings/terms_and_conditions";
   static String privacyAndPolicy = "settings/privacy_policy";
-  static String addCategories = "categories";
   static String getTicketIssuesTypes = "ticket-issues";
   static String storeUserCategories = "user-categories";
   static String setBudget = "set-budget";
