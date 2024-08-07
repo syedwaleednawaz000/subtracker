@@ -86,6 +86,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -94,7 +95,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
             ),
             const SizedBox(width: 18),
             Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
-              return             TextButton(
+              return  TextButton(
                 onPressed: () {
                   spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
                 },
@@ -103,7 +104,11 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
                     width: MySize.size20,
                     child: const CircularProgressIndicator(color: AppColors.purpleFF,)) :const Text('Add', style: TextStyle(color: Colors.blue)),
               );
-            },)
+            },
+            ),
+
+
+
           ],
         ),
       ],

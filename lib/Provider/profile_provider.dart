@@ -158,6 +158,7 @@ class ProfileProvider extends ChangeNotifier{
       notifyListeners();
     }
   }
+
    List<Widget> screens =[];
   void getScreen(){
     screens = [
