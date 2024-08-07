@@ -5,11 +5,18 @@ import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 
-class SetBudgetDialog extends StatelessWidget {
+class SetBudgetDialog extends StatefulWidget {
   String categoryName;
   String categoryId;
    SetBudgetDialog({required this.categoryId,required this.categoryName,super.key});
+
+  @override
+  State<SetBudgetDialog> createState() => _SetBudgetDialogState();
+}
+
+class _SetBudgetDialogState extends State<SetBudgetDialog> {
   TextEditingController priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -21,7 +28,7 @@ class SetBudgetDialog extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Set total budget for $categoryName'),
+              Text('Set total budget for ${widget.categoryName}'),
             ],
           ),
           const SizedBox(height: 20),
@@ -88,7 +95,7 @@ class SetBudgetDialog extends StatelessWidget {
             Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
               return             TextButton(
                 onPressed: () {
-                  spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: categoryId);
+                  spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
                   // Navigator.of(context).pop();
                 },
                 child: const Text('Submit', style: TextStyle(color: Colors.blue)),
