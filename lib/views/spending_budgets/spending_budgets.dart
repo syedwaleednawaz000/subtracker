@@ -11,6 +11,7 @@ import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
+import 'package:sub_tracker/views/spending_budgets/component/add_provider_dialog.dart';
 import 'package:sub_tracker/views/spending_budgets/component/set_budget_dialog.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../Provider/category_provider.dart';
@@ -256,10 +257,15 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
 
                     return GestureDetector(
                       onTap: (){
-                        if(finalData['total_budget'] == null){
-                          showBudgetDialog(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
+                        if(finalData['user_id'] == null){
+                          if(finalData['total_budget'] == null){
+                            showBudgetDialog(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
+                          }else{
+                            FlutterToast.toastMessage(message: "Budget is already set");
+                          }
                         }else{
-                          FlutterToast.toastMessage(message: "Budget is already set");
+                          addProvider(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
+                          // open dialog box for add provider
                         }
                       },
                       child: Padding(
@@ -461,6 +467,15 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
       context: context,
       builder: (BuildContext context) {
         return SetBudgetDialog(categoryName: categoryName,categoryId: categoryID,);
+      },
+    );
+  }
+
+  void addProvider({required BuildContext context, required String categoryName, required String categoryID}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddProviderDialog(categoryName: categoryName,categoryId: categoryID,);
       },
     );
   }

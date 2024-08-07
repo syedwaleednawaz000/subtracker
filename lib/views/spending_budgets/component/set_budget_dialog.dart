@@ -7,9 +7,10 @@ import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 
 class SetBudgetDialog extends StatefulWidget {
-  String categoryName;
-  String categoryId;
-   SetBudgetDialog({required this.categoryId,required this.categoryName,super.key});
+  final String categoryName;
+  final String categoryId;
+
+  SetBudgetDialog({required this.categoryId, required this.categoryName, Key? key}) : super(key: key);
 
   @override
   State<SetBudgetDialog> createState() => _SetBudgetDialogState();
@@ -37,9 +38,10 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Total budget:'),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 10),
               SizedBox(
-                height: MySize.size60,width: MySize.scaleFactorWidth*260,
+                height: MySize.size60,
+                width: MySize.scaleFactorWidth * 260,
                 child: TextFormField(
                   cursorColor: Colors.black38,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -47,37 +49,36 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                   ],
                   controller: priceController,
-                  decoration:  InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: MySize.size10,horizontal: MySize.size10),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(vertical: MySize.size10, horizontal: MySize.size10),
                     hintText: 'Enter total budget',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(MySize.size16),
-                      borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
-                          .themeData ==
-                          darkMode
-                          ? const Color(0XFFFFFFFF)
-                          : Colors.black45),),
-
+                      borderSide: BorderSide(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFFFFFFFF)
+                            : Colors.black45,
+                      ),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(MySize.size16),
-                      borderSide:  BorderSide(
-                          color: Provider.of<ThemeChanger>(context)
-                              .themeData ==
-                              darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : Colors.black45),
+                      borderSide: BorderSide(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFFFFFFFF)
+                            : Colors.black45,
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(MySize.size16),
-                      borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
-                          .themeData ==
-                          darkMode
-                          ? const Color(0XFFFFFFFF)
-                          : Colors.black45),),
+                      borderSide: BorderSide(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFFFFFFFF)
+                            : Colors.black45,
+                      ),
+                    ),
                   ),
                 ),
               ),
-
             ],
           ),
         ],
@@ -93,17 +94,22 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
               child: const Text('Cancel', style: TextStyle(color: Colors.red)),
             ),
             const SizedBox(width: 18),
-            Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
-              return             TextButton(
-                onPressed: () {
-                  spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
-                },
-                child:spendingBudgetProvider.isBudgetSetLoading ? SizedBox(
+            Consumer<SpendingBudgetProvider>(
+              builder: (context, spendingBudgetProvider, child) {
+                return TextButton(
+                  onPressed: () {
+                    spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
+                  },
+                  child: spendingBudgetProvider.isBudgetSetLoading
+                      ? SizedBox(
                     height: MySize.size20,
                     width: MySize.size20,
-                    child: const CircularProgressIndicator(color: AppColors.purpleFF,)) :const Text('Submit', style: TextStyle(color: Colors.blue)),
-              );
-            },)
+                    child: const CircularProgressIndicator(color: AppColors.purpleFF),
+                  )
+                      : const Text('Submit', style: TextStyle(color: Colors.blue)),
+                );
+              },
+            ),
           ],
         ),
       ],
