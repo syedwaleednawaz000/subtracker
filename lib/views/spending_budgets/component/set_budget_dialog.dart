@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 
@@ -96,9 +97,11 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
               return             TextButton(
                 onPressed: () {
                   spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
-                  // Navigator.of(context).pop();
                 },
-                child: const Text('Submit', style: TextStyle(color: Colors.blue)),
+                child:spendingBudgetProvider.isBudgetSetLoading ? SizedBox(
+                    height: MySize.size20,
+                    width: MySize.size20,
+                    child: const CircularProgressIndicator(color: AppColors.purpleFF,)) :const Text('Submit', style: TextStyle(color: Colors.blue)),
               );
             },)
           ],

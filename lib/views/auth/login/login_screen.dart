@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
+import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -26,37 +27,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    }
-    // Validate password complexity (e.g., length and character types)
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
-    // Additional custom checks (optional), e.g., character types
-    if (!RegExp(
-            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
-        .hasMatch(value)) {
-      return 'Password must contain at least one uppercase letter, lowercase letter, number, and special character';
-    }
-    return null; // Return null if validation succeeds
-  }
 
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    // Basic email format validation
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Invalid email format';
-    }
-    // Additional custom checks (optional), e.g., domain name validation
-    if (!value.contains('@gmail') || !value.contains('.com')) {
-      return 'Enter a Gmail address with .com domain';
-    }
-    return null; // Return null if validation succeeds
-  }
 
   bool val = false;
   bool isSelected = false;
@@ -121,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     height: 4,
                                   ),
                                   TextFormField(
-                                    validator: validateEmail,
+                                    validator: Validation.validateEmail,
                                     controller: loginProvider.emailController,
                                     style: const TextStyle(
                                         color: Color(0XFF666680)),
@@ -185,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextFormField(
                                     controller:
                                         loginProvider.passwordController,
-                                    validator: validatePassword,
+                                    validator: Validation.validatePassword,
                                     style: const TextStyle(
                                         color: Color(0XFF666680)),
                                     obscureText: isSelected,
