@@ -10,7 +10,9 @@ class FormFieldComponent extends StatelessWidget {
   final int? maxLines;
   final String hintText;
   final double? height;
-  const FormFieldComponent({super.key,  this.height, required this.hintText, this.maxLines});
+  String? Function(String?)? validator;
+  TextEditingController? controller;
+   FormFieldComponent({super.key,this.validator,this.controller,  this.height, required this.hintText, this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,9 @@ class FormFieldComponent extends StatelessWidget {
           )
       ) ,
       child: TextFormField(
+        controller: controller,
         maxLines: maxLines,
+        validator: validator,
         decoration:InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             hintText:hintText,

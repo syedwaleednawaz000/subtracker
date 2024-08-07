@@ -153,44 +153,6 @@ class SubscriptionProvider extends ChangeNotifier{
     }
   }
 
-  Map<String, dynamic> activeSubscriptionData = {};
-  bool _isActiveSubscription = false;
-  bool get isActiveSubscription => _isActiveSubscription;
-  void _activeSubscriptionLoading({required bool load}){
-    _isActiveSubscription = load;
-    notifyListeners();
-  }
-  Future<void> activeSubscriptions()async{
-    _activeSubscriptionLoading(load: true);
-    try{
-      Response response = await _apiService.activeSubscriptions(params: {});
-      if(response.statusCode == 200){
-        _activeSubscriptionLoading(load: false);
-        activeSubscriptionData = response.data;
-        if (kDebugMode) {
-          print("hit successfully activeSubscriptionData $activeSubscriptionData");
-        }
-
-      }else{
-        _activeSubscriptionLoading(load: false);
-        if (kDebugMode) {
-          print("hit successfully in else ");
-        }
-      }
-    }catch(error){
-      _activeSubscriptionLoading(load: false);
-      print("this is error ${error.toString()}");
-    }
-  }
-
-  String _currentSubscriptionID= '';
-  int _cancelIndex = -1;
-  int get cancelIndex => _cancelIndex;
-  void changeCancelIndex ({required int index , required String subscriptionID})async{
-    _currentSubscriptionID = subscriptionID;
-    _cancelIndex = index;
-    notifyListeners();
-}
 
 
 }

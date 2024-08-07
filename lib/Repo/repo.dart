@@ -91,6 +91,10 @@ class ApiService {
     return apiClient.post(url: AppUrl.subscriptions, params: params);
   }
 
+  Future<Response> sendSupportRequest({var params}) {
+    return apiClient.post(url: AppUrl.sendSupportRequest, params: params);
+  }
+
   //Todo here all get method
   Future<Response> getLanguages({var params}) {
     return apiClient.get(

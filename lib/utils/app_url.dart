@@ -11,6 +11,7 @@ class AppUrl{
   static String changePassword = "changePassword";
   static String updatePassword = "changeUserPassword";
   static String subscriptions = "subscriptions";
+  static String sendSupportRequest = "tickets";
   static String getSubscriptions = "subscriptions";
   static String getScheduleData = "subscription-schedule/";
   static String getSpendingBudget = "budget/calculate-budget-spend";

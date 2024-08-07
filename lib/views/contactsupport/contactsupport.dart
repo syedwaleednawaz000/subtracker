@@ -19,6 +19,8 @@ class ContactSupport extends StatefulWidget {
 }
 
 class _ContactSupportState extends State<ContactSupport> {
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -92,7 +94,7 @@ class _ContactSupportState extends State<ContactSupport> {
             } else {
               return DropdownMenu(
                 onSelected: (value) {
-                  print("this is ${value}");
+                  Provider.of<ContactWithSupportProvider>(context,listen: false).getIssueId(issueID: value.toString());
                 },
                 hintText: "Select Issue",
                 textStyle: TextStyle(
@@ -148,7 +150,9 @@ class _ContactSupportState extends State<ContactSupport> {
                   ),
                 ),
                 SizedBox(height: MySize.size10,),
-                const FormFieldComponent(
+                 FormFieldComponent(
+                   controller: subjectController,
+                   validator: (value){},
                   maxLines: null,
                   hintText: 'Enter Subject',
 
@@ -166,6 +170,8 @@ class _ContactSupportState extends State<ContactSupport> {
                 ),
                 SizedBox(height: MySize.size10,),
                 FormFieldComponent(
+                  controller: descriptionController,
+                  validator: (value){},
                   hintText: 'Enter Description',
                   height: MySize.scaleFactorHeight* 210,
                   maxLines:7,
@@ -195,15 +201,17 @@ class _ContactSupportState extends State<ContactSupport> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Settings()));
-              },
-              child: Container(
-                  height: 48,
-                  width: 288,
-                  decoration: BoxDecoration(
+            Consumer<ContactWithSupportProvider>(builder: (context, contactWithSupportProvider, child) {
+              return GestureDetector(
+                onTap: () {
+                  contactWithSupportProvider.sendSupportRequest( subject: subjectController.text.trim(), description: descriptionController.text.trim());
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => const Settings()));
+                },
+                child: Container(
+                    height: 48,
+                    width: 288,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
@@ -215,24 +223,23 @@ class _ContactSupportState extends State<ContactSupport> {
                           // right: BorderSide(color: Colors.white.withOpacity(.5)),
                           bottom: BorderSide.none
                       ),
-                      // border: Border.all(
-                      //     color: Color(0XFFFFFFFF).withOpacity(.1))
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color:
-                        Provider.of<ThemeChanger>(context).themeData ==
-                            darkMode
-                            ? const Color(0XFFFFFFFF)
-                            : const Color(0XFF1c1c23),
-                      ),
                     ),
-                  )),
-            ),
+                    child: Center(
+                      child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: Colors.green,):  Text(
+                        'Submit',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color:
+                          Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                              ? const Color(0XFFFFFFFF)
+                              : const Color(0XFF1c1c23),
+                        ),
+                      ),
+                    )),
+              );
+            },)
           ],
         ),
       )

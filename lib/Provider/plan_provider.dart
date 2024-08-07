@@ -14,6 +14,7 @@ class PlanProvider extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> storePlan({ required BuildContext context})async{
+    print("hit successfully in mange");
     _updatePlanLoading(load: true);
     var body = {
       'user_id': _selectData['user_id'],
@@ -30,7 +31,7 @@ class PlanProvider extends ChangeNotifier {
         FlutterToast.toastMessage(message: response.data['message'],);
         Navigator.pop(context);
         if (kDebugMode) {
-          print("hit successfully");
+          print("hit successfully in mange");
         }
 
       }else{
@@ -77,11 +78,9 @@ class PlanProvider extends ChangeNotifier {
   }
 //Todo about set index
   Map<String , dynamic> _selectData = {};
-
   int _index = -1;
   int get selectIndex => _index;
   void updateIndex ({required int index ,required Map<String , dynamic> selectData}){
-    print("this is selct data ${selectData}");
     _index = index;
     _selectData = selectData;
     notifyListeners();
@@ -121,4 +120,45 @@ class PlanProvider extends ChangeNotifier {
       print("this is error ${error.toString()}");
     }
   }
+  String _currentSubscriptionID= '';
+  String get currentSubscriptionID => _currentSubscriptionID;
+  int _cancelIndex = -1;
+  int get cancelIndex => _cancelIndex;
+  void changeCancelIndex ({required int index , required String subscriptionID})async{
+    _currentSubscriptionID = subscriptionID;
+    _cancelIndex = index;
+    notifyListeners();
+  }
+
+  Map<String, dynamic> activeSubscriptionData = {};
+  bool _isActiveSubscription = false;
+  bool get isActiveSubscription => _isActiveSubscription;
+  void _activeSubscriptionLoading({required bool load}){
+    _isActiveSubscription = load;
+    notifyListeners();
+  }
+  Future<void> activeSubscriptions()async{
+    _activeSubscriptionLoading(load: true);
+    try{
+      Response response = await _apiService.activeSubscriptions(params: {});
+      if(response.statusCode == 200){
+        _activeSubscriptionLoading(load: false);
+        activeSubscriptionData = response.data;
+        if (kDebugMode) {
+          print("hit successfully activeSubscriptionData $activeSubscriptionData");
+        }
+
+      }else{
+        _activeSubscriptionLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    }catch(error){
+      _activeSubscriptionLoading(load: false);
+      print("this is error ${error.toString()}");
+    }
+  }
+
+
 }
