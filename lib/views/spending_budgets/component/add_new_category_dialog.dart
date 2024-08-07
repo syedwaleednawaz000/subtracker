@@ -357,6 +357,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       spendingBudgetProvider.addUserCategory(
+                        context: context,
                           categoryName: categoryNameController.text.trim(),
                           price: priceController.text.trim(),
                           providerName: providerNameController.text.trim(),
