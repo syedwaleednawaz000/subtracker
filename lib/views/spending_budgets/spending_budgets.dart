@@ -257,7 +257,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
 
                     return GestureDetector(
                       onTap: (){
-                        if(finalData['user_id' == null]){
+                        if(finalData['user_id'] == null){
                           if(finalData['total_budget'] == null){
                             showBudgetDialog(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
                           }else{
