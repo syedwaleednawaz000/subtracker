@@ -79,35 +79,37 @@ class SpendingBudgetProvider extends ChangeNotifier{
     required String price,
     required String providerName,
     XFile? categoryImage,
+    required BuildContext context,
     XFile? providerImage,
   }) async {
     _addCat(load: true);
     FormData formData = FormData.fromMap({
       'category_name': categoryName,
       'price': price,
-      'provider_name': providerImage,
+      'provider_name': providerName, // corrected this line
     });
 
     if (categoryImage != null) {
       formData.files.add(MapEntry(
         'category_image',
-        await MultipartFile.fromFile(categoryImage.path.toString(), filename: categoryImage.path.split('/').last),
+        await MultipartFile.fromFile(categoryImage.path, filename: categoryImage.path.split('/').last),
       ));
     }
     if (providerImage != null) {
       formData.files.add(MapEntry(
         'provider_image',
-        await MultipartFile.fromFile(providerImage.path.toString(), filename: providerImage.path.toString().split('/').last),
+        await MultipartFile.fromFile(providerImage.path, filename: providerImage.path.split('/').last),
       ));
     }
 
     try {
       Response response = await _apiService.addCategories(params: formData);
       if (response.statusCode == 200) {
+        getSpendingBudget();
+        Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
         _addCat(load: false);
         FlutterToast.toastMessage(message: "Category added successfully");
         Get.back();
-        // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
         if (kDebugMode) {
           print("hit successfully");
         }

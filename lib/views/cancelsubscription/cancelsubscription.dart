@@ -92,8 +92,8 @@ class CancelSubscription extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Yearly',
+                               Text(
+                                '${finalData['billing_cycle']}',
                                 style: TextStyle(
                                   color: Color(0XFF83839C),
                                   fontSize: 14,
@@ -102,7 +102,7 @@ class CancelSubscription extends StatelessWidget {
                               ),
 
                               TextWidgetInterMedium(
-                                title: '\$39.95',
+                                title: '\$${finalData['price']}',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 // color: AppColors.whiteFF
