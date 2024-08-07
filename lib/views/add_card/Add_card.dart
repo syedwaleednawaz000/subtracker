@@ -36,6 +36,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
@@ -209,24 +210,30 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     Container(
                       height: MySize.size44, width: MySize.size180,
                       decoration: BoxDecoration(
-                          color:  Provider.of<ThemeChanger>(context)
-                              .themeData == darkMode
-                              ? const Color(0XFF272730)
-                              :  const Color(0XFFF1F1FF),
+                        color:  Provider.of<ThemeChanger>(context)
+                            .themeData == darkMode
+                            ? const Color(0XFF272730)
+                            :  const Color(0XFFF1F1FF),
                         border: Border.all(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(child: Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                                'Olivia Rhye', style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode ? Colors.white : const Color(0XFF424252),
-                              fontSize: MySize.size14, fontWeight: FontWeight.w400,
+                          alignment: Alignment.centerLeft,
+                          child:  TextFormField(
+                            cursorColor: Colors.blueGrey,
+                            decoration: InputDecoration(
+                              hintText: 'Olivia Rhye',
+                              hintStyle: TextStyle(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? Colors.white
+                                    : const Color(0XFF424252),
+                              ),
+                              border: InputBorder.none,
                             ),
-                            ),),
+                          ),
+                        ),
                       )),
                     ),
                   ],
@@ -256,13 +263,17 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderRadius: BorderRadius.circular(8)
                       ),
                       child: Center(
-                        child:  Text(
-                          textAlign: TextAlign.start,
-                          '06   2024', style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode ? Colors.white : const Color(0XFF424252),
-                          fontSize: MySize.size14, fontWeight: FontWeight.w400,
-                        ),
+                        child: TextFormField(
+                          cursorColor: Colors.blueGrey,
+                          decoration: InputDecoration(
+                            hintText: '  06 2024',
+                            hintStyle: TextStyle(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : const Color(0XFF424252),
+                            ),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),
@@ -300,20 +311,21 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderRadius: BorderRadius.circular(8)
                       ),
                       child: Padding(
-                        padding:  EdgeInsets.only(left: MySize.size10),
-                        child: Row(
-                          children: [
-                            Image.asset(AppImages.payment2,height: MySize.size50,width: MySize.size30,),
-                            Center(
-                                child: Text(
-                                  '  1234 1234 1234 1234',overflow: TextOverflow.ellipsis, style: TextStyle(
-                                  color:Provider.of<ThemeChanger>(context).themeData == darkMode
+                        padding:  EdgeInsets.only(left: MySize.size2),
+                        child:TextFormField(
+                          cursorColor: Colors.blueGrey,
+                          decoration: InputDecoration(
+                            contentPadding:  EdgeInsets.symmetric(vertical: MySize.size3,),
+                            prefixIcon: Image.asset(AppImages.payment2,scale: 5,width: MySize.size20,),
+                            hintText: '1234 1234 1234 1234',
+                            hintStyle: TextStyle(
+                              fontSize: 10,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? Colors.white
                                   : const Color(0XFF424252),
-                                  fontSize: MySize.size10, fontWeight: FontWeight.w400,
-                                // color: Colors.white
-                            ))),
-                          ],
+                            ),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),
@@ -342,11 +354,19 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Image.asset(AppImages.three_dotsIcon, scale: 3.4,
-                                color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode ? Colors.white : const Color(0XFF424252),)),
+                        child: TextFormField(
+                          cursorColor: Colors.blueGrey,
+                          decoration: InputDecoration(
+                            hintText: '...',
+                            hintStyle: TextStyle(
+                              fontSize: 30,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : const Color(0XFF424252),
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
                       )
                     ),
                   ],
