@@ -7,6 +7,7 @@ import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
+import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
@@ -36,38 +37,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-
-// Custom email validator function
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    // Basic email format validation
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Invalid email format';
-    }
-    // Additional custom checks (optional), e.g., domain name validation
-    if (!value.contains('@gmail') || !value.contains('.com')) {
-      return 'Enter a Gmail address with .com domain';
-    }
-    return null; // Return null if validation succeeds
-  }
-
-// Custom password validator function
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    }
-    // Validate password complexity (e.g., length and character types)
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
-    // Additional custom checks (optional), e.g., character types
-    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$').hasMatch(value)) {
-      return 'Password must contain at least one uppercase letter, lowercase letter, number, and special character';
-    }
-    return null; // Return null if validation succeeds
-  }
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -171,7 +140,7 @@ class _SignupScreenState extends State<SignupScreen> {
                          controller: emailController,
                          text: 'E-mail address',
                          hintText: 'Email',
-                         validator: validateEmail,
+                         validator: Validation.validateEmail,
                          suffixIcons: IconButton(onPressed: (){},
                              icon:  Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),)),
                        ),
@@ -182,7 +151,7 @@ class _SignupScreenState extends State<SignupScreen> {
                          controller: passwordController,
                          text: 'Password',
                          hintText: 'Password',
-                         validator:  validatePassword,
+                         validator:  Validation.validatePassword,
                          obscureText: isSelected1 ,
                          suffixIcons: IconButton(
                              onPressed: (){
@@ -206,7 +175,7 @@ class _SignupScreenState extends State<SignupScreen> {
                        text: 'Confirm Password',
                        hintText: 'Confirm Password',
                        obscureText: isSelected2,
-                       validator: validatePassword,
+                       validator:  Validation.validatePassword,
                        suffixIcons: IconButton(onPressed: (){
                          setState(() {
                            isSelected2 = !isSelected2;

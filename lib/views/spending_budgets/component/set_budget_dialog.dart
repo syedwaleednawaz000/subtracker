@@ -97,7 +97,6 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
               return             TextButton(
                 onPressed: () {
                   spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
-                  // Navigator.of(context).pop();
                 },
                 child:spendingBudgetProvider.isBudgetSetLoading ? SizedBox(
                     height: MySize.size20,

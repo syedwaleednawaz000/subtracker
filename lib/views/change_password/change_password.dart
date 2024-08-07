@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -30,22 +31,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   TextEditingController currentPassEditingController = TextEditingController();
   TextEditingController newPassTextEditingController = TextEditingController();
   TextEditingController newConfirmPassTextEditingController = TextEditingController();
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    }
-    // Validate password complexity (e.g., length and character types)
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
-    // Additional custom checks (optional), e.g., character types
-    if (!RegExp(
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
-        .hasMatch(value)) {
-      return 'Password must contain at least one uppercase letter, lowercase letter, number, and special character';
-    }
-    return null; // Return null if validation succeeds
-  }
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -90,7 +76,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         ),
                         TextFormField(
                           controller: currentPassEditingController,
-                          validator: validatePassword,
+                          validator: Validation.validatePassword,
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
@@ -137,7 +123,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         ),
                         TextFormField(
                           controller: newPassTextEditingController,
-                          validator: validatePassword,
+                          validator: Validation.validatePassword,
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
@@ -184,7 +170,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         ),
                         TextFormField(
                           controller: newConfirmPassTextEditingController,
-                          validator: validatePassword,
+                          validator: Validation.validatePassword,
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
