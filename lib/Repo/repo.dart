@@ -83,6 +83,9 @@ class ApiService {
     return apiClient.post(url: AppUrl.storeUserCategories, params: params);
   }
 
+  Future<Response> setBudget({var params}) {
+    return apiClient.post(url: AppUrl.setBudget, params: params);
+  }
   Future<Response> addCategories({var params}) {
     return apiClient.post(url: AppUrl.addCategories, params: params);
   }

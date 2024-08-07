@@ -10,6 +10,7 @@ import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
+import 'package:sub_tracker/views/spending_budgets/component/set_budget_dialog.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../Provider/category_provider.dart';
 import '../../notification_screen/notification_screen.dart';
@@ -254,7 +255,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
 
                     return GestureDetector(
                       onTap: (){
-                        showBudgetDialog(context , finalData['name']);
+                        showBudgetDialog(context: context , categoryName: finalData['name'],categoryID: finalData['id'].toString());
                       },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: MySize.size8),
@@ -450,97 +451,11 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
       ),
     );
   }
-  void showBudgetDialog(BuildContext context, String categoryName) {
-    TextEditingController priceController = TextEditingController();
-
+  void showBudgetDialog({required BuildContext context, required String categoryName, required String categoryID}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Center(child: Text('Set budget')),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Set total budget for $categoryName'),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Total budget:'),
-                  const SizedBox(height: 10,),
-                  SizedBox(
-                    height: MySize.size60,width: MySize.scaleFactorWidth*260,
-                    child: TextFormField(
-                      cursorColor: Colors.black38,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                      ],
-                      controller: priceController,
-                      decoration:  InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: MySize.size10,horizontal: MySize.size10),
-                        hintText: 'Enter total budget',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MySize.size16),
-                          borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
-                              .themeData ==
-                              darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : Colors.black45),),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MySize.size16),
-                          borderSide:  BorderSide(
-                            color: Provider.of<ThemeChanger>(context)
-                              .themeData ==
-                              darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : Colors.black45),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MySize.size16),
-                          borderSide:  BorderSide(color: Provider.of<ThemeChanger>(context)
-                              .themeData ==
-                              darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : Colors.black45),),
-                        ),
-                      ),
-                    ),
-
-                ],
-              ),
-            ],
-          ),
-          actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel', style: TextStyle(color: Colors.red)),
-                ),
-                const SizedBox(width: 18),
-                TextButton(
-                  onPressed: () {
-                    // Handle the submission of data here
-                    print('Price: ${priceController.text}');
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Submit', style: TextStyle(color: Colors.blue)),
-                ),
-              ],
-            ),
-          ],
-        );
+        return SetBudgetDialog(categoryName: categoryName,categoryId: categoryID,);
       },
     );
   }

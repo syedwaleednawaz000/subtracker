@@ -21,6 +21,7 @@ class AppUrl{
   static String addCategories = "categories";
   static String getTicketIssuesTypes = "ticket-issues";
   static String storeUserCategories = "user-categories";
+  static String setBudget = "set-budget";
   static String getAllCategory = "subscription-categories";
   static String editeCategories = "categories/";//at the end id 2
   static String deleteCategories = "categories/";//at the end id
