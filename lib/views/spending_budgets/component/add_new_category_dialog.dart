@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
+import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -17,32 +18,33 @@ class DialogBoxWidget extends StatefulWidget {
 }
 
 class _DialogBoxWidgetState extends State<DialogBoxWidget> {
-  TextEditingController? addCategoryController = TextEditingController();
-  TextEditingController? priceController = TextEditingController();
+  TextEditingController categoryNameController = TextEditingController();
+  TextEditingController providerNameController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  XFile? updatePic1;
-  XFile? updatePic2;
-
-  Future<void> pickPicture1() async {
+  XFile? _pickCategoryImage;
+  XFile? _pickProviderImage;
+  Future<void> pickProviderImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        updatePic1 = image;
+        _pickProviderImage = image;
       });
     }
   }
-
-  Future<void> pickPicture2() async {
+  Future<void> pickCategoryImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        updatePic2 = image;
+        _pickCategoryImage = image;
       });
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.black,
       title: Center(
         child: Text(
-          'Spending & Budgets',
+          'Create new category',
           style: TextStyle(
             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xFF000000) : const Color(0xFFFFFFFF),
             fontSize: MySize.size16,
@@ -64,21 +66,25 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Please enter new category and its price.',
-                style: TextStyle(
-                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xFF000000) : Colors.grey,
-                  fontSize: MySize.size14,
-                  fontWeight: FontWeight.w400,
-                ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 103,
+                    child: Center(child: Text("Category"),),
+                  ),
+                  SizedBox(width: 15,),
+                  SizedBox(
+                    width: 103,
+                    child: Center(child: Text("Provider"),),
+                  ),
+                ],
               ),
-              SizedBox(height: MySize.size20),
               Row(
                 children: [
                   SizedBox(
                     width: 103,
                     child: GestureDetector(
-                      onTap: pickPicture1,
+                      onTap: pickCategoryImage,
                       child: SizedBox(
                         child: DottedBorder(
                           dashPattern: const [6, 6, 6, 6],
@@ -89,7 +95,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                           child: SizedBox(
                             height: MySize.scaleFactorHeight * 70,
                             width: MySize.size120, // Adjust width as needed
-                            child: updatePic1 == null
+                            child: _pickCategoryImage == null
                                 ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -125,7 +131,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                               ],
                             )
                                 : Image.file(
-                              io.File(updatePic1!.path),
+                              io.File(_pickCategoryImage!.path),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -137,7 +143,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                   SizedBox(
                     width: 103,
                     child: GestureDetector(
-                      onTap: pickPicture2,
+                      onTap: pickProviderImage,
                       child: DottedBorder(
                         dashPattern: const [6, 6, 6, 6],
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF4E4E61) : const Color(0XFF4E4E61).withOpacity(.5),
@@ -147,7 +153,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                         child: SizedBox(
                           height: MySize.scaleFactorHeight * 70,
                           width: MySize.size120, // Adjust width as needed
-                          child: updatePic2 == null
+                          child: _pickProviderImage == null
                               ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -183,7 +189,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                             ],
                           )
                               : Image.file(
-                            io.File(updatePic2!.path),
+                            io.File(_pickProviderImage!.path),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -201,7 +207,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                   fontFamily: 'Inter',
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                 ),
-                controller: addCategoryController,
+                controller: categoryNameController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'Please enter category name';
@@ -241,10 +247,10 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                   fontFamily: 'Inter',
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                 ),
-                controller: addCategoryController,
+                controller: providerNameController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter Add provider';
+                    return 'Please enter provider name';
                   }
                   return null;
                 },
@@ -318,49 +324,52 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
         ),
       ),
       actions: <Widget>[
-        Consumer<CategoryProvider>(
-          builder: (context, categoryProvider, child) {
-            return TextButton(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
               child: Text(
-                'Add',
+                'Cancel',
                 style: TextStyle(
-                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.lightBlue : Colors.lightBlue,
-                  fontSize: MySize.size16,
-                  fontWeight: FontWeight.w400,
+                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.redAccent : Colors.redAccent,
+                  fontSize: MySize.size15,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  categoryProvider.addCategories(
-                    categoryName: addCategoryController!.text.trim(),
-                    // price: priceController.text.trim(),
-                  ).then((value) {
-                    FlutterToast.toastMessage(message: "Category added");
-                  });
-                  addCategoryController?.clear();
-                  priceController?.clear();
-                  Navigator.of(context).pop();
-                }
+                Navigator.of(context).pop();
               },
-            );
-          },
-        ),
-        TextButton(
-          child: Text(
-            'Cancel',
-            style: TextStyle(
-              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.redAccent : Colors.redAccent,
-              fontSize: MySize.size15,
-              fontWeight: FontWeight.w500,
             ),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-            addCategoryController?.clear();
-            priceController?.clear();
-            FlutterToast.toastMessage(message: "Category not added", isError: true);
-          },
-        ),
+            Consumer<SpendingBudgetProvider>(
+              builder: (context, spendingBudgetProvider, child) {
+                return TextButton(
+                  child: spendingBudgetProvider.isAddCategoryLoading ? Center(child: SizedBox(
+                      height: MySize.size20,
+                      width: MySize.size20,
+                      child: CircularProgressIndicator(color: AppColors.purpleFF,)),): Text(
+                    'Add',
+                    style: TextStyle(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.lightBlue : Colors.lightBlue,
+                      fontSize: MySize.size16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      spendingBudgetProvider.addUserCategory(
+                          categoryName: categoryNameController.text.trim(),
+                          price: priceController.text.trim(),
+                          providerName: providerNameController.text.trim(),
+                          categoryImage: _pickCategoryImage,
+                          providerImage: _pickProviderImage
+                      );
+                    }
+                  },
+                );
+              },
+            )
+          ],
+        )
       ],
     );
   }

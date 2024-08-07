@@ -8,7 +8,7 @@ import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import 'package:sub_tracker/views/subscription/base/dialog_box.dart';
+import 'package:sub_tracker/views/spending_budgets/component/add_new_category_dialog.dart';
 import 'package:sub_tracker/views/subscription/model/all_category_model.dart';
 
 class CategoryProvider extends ChangeNotifier {
@@ -44,26 +44,7 @@ class CategoryProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> addCategories(
-      {required String categoryName,}) async {
-    _storeUserCatLoading(load: true);
-    var body = { 'name': categoryName};
-    try {
-      Response response = await _apiService.addCategories(params: body);
-      if (response.statusCode == 200) {
-        _storeUserCatLoading(load: false);
-        FlutterToast.toastMessage(
-          message: "category added successfully",
-        );
-        // Get.back();
-      } else {
-        _storeUserCatLoading(load: false);
-        if (kDebugMode) {}
-      }
-    } catch (error) {
-      _storeUserCatLoading(load: false);
-    }
-  }
+
 
   Future<void> updateCategory(
       {required String categoryName,}) async {

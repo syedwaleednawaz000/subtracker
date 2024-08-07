@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/calendar_screen/Model/schedule_model.dart';
@@ -68,6 +70,10 @@ class SpendingBudgetProvider extends ChangeNotifier{
 
 
   bool isAddCategoryLoading = false;
+  void _addCat({required bool load}){
+    isAddCategoryLoading = load;
+    notifyListeners();
+  }
   Future<void> addUserCategory({
     required String categoryName,
     required String price,
@@ -75,6 +81,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
     XFile? categoryImage,
     XFile? providerImage,
   }) async {
+    _addCat(load: true);
     FormData formData = FormData.fromMap({
       'category_name': categoryName,
       'price': price,
@@ -97,6 +104,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
     try {
       Response response = await _apiService.addCategories(params: formData);
       if (response.statusCode == 200) {
+        _addCat(load: false);
         FlutterToast.toastMessage(message: "Category added successfully");
         Get.back();
         // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
@@ -104,13 +112,13 @@ class SpendingBudgetProvider extends ChangeNotifier{
           print("hit successfully");
         }
       } else {
-
+        _addCat(load: false);
         if (kDebugMode) {
           print("hit successfully in else ");
         }
       }
     } catch (error) {
-
+      _addCat(load: false);
       print("this is error ${error.toString()}");
     }
   }
@@ -118,7 +126,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
 
 
   bool isAddProviderInUserCategoryLoading = false;
-  Future<void> addProviderInUserCategory({    XFile? providerImage,required String providerName , required String categoryID}) async {
+  Future<void> addProviderInUserCategory({ required BuildContext context,   XFile? providerImage,required String providerName , required String categoryID}) async {
     isAddProviderInUserCategoryLoading = true;
     notifyListeners();
     FormData formData = FormData.fromMap({
@@ -135,6 +143,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
     try {
       Response response = await _apiService.addProviderInUserCategory(params: formData);
       if (response.statusCode == 200) {
+        Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
         isAddProviderInUserCategoryLoading = false;
         getSpendingBudget();
         Get.back();
