@@ -334,6 +334,16 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       trailing: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
+                                          Text(" ${finalData['user_id'] == null ? finalData['total_budget'] == null?"Set Budget": "":"Add Provider"}",style: TextStyle(
+                                            fontSize: MySize.size14,
+                                            fontWeight: FontWeight.w600,
+                                            color:
+                                            Provider.of<ThemeChanger>(context)
+                                                .themeData ==
+                                                darkMode
+                                                ? const Color(0XFFFFFFFF)
+                                                : const Color(0XFF424252),
+                                          ),),
                                           Text(
                                             "\$${finalData['price']??"0"}",
                                             textAlign: TextAlign.start,
