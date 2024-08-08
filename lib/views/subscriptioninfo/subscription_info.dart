@@ -258,14 +258,14 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.start,
                                     children: [
-                                      SubscriptionInfoRow(
-                                        text: 'Name',
-                                        text2: _name,
-                                        icon: GestureDetector(
-                                          onTap: () {
-                                            _showNameDialog(context: context);
-                                          },
-                                          child: Image.asset(
+                                      GestureDetector(
+                                        onTap: () {
+                                          _showNameDialog(context: context);
+                                        },
+                                        child: SubscriptionInfoRow(
+                                          text: 'Name',
+                                          text2: _name,
+                                          icon: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
@@ -276,14 +276,14 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
-                                      SubscriptionInfoRow(
-                                        text: 'Description',
-                                        text2: _descrip,
-                                        icon: GestureDetector(
-                                          onTap: (){
-                                            _showDescripDialog(context: context);
-                                          },
-                                          child: Image.asset(
+                                      GestureDetector(
+                                        onTap: (){
+                                          _showDescripDialog(context: context);
+                                        },
+                                        child: SubscriptionInfoRow(
+                                          text: 'Description',
+                                          text2: _descrip,
+                                          icon: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
@@ -297,14 +297,14 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
-                                      SubscriptionInfoRow(
-                                        text: 'Category',
-                                        text2: _selectedCategory,
-                                        icon: GestureDetector(
-                                          onTapDown: (TapDownDetails details) {
-                                            _showCategPopupMenu(context, details.globalPosition);
-                                          },
-                                          child: Image.asset(
+                                      GestureDetector(
+                                        onTapDown: (TapDownDetails details) {
+                                          _showCategPopupMenu(context, details.globalPosition);
+                                        },
+                                        child: SubscriptionInfoRow(
+                                          text: 'Category',
+                                          text2: _selectedCategory,
+                                          icon: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
@@ -369,14 +369,14 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
-                                      SubscriptionInfoRow(
-                                        text: 'Billing Cycle',
-                                        text2: _selectedBilling,
-                                        icon: GestureDetector(
-                                          onTapDown: (TapDownDetails details) {
-                                            _showBillingPopupMenu(context, details.globalPosition);
-                                          },
-                                          child: Image.asset(
+                                      GestureDetector(
+                                        onTapDown: (TapDownDetails details) {
+                                          _showBillingPopupMenu(context, details.globalPosition);
+                                        },
+                                        child: SubscriptionInfoRow(
+                                          text: 'Billing Cycle',
+                                          text2: _selectedBilling,
+                                          icon: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
@@ -390,14 +390,14 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
-                                      SubscriptionInfoRow(
-                                        text: 'Reminder',
-                                        text2:_selectedReminder,
-                                        icon: GestureDetector(
-                                          onTapDown: (TapDownDetails details) {
-                                            _showRemiderPopupMenu(context, details.globalPosition);
-                                          },
-                                          child: Image.asset(
+                                      GestureDetector(
+                                        onTapDown: (TapDownDetails details) {
+                                          _showRemiderPopupMenu(context, details.globalPosition);
+                                        },
+                                        child: SubscriptionInfoRow(
+                                          text: 'Reminder',
+                                          text2:_selectedReminder,
+                                          icon: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
