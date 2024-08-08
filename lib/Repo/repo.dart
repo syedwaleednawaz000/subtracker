@@ -92,8 +92,11 @@ class ApiService {
   Future<Response> addProviderInUserCategory({var params}) {
     return apiClient.post(url: AppUrl.addProviderInUserCategory, params: params);
   }
-  Future<Response> storeSubscriptions({var params}) {
-    return apiClient.post(url: AppUrl.subscriptions, params: params);
+  Future<Response> addNewSubscription({var params}) {
+    return apiClient.post(url: AppUrl.addNewSubscription, params: params);
+  }
+  Future<Response> updateSubscription({var params,required String subscriptionID}) {
+    return apiClient.post(url: AppUrl.updateSubscription+subscriptionID, params: params);
   }
 
 

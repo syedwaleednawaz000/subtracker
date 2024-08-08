@@ -39,15 +39,42 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
   }
 
 
-  String _name = "Unknown";
-  String _descrip = "Music App";
-  String _selectedCategory = "Netflix";
-  String _selectedReminder = "Reminder";
-  String _selectedBilling = "Billing Reminder";
-  String _startDate = "Start Date";
-  String _renDate = "Renewal Date";
+  String _name = "";
+  String _descrip = "";
+  String _selectedCategory = "";
+  String _selectedReminder = "";
+  String _selectedBilling = "";
+  String _startDate = "";
+  String _renDate = "";
+  String _price = "";
+  String _providerId = "";
+  String _categoryId = "";
+  String _subscriptionId = "";
 
+// Function to assign values from the map to the variables
+  void assignValues() {
+    setState(() {
+      // _name = widget.subscriptionInfoData['name'] ?? '';
+      _name = widget.subscriptionInfoData['name'] ?? "";
+      _descrip = widget.subscriptionInfoData['description'] ?? "";
+      _selectedCategory = widget.subscriptionInfoData['category_id'].toString() ?? "";
+      _selectedReminder = widget.subscriptionInfoData['reminder'] ?? "";
+      _selectedBilling = widget.subscriptionInfoData['billing_cycle'] ?? "";
+      _startDate = widget.subscriptionInfoData['start_date'] ?? "";
+      _renDate = widget.subscriptionInfoData['renewal_date'] ?? "";
+      _price = widget.subscriptionInfoData['price']?.toString() ?? "";
+      _providerId = widget.subscriptionInfoData['provider_id'].toString() ?? "";
+      _categoryId = widget.subscriptionInfoData['category_id'].toString() ?? "";
+      _subscriptionId = widget.subscriptionInfoData['id'].toString() ?? "";
+      });
+  }
 
+  @override
+  void initState() {
+    super.initState();
+    // Call the function to assign values
+    assignValues();
+  }
   @override
   Widget build(BuildContext context) {
     print("this is subsription data ${widget.subscriptionInfoData}");
@@ -273,27 +300,27 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.start,
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          _showNameDialog(context: context);
-                                        },
-                                        child: SubscriptionInfoRow(
-                                          text: 'Name',
-                                          text2: _name,
-                                          icon: Image.asset(
-                                            AppImages.arrowLeft,
-                                            width: MySize.size14,
-                                            height: MySize.size14,
-                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? const Color(0XFFA2A2B5)
-                                                : const Color(0XFFA2A2B5),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: MySize.size16),
+                                      // GestureDetector(
+                                      //   onTap: () {
+                                      //     _showNameDialog(context: context,nameOldValue: _name);
+                                      //   },
+                                      //   child: SubscriptionInfoRow(
+                                      //     text: 'Name',
+                                      //     text2: _name,
+                                      //     icon: Image.asset(
+                                      //       AppImages.arrowLeft,
+                                      //       width: MySize.size14,
+                                      //       height: MySize.size14,
+                                      //       color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                      //           ? const Color(0XFFA2A2B5)
+                                      //           : const Color(0XFFA2A2B5),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // SizedBox(height: MySize.size16),
                                       GestureDetector(
                                         onTap: (){
-                                          _showDescripDialog(context: context);
+                                          _showDescripDialog(context: context,oldValue: _descrip);
                                         },
                                         child: SubscriptionInfoRow(
                                           text: 'Description',
@@ -533,10 +560,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                 ),
                                 SizedBox(height: MySize.size20,),
                                 Consumer<SubscriptionProvider>(
-                                  builder: (context, getSubscriptionProvider, child) {
+                                  builder: (context, subscriptionProvider, child) {
                                     return InkWell(
                                       onTap: () {
-                                        getSubscriptionProvider.getSubscriptions();
+                                        subscriptionProvider.updateSubscription(context: context,subscriptionID: _subscriptionId,description: _descrip, startDate: _startDate, renewalDate: _renDate, billingCycle: _selectedBilling, price: _price, reminderDuration: _selectedReminder, categoryID: _selectedCategory, providerId: _providerId,image: _filePath);
                                       },
                                       child: Container(
                                         height: MySize.scaleFactorHeight * 48,
@@ -554,7 +581,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           ),
                                         ),
                                         child: Center(
-                                          child: Text(
+                                          child: subscriptionProvider.isUpdateSub ? const CircularProgressIndicator(color: AppColors.purpleFF,): Text(
                                             'Save',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -583,11 +610,12 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
       ),
     );
   }
-  void _showNameDialog({required BuildContext context}) {
+  void _showNameDialog({required BuildContext context,required String nameOldValue}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         TextEditingController nameController = TextEditingController();
+        nameController.text = nameOldValue;
 
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
@@ -627,18 +655,19 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
       },
     );
   }
-  void _showDescripDialog({required BuildContext context}) {
+  void _showDescripDialog({required BuildContext context,required String oldValue}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        TextEditingController descripController = TextEditingController();
+        TextEditingController descriptionController = TextEditingController();
+        descriptionController.text = oldValue;
 
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
               title: const Text('Enter Description'),
               content: TextField(
-                controller: descripController,
+                controller: descriptionController,
                 decoration: const InputDecoration(hintText: "Description"),
               ),
               actions: <Widget>[
@@ -648,7 +677,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                     style: TextStyle(color: Colors.redAccent),
                   ),
                   onPressed: () {
-                    descripController.clear(); // Clear the text field
+                    descriptionController.clear(); // Clear the text field
                     Navigator.of(context).pop(); // Close the dialog
                   },
                 ),
@@ -659,7 +688,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _descrip = descripController.text.isEmpty ? 'Music App' : descripController.text;
+                      _descrip = descriptionController.text.trim();
                     });
                     Navigator.of(context).pop(); // Close the dialog
                   },

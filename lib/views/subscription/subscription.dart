@@ -1162,7 +1162,7 @@ class _SubscriptionState extends State<Subscription> {
                           onTap: () {
                             if(categoryProvider.subCategoryID.isNotEmpty){
                             if (_formKey.currentState!.validate()) {
-                                subscriptionProvider.storeSubscription(
+                                subscriptionProvider.addNewSubscription(
                                   image: _imagePhoto,
                                   document: _filePath ,
                                   providerId: categoryProvider.subCategoryID,

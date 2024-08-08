@@ -10,7 +10,8 @@ class AppUrl{
   static String verifyOtp = "verifyOtp";
   static String changePassword = "changePassword";
   static String updatePassword = "changeUserPassword";
-  static String subscriptions = "subscriptions";
+  static String addNewSubscription = "subscriptions";
+  static String updateSubscription = "subscriptions/";
   static String sendSupportRequest = "tickets";
   static String getSubscriptions = "subscriptions";
   static String addCategories = "categories";
