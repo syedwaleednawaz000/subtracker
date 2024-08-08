@@ -17,7 +17,7 @@ class CancelSubscription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).activeSubscriptions());
+    Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).userPlan());
     return SafeArea(
         child: Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -60,62 +60,55 @@ class CancelSubscription extends StatelessWidget {
           Consumer<PlanProvider>(builder: (context, planProvider, child) {
             return planProvider.activeSubscriptionData.isEmpty ?
             const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
-            planProvider.activeSubscriptionData['data'].length == 0 ?
+            planProvider.activeSubscriptionData['data'] == null ?
             const Center(child: Text("Active subscription are not available "),):
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: planProvider.activeSubscriptionData['data'].length,
-              itemBuilder: (context, index) {
-                var finalData = planProvider.activeSubscriptionData['data'][index];
-                return  InkWell(
-                  onTap: () {
-                    planProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
-                  },
-                  child: Container(
-                    height: MySize.scaleFactorHeight * 68,
-                    width: MySize.scaleFactorWidth * 288,
-                    margin: EdgeInsets.symmetric(vertical: MySize.size5),
-                    decoration: BoxDecoration(
-                      color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF4E4E61).withOpacity(.2)
-                          : const Color(0XFFF1F1FF),
-                      borderRadius: BorderRadius.circular(16),
-                      border: planProvider.cancelIndex == index ? Border.all(color: AppColors.purpleFF)
-                          : null,
-                    ),
-                    child: Stack(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                               Text(
-                                '${finalData['billing_cycle']}',
-                                style: TextStyle(
-                                  color: Color(0XFF83839C),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-
-                              TextWidgetInterMedium(
-                                title: '\$${finalData['price']}',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                // color: AppColors.whiteFF
-                              ),
-                            ],
+            InkWell(
+              onTap: () {
+                // planProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
+              },
+              child: Container(
+                height: MySize.scaleFactorHeight * 68,
+                width: MySize.scaleFactorWidth * 288,
+                margin: EdgeInsets.symmetric(vertical: MySize.size5),
+                decoration: BoxDecoration(
+                  color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF4E4E61).withOpacity(.2)
+                      : const Color(0XFFF1F1FF),
+                  borderRadius: BorderRadius.circular(16),
+                  // border: planProvider.cancelIndex == index ? Border.all(color: AppColors.purpleFF)
+                  //     : null,
+                ),
+                child: Stack(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${planProvider.activeSubscriptionData['data']['type']}',
+                            style: TextStyle(
+                              color: Color(0XFF83839C),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                        const SubscribeStackWidget(),
-                      ],
+
+                          TextWidgetInterMedium(
+                            title: '\$${planProvider.activeSubscriptionData['data']['price']}',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            // color: AppColors.whiteFF
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },);
+                    const SubscribeStackWidget(),
+                  ],
+                ),
+              ),
+            );
           },),
             SizedBox(
               height: MySize.size48,

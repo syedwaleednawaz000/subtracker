@@ -17,7 +17,7 @@ class AppUrl{
   static String addProviderInUserCategory = "providers/add";
   static String getScheduleData = "subscription-schedule/";
   static String getSpendingBudget = "budget/calculate-budget-spend";
-  static String activeSubscriptions = "user/active-subscriptions";
+  static String userPlan = "user/plan";
   static String termsAndConditions = "settings/terms_and_conditions";
   static String privacyAndPolicy = "settings/privacy_policy";
   static String getTicketIssuesTypes = "ticket-issues";
@@ -49,8 +49,8 @@ class AppUrl{
   static String getCurrencies = "currencies";
   static String getFaqs = "faqs";
   static String getPlans = "getPlans";
-  static String storePlan = "storePlan";
-  static String plansCancel = "plans/";
+  static String subscribePlane = "subscribe-plan";
+  static String plansCancel = "user/plan/cancel";
   static String updateCurrencies = "user/update-currency";
   static String updateCategories = "categories/"; //at the end id
   // static String f = "";

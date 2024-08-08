@@ -62,8 +62,8 @@ class ApiService {
   Future<Response> updateCategory({var params}) {
     return apiClient.post(url: AppUrl.updateCategories, params: params);
   }
-  Future<Response> storePlan({var params}) {
-    return apiClient.post(url: AppUrl.storePlan, params: params);
+  Future<Response> subscribePlane({var params}) {
+    return apiClient.post(url: AppUrl.subscribePlane, params: params);
   }
 
 
@@ -180,9 +180,9 @@ class ApiService {
       url: AppUrl.getTicketIssuesTypes,
     );
   }
-  Future<Response> activeSubscriptions({var params}) {
+  Future<Response> userPlan({var params}) {
     return apiClient.get(
-      url: AppUrl.activeSubscriptions,
+      url: AppUrl.userPlan,
     );
   }
   Future<Response> getTermAndCondition({var params}) {
@@ -217,7 +217,7 @@ class ApiService {
     return apiClient.delete(url: AppUrl.deleteCategories+categoryID, params: params);
   }
 //Todo here all patch
-  Future<Response> cancelPlan({required String planID,var params}) {
-    return apiClient.patch(url: "${AppUrl.plansCancel}$planID/cancel", params: params);
+  Future<Response> cancelPlan() {
+    return apiClient.patch(url: AppUrl.plansCancel);
   }
 }

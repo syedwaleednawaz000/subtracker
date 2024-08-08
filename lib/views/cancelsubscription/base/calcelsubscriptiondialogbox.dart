@@ -145,7 +145,7 @@ class CancelSubsDialogBox extends StatelessWidget {
     return Consumer<PlanProvider>(builder: (context, planProvider, child) {
       return InkWell(
         onTap: () {
-          if(planProvider.cancelIndex != -1){
+          if(planProvider.activeSubscriptionData['data'] != null){
             showDialog(
               context: context,
               builder: (context) {
@@ -224,7 +224,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                                   return TextButton(
                                     onPressed: () {
                                       planProvider.cancelPlan(
-                                          context: context, planID: planProvider.currentSubscriptionID);
+                                          context: context, planID: planProvider.activeSubscriptionData['data']['id'].toString());
                                     },
                                     child: planProvider.isCancel
                                         ? SizedBox(

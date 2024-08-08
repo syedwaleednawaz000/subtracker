@@ -145,7 +145,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                   subscriptionProvider
                                       .deleteSubscription(
                                       context: context,
-                                      subscriptionID: widget.subscriptionInfoData['subscription']['category']['id'].toString());
+                                      subscriptionID: widget.subscriptionInfoData['id'].toString());
                                 },
                                 child: subscriptionProvider.isDeleteSubscription? Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),): Image.asset(
                                   AppImages.trash,

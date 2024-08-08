@@ -217,7 +217,7 @@ class _ManagePlanState extends State<ManagePlan> {
               loading: planProvider.isUpdatePlan,
               onTap: (){
                 if(planProvider.selectIndex != -1){
-                  planProvider.storePlan( context: context);
+                  planProvider.subscribePlan( context: context);
                 }else{
                   FlutterToast.toastMessage(message: "Please select plane ",isError: true);
                 }
