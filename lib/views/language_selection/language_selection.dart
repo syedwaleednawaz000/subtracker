@@ -58,7 +58,12 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           const SizedBox(height: 45,),
 
 
-          CustomSaveButton(text: "Save",onTap: (){}),
+          Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
+            return           CustomSaveButton(text: "Save",onTap: (){
+              Get.back();
+            }
+            );
+          },)
         ],
       ),
     );

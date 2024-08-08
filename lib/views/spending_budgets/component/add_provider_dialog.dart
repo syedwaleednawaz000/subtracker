@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/theme/theme.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 
 class AddProviderDialog extends StatefulWidget {
@@ -165,7 +166,13 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
             Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
               return  TextButton(
                 onPressed: () {
-                  spendingBudgetProvider.addProviderInUserCategory(context: context,providerName: priceController.text.trim(),categoryID: widget.categoryId,providerImage: _pickProviderImage);
+                  if(_pickProviderImage != null){
+                    spendingBudgetProvider.addProviderInUserCategory(
+                        context: context,providerName: priceController.text.trim(),
+                        categoryID: widget.categoryId,providerImage: _pickProviderImage);
+                  }else{
+                    FlutterToast.toastMessage(message: "Please upload image ", isError: true);
+                  }
                 },
                 child:spendingBudgetProvider.isAddProviderInUserCategoryLoading ? SizedBox(
                     height: MySize.size20,

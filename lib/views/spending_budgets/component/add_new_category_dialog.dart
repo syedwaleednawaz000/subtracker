@@ -364,15 +364,23 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                     ),
                   ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      spendingBudgetProvider.addUserCategory(
-                        context: context,
-                          categoryName: categoryNameController.text.trim(),
-                          price: priceController.text.trim(),
-                          providerName: providerNameController.text.trim(),
-                          categoryImage: _pickCategoryImage,
-                          providerImage: _pickProviderImage
-                      );
+                    if(_pickCategoryImage != null){
+                      if(_pickProviderImage != null){
+                        if (_formKey.currentState!.validate()) {
+                          spendingBudgetProvider.addUserCategory(
+                              context: context,
+                              categoryName: categoryNameController.text.trim(),
+                              price: priceController.text.trim(),
+                              providerName: providerNameController.text.trim(),
+                              categoryImage: _pickCategoryImage,
+                              providerImage: _pickProviderImage
+                          );
+                        }
+                      }else{
+                        FlutterToast.toastMessage(message: "Please upload provider image ", isError: true);
+                      }
+                    }else{
+                      FlutterToast.toastMessage(message: "Please upload category image ", isError: true);
                     }
                   },
                 );
