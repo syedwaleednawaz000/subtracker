@@ -88,7 +88,7 @@ class _ContactSupportState extends State<ContactSupport> {
         Consumer<ContactWithSupportProvider>(
           builder: (context, issuesProvider, child) {
             if (issuesProvider.isLoading) {
-              return const Center(child: CircularProgressIndicator(color: Colors.green,));
+              return const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,));
             } else if (issuesProvider.issues.isEmpty) {
               return const Center(child: Text('No issues found'));
             } else {
@@ -225,7 +225,7 @@ class _ContactSupportState extends State<ContactSupport> {
                       ),
                     ),
                     child: Center(
-                      child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: Colors.green,):  Text(
+                      child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
                         'Submit',
                         style: TextStyle(
                           fontSize: 14,

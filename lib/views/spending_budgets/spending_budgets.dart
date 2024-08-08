@@ -244,7 +244,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                 height: MySize.size16,
               ),
               Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
-                return spendingBudgetProvider.isLoading ?const Center(child: CircularProgressIndicator(color: Colors.green,),)
+                return spendingBudgetProvider.isLoading ?const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),)
                     : spendingBudgetProvider.spendingBudgetData.isEmpty ? const Center(child: Text("Error please try again"),)
                     : spendingBudgetProvider.spendingBudgetData['data'].length ==0  ?  const Center(child: Text("Data not found"),)   :           ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),

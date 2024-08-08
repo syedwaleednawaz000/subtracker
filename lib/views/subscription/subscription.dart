@@ -17,6 +17,7 @@ import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
 import 'package:sub_tracker/views/subscription/model/all_category_model.dart';
@@ -1159,19 +1160,23 @@ class _SubscriptionState extends State<Subscription> {
                     return Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
                       return InkWell(
                           onTap: () {
+                            if(categoryProvider.subCategoryID.isNotEmpty){
                             if (_formKey.currentState!.validate()) {
-                              subscriptionProvider.storeSubscription(
-                                image: _imagePhoto,
-                                document: _filePath ,
-                                providerId: categoryProvider.subCategoryID,
-                                description: descriptionController.text.trim(),
-                                startDate: _dateFormat.format(_selectedDate!),
-                                renewalDate: _dateFormat.format(_selectedDate1!),
-                                billingCycle: billingValue.toString(),
-                                categoryID: categoryProvider.categoryID,
-                                price: _monthlyPriceController.text.trim(),
-                                reminderDuration: remindDurationValue.toString(),
-                              );
+                                subscriptionProvider.storeSubscription(
+                                  image: _imagePhoto,
+                                  document: _filePath ,
+                                  providerId: categoryProvider.subCategoryID,
+                                  description: descriptionController.text.trim(),
+                                  startDate: _dateFormat.format(_selectedDate!),
+                                  renewalDate: _dateFormat.format(_selectedDate1!),
+                                  billingCycle: billingValue.toString(),
+                                  categoryID: categoryProvider.categoryID,
+                                  price: _monthlyPriceController.text.trim(),
+                                  reminderDuration: remindDurationValue.toString(),
+                                );
+                              }
+                            }else{
+                              FlutterToast.toastMessage(message: "Please select provider",isError: true);
                             }
                           },
                           child: Container(

@@ -59,7 +59,7 @@ class CancelSubscription extends StatelessWidget {
             ),
           Consumer<PlanProvider>(builder: (context, planProvider, child) {
             return planProvider.activeSubscriptionData.isEmpty ?
-            const Center(child: CircularProgressIndicator(color: Colors.green),):
+            const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
             planProvider.activeSubscriptionData['data'].length == 0 ?
             const Center(child: Text("Active subscription are not available "),):
             ListView.builder(

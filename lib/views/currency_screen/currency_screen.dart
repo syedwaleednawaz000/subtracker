@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -77,7 +78,7 @@ class CurrencyTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CurrencyProvider>(
       builder: (context, currencyProvider, child) {
-        return currencyProvider.isCurrency == true ? const Center(child: CircularProgressIndicator(color: Colors.green,),):
+        return currencyProvider.isCurrency == true ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):
         currencyProvider.currencyData == null ?
         const Center(child: Text("data are not available"),):
         ListView.builder(

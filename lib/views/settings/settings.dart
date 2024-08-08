@@ -519,7 +519,7 @@ class _SettingsState extends State<Settings> {
                             activeTrackColor: const Color(0XFF758AFF),
                             // focusColor: Colors.pink,
                             autofocus: true,
-                            // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.green,
+                            // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
                             thumbColor: MaterialStateProperty.all(
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode

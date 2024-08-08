@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
 
@@ -294,7 +295,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       height: MySize.size24,
                     ),
                     Consumer<ScheduleProvider>(builder: (context, scheduleProvider, child) {
-                      return scheduleProvider.isLoading ?   const CircularProgressIndicator(color: Colors.green,)
+                      return scheduleProvider.isLoading ?   const CircularProgressIndicator(color: AppColors.purpleFF,)
                       :scheduleProvider.scheduleData.isEmpty ? const Center(child: Text("Please try again",style: TextStyle(color: Colors.black),),)
                           : scheduleProvider.scheduleData['data']['providers'].length ==0 ?
                       const Center(child: Text("Upcoming bills not available",style: TextStyle(color: Colors.black),),):

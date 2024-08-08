@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -80,7 +81,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                   padding: EdgeInsets.only(left: MySize.size32,right: MySize.size14),
                   child: Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
                    return termAndConditionProvider.isTermAndCondition ?
-                       const Center(child: CircularProgressIndicator(color: Colors.green),):
+                       const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
                     termAndConditionProvider.termAndConditionData == null ?
                       const Center(child: Text("term and condition not available"),):
                     Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",textAlign: TextAlign.left,style: TextStyle(

@@ -39,7 +39,7 @@ class CircularProgressBarWidget extends StatelessWidget {
           /*4E4E61*/
           // strokeCap: StrokeCap.square,
           progressColor: const Color(0XFF758AFF).withOpacity(0.6),
-          // progressGradientColors: const [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue, Colors.indigo, Colors.purple],
+          // progressGradientColors: const [Colors.red, Colors.orange, Colors.yellow, AppColors.purpleFF, Colors.blue, Colors.indigo, Colors.purple],
           // innerThumbStrokeWidth: 10,
 
           outerThumbColor: Colors.blueAccent,

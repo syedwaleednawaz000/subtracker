@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen>
             return subscriptionProvider.isSubscription
                 ? const Center(
               child: CircularProgressIndicator(
-                color: Colors.green,
+                color: AppColors.purpleFF,
               ),
             )
                 : subscriptionProvider.subscriptionData['data'] == null

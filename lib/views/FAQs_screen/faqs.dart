@@ -74,7 +74,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
 
                 Consumer<FaqsProvider>(builder: (context, faqsProvider, child) {
                   return faqsProvider.isFaqs ?
-                  const Center(child: CircularProgressIndicator(color: Colors.green,),):
+                  const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):
                   faqsProvider.faqsData['data'] == null ?
                   const Center(child: Text(""),):
                   ListView.builder(

@@ -90,7 +90,7 @@ class ShowDialogBox extends StatelessWidget {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 40),
-                                child: profileProvider.isDeleteAccount ? Center(child: CircularProgressIndicator(color: Colors.green,),):  Text('Accept',
+                                child: profileProvider.isDeleteAccount ? Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):  Text('Accept',
                                   style: TextStyle(
                                     fontSize: MySize.size14,
                                     fontWeight: FontWeight.w400,
