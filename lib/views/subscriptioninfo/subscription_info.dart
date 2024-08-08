@@ -338,24 +338,24 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: MySize.size16),
-                                      GestureDetector(
-                                        onTapDown: (TapDownDetails details) {
-                                          _showCategPopupMenu(context, details.globalPosition);
-                                        },
-                                        child: SubscriptionInfoRow(
-                                          text: 'Category',
-                                          text2: _selectedCategory,
-                                          icon: Image.asset(
-                                            AppImages.arrowLeft,
-                                            width: MySize.size14,
-                                            height: MySize.size14,
-                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? const Color(0XFFA2A2B5)
-                                                : const Color(0XFFA2A2B5),
-                                          ),
-                                        ),
-                                      ),
+                                      // SizedBox(height: MySize.size16),
+                                      // GestureDetector(
+                                      //   onTapDown: (TapDownDetails details) {
+                                      //     _showCategPopupMenu(context, details.globalPosition);
+                                      //   },
+                                      //   child: SubscriptionInfoRow(
+                                      //     text: 'Category',
+                                      //     text2: _selectedCategory,
+                                      //     icon: Image.asset(
+                                      //       AppImages.arrowLeft,
+                                      //       width: MySize.size14,
+                                      //       height: MySize.size14,
+                                      //       color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                      //           ? const Color(0XFFA2A2B5)
+                                      //           : const Color(0XFFA2A2B5),
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       SizedBox(height: MySize.size6),
                                       SizedBox(height: MySize.size16),
                                       GestureDetector(
