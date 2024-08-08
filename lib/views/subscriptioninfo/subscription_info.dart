@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../Provider/subscription_provider.dart';
@@ -361,9 +362,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       GestureDetector(
                                         onTap: () async {
                                           DateTime? selectedDate = await _selectDate(context);
+                                          final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                                           if (selectedDate != null) {
                                             setState(() {
-                                              _startDate = "${selectedDate.day.toString().padLeft(2, '0')}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.year}";
+                                              _startDate = dateFormat.format(selectedDate);
                                             });
                                           }
                                         },
@@ -387,9 +389,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       GestureDetector(
                                         onTap: () async {
                                           DateTime? selectedDate = await _renewalDate(context);
+                                          final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
                                           if (selectedDate != null) {
                                             setState(() {
-                                              _renDate = "${selectedDate.day.toString().padLeft(2, '0')}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.year}";
+                                              _renDate = dateFormat.format(selectedDate);
                                             });
                                           }
                                         },
