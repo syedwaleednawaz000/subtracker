@@ -108,6 +108,15 @@ class CancelSubscription extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Positioned(
+                      left:                       MySize.scaleFactorWidth * 120,
+                        child: Container(
+                      width: MySize.scaleFactorWidth * 46,
+                      height: MySize.scaleFactorHeight*2,
+                      decoration: BoxDecoration(
+                        color: Color(0xff758AFF),
+                        borderRadius: BorderRadius.circular(50),
+                      ),)),
                     const SubscribeStackWidget(),
                   ],
                 ),
