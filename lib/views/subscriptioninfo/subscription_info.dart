@@ -342,20 +342,20 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         ),
                                       ),
                                       SizedBox(height: MySize.size16),
-                                      SubscriptionInfoRow(
-                                        text: 'Renewal Date',
-                                        text2:_renDate,
+                                      GestureDetector(
+                                        onTap: () async {
+                                          DateTime? selectedDate = await _renewalDate(context);
+                                          if (selectedDate != null) {
+                                            setState(() {
+                                              _renDate = "${selectedDate.day.toString().padLeft(2, '0')}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.year}";
+                                            });
+                                          }
+                                        },
+                                        child: SubscriptionInfoRow(
+                                          text: 'Renewal Date',
+                                          text2:_renDate,
 
-                                        icon: GestureDetector(
-                                          onTap: () async {
-                                            DateTime? selectedDate = await _renewalDate(context);
-                                            if (selectedDate != null) {
-                                              setState(() {
-                                                _renDate = "${selectedDate.day.toString().padLeft(2, '0')}.${selectedDate.month.toString().padLeft(2, '0')}.${selectedDate.year}";
-                                              });
-                                            }
-                                          },
-                                          child: Image.asset(
+                                          icon: Image.asset(
                                             AppImages.arrowLeft,
                                             width: MySize.size14,
                                             height: MySize.size14,
