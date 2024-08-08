@@ -179,7 +179,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
       ],
     );
   }
-  XFile? _pickProviderImage;
+    XFile? _pickProviderImage;
   Future<void> pickProviderImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
