@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<SubscriptionProvider>(context, listen: false)
             .getSubscriptions());
     Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false)
-        .getProfile(userID: ""));
+        .getProfile(userID: "",context: context));
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }

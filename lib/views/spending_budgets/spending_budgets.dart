@@ -113,97 +113,99 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               SizedBox(
                 height: MySize.scaleFactorHeight * 43,
               ),
-              SizedBox(
-                height: MySize.scaleFactorHeight * 160,
-                child: SfRadialGauge(
-                  axes: <RadialAxis>[
-                    RadialAxis(
-                      startAngle: 180,
-                      endAngle: 360,
-                      radiusFactor: 01.2,
-                      showLabels: false,
-                      showTicks: false,
-                      axisLineStyle: const AxisLineStyle(
-                        thickness: 0.07,
-                        cornerStyle: CornerStyle.bothCurve,
-                        color: Colors.black,
-                        thicknessUnit: GaugeSizeUnit.factor,
-                      ),
-                      pointers: const <GaugePointer>[
-                        RangePointer(
-                          value: 75,
+              Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
+                return               SizedBox(
+                  height: MySize.scaleFactorHeight * 160,
+                  child: SfRadialGauge(
+                    axes: <RadialAxis>[
+                      RadialAxis(
+                        startAngle: 180,
+                        endAngle: 360,
+                        radiusFactor: 01.2,
+                        showLabels: false,
+                        showTicks: false,
+                        axisLineStyle: const AxisLineStyle(
+                          thickness: 0.07,
                           cornerStyle: CornerStyle.bothCurve,
-                          width: 0.15,
-                          sizeUnit: GaugeSizeUnit.factor,
-                          color: Color(0xFFDB23FD),
-                        ),
-                        RangePointer(
-                          value: 42,
-                          cornerStyle: CornerStyle.endCurve,
-                          width: 0.15,
-                          sizeUnit: GaugeSizeUnit.factor,
                           color: Colors.black,
+                          thicknessUnit: GaugeSizeUnit.factor,
                         ),
-                        RangePointer(
-                          value: 40,
-                          cornerStyle: CornerStyle.bothCurve,
-                          width: 0.15,
-                          sizeUnit: GaugeSizeUnit.factor,
-                          color: Color(0xFF7689FF),
-                        ),
-                        RangePointer(
-                          value: 22,
-                          cornerStyle: CornerStyle.bothCurve,
-                          width: 0.15,
-                          sizeUnit: GaugeSizeUnit.factor,
-                          color: Colors.black,
-                        ),
-                        RangePointer(
-                          value: 20,
-                          cornerStyle: CornerStyle.endCurve,
-                          width: 0.15,
-                          sizeUnit: GaugeSizeUnit.factor,
-                          color: Color(0xFF02E3E5),
-                        ),
-                        RangePointer(
-                          value: 00,
-                          cornerStyle: CornerStyle.bothCurve,
-                          width: 0.15,
-                          sizeUnit: GaugeSizeUnit.factor,
-                          color: Colors.black,
-                        ),
-                      ],
-                      annotations: <GaugeAnnotation>[
-                        GaugeAnnotation(
-                          angle: 90,
-                          positionFactor: 00,
-                          widget: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text(
-                                '\$82,97',
-                                style: TextStyle(
-                                    fontSize: MySize.size24,
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xFF424252)),
-                              ),
-                              SizedBox(height: MySize.size4),
-                              Text(
-                                'of \$2,000 budget',
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFFA2A2B5),
-                                ),
-                              ),
-                            ],
+                        pointers: const <GaugePointer>[
+                          RangePointer(
+                            value: 75,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Color(0xFFDB23FD),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                          RangePointer(
+                            value: 42,
+                            cornerStyle: CornerStyle.endCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Colors.black,
+                          ),
+                          RangePointer(
+                            value: 40,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Color(0xFF7689FF),
+                          ),
+                          RangePointer(
+                            value: 22,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Colors.black,
+                          ),
+                          RangePointer(
+                            value: 20,
+                            cornerStyle: CornerStyle.endCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Color(0xFF02E3E5),
+                          ),
+                          RangePointer(
+                            value: 00,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 0.15,
+                            sizeUnit: GaugeSizeUnit.factor,
+                            color: Colors.black,
+                          ),
+                        ],
+                        annotations: <GaugeAnnotation>[
+                          GaugeAnnotation(
+                            angle: 90,
+                            positionFactor: 00,
+                            widget: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text(
+                                  '\$${spendingBudgetProvider.totalSpendBudget}',
+                                  style: TextStyle(
+                                      fontSize: MySize.size24,
+                                      fontWeight: FontWeight.w700,
+                                      color: const Color(0xFF424252)),
+                                ),
+                                SizedBox(height: MySize.size4),
+                                Text(
+                                  'of \$${spendingBudgetProvider.totalBudget}',
+                                  style: TextStyle(
+                                    fontSize: MySize.size12,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xFFA2A2B5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },),
               Container(
                 height: MySize.size60,
                 width: MySize.scaleFactorWidth * 326,

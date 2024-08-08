@@ -15,17 +15,14 @@ class PrivacyAndPolicyProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
 
   Map<String, dynamic> privacyAndPolicyData = {};
-  bool _isTermAndCondition = false;
-  bool get isTermAndCondition => _isTermAndCondition;
+  bool _isPrivacyAndPolicy = false;
+  bool get isPrivacyAndPolicy => _isPrivacyAndPolicy;
   void _termAndConditionLoading({required bool load}){
-    _isTermAndCondition = load;
+    _isPrivacyAndPolicy = load;
     notifyListeners();
   }
   Future<void> privacyAndPolicy()async{
-    if(privacyAndPolicyData == null){
       _termAndConditionLoading(load: true);
-    }
-
     try{
       Response response = await _apiService.privacyAndPolicy(params: {});
       if(response.statusCode == 200){

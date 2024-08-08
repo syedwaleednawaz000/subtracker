@@ -320,7 +320,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      SubscriptionInfo(subscriptionInfoData: {}),
+                                      SubscriptionInfo(subscriptionInfoData: subscription),
                                 ),
                               );
                             },

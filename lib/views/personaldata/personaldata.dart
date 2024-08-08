@@ -364,7 +364,7 @@ class _PersonalDataState extends State<PersonalData> {
                   loading: profileProvider.isUpdated,
                   onTap: (){
                     if(_formKey.currentState!.validate()){
-                      profileProvider.updateProfile(email: profileProvider.emailEditingController.text.trim(),
+                      profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
                           name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
                     }
                   },

@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -42,12 +44,13 @@ class ProfileProvider extends ChangeNotifier{
     notifyListeners();
   }
   Map<String , dynamic > userData = {};
-  Future<void> getProfile({required String userID})async{
+  Future<void> getProfile({required BuildContext context,required String userID})async{
     _updateLoading(load: true);
     try{
       Response response = await _apiService.getProfile();
       if(response.statusCode == 200){
         userData = response.data;
+        Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: userData['data']['currency_code']);
         updateTextFieldData();
         _updateLoading(load: false);
         notifyListeners();
@@ -58,7 +61,7 @@ class ProfileProvider extends ChangeNotifier{
       _updateLoading(load: false);
     }
   }
-  Future<void> updateProfile({required String  email ,required String name , required String phone})async{
+  Future<void> updateProfile({required BuildContext context,required String  email ,required String name , required String phone})async{
     _updateLoading(load: true);
 
     var formData = FormData.fromMap({
@@ -83,7 +86,7 @@ class ProfileProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _updateLoading(load: false);
         updatePic= null;
-        getProfile(userID: "");
+        getProfile(userID: "",context: context);
         FlutterToast.toastMessage(message: "Profile updated successfully",);
         if (kDebugMode) {
           print("hit successfully");

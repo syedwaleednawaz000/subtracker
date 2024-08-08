@@ -19,16 +19,6 @@ class Validation{
     }
     return null; // Return null if validation succeeds
   }
-  static   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    // Email validation
-    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value)) {
-      return 'Please enter a valid email address';
-    }
-    return null; // Return null if validation succeeds
-  }
   static   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password cannot be empty';
@@ -45,4 +35,21 @@ class Validation{
     }
     return null; // Return null if validation succeeds
   }
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email cannot be empty';
+    }
+    // Comprehensive email validation regex pattern
+    const String pattern = r'^[a-zA-Z0-9.!#$%&\*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+    return 'Please enter a valid email address';
+    }
+    return null; // Return null if validation succeeds
+  }
+
+
+
+
+
 }

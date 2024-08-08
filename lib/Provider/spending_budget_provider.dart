@@ -15,6 +15,8 @@ import 'package:sub_tracker/views/calendar_screen/Model/schedule_model.dart';
 
 class SpendingBudgetProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
+  String totalBudget = "0";
+  String totalSpendBudget = "0";
   Map<String , dynamic> spendingBudgetData = {};
   bool isLoading = false;
   Future<void> getSpendingBudget() async {
@@ -25,6 +27,8 @@ class SpendingBudgetProvider extends ChangeNotifier{
       if (response.statusCode == 200) {
         isLoading = false;
         spendingBudgetData = response.data;
+        totalBudget = spendingBudgetData['total_categories_budget'].toString();
+        totalSpendBudget = spendingBudgetData['total_spent'].toString();
         notifyListeners();
       }
     } catch (error) {

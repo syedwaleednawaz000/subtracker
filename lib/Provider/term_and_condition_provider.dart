@@ -22,10 +22,7 @@ class TermAndConditionProvider extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> getTermAndCondition()async{
-    if(termAndConditionData == null){
       _termAndConditionLoading(load: true);
-    }
-
     try{
       Response response = await _apiService.getTermAndCondition(params: {});
       if(response.statusCode == 200){

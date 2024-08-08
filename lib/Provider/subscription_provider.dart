@@ -5,8 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -104,6 +107,9 @@ class SubscriptionProvider extends ChangeNotifier{
       Response response = await _apiService.deleteSubscriptions(subscriptionID: subscriptionID,params: body);
       if(response.statusCode == 200){
         _deleteSubscriptionLoading(load: false);
+        final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+        Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: dateFormat.format(DateTime.now()));
+        Get.back();
         FlutterToast.toastMessage(message: response.data['message'],);
         if (kDebugMode) {
           print("hit successfully");

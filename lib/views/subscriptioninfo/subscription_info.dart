@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../Provider/subscription_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -34,6 +35,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
 
   @override
   Widget build(BuildContext context) {
+    print("this is subsription data ${widget.subscriptionInfoData}");
     return Scaffold(
       backgroundColor:
       Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -128,9 +130,9 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                   subscriptionProvider
                                       .deleteSubscription(
                                       context: context,
-                                      subscriptionID: "18");
+                                      subscriptionID: widget.subscriptionInfoData['subscription']['category']['id'].toString());
                                 },
-                                child: Image.asset(
+                                child: subscriptionProvider.isDeleteSubscription? Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),): Image.asset(
                                   AppImages.trash,
                                   scale: 1.2,
                                   color: Provider.of<ThemeChanger>(
@@ -797,8 +799,6 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
       },
     );
   }
-
-
 }
 
 

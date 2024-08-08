@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -75,7 +76,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Terms of Service',
+                      'Privacy Policy',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
@@ -93,7 +94,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
                 ),
                 Consumer<PrivacyAndPolicyProvider>(
                   builder: (context, privacyAndPolicyProvider, child) {
-                    return Padding(
+                    return privacyAndPolicyProvider.isPrivacyAndPolicy ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),): Padding(
                       padding: EdgeInsets.only(left: MySize.size32),
                       child: Align(
                           alignment: Alignment.topLeft,
