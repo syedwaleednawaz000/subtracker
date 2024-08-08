@@ -206,7 +206,7 @@ class CustomSaveButton extends StatelessWidget {
                     : const Color(0XFFF1F1FF),
               ),
               child: Center(
-                child: loading == true ? const CircularProgressIndicator(color: Colors.green,): Text(
+                child: loading == true ? const CircularProgressIndicator(color: AppColors.purpleFF,): Text(
                   text,
                   style: TextStyle(
                     fontSize: 14,
