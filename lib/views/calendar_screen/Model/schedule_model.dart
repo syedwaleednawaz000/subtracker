@@ -58,8 +58,8 @@ class Providers {
     providerIcon = json['provider_icon'];
     providerName = json['provider_name'];
     price = json['price'];
-    subscription = json['subscription'] != null
-        ? new Subscription.fromJson(json['subscription'])
+    subscription = json['addNewSubscription'] != null
+        ? new Subscription.fromJson(json['addNewSubscription'])
         : null;
   }
 
@@ -69,7 +69,7 @@ class Providers {
     data['provider_name'] = this.providerName;
     data['price'] = this.price;
     if (this.subscription != null) {
-      data['subscription'] = this.subscription!.toJson();
+      data['addNewSubscription'] = this.subscription!.toJson();
     }
     return data;
   }

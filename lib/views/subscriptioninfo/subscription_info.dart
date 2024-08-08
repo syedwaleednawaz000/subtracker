@@ -30,7 +30,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
   Future<void> _pickFiles() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf', 'png',],
+      allowedExtensions: ['png',],
     );
     if (result != null) {
       setState(() {

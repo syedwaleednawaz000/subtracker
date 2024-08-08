@@ -19,9 +19,9 @@ import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
-import 'package:sub_tracker/views/subscription/model/all_category_model.dart';
-import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
+import 'package:sub_tracker/views/addNewSubscription/base/hbocontainer.dart';
+import 'package:sub_tracker/views/addNewSubscription/model/all_category_model.dart';
+
 import 'package:intl/intl.dart';
 
 class Subscription extends StatefulWidget {
@@ -35,80 +35,6 @@ class _SubscriptionState extends State<Subscription> {
   final TextEditingController _monthlyPriceController = TextEditingController();
 
 
-  ///
-  final Map<String, List<String>> categories = {
-    'Streaming Services': [
-      'Netflix',
-      'Hulu',
-      'Disney+',
-      'Amazon Prime Video',
-      'HBO Max',
-      'Apple TV+',
-      'YouTube Premium',
-      'Spotify',
-      'Pandora',
-      'Tidal',
-    ],
-    'Productivity Tools': [
-      'Microsoft 365',
-      'Google Workspace (formerly G Suite)',
-      'Adobe Creative Cloud',
-      'Evernote',
-      'Trello',
-      'Slack',
-      'Zoom',
-      'Dropbox',
-      'Notion',
-      'Todoist',
-    ],
-    'Cloud Storage': [
-      'Google Drive',
-      'Dropbox',
-      'iCloud',
-      'OneDrive',
-      'Box',
-    ],
-    'Fitness and Wellness': [
-      'Peloton',
-      'Fitbit Premium',
-      'Apple Fitness+',
-      'Headspace',
-      'Calm',
-      'MyFitnessPal Premium',
-      'Strava Summit',
-    ],
-    'News and Magazines': [
-      'The New York Times',
-      'The Washington Post',
-      'The Wall Street Journal',
-      'The Guardian',
-      'Bloomberg',
-      'Financial Times',
-      'The Economist',
-      'Wired',
-      'National Geographic',
-    ],
-    'Gaming': [
-      'Xbox Game Pass',
-      'PlayStation Plus',
-      'Nintendo Switch Online',
-      'EA Play',
-      'Apple Arcade',
-      'Humble Bundle', // Added new entry
-    ],
-    'Other Services': [
-      'Amazon Prime',
-      'Audible',
-      'Scribd',
-      'Patreon',
-      'Skillshare',
-      'MasterClass',
-      'Canva',
-      'LinkedIn Premium',
-      'Tinder Plus/Gold',
-      'Bumble Boost/Premium',
-    ],
-  };
   final ImagePicker _picker = ImagePicker();
   XFile? _imagePhoto;
   TextEditingController descriptionController = TextEditingController();
@@ -384,7 +310,7 @@ class _SubscriptionState extends State<Subscription> {
                         height: MySize.size20,
                       ),
                       Text(
-                        'Add new\nsubscription',
+                        'Add new\naddNewSubscription',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 36,
@@ -512,7 +438,7 @@ class _SubscriptionState extends State<Subscription> {
                       const SizedBox(width: 8),
                       Text(
                         categoryProvider.subCategoryName == ""?
-                            "Select subscription Provider":categoryProvider.subCategoryName,
+                            "Select addNewSubscription Provider":categoryProvider.subCategoryName,
                         style: TextStyle(
                           fontSize: MySize.size12,
                           fontWeight: FontWeight.w500,
@@ -569,7 +495,7 @@ class _SubscriptionState extends State<Subscription> {
                     maxLines: 3,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter price';
+                        return 'Please enter description';
                       }
                       return null;
                     },
@@ -1160,23 +1086,39 @@ class _SubscriptionState extends State<Subscription> {
                     return Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
                       return InkWell(
                           onTap: () {
-                            if(categoryProvider.subCategoryID.isNotEmpty){
-                            if (_formKey.currentState!.validate()) {
-                                subscriptionProvider.addNewSubscription(
-                                  image: _imagePhoto,
-                                  document: _filePath ,
-                                  providerId: categoryProvider.subCategoryID,
-                                  description: descriptionController.text.trim(),
-                                  startDate: _dateFormat.format(_selectedDate!),
-                                  renewalDate: _dateFormat.format(_selectedDate1!),
-                                  billingCycle: billingValue.toString(),
-                                  categoryID: categoryProvider.categoryID,
-                                  price: _monthlyPriceController.text.trim(),
-                                  reminderDuration: remindDurationValue.toString(),
-                                );
+                            if (categoryProvider.subCategoryID.isNotEmpty) {
+                              if (_formKey.currentState!.validate()) {
+                                // Check if image and document are selected
+                                if (_imagePhoto != null && _filePath != null) {
+                                  // Convert the selected dates to DateTime objects
+                                  DateTime startDate = _selectedDate!;
+                                  DateTime renewalDate = _selectedDate1!;
+
+                                  // Check if the renewal date is greater than the start date
+                                  if (renewalDate.isAfter(startDate)) {
+                                    // Proceed with adding the subscription
+                                    subscriptionProvider.addNewSubscription(
+                                      image: _imagePhoto,
+                                      document: _filePath,
+                                      providerId: categoryProvider.subCategoryID,
+                                      description: descriptionController.text.trim(),
+                                      startDate: _dateFormat.format(startDate),
+                                      renewalDate: _dateFormat.format(renewalDate),
+                                      billingCycle: billingValue.toString(),
+                                      categoryID: categoryProvider.categoryID,
+                                      price: _monthlyPriceController.text.trim(),
+                                      reminderDuration: remindDurationValue.toString(),
+                                    );
+                                  } else {
+                                    // Show error message if renewal date is not greater than start date
+                                    FlutterToast.toastMessage(message: "Renewal date must be greater than start date", isError: true);
+                                  }
+                                } else {
+                                  FlutterToast.toastMessage(message: "Please select both image and document", isError: true);
+                                }
                               }
-                            }else{
-                              FlutterToast.toastMessage(message: "Please select provider",isError: true);
+                            } else {
+                              FlutterToast.toastMessage(message: "Please select provider", isError: true);
                             }
                           },
                           child: Container(
@@ -1205,7 +1147,7 @@ class _SubscriptionState extends State<Subscription> {
                                 ? const Center(child: CircularProgressIndicator())
                                 : Center(
                               child: Text(
-                                'Add this subscription',
+                                'Add this addNewSubscription',
                                 style: TextStyle(
                                   fontSize: MySize.size14,
                                   fontWeight: FontWeight.w600,

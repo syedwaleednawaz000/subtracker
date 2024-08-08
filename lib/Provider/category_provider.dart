@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/spending_budgets/component/add_new_category_dialog.dart';
-import 'package:sub_tracker/views/subscription/model/all_category_model.dart';
+import 'package:sub_tracker/views/addNewSubscription/model/all_category_model.dart';
 
 class CategoryProvider extends ChangeNotifier {
   final ApiService _apiService = ApiService();

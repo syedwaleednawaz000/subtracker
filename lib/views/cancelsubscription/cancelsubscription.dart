@@ -61,47 +61,51 @@ class CancelSubscription extends StatelessWidget {
             return planProvider.activeSubscriptionData.isEmpty ?
             const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
             planProvider.activeSubscriptionData['data'] == null ?
-            const Center(child: Text("Active subscription are not available "),):
+            const Center(child: Text("Active addNewSubscription are not available "),):
             InkWell(
               onTap: () {
                 // planProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
               },
               child: Container(
-                height: MySize.scaleFactorHeight * 68,
+                height: MySize.scaleFactorHeight * 75,
                 width: MySize.scaleFactorWidth * 288,
                 margin: EdgeInsets.symmetric(vertical: MySize.size5),
-                decoration: BoxDecoration(
-                  color:
-                  Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? const Color(0XFF4E4E61).withOpacity(.2)
-                      : const Color(0XFFF1F1FF),
-                  borderRadius: BorderRadius.circular(16),
-                  // border: planProvider.cancelIndex == index ? Border.all(color: AppColors.purpleFF)
-                  //     : null,
-                ),
                 child: Stack(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${planProvider.activeSubscriptionData['data']['type']}',
-                            style: TextStyle(
-                              color: Color(0XFF83839C),
+                    Container(
+                      height: MySize.scaleFactorHeight * 68,
+                      width: MySize.scaleFactorWidth * 288,
+                      decoration: BoxDecoration(
+                        color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF4E4E61).withOpacity(.2)
+                            : const Color(0XFFF1F1FF),
+                        borderRadius: BorderRadius.circular(16),
+                        // border: planProvider.cancelIndex == index ? Border.all(color: AppColors.purpleFF)
+                        //     : null,
+                      ),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${planProvider.activeSubscriptionData['data']['type']}',
+                              style: TextStyle(
+                                color: Color(0XFF83839C),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+
+                            TextWidgetInterMedium(
+                              title: '\$${planProvider.activeSubscriptionData['data']['price']}',
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
+                              // color: AppColors.whiteFF
                             ),
-                          ),
-
-                          TextWidgetInterMedium(
-                            title: '\$${planProvider.activeSubscriptionData['data']['price']}',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            // color: AppColors.whiteFF
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     const SubscribeStackWidget(),

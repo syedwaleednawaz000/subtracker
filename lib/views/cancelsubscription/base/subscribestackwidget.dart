@@ -10,7 +10,7 @@ class SubscribeStackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Positioned(
-      bottom: MySize.scaleFactorHeight* 1,
+      bottom: MySize.scaleFactorHeight* 0,
       left: MySize.scaleFactorWidth* 80,
       // right: MySize.scaleFactorWidth* 135,
       child: Container(
@@ -38,7 +38,7 @@ class SubscribeStackWidget extends StatelessWidget {
         child: Center(
           child: TextWidgetInterMedium(
               title: 'Subscribed',
-              // color: AppColors.whiteFF,
+              color: AppColors.whiteFF,
               fontSize: 10,
               fontWeight: FontWeight.w500),
         ),
