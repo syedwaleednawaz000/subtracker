@@ -311,9 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           left: BorderSide(
                                               color:
                                                   Colors.white.withOpacity(.5)),
-                                          // right: BorderSide(color: Colors.white.withOpacity(.5)),
                                           bottom: BorderSide.none),
-                                      // border: Border.all(color: Colors.white.withOpacity(.5)),
                                       boxShadow: [
                                         BoxShadow(
                                             offset: const Offset(0, 8),

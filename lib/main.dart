@@ -36,8 +36,6 @@ import 'Provider/spending_budget_provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-  // await FireBaseApi().initNotification();
   if(Platform.isAndroid){
     Stripe.publishableKey =
         AppUrl.stripePublishableKey;
@@ -94,7 +92,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: themeChanger.themeData,
             locale: languageProvider.appLocale,
-            localizationsDelegates:  [
+            localizationsDelegates:  const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
-import '../base/field_container.dart';
 import '../registerWithM/register_withM.dart';
 
 

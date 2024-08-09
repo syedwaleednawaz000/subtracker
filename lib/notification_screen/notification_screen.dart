@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/my_size.dart';
 import '../theme/theme.dart';
-import '../views/base/text_widgets.dart';
 import '../views/language_selection/base/custom_appBar.dart';
 
 class NotificationsScreen extends StatefulWidget {

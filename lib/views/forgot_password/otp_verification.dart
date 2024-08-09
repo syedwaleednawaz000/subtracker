@@ -31,7 +31,6 @@ class _OTPVerificationState extends State<OTPVerification> {
     Future.microtask(() =>
         Provider.of<CounterNotifier>(context, listen: false).StartTimer());
     super.initState();
-    // Moved initialization to the build method to ensure context is available
   }
 
   @override
@@ -40,7 +39,7 @@ class _OTPVerificationState extends State<OTPVerification> {
     defaultPinTheme = PinTheme(
       width: 40,
       height: 40,
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
           fontSize: 20,
           color: Colors.white,
           fontWeight: FontWeight.w600),
