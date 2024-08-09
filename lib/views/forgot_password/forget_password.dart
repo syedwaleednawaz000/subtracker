@@ -1,9 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../bottomnavbar/bottom_navBar.dart';
 import '../../utils/app_Images.dart';
+import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
+import '../base/text_widgets.dart';
+import 'base/button_container.dart';
+import 'base/custom_textField.dart';
+import 'otp_verification.dart';
 
 class ForgetPassword extends StatefulWidget {
   ForgetPassword({super.key});
@@ -62,8 +69,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                ),
              ),
               // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
-               Text(AppLocalizations.of(context)!.forgot_password,
-                style: const TextStyle(
+              const Text('Forgot Password?',
+                style: TextStyle(
                     color: Color(0XFFF0F4F7),
                     fontSize: 26,
                     fontWeight: FontWeight.w500,
@@ -73,8 +80,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(
                 height: MySize.size10,
               ),
-               Text(AppLocalizations.of(context)!.forgot_your_password_dont_worry_we_have_your_back,
-                style: const TextStyle(
+              const Text('Forgot Your Password? Don’t Worry we have\nyour back',
+                style: TextStyle(
                   color: Color(0XFFF0F4F7),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -85,12 +92,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(
                 height: MySize.size25,
               ),
-               Padding(
-                padding: const EdgeInsets.only(left: 50),
+              const Padding(
+                padding: EdgeInsets.only(left: 50),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(AppLocalizations.of(context)!.email_address,
-                    style: const TextStyle(
+                  child: Text('E-mail address',
+                    style: TextStyle(
                       color: Color(0XFF666680),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -115,7 +122,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           child: Icon(Icons.email,
                               color: Colors.grey.withOpacity(0.5)),
                         ),
-                        hintText: AppLocalizations.of(context)!.email,
+                        hintText: 'Email',
                         hintStyle: TextStyle(
                             color: Colors.grey.withOpacity(0.5),
                             fontSize: 12,
@@ -139,12 +146,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(
                 height: MySize.size5,
               ),
-               Padding(
-                padding: const EdgeInsets.only(left: 42, top: 7),
+              const Padding(
+                padding: EdgeInsets.only(left: 42, top: 7),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(AppLocalizations.of(context)!.a_link_will_be_sent_to_your_email_to_reset_your_password,
-                    style: const TextStyle(
+                  child: Text('A link will be sent to your email to reset your\n password',
+                    style: TextStyle(
                         color: Color(0XFFF0F4F7),
                         fontSize: 12.5,
                         fontWeight: FontWeight.w400,
@@ -183,8 +190,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 return Center(
                   child: forgotPasswordProvider.isForgot
                       ? const CircularProgressIndicator()
-                      :  Text(AppLocalizations.of(context)!.send_recovery_link,
-                      style: const TextStyle(color: Colors.white, fontSize: 16)
+                      : const Text('Send Recovery Link',
+                      style: TextStyle(color: Colors.white, fontSize: 16)
                   ),
                 );
               })),

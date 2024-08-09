@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             )
                 : subscriptionProvider.subscriptionData['data'] == null
-                ? const Center(child: Text("datae are not available"))
+                ? const Center(child: Text("data are not available"))
                 : SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

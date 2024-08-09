@@ -57,7 +57,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
 
                     children: [
                       Text(
-                        'Add  Image',
+                        'Add Image',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: MySize.size10,

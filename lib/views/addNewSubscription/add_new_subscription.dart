@@ -5,7 +5,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +15,6 @@ import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/addNewSubscription/base/hbocontainer.dart';
@@ -310,7 +308,7 @@ class _SubscriptionState extends State<Subscription> {
                         height: MySize.size20,
                       ),
                       Text(
-                        'Add new\naddNewSubscription',
+                        'Add new\nSubscription',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 36,
@@ -438,7 +436,7 @@ class _SubscriptionState extends State<Subscription> {
                       const SizedBox(width: 8),
                       Text(
                         categoryProvider.subCategoryName == ""?
-                            "Select addNewSubscription Provider":categoryProvider.subCategoryName,
+                            "Select Subscription Provider":categoryProvider.subCategoryName,
                         style: TextStyle(
                           fontSize: MySize.size12,
                           fontWeight: FontWeight.w500,
@@ -1147,7 +1145,7 @@ class _SubscriptionState extends State<Subscription> {
                                 ? const Center(child: CircularProgressIndicator())
                                 : Center(
                               child: Text(
-                                'Add this addNewSubscription',
+                                'Add this Subscription',
                                 style: TextStyle(
                                   fontSize: MySize.size14,
                                   fontWeight: FontWeight.w600,

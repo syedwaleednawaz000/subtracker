@@ -18,10 +18,6 @@ import '../../Provider/category_provider.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
 import '../../utils/my_size.dart';
-import '../base/custom_dottContainer.dart';
-import '../base/linear_colorBar.dart';
-import '../base/round_progressBar.dart';
-import '../base/settingIcon_screen.dart';
 import '../base/text_widgets.dart';
 
 class SpendingBudgets extends StatefulWidget {

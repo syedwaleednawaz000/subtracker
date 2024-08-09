@@ -65,7 +65,6 @@ class CancelSubscription extends StatelessWidget {
             const Center(child: Text("Active addNewSubscription are not available "),):
             InkWell(
               onTap: () {
-                // planProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
               },
               child: Container(
                 height: MySize.scaleFactorHeight * 75,
@@ -219,7 +218,7 @@ class CancelSubscription extends StatelessWidget {
                     ? const Color(0XFF353542).withOpacity(.7)
                     : const Color(0XFFF1F1FF).withOpacity(.8),
             ),
-            child:  CancelSubsDialogBox(),
+            child:  const CancelSubsDialogBox(),
           ),
     ));
   }
