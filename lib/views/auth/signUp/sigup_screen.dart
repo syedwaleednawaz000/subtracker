@@ -30,6 +30,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   @override
@@ -62,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                         child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
                   ),
-                  const SizedBox(height: 100,),
+                   SizedBox(height: MySize.size100,),
                    Text( AppLocalizations.of(context)!.create_account,
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 24,
@@ -70,64 +71,19 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
 
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, top: 22),                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                             Text(AppLocalizations.of(context)!.user_name,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF666680)
-                              ),),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            TextFormField(
-                              style: const TextStyle(
-                                  color:  Color(0XFF666680)
-                              ),
-                              obscureText: isSelected1,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                                  isDense: true,
-                                  hintText: AppLocalizations.of(context)!.enter_user_name,
-                                  hintStyle:  TextStyle(
-                                    fontFamily: 'Poppins_Regular',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0XFF666680).withOpacity(.3),
-                                  ),
-                                  suffixIcon: IconButton(onPressed: (){
-                                    setState(() {
-                                      isSelected1 = !isSelected1;
-                                    });
-                                  }, icon: isSelected1
-                                      ? Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)
-                                      : Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3),)),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                      borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                                  focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                            ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(16),
-                                            borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                                          ),
-                              ),
-
-                            ),
-                          ],
-                        ),
-                      ),
                  Padding(
-                   padding: const EdgeInsets.only(left: 24, right: 24, top: 22),
+                   padding:  EdgeInsets.symmetric(horizontal: MySize.size35),
                    child: Column(
                      children: [
+                       CustomTextFormField(
+                         controller: nameController,
+                         text: "Name",
+                         hintText: "Enter your name",
+                         validator: Validation.validateName,
+                         suffixIcons: IconButton(onPressed: (){},
+                             icon:  Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),)),
+                       ),
+                       SizedBox(height: MySize.size10,),
                        CustomTextFormField(
                          controller: emailController,
                          text: AppLocalizations.of(context)!.email_address,
@@ -136,9 +92,7 @@ class _SignupScreenState extends State<SignupScreen> {
                          suffixIcons: IconButton(onPressed: (){},
                              icon:  Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),)),
                        ),
-                       const SizedBox(
-                         height: 10,
-                       ),
+                       SizedBox(height: MySize.size10,),
                        CustomTextFormField(
                          controller: passwordController,
                          text: AppLocalizations.of(context)!.password,
@@ -148,7 +102,6 @@ class _SignupScreenState extends State<SignupScreen> {
                          suffixIcons: IconButton(
                              onPressed: (){
                                isSelected1 = !isSelected1;
-
                              setState(() {
                                    });
                                  }, icon: isSelected1
@@ -177,44 +130,34 @@ class _SignupScreenState extends State<SignupScreen> {
                            : Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)),
                      );
                    },),
-                       const SizedBox(
-                         height: 10,
-                       ),
+                        SizedBox(height: MySize.size20,),
 
-                       Padding(
-                         padding: const EdgeInsets.only(left: 5, right: 5, top: 16, bottom: 16),
-                         child:  Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
-                           return StepProgressIndicator(
-                             totalSteps: 4,
-                             currentStep: registerProvider.strengthLevel,
-                             size: 8,
-                             padding: 0,
-                             selectedColor: registerProvider.strengthLevel == 0
-                                 ? Colors.grey
-                                 : registerProvider.colors[registerProvider.strengthLevel - 1],
-                             unselectedColor: Color(0XFF353542),
-                             roundedEdges: Radius.circular(10),
-                           );
-                         },),
+                       Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                         return StepProgressIndicator(
+                           totalSteps: 4,
+                           currentStep: registerProvider.strengthLevel,
+                           size: 8,
+                           padding: 0,
+                           selectedColor: registerProvider.strengthLevel == 0
+                               ? Colors.grey
+                               : registerProvider.colors[registerProvider.strengthLevel - 1],
+                           unselectedColor: Color(0XFF353542),
+                           roundedEdges: Radius.circular(10),
+                         );
+                       },),
+                       SizedBox(height: MySize.size17,),
+                       Align(
+                         alignment: Alignment.centerLeft,
+                         child: Text(AppLocalizations.of(context)!.use_or_more_characters_with_a_mix_of_letters_numbers_symbols_to_be_secure,
+                           textAlign: TextAlign.start,
+                           style: TextStyle(
+                             fontSize: 12,
+                             fontWeight: FontWeight.w500,
+                             // color: Color(0XFF666680),
+                               color: AppColors.grey30.withOpacity(.3)
+                           ),),
                        ),
-
-                       Padding(
-                         padding: const EdgeInsets.only(left: 7),
-                         child: Align(
-                           alignment: Alignment.centerLeft,
-                           child: Text(AppLocalizations.of(context)!.use_or_more_characters_with_a_mix_of_letters_numbers_symbols_to_be_secure,
-                             textAlign: TextAlign.start,
-                             style: TextStyle(
-                               fontSize: 15,
-                               // fontWeight: FontWeight.w600,
-                               // color: Color(0XFF666680),
-                                 color: AppColors.grey30.withOpacity(.3)
-                             ),),
-                         ),
-                       ),
-                        const SizedBox(
-                         height: 12,
-                       ),
+                       SizedBox(height: MySize.size12,),
                        Row(
                          children: [
                            Checkbox(
@@ -232,7 +175,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                val = !val;
                              }),
                            ),
-                           SizedBox(width: MySize.size25),
+                           SizedBox(width: MySize.size6),
                            Expanded( // Ensure text wraps within available space
                              child: RichText(
                                text: TextSpan(
@@ -278,35 +221,36 @@ class _SignupScreenState extends State<SignupScreen> {
                      ],
                    ),
                  ),
-              Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
-                return  GestureDetector(
-                  onTap: (){
-                    if (_formKey.currentState!.validate()) {
-                      if (passwordController.text.trim() == confirmPasswordController.text.trim()) {
-                        if (val == true) {
-                          registerProvider.register(
-                            context: context,
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
+                  SizedBox(height: MySize.size18,),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: MySize.size35),
+                child: Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                  return  GestureDetector(
+                    onTap: (){
+                      if (_formKey.currentState!.validate()) {
+                        if (passwordController.text.trim() == confirmPasswordController.text.trim()) {
+                          if (val == true) {
+                            registerProvider.register(
+                              name: nameController.text.trim(),
+                              context: context,
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                            );
+                          } else {
+                            FlutterToast.toastMessage(
+                              message: "Please accept privacy and policy",
+                              isError: true,
+                            );
+                          }
                         } else {
                           FlutterToast.toastMessage(
-                            message: "Please accept privacy and policy",
+                            message: "Password doesn't match with confirm password",
                             isError: true,
                           );
                         }
-                      } else {
-                        FlutterToast.toastMessage(
-                          message: "Password doesn't match with confirm password",
-                          isError: true,
-                        );
                       }
-                    }
-                  },
-                  child: Padding(
-                    padding:
-                    EdgeInsets.only(top: MySize.size34, bottom: MySize.size15),
-                    child:Container(
+                    },
+                    child: Container(
                         height: MySize.scaleFactorHeight * 48,
                         width: MySize.scaleFactorWidth * 333,
                         decoration: BoxDecoration(
@@ -328,27 +272,26 @@ class _SignupScreenState extends State<SignupScreen> {
                             style: TextStyle(color:Colors.white, fontSize: 16),
                           ),
                         )),
-                  ),
-                );
-              },),
-                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 25, right: 25, top: 12, bottom: 12),
-                    child:   Text(
-                      AppLocalizations.of(context)!.do_you_have_already_an_account,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),),
-                  ),
+                  );
+                },),
+              ),
+                  SizedBox(height: MySize.size40,),
+                   Text(
+                     AppLocalizations.of(context)!.do_you_have_already_an_account,
+                     textAlign: TextAlign.center,
+                     style: const TextStyle(
+                       fontSize: 14,
+                       fontWeight: FontWeight.w400,
+                       color: Colors.white,
+                     ),),
+                  SizedBox(height: MySize.size20,),
                   GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
                     },
                     child: Padding(
-                      padding: EdgeInsets.only(bottom: MySize.size20),
+                      padding: EdgeInsets.only(bottom: MySize.size35
+                      ),
                       child: FieldContainer(
                         // containerColor: AppColors.grey30.withOpacity(.3),
                         containerColor:  Provider.of<ThemeChanger>(context)
@@ -405,8 +348,8 @@ class _SignupScreenState extends State<SignupScreen> {
               color: Color(0XFF666680),
             ),),
          // color: Color(0XFF666680),
-          const SizedBox(
-            height: 4,
+           SizedBox(
+            height: MySize.size4,
           ),
           TextFormField(
             onChanged: onChanged,

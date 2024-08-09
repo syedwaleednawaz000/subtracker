@@ -14,9 +14,9 @@ class RegisterProvider extends ChangeNotifier{
     isRegister = load;
     notifyListeners();
   }
-  Future<void> register({required BuildContext context,required String  email ,required String password})async{
+  Future<void> register({required BuildContext context,required String  name,required String  email ,required String password})async{
     var body = {
-      'name': 'humna',
+      'name': name,
       'email': email,
       'password': password,
       'role': 'individual',

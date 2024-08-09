@@ -32,6 +32,7 @@ import '../../utils/my_size.dart';
         children: [
           Container(
             height: MySize.scaleFactorHeight * 48,
+            // width: double.infinity,
             width: MySize.scaleFactorWidth * 333,
             decoration: BoxDecoration(
               color: containerColor,

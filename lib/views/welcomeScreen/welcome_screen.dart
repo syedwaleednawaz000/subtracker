@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only( left: 44, right: 48, bottom: 11),
+                      padding:  EdgeInsets.only( left: MySize.size44, right: 48, bottom: 11),
                       child: Text('Manage all your \nsubscriptions in one place effortlessly.',
                       style: TextStyle(
                           color: Provider.of<ThemeChanger>(context)
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                       )
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 50),
+                      padding:  EdgeInsets.only(left: MySize.size40),
                       child: InkWell(
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterWithM()));
@@ -60,7 +60,8 @@ class WelcomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Container(
-                              height: 52, width: 190,
+                              height: MySize.size52,
+                              padding: EdgeInsets.symmetric(horizontal: MySize.size50),
                               decoration: BoxDecoration(
                                 color: const Color(0XFF424252),
                                 // color: Colors.blue,

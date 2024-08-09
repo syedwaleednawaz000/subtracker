@@ -18,6 +18,7 @@ import 'package:sub_tracker/views/change_password/change_password.dart';
 import 'package:sub_tracker/views/currency_screen/currency_screen.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
+import 'package:sub_tracker/views/welcomeScreen/welcome_screen.dart';
 
 class ProfileProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
@@ -146,7 +147,7 @@ class ProfileProvider extends ChangeNotifier{
     FlutterToast.toastMessage(message: "Successfully Logout");
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => WelcomeScreen()),
     );
 
   }
