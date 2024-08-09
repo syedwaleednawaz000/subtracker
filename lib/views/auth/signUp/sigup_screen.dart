@@ -160,20 +160,23 @@ class _SignupScreenState extends State<SignupScreen> {
                        SizedBox(height: MySize.size12,),
                        Row(
                          children: [
-                           Checkbox(
-                             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                             visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
-                             checkColor: const Color(0XFF666680),
-                             side: BorderSide(
-                               style: BorderStyle.solid,
-                               width: 3,
-                               color: const Color(0XFF353542).withOpacity(.5),
+                           Transform.scale(
+                             scale: 1.2,
+                             child: Checkbox(
+                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                               visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
+                               checkColor: const Color(0XFF666680),
+                               side: BorderSide(
+                                 style: BorderStyle.solid,
+                                 width: 3,
+                                 color: const Color(0XFF353542).withOpacity(.5),
+                               ),
+                               value: val,
+                               onChanged: (value) => setState(() {
+                                 val = !val;
+                               }),
                              ),
-                             value: val,
-                             onChanged: (value) => setState(() {
-                               val = !val;
-                             }),
                            ),
                            SizedBox(width: MySize.size6),
                            Expanded( // Ensure text wraps within available space
@@ -183,7 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                    TextSpan(
                                      text: "${AppLocalizations.of(context)!.by_proceeding_you_agree_to_our} ",
                                      style: TextStyle(
-                                       fontSize: 15,
+                                       fontSize: 14,
                                        color: AppColors.grey30.withOpacity(.3),
                                      ),
                                    ),
@@ -191,7 +194,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                      text: AppLocalizations.of(context)!.privacy_policy,
                                      style: TextStyle(
                                        color: Color(0XFF758AFF),
-                                       fontSize: 15,
+                                       fontSize: 14,
                                        decoration: TextDecoration.underline,
                                        decorationColor: AppColors.lightBlue,
                                      ),
@@ -200,14 +203,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                      text: ' ${AppLocalizations.of(context)!.and} ',
                                      style: TextStyle(
                                        color: AppColors.grey30.withOpacity(.3),
-                                       fontSize: 15,
+                                       fontSize: 14,
                                      ),
                                    ),
                                     TextSpan(
                                      text: AppLocalizations.of(context)!.terms_of_use,
                                      style: const TextStyle(
                                        color: Color(0XFF758AFF),
-                                       fontSize: 15,
+                                       fontSize: 14,
                                        decoration: TextDecoration.underline,
                                        decorationColor: AppColors.lightBlue,
                                      ),
