@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
@@ -109,7 +110,7 @@ class CancelSubscription extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      left:                       MySize.scaleFactorWidth * 120,
+                      left: MySize.scaleFactorWidth * 120,
                         child: Container(
                       width: MySize.scaleFactorWidth * 46,
                       height: MySize.scaleFactorHeight*2,

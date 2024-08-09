@@ -24,7 +24,7 @@ class Assets {
   static const String iconsChart = 'assets/icons/Chart.png';
   static const String iconsContact = 'assets/icons/contact.png';
   static const String iconsCreditCard = 'assets/icons/creditCard.png';
-  static const String iconsCrossIcono = 'assets/icons/crossIcon.png';
+  static const String iconsCrossIcon = 'assets/icons/crossIcon.png';
   static const String iconsCurrency = 'assets/icons/currency.png';
   static const String iconsDarkmode = 'assets/icons/darkmode.png';
   static const String iconsDashboard = 'assets/icons/dashboard.png';
@@ -34,7 +34,7 @@ class Assets {
   static const String iconsEditimage = 'assets/icons/editimage.png';
   static const String iconsEmail = 'assets/icons/email.png';
   static const String iconsEsss = 'assets/icons/esss.png';
-  static const String iconsFaceid = 'assets/icons/faceid.png';
+  static const String iconsFaceID = 'assets/icons/faceID.png';
   static const String iconsFactor = 'assets/icons/factor.png';
   static const String iconsFaqs = 'assets/icons/faqs.png';
   static const String iconsFb = 'assets/icons/fb.png';
@@ -44,16 +44,18 @@ class Assets {
   static const String iconsHalfspotifylogo = 'assets/icons/halfspotifylogo.png';
   static const String iconsHand = 'assets/icons/hand.png';
   static const String iconsHome = 'assets/icons/home.png';
+  static const String iconsImg = 'assets/icons/img.png';
   static const String iconsLanguage = 'assets/icons/language.png';
   static const String iconsLogout = 'assets/icons/logout.png';
+  static const String iconsManIcon = 'assets/icons/manIcon.png';
   static const String iconsMark = 'assets/icons/mark.png';
   static const String iconsNotif = 'assets/icons/notif.png';
+  static const String iconsNotificationGrey = 'assets/icons/notification_grey.png';
   static const String iconsNotify = 'assets/icons/notify.png';
   static const String iconsOneDrive = 'assets/icons/oneDrive.png';
   static const String iconsPassword = 'assets/icons/password.png';
   static const String iconsPayment = 'assets/icons/payment.png';
   static const String iconsPee = 'assets/icons/pee.png';
-  static const String iconsPerson = 'assets/icons/person.png';
   static const String iconsPlan = 'assets/icons/plan.png';
   static const String iconsPrivpolicy = 'assets/icons/privpolicy.png';
   static const String iconsRightArrow = 'assets/icons/right_arrow.png';

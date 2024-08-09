@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
@@ -87,13 +89,25 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
-        return GetMaterialApp(
+        return Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeChanger.themeData,
+            locale: languageProvider.appLocale,
+            localizationsDelegates:  [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('ur'),
+            ],
 
-          debugShowCheckedModeBanner: false,
-          theme: themeChanger.themeData,
-
-          home: const SplashScreen(),
-        );
+            home: const SplashScreen(),
+          );
+        },);
       }),
     );
 

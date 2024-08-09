@@ -1,16 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
-import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
-import '../personaldata/personaldata.dart';
-import '../settings/settings.dart';
 import 'base/custom_appBar.dart';
 
 
@@ -50,11 +47,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
         children: [
 
           const SizedBox(height: 20,),
-        const LanguageTiles(
-          title: 'Pakistan',
-          leadingIcon: AssetImage(AppImages.psFlag,),
-          trailingText: '()',
-        ),
+        const LanguageTiles(),
           const SizedBox(height: 45,),
 
 
@@ -71,20 +64,16 @@ class _LanguageSelectionState extends State<LanguageSelection> {
 }
 
 class LanguageTiles extends StatelessWidget {
-  const LanguageTiles({
-    super.key, required this.title, required this.leadingIcon, required this.trailingText,
-  });
+  const LanguageTiles({super.key,});
 
-  final String title;
-  final ImageProvider leadingIcon;
-  final String trailingText;
+
 
 
   @override
   Widget build(BuildContext context) {
 
-    List<String> namingLists = [ 'English (UK)', 'Pakistan', 'Iran', 'English (UK)', 'Pakistan', 'English (UK)', 'Iran', 'English (UK)', 'English (UK)', ];
-    List<String> namingLists_urdu = ['(English)', '(اردو)', '(فارسی)', 'English ', '(اردو)', 'English', '(فارسی)', 'English', 'English', ];
+    List<String> namingLists = [ 'English (UK)', 'Pakistan',  ];
+    List<String> namingLists_urdu = ['(English)', '(اردو)', ];
     List<AssetImage>  iconsList = [const AssetImage(AppImages.psFlag),const AssetImage(AppImages.pkFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag),];
     List<Color> listColors = [
       const Color(0XFF758AFF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
@@ -110,16 +99,21 @@ class LanguageTiles extends StatelessWidget {
 
     return Expanded(
       child: Consumer<LanguageProvider>(
-        builder: (context, selectionProvider, child) {
+        builder: (context, languageProvider, child) {
           return ListView.builder(
             itemCount: namingLists.length,
             itemBuilder: (context, index) {
-              bool isSelected = selectionProvider.selectedIndex == index;
+              bool isSelected = languageProvider.selectedIndex == index;
               return Padding(
                 padding: const EdgeInsets.only(left: 29, right: 29, top: 10),
                 child: GestureDetector(
                   onTap: () {
-                    selectionProvider.selectIndex(index, namingLists[index], namingLists_urdu[index]);
+                    if(index == 0){
+                      languageProvider.changeLanguage(Locale('en', 'US'),);
+                    }else{
+                      // languageProvider.changeLanguage(Locale('ur', 'PK'),);
+                    }
+                    languageProvider.selectIndex(index, namingLists[index], namingLists_urdu[index]);
                   },
                   child: Container(
                     decoration: BoxDecoration(
