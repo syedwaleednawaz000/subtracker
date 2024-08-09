@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 
@@ -48,24 +47,23 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-               Padding(
-                 padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size44,top: MySize.size60),
-                 child: Row(
-                   //mainAxisAlignment: MainAxisAlignment.start,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     GestureDetector(
-                       onTap:(){
-                         Navigator.pop(context);
-                       },
-                       child: Image.asset(AppImages.backArrow),
-                     ),
-                   ],
-                 ),
-               ),
-
+                Padding(
+                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size44,top: MySize.size60),
+                  child: Row(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap:(){
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(AppImages.backArrow),
+                      ),
+                    ],
+                  ),
+                ),
                 // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
-                 Text(AppLocalizations.of(context)!.forgot_password,
+                Text(AppLocalizations.of(context)!.forgot_password,
                   style: const TextStyle(
                       color: Color(0XFFF0F4F7),
                       fontSize: 26,
@@ -76,7 +74,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 SizedBox(
                   height: MySize.size10,
                 ),
-                 Text(AppLocalizations.of(context)!.forgot_your_password_dont_worry_we_have_your_back,
+                Text(AppLocalizations.of(context)!.forgot_your_password_dont_worry_we_have_your_back,
                   style: const TextStyle(
                     color: Color(0XFFF0F4F7),
                     fontSize: 12,
@@ -88,7 +86,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 SizedBox(
                   height: MySize.size25,
                 ),
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.only(left: 50),
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -101,7 +99,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 4,),
                 Padding(
                   padding: const EdgeInsets.only(left: 37, right: 38),
@@ -143,7 +140,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 SizedBox(
                   height: MySize.size5,
                 ),
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.only(left: 42, top: 7),
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -165,7 +162,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     }
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: MySize.size28),
+                      margin: EdgeInsets.symmetric(horizontal: MySize.size28),
                       height: MySize.scaleFactorHeight * 48,
                       // width: MySize.scaleFactorWidth * 333,
                       decoration: BoxDecoration(
@@ -194,6 +191,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ),
         ),
       ),
+      // floatingActionButton: ,
     );
   }
 }
