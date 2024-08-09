@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../utils/app_Images.dart';
-import '../auth/login/login_screen.dart';
-import '../base/text_widgets.dart';
 
 
 
@@ -57,7 +56,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(height: 200,),
-                      const Text( 'Reset Password',
+                       Text( AppLocalizations.of(context)!.reset_password,
                         style: TextStyle(
                             fontFamily: 'Poppins_Regular',
                             fontSize: 26,
@@ -66,8 +65,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
 
                       ),
                       const SizedBox(height: 16,),
-                      const Text( 'Here’s a tip: Use a combination of numbers,'
-                          ' \nuppercase, lowercase and special characters',
+                       Text( AppLocalizations.of(context)!.heres_a_tip_use_a_combination_of_numbers_uppercase_lowercase_and_special_characters,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'Poppins_Regular',
@@ -82,7 +80,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Password',
+                           Text(AppLocalizations.of(context)!.password,
                             style: TextStyle(
                               // fontFamily: 'Poppins_Regular',
                               fontWeight: FontWeight.w400,
@@ -103,7 +101,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                              hintText: 'Password',
+                              hintText: AppLocalizations.of(context)!.password,
                               hintStyle:  TextStyle(
                                 fontFamily: 'Poppins_Regular',
                                 fontSize: 12,
@@ -130,8 +128,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text( 'Confirm Password',
-                            style: TextStyle(
+                           Text(AppLocalizations.of(context)!.confirm_password,
+                            style: const TextStyle(
                               // fontWeight: FontWeight.w400,
                               // fontFamily: 'Poppins_Regular',
                               fontSize: 12,
@@ -150,7 +148,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                              hintText: 'Confirm Password',
+                              hintText: AppLocalizations.of(context)!.confirm_password,
                               hintStyle:  TextStyle(
                                 fontFamily: 'Poppins_Regular',
                                 fontSize: 12,
@@ -212,9 +210,9 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                          color: const Color(0XFF4F63BE).withOpacity(.5))
                    ]),
                child:  Center(
-                 child: forgotPasswordProvider.isChangePass == true ? const CircularProgressIndicator(): const Text(
-                   'Reset Password',
-                   style: TextStyle(
+                 child: forgotPasswordProvider.isChangePass == true ?  const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
+                   AppLocalizations.of(context)!.reset_password,
+                   style: const TextStyle(
                        fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
                  ),
                ),

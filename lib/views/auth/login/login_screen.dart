@@ -2,19 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
 import 'package:sub_tracker/utils/validation.dart';
-import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/auth/signUp/sigup_screen.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/forgot_password/forget_password.dart';
-import 'package:sub_tracker/views/home_screen/home_screen.dart';
+
 
 import '../../../theme/theme.dart';
 import '../../base/field_container.dart';
@@ -64,8 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: EdgeInsets.only(
                               top: 28, bottom: 165, left: 115, right: 115),
                         ),
-                        const Text(
-                          'Welcome Back!',
+                         Text(
+                          '${AppLocalizations.of(context)!.welcome_back}',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
@@ -79,10 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'E-mail address',
+                                   Text(
+                                    '${AppLocalizations.of(context)!.email_address}',
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                       color: Color(0XFF666680),
@@ -100,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isDense: true,
                                       contentPadding: const EdgeInsets.only(
                                           left: 20, right: 20),
-                                      hintText: 'Email',
+                                      hintText: AppLocalizations.of(context)!.email,
                                       hintStyle: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -141,10 +137,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    'Password',
+                                   Text(
+                                     AppLocalizations.of(context)!.password,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                       color: Color(0XFF666680),
@@ -164,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isDense: true,
                                       contentPadding: const EdgeInsets.only(
                                           left: 20, right: 20),
-                                      hintText: 'Password',
+                                      hintText: AppLocalizations.of(context)!.password,
                                       hintStyle: TextStyle(
                                         fontFamily: 'Poppins_Regular',
                                         fontSize: 14,
@@ -245,10 +241,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         val = !val;
                                       }),
                                     ),
-                                    const Text(
-                                      'Remember me',
+                                     Text(
+                                       AppLocalizations.of(context)!.remember_me,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
                                         color: Color(0XFF666680),
@@ -263,8 +259,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 builder: (context) =>
                                                     ForgetPassword()));
                                       },
-                                      child: const Text(
-                                        'Forgot password?',
+                                      child:  Text(
+                                        AppLocalizations.of(context)!.forgot_password,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 16,
@@ -324,8 +320,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Center(
                                       child: loginProvider.isLogin == true
                                           ? const CircularProgressIndicator()
-                                          : const Text('Sign In',
-                                              style: TextStyle(
+                                          :  Text(AppLocalizations.of(context)!.sign_in,
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16)),
                                     )),
@@ -345,9 +341,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               height: 15,
                             ),
-                            const Text(
-                              'Enable Face ID',
-                              style: TextStyle(
+                             Text(
+                               AppLocalizations.of(context)!.enable_face_id,
+                              style: const TextStyle(
                                   fontFamily: 'Poppins_Regular',
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -358,13 +354,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 22,
                         ),
-                        const Padding(
+                         Padding(
                           padding:
-                              EdgeInsets.only(left: 25, right: 25, bottom: 12),
+                              const EdgeInsets.only(left: 25, right: 25, bottom: 12),
                           child: Text(
-                            'If you don\'t have an account yet?',
+                            AppLocalizations.of(context)!.if_you_dont_have_an_account_yet,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                               color: Colors.white,
@@ -390,7 +386,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       darkMode
                                   ? AppColors.grey30.withOpacity(.15)
                                   : AppColors.grey30.withOpacity(.15),
-                              mytitle: 'Sign Up',
+                              mytitle: AppLocalizations.of(context)!.sign_up,
                               textColor: AppColors.white100.withOpacity(.7),
                             ),
                           ),

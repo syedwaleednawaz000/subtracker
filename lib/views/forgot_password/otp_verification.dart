@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 import 'base/countNotifier.dart';
@@ -86,17 +86,17 @@ class _OTPVerificationState extends State<OTPVerification> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 250),
-                  const Text(
-                    'Check Email',
-                    style: TextStyle(
+                   Text(
+                     AppLocalizations.of(context)!.check_email,
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 26,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Poppins_Regular'),
                   ),
                   const SizedBox(height: 15),
-                  const Text(
-                    'Check your email we have sent you the \nrecovery code.',
+                   Text(
+                     AppLocalizations.of(context)!.check_your_email_we_have_sent_you_the_recovery_code,
                     style: TextStyle(
                       color: Color(0XFFF0F4F7),
                       fontSize: 12,
@@ -122,8 +122,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                   ),
                   const SizedBox(height: 35),
                   RichText(
-                    text: const TextSpan(
-                      text: 'Didn\'t get a code?',
+                    text:  TextSpan(
+                      text: AppLocalizations.of(context)!.didnt_get_a_code,
                       style: TextStyle(fontSize: 15, color: Colors.white),
                       children: [
                         TextSpan(
@@ -177,9 +177,9 @@ class _OTPVerificationState extends State<OTPVerification> {
                   child: Center(
                     child: forgotPasswordProvider.isVerifyOtp
                         ? const CircularProgressIndicator()
-                        : const Text(
-                      'Verify OTP',
-                      style: TextStyle(
+                        :  Text(
+                      AppLocalizations.of(context)!.verify_otp,
+                      style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w500),

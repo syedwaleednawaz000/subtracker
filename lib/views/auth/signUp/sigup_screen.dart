@@ -1,20 +1,12 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
-import 'package:sub_tracker/utils/validation.dart';
-import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
-
+import 'package:sub_tracker/utils/validation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../base/field_container.dart';
@@ -71,8 +63,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
                   ),
                   const SizedBox(height: 100,),
-                  const Text( 'Create Account',
-                    style: TextStyle(
+                   Text( AppLocalizations.of(context)!.create_account,
+                    style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 24,
                         color: Colors.white
                     ),
@@ -83,9 +75,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Text('User Name',
+                             Text(AppLocalizations.of(context)!.user_name,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0XFF666680)
@@ -101,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.only(left: 20, right: 20),
                                   isDense: true,
-                                  hintText: 'Enter User Name',
+                                  hintText: AppLocalizations.of(context)!.enter_user_name,
                                   hintStyle:  TextStyle(
                                     fontFamily: 'Poppins_Regular',
                                     fontSize: 14,
@@ -138,8 +130,8 @@ class _SignupScreenState extends State<SignupScreen> {
                      children: [
                        CustomTextFormField(
                          controller: emailController,
-                         text: 'E-mail address',
-                         hintText: 'Email',
+                         text: AppLocalizations.of(context)!.email_address,
+                         hintText: AppLocalizations.of(context)!.email,
                          validator: Validation.validateEmail,
                          suffixIcons: IconButton(onPressed: (){},
                              icon:  Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),)),
@@ -149,8 +141,8 @@ class _SignupScreenState extends State<SignupScreen> {
                        ),
                        CustomTextFormField(
                          controller: passwordController,
-                         text: 'Password',
-                         hintText: 'Password',
+                         text: AppLocalizations.of(context)!.password,
+                         hintText: AppLocalizations.of(context)!.password,
                          validator:  Validation.validatePassword,
                          obscureText: isSelected1 ,
                          suffixIcons: IconButton(
@@ -172,8 +164,8 @@ class _SignupScreenState extends State<SignupScreen> {
                          registerProvider.updatePassword(newValue);
                        },
                        controller: confirmPasswordController,
-                       text: 'Confirm Password',
-                       hintText: 'Confirm Password',
+                       text: AppLocalizations.of(context)!.confirm_password,
+                       hintText: AppLocalizations.of(context)!.confirm_password,
                        obscureText: isSelected2,
                        validator:  Validation.validatePassword,
                        suffixIcons: IconButton(onPressed: (){
@@ -210,7 +202,7 @@ class _SignupScreenState extends State<SignupScreen> {
                          padding: const EdgeInsets.only(left: 7),
                          child: Align(
                            alignment: Alignment.centerLeft,
-                           child: Text('Use 8 or more characters with a mix of letters, \nnumbers & symbols to be secure.',
+                           child: Text(AppLocalizations.of(context)!.use_or_more_characters_with_a_mix_of_letters_numbers_symbols_to_be_secure,
                              textAlign: TextAlign.start,
                              style: TextStyle(
                                fontSize: 15,
@@ -246,14 +238,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                text: TextSpan(
                                  children: [
                                    TextSpan(
-                                     text: 'By proceeding, you agree to our ',
+                                     text: "${AppLocalizations.of(context)!.by_proceeding_you_agree_to_our} ",
                                      style: TextStyle(
                                        fontSize: 15,
                                        color: AppColors.grey30.withOpacity(.3),
                                      ),
                                    ),
-                                   const TextSpan(
-                                     text: 'Privacy Policy',
+                                    TextSpan(
+                                     text: AppLocalizations.of(context)!.privacy_policy,
                                      style: TextStyle(
                                        color: Color(0XFF758AFF),
                                        fontSize: 15,
@@ -262,15 +254,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                      ),
                                    ),
                                    TextSpan(
-                                     text: ' and ',
+                                     text: ' ${AppLocalizations.of(context)!.and} ',
                                      style: TextStyle(
                                        color: AppColors.grey30.withOpacity(.3),
                                        fontSize: 15,
                                      ),
                                    ),
-                                   const TextSpan(
-                                     text: 'Terms of Use',
-                                     style: TextStyle(
+                                    TextSpan(
+                                     text: AppLocalizations.of(context)!.terms_of_use,
+                                     style: const TextStyle(
                                        color: Color(0XFF758AFF),
                                        fontSize: 15,
                                        decoration: TextDecoration.underline,
@@ -332,20 +324,20 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: registerProvider.isRegister == true ?  const SizedBox(
                               width: 20,
                               height: 20,
-                              child: CircularProgressIndicator()) : const Text('Get started!',
+                              child: CircularProgressIndicator(color: AppColors.purpleFF,)) :  Text(AppLocalizations.of(context)!.get_started,
                             style: TextStyle(color:Colors.white, fontSize: 16),
                           ),
                         )),
                   ),
                 );
               },),
-                  const Padding(
-                    padding: EdgeInsets.only(
+                   Padding(
+                    padding: const EdgeInsets.only(
                         left: 25, right: 25, top: 12, bottom: 12),
                     child:   Text(
-                      'Do you have already an account?',
+                      AppLocalizations.of(context)!.do_you_have_already_an_account,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
@@ -364,7 +356,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             ?  AppColors.grey30.withOpacity(.15)
                             :  AppColors.grey30.withOpacity(.15),
 
-                        mytitle: 'Sign In',
+                        mytitle: AppLocalizations.of(context)!.sign_in,
                         textColor: AppColors.white100.withOpacity(.8),
                       ),
                     ),
