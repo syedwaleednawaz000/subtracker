@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
+import 'package:sub_tracker/utils/textStyle.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -67,9 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 24,
                               color: Colors.white),
                         ),
+                        SizedBox(height: MySize.size30,),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 24, right: 24, top: 22),
+                              left: 24, right: 24,),
                           child: Column(
                             children: [
                               Column(
@@ -207,12 +209,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 20, bottom: 20),
-                                child: Row(
-                                  children: [
-                                    Checkbox(
+                              SizedBox(height: MySize.size20,),
+                              Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: 1.2,
+                                    child: Checkbox(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(6)),
@@ -241,37 +243,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                         val = !val;
                                       }),
                                     ),
-                                     Text(
-                                       AppLocalizations.of(context)!.remember_me,
+                                  ),
+                                   SizedBox(width: MySize.size6,),
+                                   Text(
+                                     AppLocalizations.of(context)!.remember_me,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0XFF666680),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ForgetPassword()));
+                                    },
+                                    child:  Text(
+                                      AppLocalizations.of(context)!.forgot_password,
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style: TextStyle(
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: Color(0XFF666680),
                                       ),
                                     ),
-                                    const Spacer(),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ForgetPassword()));
-                                      },
-                                      child:  Text(
-                                        AppLocalizations.of(context)!.forgot_password,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0XFF666680),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
+                              SizedBox(height: MySize.size20,),
                             ],
                           ),
                         ),
@@ -290,86 +294,70 @@ class _LoginScreenState extends State<LoginScreen> {
                                       rememberMe: val);
                                 }
                               },
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: MySize.size28,
-                                ),
-                                child: Container(
-                                    height: MySize.scaleFactorHeight * 48,
-                                    width: MySize.scaleFactorWidth * 333,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(MySize.size40),
-                                      border: Border(
-                                          top: BorderSide(
-                                              color:
-                                                  Colors.white.withOpacity(.5)),
-                                          left: BorderSide(
-                                              color:
-                                                  Colors.white.withOpacity(.5)),
-                                          bottom: BorderSide.none),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: const Offset(0, 8),
-                                            blurRadius: 25,
-                                            color: const Color(0XFF4F63BE)
-                                                .withOpacity(.5))
-                                      ],
-                                      color: const Color(0XFF758AFF),
-                                    ),
-                                    child: Center(
-                                      child: loginProvider.isLogin == true
-                                          ? const CircularProgressIndicator()
-                                          :  Text(AppLocalizations.of(context)!.sign_in,
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16)),
-                                    )),
-                              ),
+                              child: Container(
+                                  height: MySize.scaleFactorHeight * 48,
+                                  width: MySize.scaleFactorWidth * 333,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(MySize.size40),
+                                    border: Border(
+                                        top: BorderSide(
+                                            color:
+                                                Colors.white.withOpacity(.5)),
+                                        left: BorderSide(
+                                            color:
+                                                Colors.white.withOpacity(.5)),
+                                        bottom: BorderSide.none),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 8),
+                                          blurRadius: 25,
+                                          color: const Color(0XFF4F63BE)
+                                              .withOpacity(.5))
+                                    ],
+                                    color: const Color(0XFF758AFF),
+                                  ),
+                                  child: Center(
+                                    child: loginProvider.isLogin == true
+                                        ? const CircularProgressIndicator()
+                                        :  Text(AppLocalizations.of(context)!.sign_in,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                                fontSize: 14)),
+                                  )),
                             );
                           },
                         ),
-                        const SizedBox(
-                          height: 25,
-                        ),
+                        SizedBox(height: MySize.size30,),
                         Column(
                           children: [
                             Image.asset(
                               AppImages.faceID,
-                              height: 58,
+                              height: MySize.size68,
+                              width: MySize.size68,
+                              fit: BoxFit.cover,
                             ),
                             const SizedBox(
-                              height: 15,
+                              height: 1,
                             ),
                              Text(
                                AppLocalizations.of(context)!.enable_face_id,
                               style: const TextStyle(
-                                  fontFamily: 'Poppins_Regular',
+                                  fontFamily: 'Inter-Regular',
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
                                   color: Color(0XFFF0F4F7)),
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 22,
-                        ),
-                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 25, right: 25, bottom: 12),
-                          child: Text(
-                            AppLocalizations.of(context)!.if_you_dont_have_an_account_yet,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: MySize.size44,),
+                         Text(
+                           AppLocalizations.of(context)!.if_you_dont_have_an_account_yet,
+                           textAlign: TextAlign.center,
+                           style: CustomTextStyles.textStyleWith14WhiteBold400(),
+                         ),
+                        SizedBox(height: MySize.size20,),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -378,19 +366,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                     builder: (context) =>
                                         const SignupScreen()));
                           },
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: MySize.size30),
-                            child: FieldContainer(
-                              containerColor: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? AppColors.grey30.withOpacity(.15)
-                                  : AppColors.grey30.withOpacity(.15),
-                              mytitle: AppLocalizations.of(context)!.sign_up,
-                              textColor: AppColors.white100.withOpacity(.7),
-                            ),
+                          child: FieldContainer(
+                            containerColor: Provider.of<ThemeChanger>(context)
+                                        .themeData ==
+                                    darkMode
+                                ? AppColors.grey30.withOpacity(.15)
+                                : AppColors.grey30.withOpacity(.15),
+                            mytitle: AppLocalizations.of(context)!.sign_up,
+                            textColor: Colors.white),
                           ),
-                        ),
+
                       ],
                     ));
               },

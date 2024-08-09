@@ -50,20 +50,16 @@ class _SignupScreenState extends State<SignupScreen> {
               key: _formKey,
               child: Column(
                 children: [
-
-                  const Padding(
-                    padding: EdgeInsets.only(
-                         left: 115, right: 115),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 60,right: 280),
                     child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
+                        child: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
                   ),
-                   SizedBox(height: MySize.size100,),
+
+                  SizedBox(height:MySize.size140,),
                    Text( AppLocalizations.of(context)!.create_account,
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 24,
@@ -363,6 +359,7 @@ class _SignupScreenState extends State<SignupScreen> {
                  color:  Color(0XFF666680)
             ),
             decoration: InputDecoration(
+              errorMaxLines: 3,
                isDense: true,
                 contentPadding: const EdgeInsets.only(left: 20, right: 20),
                 hintText: hintText,

@@ -51,32 +51,28 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             child: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 40),
+                  padding:  EdgeInsets.symmetric(horizontal: MySize.size40),
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(height: 200,),
                        Text( AppLocalizations.of(context)!.reset_password,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'Poppins_Regular',
                             fontSize: 26,
                             color: Colors.white
                         ),
-
                       ),
                       const SizedBox(height: 16,),
                        Text( AppLocalizations.of(context)!.heres_a_tip_use_a_combination_of_numbers_uppercase_lowercase_and_special_characters,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins_Regular',
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white
-                        ),
-
-                      ),
-
-                      const SizedBox(height: 28,),
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),),
+                      SizedBox(height: MySize.size25,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -89,9 +85,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             ),
                           ),
 
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          SizedBox(height: MySize.size4,),
                           TextFormField(
                             validator: validatePassword,
                             controller: forgotPasswordProvider.password,
@@ -123,8 +117,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15,),
-
+                      SizedBox(height: MySize.size25,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -136,8 +129,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                               color: Color(0XFF666680),
                             ),
                           ),
-                          const SizedBox(
-                            height: 4,
+                           SizedBox(
+                            height: MySize.size4,
                           ),
                           TextFormField(
                             validator: validatePassword,
@@ -170,56 +163,53 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             ),  ),
                         ],
                       ),
-
                     ],
                   ),
                 ),
-                SizedBox(height: MySize.size100,)
+                SizedBox(height: MySize.size25,),
+                Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
+                  return GestureDetector(
+                    onTap:(){
+                      if(_formKey.currentState!.validate()){
+                        if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
+                          forgotPasswordProvider.changePassword(context: context);
+                        }else{
+                          FlutterToast.toastMessage(message: "Confirm password doesn't match");
+                        }
+                      }
+                    },
+                    child: Container(
+                      height: MySize.scaleFactorHeight * 48,
+                      margin:  EdgeInsets.symmetric(horizontal: MySize.size35),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          border: Border(
+                              top: BorderSide(color: Colors.white.withOpacity(.5)),
+                              left: BorderSide(color: Colors.white.withOpacity(.5)),
+                              bottom: BorderSide.none),
+                          color: const Color(0XFF758AFF),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 8),
+                                blurRadius: 25,
+                                color: const Color(0XFF4F63BE).withOpacity(.5))
+                          ]),
+                      child:  Center(
+                        child: forgotPasswordProvider.isChangePass == true ?  const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
+                          AppLocalizations.of(context)!.reset_password,
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  );
+                },),
               ],
             ),
           );
         },),
       ),
-      floatingActionButton:Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
-         return GestureDetector(
-           onTap:(){
-             if(_formKey.currentState!.validate()){
-               if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
-                 forgotPasswordProvider.changePassword(context: context);
-               }else{
-                 FlutterToast.toastMessage(message: "Confirm password doesn't match");
-               }
-             }
-           },
-           child: Padding(
-             padding: const EdgeInsets.only(left: 30.0),
-             child: Container(
-               height: MySize.scaleFactorHeight * 48,
-               margin: const EdgeInsets.symmetric(horizontal: 60),
-               decoration: BoxDecoration(
-                   borderRadius: BorderRadius.circular(40),
-                   border: Border(
-                       top: BorderSide(color: Colors.white.withOpacity(.5)),
-                       left: BorderSide(color: Colors.white.withOpacity(.5)),
-                       bottom: BorderSide.none),
-                   color: const Color(0XFF758AFF),
-                   boxShadow: [
-                     BoxShadow(
-                         offset: const Offset(0, 8),
-                         blurRadius: 25,
-                         color: const Color(0XFF4F63BE).withOpacity(.5))
-                   ]),
-               child:  Center(
-                 child: forgotPasswordProvider.isChangePass == true ?  const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
-                   AppLocalizations.of(context)!.reset_password,
-                   style: const TextStyle(
-                       fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
-                 ),
-               ),
-             ),
-           ),
-         );
-      },),
+      // floatingActionButton:,
     );
   }
 }
