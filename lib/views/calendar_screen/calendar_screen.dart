@@ -135,7 +135,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 print("provider is empty");
                               }
                             }else{
-                              print( "model data ia sempty");
+                              print( "model data is empty");
                             }
                             return                           Text(
                               '$length subscriptions for today',

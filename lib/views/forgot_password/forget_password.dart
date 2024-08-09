@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 
@@ -62,6 +63,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                    ],
                  ),
                ),
+
                 // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
                  Text(AppLocalizations.of(context)!.forgot_password,
                   style: const TextStyle(
@@ -99,6 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 4,),
                 Padding(
                   padding: const EdgeInsets.only(left: 37, right: 38),
@@ -191,7 +194,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ),
         ),
       ),
-      // floatingActionButton: ,
     );
   }
 }

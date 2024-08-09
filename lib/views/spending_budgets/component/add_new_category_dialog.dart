@@ -109,7 +109,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Add  Image',
+                                  'Add Image',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: MySize.size10,
@@ -167,7 +167,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Add  Image',
+                                'Add Image',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: MySize.size10,

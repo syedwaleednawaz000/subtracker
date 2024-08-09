@@ -204,7 +204,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                    ),
                                     TextSpan(
                                      text: AppLocalizations.of(context)!.terms_of_use,
-                                     style: const TextStyle(
+                                     style:  TextStyle(
                                        color: Color(0XFF758AFF),
                                        fontSize: 14,
                                        decoration: TextDecoration.underline,

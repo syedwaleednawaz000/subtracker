@@ -6,9 +6,7 @@ import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../../utils/app_colors.dart';
-import '../../../utils/app_constant.dart';
 import '../../../utils/my_size.dart';
-import '../../base/text_widgets.dart';
 
 class ShowDialogBox extends StatelessWidget {
   const ShowDialogBox({super.key});
@@ -26,8 +24,8 @@ class ShowDialogBox extends StatelessWidget {
               child: AlertDialog(
                   backgroundColor:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
-                                    ?  Color(0XFF4E4E61)
-                                    :  Color(0XFFF1F1FF),
+                                    ?  const Color(0XFF4E4E61)
+                                    :  const Color(0XFFF1F1FF),
                   // surfaceTintColor: Colors.orange,
                   titlePadding: EdgeInsets.only(top: MySize.size30),
                   title: Column(
@@ -39,7 +37,7 @@ class ShowDialogBox extends StatelessWidget {
                           color:  Provider.of<ThemeChanger>(context)
                               .themeData == darkMode
                               ?  Colors.white
-                              :  Color(0XFF424252),
+                              :  const Color(0XFF424252),
                         ),
                       ),
 
@@ -52,7 +50,7 @@ class ShowDialogBox extends StatelessWidget {
                           color:  Provider.of<ThemeChanger>(context)
                               .themeData == darkMode
                               ?  Colors.white
-                              :  Color(0XFF424252),
+                              :  const Color(0XFF424252),
                         ),
                       ),
 
@@ -74,8 +72,8 @@ class ShowDialogBox extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 color:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
-                                    ?  Color(0XFFC54646) // #2B83F2
-                                    :  Color(0XFFC54646),
+                                    ?  const Color(0XFFC54646) // #2B83F2
+                                    :  const Color(0XFFC54646),
                               ),
                             ),
                           ),
@@ -90,14 +88,14 @@ class ShowDialogBox extends StatelessWidget {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 40),
-                                child: profileProvider.isDeleteAccount ? Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):  Text('Accept',
+                                child: profileProvider.isDeleteAccount ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):  Text('Accept',
                                   style: TextStyle(
                                     fontSize: MySize.size14,
                                     fontWeight: FontWeight.w400,
                                     color:  Provider.of<ThemeChanger>(context)
                                         .themeData == darkMode
-                                        ?  Color(0XFF2B83F2) // #
-                                        :  Color(0XFF2B83F2),
+                                        ?  const Color(0XFF2B83F2) // #
+                                        :  const Color(0XFF2B83F2),
                                   ),
                                 ),
                               ),

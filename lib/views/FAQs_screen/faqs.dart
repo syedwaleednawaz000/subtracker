@@ -64,7 +64,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Colors.white
-                              : Color(0XFF333339),
+                              : const Color(0XFF333339),
                           fontFamily: 'Poppins_Regular'),
                     )),
 
@@ -96,8 +96,8 @@ class _FaqsScreenState extends State<FaqsScreen> {
                                       fontWeight: FontWeight.w400,
                                       color: Provider.of<ThemeChanger>(context).themeData ==
                                           darkMode
-                                          ? Color(0XFFFFFFFF).withOpacity(.7)
-                                          : Color(0XFF333339).withOpacity(.8),
+                                          ? const Color(0XFFFFFFFF).withOpacity(.7)
+                                          : const Color(0XFF333339).withOpacity(.8),
                                       fontFamily: 'Poppins_Regular'),
                                 ),
                               ])),

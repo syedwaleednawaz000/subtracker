@@ -58,7 +58,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       const SizedBox(height: 200,),
                        Text( AppLocalizations.of(context)!.reset_password,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins_Regular',
                             fontSize: 26,
                             color: Colors.white
