@@ -37,7 +37,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
             onTap: () {
               Navigator.pop(context);
             },
-            text: 'Language',
+            text: AppLocalizations.of(context)!.language,
             icon: Icons.arrow_back_rounded,
           ),
         ),
@@ -71,10 +71,10 @@ class LanguageTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    List<String> namingLists = [ 'English (UK)', 'Pakistan',  ];
-    List<String> namingLists_urdu = ['(English)', '(اردو)', ];
-    List<AssetImage>  iconsList = [const AssetImage(AppImages.psFlag),const AssetImage(AppImages.pkFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag),];
+List<LanguageModelClass> languageData = [
+  LanguageModelClass(languagesCode: "en",countryCode: "US",countryFlag: AppImages.psFlag,countryName: "English (UK)",countryLanguageName: "English"),
+  LanguageModelClass(languagesCode: "ur",countryCode: "PK",countryFlag: AppImages.psFlag,countryName: "Pakistan",countryLanguageName: "Urdu")
+];
     List<Color> listColors = [
       const Color(0XFF758AFF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
       const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
@@ -101,19 +101,14 @@ class LanguageTiles extends StatelessWidget {
       child: Consumer<LanguageProvider>(
         builder: (context, languageProvider, child) {
           return ListView.builder(
-            itemCount: namingLists.length,
+            itemCount: languageData.length,
             itemBuilder: (context, index) {
-              bool isSelected = languageProvider.selectedIndex == index;
+              bool isSelected = languageProvider.languageCode == languageData[index].languagesCode;
               return Padding(
                 padding: const EdgeInsets.only(left: 29, right: 29, top: 10),
                 child: GestureDetector(
                   onTap: () {
-                    if(index == 0){
-                      languageProvider.changeLanguage(Locale('en', 'US'),);
-                    }else{
-                      // languageProvider.changeLanguage(Locale('ur', 'PK'),);
-                    }
-                    languageProvider.selectIndex(index, namingLists[index], namingLists_urdu[index]);
+                      // languageProvider.changeLanguage( Locale(languageData[index].languagesCode, languageData[index].countryCode),);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -126,7 +121,7 @@ class LanguageTiles extends StatelessWidget {
                       tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
                       dense: true,
                       title: Text(
-                        '${namingLists[index]}',
+                        '${languageData[index].countryName}',
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
@@ -134,9 +129,9 @@ class LanguageTiles extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      leading: Image(image: iconsList[index], height: 24, width: 24,),
+                      leading: Image(image: AssetImage(languageData[index].countryFlag), height: 24, width: 24,),
                       trailing: Text(
-                        '${namingLists_urdu[index]}',
+                        '${languageData[index].countryLanguageName}',
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : const Color(0XFF1C1C23),
@@ -222,4 +217,13 @@ class CustomSaveButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class LanguageModelClass {
+  String countryName ;
+  String countryLanguageName ;
+  String countryFlag;
+  String countryCode;
+  String languagesCode;
+  LanguageModelClass({required this.languagesCode,required this.countryLanguageName,required this.countryCode, required this.countryFlag, required this.countryName});
 }
