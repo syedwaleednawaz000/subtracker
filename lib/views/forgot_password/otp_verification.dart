@@ -88,7 +88,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                 children: [
                   const SizedBox(height: 250),
                    Text(
-                     DemoLocalizations.of(context)!.check_email,
+                     AppLocalizations.of(context)!.check_email,
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 26,

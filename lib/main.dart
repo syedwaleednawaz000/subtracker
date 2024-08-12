@@ -95,14 +95,14 @@ class _MyAppState extends State<MyApp> {
             theme: themeChanger.themeData,
             locale: languageProvider.appLocale,
             localizationsDelegates:  [
-              AppLocalizations.delegate, // Add this line
+              AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
               Locale('en'),
-              // Locale('ur'),
+              Locale('ur'),
             ],
 
             home: const SplashScreen(),

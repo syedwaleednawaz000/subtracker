@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               top: 28, bottom: 165, left: 115, right: 115),
                         ),
                          Text(
-                          '${AppLocalizations.of(context)!.welcome_back}',
+                          '${AppLocalizations.of(context)!.name}',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
