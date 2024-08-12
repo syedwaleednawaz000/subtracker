@@ -17,7 +17,8 @@ class FormFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //width: MySize.scaleFactorWidth*400,
+      margin: EdgeInsets.only(right: MySize.size30),
+     // width: MySize.scaleFactorWidth*310,
       decoration:BoxDecoration(
         borderRadius: BorderRadius.circular(MySize.size4),
           border: Border.all(
@@ -32,7 +33,7 @@ class FormFieldComponent extends StatelessWidget {
         maxLines: maxLines,
         validator: validator,
         decoration:InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+          contentPadding:  EdgeInsets.symmetric(horizontal: MySize.size15),
             hintText:hintText,
             hintStyle:TextStyle(
                 fontSize: MySize.size14,

@@ -41,14 +41,12 @@ class _FaqsScreenState extends State<FaqsScreen> {
               Navigator.pop(context);
             },
             text: 'FAQs',
-            // the back icon is inside the Custom App Bar
             icon: Icons.abc,
-            //icon: Icons.arrow_back_rounded,
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 37, right: 37, top: 20),
+        padding: const EdgeInsets.only(left: 37, right: 37,),
         child: ListView(
           children: [
             Column(
@@ -60,17 +58,13 @@ class _FaqsScreenState extends State<FaqsScreen> {
                       'Frequently Asked Questions',
                       style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Colors.white
                               : const Color(0XFF333339),
                           fontFamily: 'Poppins_Regular'),
                     )),
-
-                // SizedBox(
-                //   height: MySize.size15,
-                // ),
 
                 Consumer<FaqsProvider>(builder: (context, faqsProvider, child) {
                   return faqsProvider.isFaqs ?
@@ -84,7 +78,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                     itemBuilder: (context, index) {
                       var finalData =  faqsProvider.faqsData['data'][index];
                       return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        margin:  EdgeInsets.symmetric(vertical: MySize.size5),
                         child: CustomExpensionTile(
                           title: finalData['title'],
                           child: RichText(

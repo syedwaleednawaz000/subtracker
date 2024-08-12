@@ -64,11 +64,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Current password',
+                        Text('Password',
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
@@ -80,7 +80,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter current password',
+                            hintText: 'Enter password',
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
@@ -115,7 +115,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
@@ -127,7 +127,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter new password',
+                            hintText: 'Enter password',
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
@@ -162,7 +162,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(

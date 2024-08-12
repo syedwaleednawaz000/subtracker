@@ -57,7 +57,10 @@ class ShowDialogBox extends StatelessWidget {
                       SizedBox(
                         height: MySize.size20,
                       ),
-                      const Divider(color: AppColors.grey61,),
+                      const Divider(
+                        color: Color(0xff333339),
+                        thickness: .5,
+                      ),
                       Row(
                         mainAxisAlignment:
                         MainAxisAlignment.center,
@@ -68,7 +71,7 @@ class ShowDialogBox extends StatelessWidget {
                             },
                             child: Text('Decline',
                               style: TextStyle(
-                                fontSize: MySize.size14,
+                                fontSize: MySize.size15,
                                 fontWeight: FontWeight.w400,
                                 color:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
@@ -88,9 +91,10 @@ class ShowDialogBox extends StatelessWidget {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 40),
-                                child: profileProvider.isDeleteAccount ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):  Text('Accept',
+                                child: profileProvider.isDeleteAccount ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):
+                                Text('Accept',
                                   style: TextStyle(
-                                    fontSize: MySize.size14,
+                                    fontSize: MySize.size15,
                                     fontWeight: FontWeight.w400,
                                     color:  Provider.of<ThemeChanger>(context)
                                         .themeData == darkMode

@@ -433,7 +433,7 @@ class CustomSaveButton extends StatelessWidget {
                   child: loading == true ? const CircularProgressIndicator(color: AppColors.purpleFF,): Text(
                     titleText,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color:
                       Provider.of<ThemeChanger>(context).themeData ==

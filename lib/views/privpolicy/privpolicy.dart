@@ -56,21 +56,19 @@ class _PrivPolicyState extends State<PrivPolicy> {
                         'Privacy Policy',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color:
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
                                     ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFF1C1C23),
+                                    : const Color(0XFFA2A2B5),
                             fontFamily: 'Poppins_Regular'),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MySize.size30,
-                ),
+
                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32),
                   child: Align(
@@ -99,8 +97,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
                       child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            privacyAndPolicyProvider
-                                    .privacyAndPolicyData['value'] ??
+                            privacyAndPolicyProvider.privacyAndPolicyData['value'] ??
                                 "",
                             style: TextStyle(
                                 fontSize: 13,

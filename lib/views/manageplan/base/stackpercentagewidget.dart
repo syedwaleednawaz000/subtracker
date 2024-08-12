@@ -13,10 +13,10 @@ class StackPercentageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Positioned(
-      left: MySize.scaleFactorHeight * 160,
+      left: MySize.scaleFactorHeight * 170,
       child: Container(
-        // height: MySize.scaleFactorHeight * 20,
-        width: MySize.scaleFactorWidth * 70,
+         margin:EdgeInsets.symmetric(vertical: MySize.size4) ,
+        width: MySize.scaleFactorWidth * 55,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MySize.size12),
             boxShadow: const [
@@ -33,7 +33,7 @@ class StackPercentageWidget extends StatelessWidget {
         child: Center(
           child: Text(percentValue.toString(),
             style: TextStyle(
-                fontSize: MySize.size12,
+                fontSize: MySize.size10,
                 fontWeight: FontWeight.w600,
                 color: Colors.white
             ),

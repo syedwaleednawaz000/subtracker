@@ -46,20 +46,18 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                       Text('Terms of Service',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: MySize.size16,
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                 ? const Color(0XFFA2A2B5)
-                                : const Color(0XFF333339),
+                                : const Color(0XFFA2A2B5),
                             fontFamily: 'Poppins_Regular'
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MySize.size30,
-                ),
+
                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32),
                   child: Align(
@@ -84,14 +82,17 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                        const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
                     termAndConditionProvider.termAndConditionData == null ?
                       const Center(child: Text("term and condition not available"),):
-                    Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",textAlign: TextAlign.left,style: TextStyle(
+                    Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? Colors.white
                             : const Color(0XFF333339),
                         fontFamily: 'Poppins_Regular'
-                    ),);
+                    ),
+                    );
                     }
                     ),
                 )
