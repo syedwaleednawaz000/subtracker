@@ -106,6 +106,13 @@ class _MyAppState extends State<MyApp> {
             ],
 
             home: const SplashScreen(),
+            builder: (context, child) {
+              // Ensure text direction is applied
+              return Directionality(
+                textDirection: Directionality.of(context),
+                child: child!,
+              );
+            },
           );
         },);
       }),

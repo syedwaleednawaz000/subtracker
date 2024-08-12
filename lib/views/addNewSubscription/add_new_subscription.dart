@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
@@ -128,13 +129,14 @@ class _SubscriptionState extends State<Subscription> {
 
   @override
   void initState() {
+    Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
     super.initState();
     DateTime currentDate = DateTime.now();
 
-    _selectedDate = currentDate;
-    _selectedDate1 = currentDate;
-    dateInputController.text = _dateFormat.format(currentDate);
-    renewalDateController.text = _dateFormat.format(currentDate);
+    // _selectedStartDate = currentDate;
+    // _selectedRenewalDate = currentDate;
+    dateInputController.text = "Select date";
+    renewalDateController.text = "select date ";
 
     _monthlyPriceController.addListener(_formatInput);
   }
@@ -149,19 +151,20 @@ class _SubscriptionState extends State<Subscription> {
     }
   }
 
-  DateTime? _selectedDate;
+
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
-  DateTime? _selectedDate1;
+
   final DateFormat _dateFormat1 = DateFormat('yyyy-MM-dd');
   TextEditingController dateInputController = TextEditingController();
   TextEditingController renewalDateController = TextEditingController();
-
-  Future<void> _selectDate(BuildContext context) async {
+  DateTime? _selectedStartDate;
+  DateTime? _selectedRenewalDate;
+  Future<void> _startDate(BuildContext context) async {
     DateTime currentDate = DateTime.now();
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? currentDate,
-      firstDate: DateTime(2000),
+      initialDate: _selectedStartDate ?? currentDate,
+      firstDate: currentDate, // Disable all previous dates
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget? child) {
         return Theme(
@@ -176,42 +179,47 @@ class _SubscriptionState extends State<Subscription> {
       },
     );
 
-    if (picked != null && picked != _selectedDate) {
+    if (picked != null && picked != _selectedStartDate) {
       setState(() {
-        _selectedDate = picked;
+        _selectedStartDate = picked;
         dateInputController.text = _dateFormat1.format(picked);
       });
     }
   }
 
   Future<void> _renewalDate(BuildContext context) async {
-    DateTime currentDate = DateTime.now();
+    if (_selectedStartDate == null) {
+      // Handle case where start date hasn't been selected yet
+      print("Please select the start date first.");
+      return;
+    }
+
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate1 ?? currentDate,
-      firstDate: DateTime(2000),
+      initialDate: _selectedRenewalDate ?? _selectedStartDate!.add(const Duration(days: 1)), // Start with the next day after the selected start date
+      firstDate: _selectedStartDate!.add(const Duration(days: 1)), // Disable the start date and all earlier dates
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
             primaryColor: Colors.blue, // Header background color
             hintColor: Colors.blue, // Header text and icons color
-            colorScheme: ColorScheme.light(primary: Colors.blue),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: const ColorScheme.light(primary: Colors.blue),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
-          child: child ?? SizedBox(),
+          child: child ?? const SizedBox(),
         );
       },
     );
 
-    if (picked != null && picked != _selectedDate1) {
+    if (picked != null && picked != _selectedRenewalDate) {
       setState(() {
-        _selectedDate1 = picked;
-        print("this is my selected value $billingValue");
+        _selectedRenewalDate = picked;
         renewalDateController.text = _dateFormat1.format(picked);
       });
     }
   }
+
 
   @override
   void dispose() {
@@ -381,7 +389,7 @@ class _SubscriptionState extends State<Subscription> {
                           Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Text(
-                                  'Select Subscription Provider',
+                                  'Select Provider',
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
@@ -393,7 +401,7 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                 )
                               : Text(
-                                  'Select Subscription Provider',
+                                  'Select Provider',
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
@@ -559,7 +567,7 @@ class _SubscriptionState extends State<Subscription> {
                             width: MySize.size10,
                           ),
                           Text(
-                            _dateFormat.format(_selectedDate!),
+                              _selectedStartDate == null ?"Select date ": _dateFormat.format(_selectedStartDate!),
                             style: TextStyle(
                               fontSize: MySize.size16,
                               fontFamily: '',
@@ -569,7 +577,7 @@ class _SubscriptionState extends State<Subscription> {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                _selectDate(context);
+                                _startDate(context);
                               },
                               icon: Icon(
                                 Icons.calendar_today,
@@ -619,7 +627,7 @@ class _SubscriptionState extends State<Subscription> {
                             width: MySize.size10,
                           ),
                           Text(
-                            _dateFormat.format(_selectedDate1!),
+                            _selectedRenewalDate == null ? "Select date":_dateFormat.format(_selectedRenewalDate!),
                             style: TextStyle(
                               fontSize: MySize.size16,
                               fontFamily: '',
@@ -882,6 +890,7 @@ class _SubscriptionState extends State<Subscription> {
                   padding: EdgeInsets.symmetric(horizontal: MySize.size24),
                   child: SizedBox(
                     width: double.infinity,
+                    // height: MediaQuery.of(context).size.width*0.2,
                     child: DottedBorder(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ? const Color(0xffffffff)
@@ -893,17 +902,8 @@ class _SubscriptionState extends State<Subscription> {
                       padding: EdgeInsets.all(MySize.size8),
                       child: GestureDetector(
                         onTap: _pickDocument,
-                        child: _filePath != null
-                            ? Text(
-                                textAlign: TextAlign.center,
-                                'File path: $_filePath',
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                ),
-                              )
-                            : Center(
+                        child:
+                             Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -917,7 +917,16 @@ class _SubscriptionState extends State<Subscription> {
                                           ? const Color(0xffFFFFFF)
                                           : const Color(0XFFA2A2B5),
                                     ),
-                                     Text('No document selected.',
+                                    _filePath != null
+                                        ? Text(
+                                      textAlign: TextAlign.center,
+                                      'File name: ${_filePath!.names[0]}',
+                                      style: TextStyle(
+                                        fontSize: MySize.size14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey,
+                                      ),
+                                    ): Text('No document selected.',
                                     style: TextStyle(
                                       color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
@@ -996,48 +1005,50 @@ class _SubscriptionState extends State<Subscription> {
                           ),
                           SizedBox(
                             width: 100,
-                            child: TextFormField(
-                              controller: _monthlyPriceController,
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: MySize.size24,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : const Color(0XFF333339),
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(left: 20),
-                                hintText: "\$0.0",
-                                hintStyle: TextStyle(
+                            child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                              return TextFormField(
+                                controller: _monthlyPriceController,
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: MySize.size24,
                                   color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
+                                      .themeData ==
+                                      darkMode
                                       ? Colors.white
                                       : const Color(0XFF333339),
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0XFF353542)
-                                                : const Color(0XFF353542))),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0XFF353542)
-                                                : const Color(0XFF353542))),
-                              ),
-                            ),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.only(left: 20),
+                                  hintText: "${currencyProvider.selectedCurrency}0.0",
+                                  hintStyle: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: MySize.size24,
+                                    color: Provider.of<ThemeChanger>(context)
+                                        .themeData ==
+                                        darkMode
+                                        ? Colors.white
+                                        : const Color(0XFF333339),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                          Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                              darkMode
+                                              ? const Color(0XFF353542)
+                                              : const Color(0XFF353542))),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                          Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                              darkMode
+                                              ? const Color(0XFF353542)
+                                              : const Color(0XFF353542))),
+                                ),
+                              );
+                            },),
                           ),
                         ],
                       ),
@@ -1089,8 +1100,8 @@ class _SubscriptionState extends State<Subscription> {
                                 // Check if image and document are selected
                                 if (_imagePhoto != null && _filePath != null) {
                                   // Convert the selected dates to DateTime objects
-                                  DateTime startDate = _selectedDate!;
-                                  DateTime renewalDate = _selectedDate1!;
+                                  DateTime startDate = _selectedStartDate!;
+                                  DateTime renewalDate = _selectedRenewalDate!;
 
                                   // Check if the renewal date is greater than the start date
                                   if (renewalDate.isAfter(startDate)) {

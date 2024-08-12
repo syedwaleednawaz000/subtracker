@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
@@ -90,32 +91,34 @@ class _CustomContainerState extends State<CustomContainer> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: MySize.scaleFactorHeight * 355),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LineColorContainer(
-                      borderColor: const Color(0xFF758AFF),
-                      titleText: 'Active subs',
-                      numberCount: '${widget.activeSubscription}',
-                    ),
-                    SizedBox(
-                      width: MySize.scaleFactorWidth * 14,
-                    ),
-                    LineColorContainer(
-                      borderColor: const Color(0xFFDC23FF),
-                      titleText: 'Highest subs',
-                      numberCount: '\$ ${widget.highestSubscription}',
-                    ),
-                    const SizedBox(
-                      width: 14,
-                    ),
-                    LineColorContainer(
-                      borderColor: AppColors.accentLine,
-                      titleText: 'Lowest subs',
-                      numberCount: '\$ ${widget.lowestSubscription}',
-                    ),
-                  ],
-                ),
+                child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LineColorContainer(
+                        borderColor: const Color(0xFF758AFF),
+                        titleText: 'Active subs',
+                        numberCount: '${widget.activeSubscription}',
+                      ),
+                      SizedBox(
+                        width: MySize.scaleFactorWidth * 14,
+                      ),
+                      LineColorContainer(
+                        borderColor: const Color(0xFFDC23FF),
+                        titleText: 'Highest subs',
+                        numberCount: '${currencyProvider.selectedCurrency} ${widget.highestSubscription}',
+                      ),
+                      const SizedBox(
+                        width: 14,
+                      ),
+                      LineColorContainer(
+                        borderColor: AppColors.accentLine,
+                        titleText: 'Lowest subs',
+                        numberCount: '${currencyProvider.selectedCurrency} ${widget.lowestSubscription}',
+                      ),
+                    ],
+                  );
+                },),
               ),
               Positioned(
                 right: 24,

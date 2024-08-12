@@ -111,6 +111,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           color: Color(0XFF666680)
                       ),
                       decoration: InputDecoration(
+                        errorMaxLines: 3,
                           contentPadding: EdgeInsets.all(MySize.size12),
                           suffixIcon: Padding(
                             padding: const EdgeInsets.only(right: 10),

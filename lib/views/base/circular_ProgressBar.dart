@@ -1,6 +1,7 @@
 import 'package:circular_seek_bar/circular_seek_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 
 import '../../theme/theme.dart';
@@ -38,7 +39,7 @@ class CircularProgressBarWidget extends StatelessWidget {
           trackColor: Colors.grey,
           /*4E4E61*/
           // strokeCap: StrokeCap.square,
-          progressColor: const Color(0XFF758AFF).withOpacity(0.6),
+          progressColor: const Color(0XFF758AFF),
           // progressGradientColors: const [Colors.red, Colors.orange, Colors.yellow, AppColors.purpleFF, Colors.blue, Colors.indigo, Colors.purple],
           // innerThumbStrokeWidth: 10,
 
@@ -63,18 +64,20 @@ class CircularProgressBarWidget extends StatelessWidget {
               SizedBox(
                 height: MySize.size16,
               ),
-              Text(
-                '\$ ${monlthyBill == null ? "${monlthyBill}" : "0"}',
-                style: TextStyle(
-                  fontSize: MySize.size40,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Inter-Medium',
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFFFFFFFF)
-                          : const Color(0XFF424252),
-                ),
+          Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+            return               Text(
+              '${currencyProvider.selectedCurrency} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
+              style: TextStyle(
+                fontSize: MySize.size40,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Inter-Medium',
+                color:
+                Provider.of<ThemeChanger>(context).themeData == darkMode
+                    ? const Color(0XFFFFFFFF)
+                    : const Color(0XFF424252),
               ),
+            );
+          },),
               SizedBox(
                 height: MySize.size16,
               ),

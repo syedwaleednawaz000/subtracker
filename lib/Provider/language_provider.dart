@@ -100,10 +100,10 @@ class LanguageProvider extends ChangeNotifier{
   LanguageChangeController() {
   _loadLocale();
   }
-
+  String languageCode = "";
   Future<void> _loadLocale() async {
   final preferences = await SharedPreferences.getInstance();
-  final languageCode = preferences.getString(languageCodeKey);
+   languageCode = preferences.getString(languageCodeKey).toString();
   if (languageCode != null) {
   _locale = Locale(languageCode);
   _textDirection = languageCode == 'ur' ? TextDirection.rtl : TextDirection.ltr;
@@ -118,6 +118,7 @@ class LanguageProvider extends ChangeNotifier{
 
   Future<void> changeLanguage(Locale locale) async {
   _locale = locale;
+  languageCode = locale.languageCode.toString();
   _textDirection = locale.languageCode == 'ur' ? TextDirection.rtl : TextDirection.ltr;
   _current = locale.languageCode == 'ur' ? 1 : 0;  // Update current index based on the selected language
   final preferences = await SharedPreferences.getInstance();

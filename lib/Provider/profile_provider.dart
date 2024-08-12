@@ -51,7 +51,11 @@ class ProfileProvider extends ChangeNotifier{
       Response response = await _apiService.getProfile();
       if(response.statusCode == 200){
         userData = response.data;
-        Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: userData['data']['currency_code']);
+        if(userData['data']['currency_code'] != null){
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: userData['data']['currency_code']);
+        }else{
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: "\$");
+        }
         updateTextFieldData();
         _updateLoading(load: false);
         notifyListeners();

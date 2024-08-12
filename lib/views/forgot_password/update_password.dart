@@ -94,6 +94,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 color:  Color(0XFF666680)
                             ),
                             decoration: InputDecoration(
+                              errorMaxLines: 3,
                               isDense: true,
                               contentPadding: const EdgeInsets.only(left: 20, right: 20),
                               hintText: AppLocalizations.of(context)!.password,
@@ -140,6 +141,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 color:  Color(0XFF666680)
                             ),
                             decoration: InputDecoration(
+                              errorMaxLines: 3,
                               isDense: true,
                               contentPadding: const EdgeInsets.only(left: 20, right: 20),
                               hintText: AppLocalizations.of(context)!.confirm_password,

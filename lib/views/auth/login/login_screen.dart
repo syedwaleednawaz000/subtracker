@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   bool val = false;
-  bool isSelected = false;
+  bool isSelected = true;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               top: 28, bottom: 165, left: 115, right: 115),
                         ),
                          Text(
-                          '${AppLocalizations.of(context)!.name}',
+                          '${AppLocalizations.of(context)!.welcome_back}',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
@@ -106,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: const Color(0XFF666680)
                                             .withOpacity(.3),
                                       ),
+                                      errorMaxLines: 3,
                                       suffixIcon: Icon(
                                         Icons.mail,
                                         color: const Color(0XFF666680)
@@ -159,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: Color(0XFF666680)),
                                     obscureText: isSelected,
                                     decoration: InputDecoration(
+                                      errorMaxLines: 3,
                                       isDense: true,
                                       contentPadding: const EdgeInsets.only(
                                           left: 20, right: 20),
