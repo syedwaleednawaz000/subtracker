@@ -323,9 +323,7 @@ class _SettingsState extends State<Settings> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        profileProvider
-                                                            .screens[index]));
+                                                    builder: (context) =>profileProvider.screens[index]));
                                           } else {
                                             FlutterToast.toastMessage(
                                                 message:

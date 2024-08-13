@@ -28,7 +28,7 @@ class ChangePasswordProvider extends ChangeNotifier{
       Response response = await _apiService.updatePassword(params: body);
       if(response.statusCode == 200){
         _loginLoading(load: false);
-        FlutterToast.toastMessage(message: "Successfully password updated",);
+        FlutterToast.toastMessage(message: "Password updated successfully",);
         Get.back();
       }else{
         _loginLoading(load: false);
@@ -40,6 +40,34 @@ class ChangePasswordProvider extends ChangeNotifier{
       _loginLoading(load: false);
       print("this is error ${error.toString()}");
     }
+  }
+
+  String _password = '';
+  int _strengthLevel = 0;
+  final List<Color> _colors = [
+    const Color(0XFFFF0000), // Weak (Red)
+    const Color(0XFFFFA500), // Medium (Orange)
+    const Color(0XFFFFFF00), // Strong (Yellow)
+    const Color(0XFF00FF00), // Very Strong (Green)
+  ];
+
+  String get password => _password;
+  int get strengthLevel => _strengthLevel;
+  List<Color> get colors => _colors;
+
+  void updatePasswordStepper(String value) {
+    _password = value;
+    _strengthLevel = _calculatePasswordStrength(_password);
+    notifyListeners();
+  }
+
+  int _calculatePasswordStrength(String password) {
+    int strength = 0;
+    if (password.length >= 8) strength++;
+    if (password.contains(RegExp(r'[A-Z]'))) strength++;
+    if (password.contains(RegExp(r'[0-9]'))) strength++;
+    if (password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) strength++;
+    return strength;
   }
 
 }

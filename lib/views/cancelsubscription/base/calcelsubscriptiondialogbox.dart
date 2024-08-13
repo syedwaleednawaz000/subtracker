@@ -179,7 +179,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Text(
                               textAlign: TextAlign.center,
-                              'Are you sure you want to delete the\naccount?',
+                              'Are you sure you want to cancel your subscription',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -260,7 +260,7 @@ class CancelSubsDialogBox extends StatelessWidget {
               },
             );
           }else{
-            FlutterToast.toastMessage(message: "Please select the plane ");
+            FlutterToast.toastMessage(message: "Your active subscription are not available");
           }
         },
         child: Container(

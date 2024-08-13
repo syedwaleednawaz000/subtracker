@@ -16,7 +16,7 @@ class AppUrl{
   static String getSubscriptions = "subscriptions";
   static String addCategories = "categories";
   static String addProviderInUserCategory = "providers/add";
-  static String getScheduleData = "addNewSubscription-schedule/";
+  static String getScheduleData = "subscription-schedule/";
   static String getSpendingBudget = "budget/calculate-budget-spend";
   static String userPlan = "user/plan";
   static String termsAndConditions = "settings/terms_and_conditions";
