@@ -61,11 +61,11 @@ class _SettingsState extends State<Settings> {
     AssetImage(AppImages.factor),
     AssetImage(AppImages.email)
   ];
-  List<AssetImage> plansImage = [
-    AssetImage(AppImages.plan),
-    AssetImage(AppImages.payment),
-    AssetImage(AppImages.payment)
-  ];
+  // List<AssetImage> plansImage = [
+  //   AssetImage(AppImages.plan),
+  //   AssetImage(AppImages.cancelSub),
+  //   AssetImage(AppImages.calendarIcon)
+  // ];
   List<String> subsTitle = [
     'Manage Plan',
     'Manage Payment',
@@ -626,21 +626,9 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Stack(
-                                    children: [
-                                      Positioned(
-                                        left: 8,
-                                        child: Image.asset(
-                                          AppImages.crossIcon,
-                                          height: 15,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      Image.asset(
-                                        AppImages.payment,
-                                        height: 20,
-                                      ),
-                                    ],
+                                  imageIcon: Image.asset(
+                                    AppImages.cancelSub,
+                                    height: 20,
                                   ),
                                   text: 'Cancel Subscription',
                                   text2: 'Cancel',
@@ -804,10 +792,12 @@ class _SettingsState extends State<Settings> {
                             .cleanLocalData(context: context);
                       },
                       child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: MySize.size24, ),
                         padding: EdgeInsets.symmetric(
-                            horizontal: MySize.size20, vertical: MySize.size16),
+                          horizontal: MySize.size20, ),
                         height: MySize.scaleFactorHeight * 64,
-                        width: MySize.scaleFactorWidth * 328,
+                        // width: MySize.scaleFactorWidth * 328,
                         decoration: BoxDecoration(
                           // color: AppColors.grey61.withOpacity(.20),
                           // color: Theme.of(context).colorScheme.secondary,
@@ -824,21 +814,21 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              AppImages.logout,
-                              height: 20,
-                              width: 20,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Color(0XFFA2A2B5)
-                                  : Colors.red,
-                            ),
-                            SizedBox(
-                              width: MySize.size22,
-                            ),
+                            // Image.asset(
+                            //   AppImages.logout,
+                            //   height: 20,
+                            //   width: 20,
+                            //   color: Provider.of<ThemeChanger>(context)
+                            //               .themeData ==
+                            //           darkMode
+                            //       ? Color(0XFFA2A2B5)
+                            //       : Colors.red,
+                            // ),
+                            // SizedBox(
+                            //   width: MySize.size22,
+                            // ),
                             Text(
                               'Logout',
                               style: TextStyle(
