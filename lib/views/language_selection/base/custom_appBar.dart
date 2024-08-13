@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(left: MySize.size20),
+      padding:  EdgeInsets.only(left: MySize.size10 , top: MySize.size25),
       child: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,

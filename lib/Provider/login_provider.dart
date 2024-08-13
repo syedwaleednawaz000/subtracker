@@ -43,7 +43,7 @@ class LoginProvider extends ChangeNotifier{
         if (kDebugMode) {
           log("hit successfully");
         }
-        FlutterToast.toastMessage(message: "Successfully login",);
+        FlutterToast.toastMessage(message: "Successfull login",);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const BnavBar()),
