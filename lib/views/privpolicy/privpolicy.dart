@@ -29,7 +29,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
+          ? const Color(0xffA2A2B5)
           : Colors.white,
       body: SafeArea(
         child: ListView(
