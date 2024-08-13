@@ -32,22 +32,21 @@ import '../../utils/my_size.dart';
         children: [
           Container(
             height: MySize.scaleFactorHeight * 48,
-            // width: double.infinity,
-            width: MySize.scaleFactorWidth * 333,
+            width: MySize.scaleFactorWidth * 325,
             decoration: BoxDecoration(
               color: containerColor,
               borderRadius: BorderRadius.circular(MySize.size40),
-              // image: myimage != null ? DecorationImage(image: myimage!, scale: 2) : null,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Image.asset(myImage!),
                 if (myImage != null) Image.asset(myImage!, height: 19, width: 23,),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
                 Center(child: Text(mytitle,
                   style: TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                     color: textColor
                   ),
                 ),

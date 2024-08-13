@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -7,6 +8,8 @@ import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
+import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../base/field_container.dart';
@@ -66,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: Colors.white
                     ),
                   ),
-
+                  SizedBox(height:MySize.size24,),
                  Padding(
                    padding:  EdgeInsets.symmetric(horizontal: MySize.size35),
                    child: Column(
@@ -129,18 +132,23 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(height: MySize.size20,),
 
                        Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
-                         return StepProgressIndicator(
-                           totalSteps: 4,
-                           currentStep: registerProvider.strengthLevel,
-                           size: 8,
-                           padding: 0,
-                           selectedColor: registerProvider.strengthLevel == 0
-                               ? Colors.grey
-                               : registerProvider.colors[registerProvider.strengthLevel - 1],
-                           unselectedColor: Color(0XFF353542),
-                           roundedEdges: Radius.circular(10),
+                         return Container(
+                           width: double.infinity,
+                           child: StepProgressIndicator(
+                             totalSteps: 4,
+                             currentStep: registerProvider.strengthLevel,
+                             size: 8,
+                             padding: MySize.size2,
+                             selectedColor: registerProvider.strengthLevel == 0
+                                 ? Colors.grey
+                                 : registerProvider.colors[registerProvider.strengthLevel - 1],
+                             unselectedColor: const Color(0XFF353542),
+                             roundedEdges: const Radius.circular(10),
+                           ),
                          );
-                       },),
+
+                       },
+                       ),
                        SizedBox(height: MySize.size17,),
                        Align(
                          alignment: Alignment.centerLeft,
@@ -149,8 +157,7 @@ class _SignupScreenState extends State<SignupScreen> {
                            style: TextStyle(
                              fontSize: 12,
                              fontWeight: FontWeight.w500,
-                             // color: Color(0XFF666680),
-                               color: AppColors.grey30.withOpacity(.3)
+                             color: AppColors.grey30.withOpacity(.3)
                            ),),
                        ),
                        SizedBox(height: MySize.size12,),
@@ -165,7 +172,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                checkColor: const Color(0XFF666680),
                                side: BorderSide(
                                  style: BorderStyle.solid,
-                                 width: 3,
+                                 width: 1,
                                  color: const Color(0XFF353542).withOpacity(.5),
                                ),
                                value: val,
@@ -174,8 +181,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                }),
                              ),
                            ),
-                           SizedBox(width: MySize.size6),
-                           Expanded( // Ensure text wraps within available space
+                           Expanded(
                              child: RichText(
                                text: TextSpan(
                                  children: [
@@ -184,16 +190,28 @@ class _SignupScreenState extends State<SignupScreen> {
                                      style: TextStyle(
                                        fontSize: 14,
                                        color: AppColors.grey30.withOpacity(.3),
+
                                      ),
                                    ),
+
                                     TextSpan(
                                      text: AppLocalizations.of(context)!.privacy_policy,
-                                     style: TextStyle(
+                                     style: const TextStyle(
                                        color: Color(0XFF758AFF),
                                        fontSize: 14,
                                        decoration: TextDecoration.underline,
                                        decorationColor: AppColors.lightBlue,
+                                       height: 1.5,
+
                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // Handle navigation here
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const PrivPolicy()), // Replace with your page
+                                          );
+                                        },
                                    ),
                                    TextSpan(
                                      text: ' ${AppLocalizations.of(context)!.and} ',
@@ -204,12 +222,20 @@ class _SignupScreenState extends State<SignupScreen> {
                                    ),
                                     TextSpan(
                                      text: AppLocalizations.of(context)!.terms_of_use,
-                                     style:  TextStyle(
+                                     style:  const TextStyle(
                                        color: Color(0XFF758AFF),
                                        fontSize: 14,
                                        decoration: TextDecoration.underline,
                                        decorationColor: AppColors.lightBlue,
                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // Handle navigation here
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const TermsOfServices()), // Replace with your page
+                                          );
+                                        },
                                    ),
                                  ],
                                ),
@@ -268,7 +294,11 @@ class _SignupScreenState extends State<SignupScreen> {
                               width: 20,
                               height: 20,
                               child: CircularProgressIndicator(color: AppColors.purpleFF,)) :  Text(AppLocalizations.of(context)!.get_started,
-                            style: TextStyle(color:Colors.white, fontSize: 16),
+                            style: const TextStyle(
+                                color:Colors.white,
+                                fontSize: 14,
+                               fontWeight: FontWeight.w600
+                            ),
                           ),
                         )),
                   );
@@ -289,10 +319,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
                     },
                     child: Padding(
-                      padding: EdgeInsets.only(bottom: MySize.size35
+                      padding: EdgeInsets.only(bottom: MySize.size35,left: 25,right: 25
                       ),
                       child: FieldContainer(
-                        // containerColor: AppColors.grey30.withOpacity(.3),
                         containerColor:  Provider.of<ThemeChanger>(context)
                             .themeData == darkMode
                             ?  AppColors.grey30.withOpacity(.15)
@@ -300,6 +329,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                         mytitle: AppLocalizations.of(context)!.sign_in,
                         textColor: AppColors.white100.withOpacity(.8),
+
                       ),
                     ),
                   ),

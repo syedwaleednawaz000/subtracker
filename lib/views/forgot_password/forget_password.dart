@@ -49,9 +49,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size44,top: MySize.size60),
+                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size36,top: MySize.size60),
                   child: Row(
-                    //mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
@@ -88,7 +87,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: MySize.size25,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50),
+                  padding: const EdgeInsets.only(left: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(AppLocalizations.of(context)!.email_address,
@@ -102,7 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 const SizedBox(height: 4,),
                 Padding(
-                  padding: const EdgeInsets.only(left: 37, right: 38),
+                  padding: const EdgeInsets.only(left: 25, right: 26),
                   child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                     return TextFormField(
                       controller: forgotPasswordProvider.emailTextEditingController,
@@ -113,11 +112,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       decoration: InputDecoration(
                         errorMaxLines: 3,
                           contentPadding: EdgeInsets.all(MySize.size12),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Icon(Icons.email,
-                                color: Colors.grey.withOpacity(0.5)),
-                          ),
+                          suffixIcon: Icon(Icons.email,
+                              color: Colors.grey.withOpacity(0.5)),
                           hintText: AppLocalizations.of(context)!.email,
                           hintStyle: TextStyle(
                               color: Colors.grey.withOpacity(0.5),
@@ -125,8 +121,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               fontFamily: 'Poppins_Regular',
                               fontWeight: FontWeight.w400
                           ),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                          border:  OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: const BorderSide(color: Color(0XFF353542))
                           ),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
@@ -143,13 +140,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: MySize.size5,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 42, top: 7),
+                  padding: const EdgeInsets.only(left: 30, top: 8),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(AppLocalizations.of(context)!.a_link_will_be_sent_to_your_email_to_reset_your_password,
                       style: const TextStyle(
                           color: Color(0XFFF0F4F7),
-                          fontSize: 12.5,
+                          fontSize: 12,
                           fontWeight: FontWeight.w400,
                           fontFamily: 'Poppins_Regular'
                       ),
