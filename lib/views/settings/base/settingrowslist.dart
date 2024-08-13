@@ -5,6 +5,7 @@ import '../../../utils/my_size.dart';
 import '../../base/text_widgets.dart';
 class SettingRowList extends StatefulWidget {
   final String text;
+  final String? type;
   final String? text2;
   final Color? text2Color;
   final Widget? imageIcon;
@@ -15,6 +16,7 @@ class SettingRowList extends StatefulWidget {
     Key? key,
     required this.text,
     this.text2,
+    this.type,
     this.icon,
     this.imageIcon,
     this.color,
@@ -34,7 +36,7 @@ class _SettingRowListState extends State<SettingRowList> {
           Container(
             child: widget.imageIcon,
           ),
-        SizedBox(width: MySize.size22),
+       widget.type != null ? SizedBox(width: MySize.size12): SizedBox(width: MySize.size22),
         Text(
           widget.text,
           style: TextStyle(

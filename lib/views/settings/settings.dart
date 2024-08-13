@@ -624,6 +624,7 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
+                                  type: "cancel",
                                   imageIcon: Image.asset(
                                     AppImages.cancelSub,
                                     height: 20,
