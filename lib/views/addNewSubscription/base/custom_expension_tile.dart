@@ -19,6 +19,7 @@ class CustomExpensionTile extends StatelessWidget {
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
+          trailing: Icon(Icons.keyboard_arrow_down,color: Colors.black,),
           iconColor: Colors.black,
           title: Text( title, style: TextStyle(
               fontSize: 14,

@@ -56,6 +56,7 @@ class SubscriptionProvider extends ChangeNotifier{
       'billing_cycle': billingCycle,
       'reminder': reminderDuration,
       'price': cleanedPrice,
+      // 'color_code':'AD7BFF'
     });
 
     if (image != null) {
