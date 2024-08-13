@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -174,27 +175,29 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                           GaugeAnnotation(
                             angle: 90,
                             positionFactor: 00,
-                            widget: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                  '\$${spendingBudgetProvider.totalSpendBudget}',
-                                  style: TextStyle(
-                                      fontSize: MySize.size24,
-                                      fontWeight: FontWeight.w700,
-                                      color: const Color(0xFF424252)),
-                                ),
-                                SizedBox(height: MySize.size4),
-                                Text(
-                                  'of \$${spendingBudgetProvider.totalBudget}',
-                                  style: TextStyle(
-                                    fontSize: MySize.size12,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFFA2A2B5),
+                            widget: Consumer<CurrencyProvider>(builder:  (context, currencyProvider, child) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text(
+                                    '${currencyProvider.selectedCurrencySymbol} ${spendingBudgetProvider.totalSpendBudget}',
+                                    style: TextStyle(
+                                        fontSize: MySize.size24,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(0xFF424252)),
                                   ),
-                                ),
-                              ],
-                            ),
+                                  SizedBox(height: MySize.size4),
+                                  Text(
+                                    'of ${currencyProvider.selectedCurrencySymbol} ${spendingBudgetProvider.totalBudget}',
+                                    style: TextStyle(
+                                      fontSize: MySize.size12,
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xFFA2A2B5),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },),
                           ),
                         ],
                       ),
@@ -270,82 +273,70 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                         padding: EdgeInsets.only(bottom: MySize.size8),
                         child: Column(
                           children: [
-                            Padding(
-                              padding:
-                              EdgeInsets.symmetric(horizontal: MySize.size24),
-                              child: Container(
-                                height: MySize.scaleFactorHeight * 96,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(MySize.size16),
-                                    color: Provider.of<ThemeChanger>(context)
-                                        .themeData ==
-                                        darkMode
-                                        ? const Color(0XFF4E4E61).withOpacity(0.2)
-                                        : const Color(0XFFF1F1FF),
-                                    border: Border.all(
+                            Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                              return                             Padding(
+                                padding:
+                                EdgeInsets.symmetric(horizontal: MySize.size24),
+                                child: Container(
+                                  height: MySize.scaleFactorHeight * 96,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(MySize.size16),
                                       color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                           darkMode
-                                          ? const Color(0XFFCFCFFC)
-                                          .withOpacity(0.15)
-                                          : const Color(0XFFCFCFFC)
-                                          .withOpacity(0.15),
-                                    )),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        finalData['name'] ??"",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0XFFFFFFFF)
-                                              : const Color(0XFF424252),
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        "\$${finalData['left_to_spend']??"0"} left to spend",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                              darkMode
-                                              ? const Color(0xFFA2A2B5)
-                                              : const Color(0xFFA2A2B5),
-                                        ),
-                                      ),
-
-                                      leading:     Image.asset(
-                                        AppImages.carIcon,
-                                        width: MySize.size32,
-                                        height: MySize.size32,
-                                      ),
-                                      trailing: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(" ${finalData['user_id'] == null ? finalData['total_budget'] == null?"Set Budget": "":"Add Provider"}",style: TextStyle(
-                                            fontSize: MySize.size14,
+                                          ? const Color(0XFF4E4E61).withOpacity(0.2)
+                                          : const Color(0XFFF1F1FF),
+                                      border: Border.all(
+                                        color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                            darkMode
+                                            ? const Color(0XFFCFCFFC)
+                                            .withOpacity(0.15)
+                                            : const Color(0XFFCFCFFC)
+                                            .withOpacity(0.15),
+                                      )),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          finalData['name'] ??"",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: MySize.size16,
                                             fontWeight: FontWeight.w600,
-                                            color:
-                                            Provider.of<ThemeChanger>(context)
+                                            color: Provider.of<ThemeChanger>(context)
                                                 .themeData ==
                                                 darkMode
                                                 ? const Color(0XFFFFFFFF)
                                                 : const Color(0XFF424252),
-                                          ),),
-                                          Text(
-                                            "\$${finalData['price']??"0"}",
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          "${currencyProvider.selectedCurrencySymbol} ${finalData['left_to_spend']??"0"} left to spend",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: MySize.size12,
+                                            fontWeight: FontWeight.w500,
+                                            color: Provider.of<ThemeChanger>(context)
+                                                .themeData ==
+                                                darkMode
+                                                ? const Color(0xFFA2A2B5)
+                                                : const Color(0xFFA2A2B5),
+                                          ),
+                                        ),
+
+                                        leading:     Image.asset(
+                                          AppImages.carIcon,
+                                          width: MySize.size32,
+                                          height: MySize.size32,
+                                        ),
+                                        trailing: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(" ${finalData['user_id'] == null ? finalData['total_budget'] == null?"Set Budget": "":"Add Provider"}",style: TextStyle(
                                               fontSize: MySize.size14,
                                               fontWeight: FontWeight.w600,
                                               color:
@@ -354,37 +345,51 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                   darkMode
                                                   ? const Color(0XFFFFFFFF)
                                                   : const Color(0XFF424252),
+                                            ),),
+                                            Text(
+                                              "${currencyProvider.selectedCurrencySymbol} ${finalData['price']??"0"}",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                fontSize: MySize.size14,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                Provider.of<ThemeChanger>(context)
+                                                    .themeData ==
+                                                    darkMode
+                                                    ? const Color(0XFFFFFFFF)
+                                                    : const Color(0XFF424252),
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "of \$${finalData['total_budget']??"0"}",
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontSize: MySize.size12,
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                              Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                                  darkMode
-                                                  ? const Color(0XFFA2A2B5)
-                                                  : const Color(0XFFA2A2B5),
+                                            Text(
+                                              "of ${currencyProvider.selectedCurrencySymbol} ${finalData['total_budget']??"0"}",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                fontSize: MySize.size12,
+                                                fontWeight: FontWeight.w500,
+                                                color:
+                                                Provider.of<ThemeChanger>(context)
+                                                    .themeData ==
+                                                    darkMode
+                                                    ? const Color(0XFFA2A2B5)
+                                                    : const Color(0XFFA2A2B5),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: MySize.size5,
-                                          left: MySize.size20,
-                                          right: MySize.size25),
-                                      child: LinearColorBarWidget(color: randomColors[index],progress: progressPercentage),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom: MySize.size5,
+                                            left: MySize.size20,
+                                            right: MySize.size25),
+                                        child: LinearColorBarWidget(color: randomColors[index],progress: progressPercentage),
 
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },),
                           ],
                         ),
                       ),

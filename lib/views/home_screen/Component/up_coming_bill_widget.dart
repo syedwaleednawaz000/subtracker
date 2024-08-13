@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
@@ -99,18 +100,20 @@ class UpComingBillWidget extends StatelessWidget {
             ),
             Padding(
                 padding: EdgeInsets.only(right: MySize.size22),
-                child: Text(
-                  '\$ ${finalData['price']}',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: MySize.size14,
-                    fontWeight: FontWeight.w600,
-                    color:
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Color(0XFFFFFFFF)
-                            : Color(0XFF424252),
-                  ),
-                ))
+                child: Consumer<CurrencyProvider>(builder:  (context, currencyProvider, child) {
+                  return Text(
+                    '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: MySize.size14,
+                      fontWeight: FontWeight.w600,
+                      color:
+                      Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? Color(0XFFFFFFFF)
+                          : Color(0XFF424252),
+                    ),
+                  );
+                },))
           ],
         ),
       ),

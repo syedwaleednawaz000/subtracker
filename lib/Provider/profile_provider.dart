@@ -52,9 +52,10 @@ class ProfileProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         userData = response.data;
         if(userData['data']['currency_code'] != null){
-          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: userData['data']['currency_code']);
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(
+              currencyCode: userData['data']['currency_code'], currencySymbol: userData['data']['currency_symbol']);
         }else{
-          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: "\$");
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: "USD",currencySymbol: "\$");
         }
         updateTextFieldData();
         _updateLoading(load: false);

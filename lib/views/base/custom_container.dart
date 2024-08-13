@@ -106,7 +106,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       LineColorContainer(
                         borderColor: const Color(0xFFDC23FF),
                         titleText: 'Highest subs',
-                        numberCount: '${currencyProvider.selectedCurrency} ${widget.highestSubscription}',
+                        numberCount: '${currencyProvider.selectedCurrencySymbol} ${widget.highestSubscription}',
                       ),
                       const SizedBox(
                         width: 14,
@@ -114,7 +114,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       LineColorContainer(
                         borderColor: AppColors.accentLine,
                         titleText: 'Lowest subs',
-                        numberCount: '${currencyProvider.selectedCurrency} ${widget.lowestSubscription}',
+                        numberCount: '${currencyProvider.selectedCurrencySymbol} ${widget.lowestSubscription}',
                       ),
                     ],
                   );

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
@@ -109,14 +110,16 @@ class _ManagePlanState extends State<ManagePlan> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                          TextWidgetInterMedium(
-                                            title: '\$${finalData['price']}',
+                                      Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                                        return                                           TextWidgetInterMedium(
+                                            title: '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
                                             fontSize: MySize.size14,
                                             fontWeight: FontWeight.w600,
                                             color: Provider.of<ThemeChanger>(context).themeData ==
                                                 darkMode
                                                 ? const Color(0XFFFFFFFF):Colors.black
-                                          ),
+                                        );
+                                      },),
                                         ],
                                       ),
                                     ),

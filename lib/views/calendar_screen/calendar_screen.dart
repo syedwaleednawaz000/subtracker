@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -260,19 +261,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Consumer<ScheduleProvider>(builder: (context, scheduleProvider, child) {
-                              return                             Text(
-                                '\$${scheduleProvider.scheduleData.isNotEmpty ?scheduleProvider.scheduleData['data']['total_bill']:"0"}',
-                                style: TextStyle(
-                                    fontSize: MySize.size20,
-                                    fontWeight: FontWeight.w700,
-                                    color: Provider.of<ThemeChanger>(context)
-                                        .themeData ==
-                                        darkMode
-                                        ? const Color(0xFFFFFFFF)
-                                        : const Color(0xFF1C1C23),
-                                    fontFamily: 'Inter'
-                                ),
-                              );
+                              return Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                                return Text(
+                                  '${currencyProvider.selectedCurrencySymbol} ${scheduleProvider.scheduleData.isNotEmpty ?scheduleProvider.scheduleData['data']['total_bill']:"0"}',
+                                  style: TextStyle(
+                                      fontSize: MySize.size20,
+                                      fontWeight: FontWeight.w700,
+                                      color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                          darkMode
+                                          ? const Color(0xFFFFFFFF)
+                                          : const Color(0xFF1C1C23),
+                                      fontFamily: 'Inter'
+                                  ),
+                                );
+                              },);
                             },),
                             Text(
                               'in upcoming bills',

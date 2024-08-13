@@ -66,7 +66,7 @@ class CircularProgressBarWidget extends StatelessWidget {
               ),
           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
             return               Text(
-              '${currencyProvider.selectedCurrency} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
+              '${currencyProvider.selectedCurrencySymbol} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
               style: TextStyle(
                 fontSize: MySize.size40,
                 fontWeight: FontWeight.w700,
@@ -82,7 +82,7 @@ class CircularProgressBarWidget extends StatelessWidget {
                 height: MySize.size16,
               ),
               Text(
-                'This months bills',
+                'This month bills',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: MySize.size12,

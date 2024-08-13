@@ -90,7 +90,7 @@ class CurrencyTiles extends StatelessWidget {
               padding: const EdgeInsets.only(left: 25, right: 25, top: 8),
               child: GestureDetector(
                 onTap: () {
-                  currencyProvider.selectCurrency(currencyCode:  currencyProvider.currencyData['data'][index]['code']);
+                  currencyProvider.selectCurrency(currencyCode:  currencyProvider.currencyData['data'][index]['code'],currencySymbol: currencyProvider.currencyData['data'][index]['symbol']);
                 },
                 child: Container(
                   height: 52,

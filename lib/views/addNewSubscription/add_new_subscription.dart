@@ -1020,7 +1020,7 @@ class _SubscriptionState extends State<Subscription> {
                                 ),
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.only(left: 20),
-                                  hintText: "${currencyProvider.selectedCurrency}0.0",
+                                  hintText: "${currencyProvider.selectedCurrencySymbol} 0.0",
                                   hintStyle: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: MySize.size24,

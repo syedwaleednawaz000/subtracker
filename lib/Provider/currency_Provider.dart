@@ -76,9 +76,12 @@ class CurrencyProvider with ChangeNotifier {
 
   String _selectedCurrency ='';
   String get selectedCurrency => _selectedCurrency;
+  String _selectedCurrencySymbol ='';
+  String get selectedCurrencySymbol => _selectedCurrencySymbol;
 
-  void selectCurrency({required String currencyCode}) {
+  void selectCurrency({required String currencyCode, required String currencySymbol}) {
     _selectedCurrency = currencyCode;
+    _selectedCurrencySymbol = currencySymbol;
     notifyListeners();
   }
 }

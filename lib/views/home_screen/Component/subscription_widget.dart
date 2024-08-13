@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/my_size.dart';
@@ -48,11 +49,13 @@ class SubscriptionWidget extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: MySize.scaleFactorWidth * 115,
                   right: MySize.size22),
-              child: TextWidgetInterMedium(
-                title: '\$ ${finalData['price']}',
-                fontSize: MySize.size14,
-                // color: AppColors.white100
-              ),
+              child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                return TextWidgetInterMedium(
+                  title: '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
+                  fontSize: MySize.size14,
+                  // color: AppColors.white100
+                );
+              },),
             )
           ],
         ),
