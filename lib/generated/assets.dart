@@ -71,6 +71,7 @@ class Assets {
   static const String imagesBgContainer = 'assets/images/bgContainer.png';
   static const String imagesBgImage = 'assets/images/bgImage.png';
   static const String imagesBgr = 'assets/images/bgr.png';
+  static const String imagesCancelsubscription = 'assets/images/cancelsubscription.png';
   static const String imagesCard = 'assets/images/Card.png';
   static const String imagesChartHalf = 'assets/images/chart_half.png';
   static const String imagesCont = 'assets/images/cont.png';

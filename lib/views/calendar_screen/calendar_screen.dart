@@ -85,9 +85,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
         backgroundColor:
         Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF1C1C23)
+            ?  Colors.black
             : const Color(0XFFF7F7FF),
-        // backgroundColor: Color(0XFF4E4E61),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -296,9 +295,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Consumer<ScheduleProvider>(builder: (context, scheduleProvider, child) {
                       return scheduleProvider.isLoading ?   const CircularProgressIndicator(color: AppColors.purpleFF,)
-                      :scheduleProvider.scheduleData.isEmpty ? const Center(child: Text("Please try again",style: TextStyle(color: Colors.black),),)
+                      :scheduleProvider.scheduleData.isEmpty ?  Center(child: Text("Please try again",style: TextStyle(color:
+                      Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ?Colors.white : Colors.black),),)
                           : scheduleProvider.scheduleData['data']['providers'].length ==0 ?
-                      const Center(child: Text("Upcoming bills not available",style: TextStyle(color: Colors.black),),):
+                       Center(child: Text("Upcoming bills not available",style: TextStyle(color:
+                      Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ?Colors.white : Colors.black),),):
                       GridView.builder(
                         gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(

@@ -340,8 +340,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: MySize.size68,
                               fit: BoxFit.cover,
                             ),
-                            const SizedBox(
-                              height: 1,
+                             SizedBox(
+                              height: MySize.size10,
                             ),
                              Text(
                                AppLocalizations.of(context)!.enable_face_id,

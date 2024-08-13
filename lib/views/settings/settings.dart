@@ -61,11 +61,11 @@ class _SettingsState extends State<Settings> {
     AssetImage(AppImages.factor),
     AssetImage(AppImages.email)
   ];
-  List<AssetImage> plansImage = [
-    AssetImage(AppImages.plan),
-    AssetImage(AppImages.payment),
-    AssetImage(AppImages.payment)
-  ];
+  // List<AssetImage> plansImage = [
+  //   AssetImage(AppImages.plan),
+  //   AssetImage(AppImages.cancelSub),
+  //   AssetImage(AppImages.calendarIcon)
+  // ];
   List<String> subsTitle = [
     'Manage Plan',
     'Manage Payment',
@@ -95,7 +95,7 @@ class _SettingsState extends State<Settings> {
       child: Scaffold(
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF1C1C23)
+                ?  Colors.black
                 : const Color(0XFFF7F7FF),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
@@ -202,8 +202,9 @@ class _SettingsState extends State<Settings> {
                             height: MySize.size72,
                             width: MySize.size72,
                             decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(90),),
-                            child: Image.asset(AppImages.person)) :
+                            child: Icon(Icons.person)) :
                         Container(
                             height: MySize.size72,
                             width: MySize.size72,
@@ -405,32 +406,28 @@ class _SettingsState extends State<Settings> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      trailing: SizedBox(
-                                          width: 60,
-                                          child: Switch(
-                                            value: _switchValues[index],
-                                            onChanged: (bool newvalue) {
-                                              setState(() {
-                                                _switchValues[index] = newvalue;
-                                              });
-                                            },
-                                            activeTrackColor:
-                                                const Color(0XFF758AFF),
-                                            autofocus: true,
-                                            thumbColor:
-                                                MaterialStateProperty.all(
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : Colors.white),
-                                            inactiveTrackColor:
-                                                const Color(0XFF4E4E61),
-                                            trackOutlineColor:
-                                                const MaterialStatePropertyAll(
-                                                    Color(0x00000000)),
-                                          )),
+                                      trailing: Transform.scale(
+                                        scale: 0.8, // Adjust this value to scale the switch size
+                                        child: Switch(
+                                          value: _switchValues[index],
+                                          onChanged: (bool newValue) {
+                                            setState(() {
+                                              _switchValues[index] = newValue;
+                                            });
+                                          },
+                                          activeTrackColor: const Color(0XFF758AFF),
+                                          autofocus: true,
+                                          thumbColor: MaterialStateProperty.all(
+                                            Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? Colors.white
+                                                : Colors.white,
+                                          ),
+                                          inactiveTrackColor: const Color(0XFF4E4E61),
+                                          trackOutlineColor: const MaterialStatePropertyAll(
+                                            Color(0x00000000),
+                                          ),
+                                        ),
+                                      ),
                                     );
                                   },
                                 ),
@@ -499,26 +496,28 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                           const Spacer(),
-                          Switch(
-                            // value: isDarkMode,
-                            value: themeChanger.themeData == darkMode,
-                            onChanged: (bool newValue) {
-                              // themeChanger.toggleTheme();
-                              Provider.of<ThemeChanger>(context, listen: false)
-                                  .toggleTheme();
-                            },
-                            activeTrackColor: const Color(0XFF758AFF),
-                            // focusColor: Colors.pink,
-                            autofocus: true,
-                            // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
-                            thumbColor: MaterialStateProperty.all(
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : Colors.white),
-                            inactiveTrackColor: const Color(0XFF4E4E61),
-                            trackOutlineColor: const MaterialStatePropertyAll(
-                                Color(0x00000000)),
+                          Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              value: themeChanger.themeData == darkMode,
+                              onChanged: (bool newValue) {
+                                // themeChanger.toggleTheme();
+                                Provider.of<ThemeChanger>(context, listen: false)
+                                    .toggleTheme();
+                              },
+                              activeTrackColor: const Color(0XFF758AFF),
+                              // focusColor: Colors.pink,
+                              autofocus: true,
+                              // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
+                              thumbColor: MaterialStateProperty.all(
+                                  Provider.of<ThemeChanger>(context).themeData ==
+                                          darkMode
+                                      ? Colors.white
+                                      : Colors.white),
+                              inactiveTrackColor: const Color(0XFF4E4E61),
+                              trackOutlineColor: const MaterialStatePropertyAll(
+                                  Color(0x00000000)),
+                            ),
                           ),
                           const SizedBox(
                             width: 20,
@@ -627,21 +626,9 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Stack(
-                                    children: [
-                                      Positioned(
-                                        left: 8,
-                                        child: Image.asset(
-                                          AppImages.crossIcon,
-                                          height: 15,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      Image.asset(
-                                        AppImages.payment,
-                                        height: 20,
-                                      ),
-                                    ],
+                                  imageIcon: Image.asset(
+                                    AppImages.cancelSub,
+                                    height: 20,
                                   ),
                                   text: 'Cancel Subscription',
                                   text2: 'Cancel',
@@ -805,10 +792,12 @@ class _SettingsState extends State<Settings> {
                             .cleanLocalData(context: context);
                       },
                       child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: MySize.size24, ),
                         padding: EdgeInsets.symmetric(
-                            horizontal: MySize.size20, vertical: MySize.size16),
+                          horizontal: MySize.size20, ),
                         height: MySize.scaleFactorHeight * 64,
-                        width: MySize.scaleFactorWidth * 328,
+                        // width: MySize.scaleFactorWidth * 328,
                         decoration: BoxDecoration(
                           // color: AppColors.grey61.withOpacity(.20),
                           // color: Theme.of(context).colorScheme.secondary,
@@ -825,21 +814,21 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              AppImages.logout,
-                              height: 20,
-                              width: 20,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Color(0XFFA2A2B5)
-                                  : Colors.red,
-                            ),
-                            SizedBox(
-                              width: MySize.size22,
-                            ),
+                            // Image.asset(
+                            //   AppImages.logout,
+                            //   height: 20,
+                            //   width: 20,
+                            //   color: Provider.of<ThemeChanger>(context)
+                            //               .themeData ==
+                            //           darkMode
+                            //       ? Color(0XFFA2A2B5)
+                            //       : Colors.red,
+                            // ),
+                            // SizedBox(
+                            //   width: MySize.size22,
+                            // ),
                             Text(
                               'Logout',
                               style: TextStyle(

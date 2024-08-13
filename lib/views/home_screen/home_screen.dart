@@ -51,9 +51,9 @@ class _HomeScreenState extends State<HomeScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor:
-        Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF1C1C23)
-            : const Color(0XFFF7F7FF),
+          Provider.of<ThemeChanger>(context).themeData == darkMode
+          ?  Colors.black
+          : const Color(0XFFF7F7FF),
         body: Consumer<SubscriptionProvider>(
           builder: (context, subscriptionProvider, child) {
             var data;
