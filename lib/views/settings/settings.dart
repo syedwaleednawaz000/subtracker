@@ -95,7 +95,7 @@ class _SettingsState extends State<Settings> {
       child: Scaffold(
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF1C1C23)
+                ?  Colors.black
                 : const Color(0XFFF7F7FF),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
@@ -202,8 +202,9 @@ class _SettingsState extends State<Settings> {
                             height: MySize.size72,
                             width: MySize.size72,
                             decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(90),),
-                            child: Image.asset(AppImages.person)) :
+                            child: Icon(Icons.person)) :
                         Container(
                             height: MySize.size72,
                             width: MySize.size72,
@@ -405,32 +406,28 @@ class _SettingsState extends State<Settings> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      trailing: SizedBox(
-                                          width: 60,
-                                          child: Switch(
-                                            value: _switchValues[index],
-                                            onChanged: (bool newvalue) {
-                                              setState(() {
-                                                _switchValues[index] = newvalue;
-                                              });
-                                            },
-                                            activeTrackColor:
-                                                const Color(0XFF758AFF),
-                                            autofocus: true,
-                                            thumbColor:
-                                                MaterialStateProperty.all(
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : Colors.white),
-                                            inactiveTrackColor:
-                                                const Color(0XFF4E4E61),
-                                            trackOutlineColor:
-                                                const MaterialStatePropertyAll(
-                                                    Color(0x00000000)),
-                                          )),
+                                      trailing: Transform.scale(
+                                        scale: 0.8, // Adjust this value to scale the switch size
+                                        child: Switch(
+                                          value: _switchValues[index],
+                                          onChanged: (bool newValue) {
+                                            setState(() {
+                                              _switchValues[index] = newValue;
+                                            });
+                                          },
+                                          activeTrackColor: const Color(0XFF758AFF),
+                                          autofocus: true,
+                                          thumbColor: MaterialStateProperty.all(
+                                            Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? Colors.white
+                                                : Colors.white,
+                                          ),
+                                          inactiveTrackColor: const Color(0XFF4E4E61),
+                                          trackOutlineColor: const MaterialStatePropertyAll(
+                                            Color(0x00000000),
+                                          ),
+                                        ),
+                                      ),
                                     );
                                   },
                                 ),
@@ -499,26 +496,28 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                           const Spacer(),
-                          Switch(
-                            // value: isDarkMode,
-                            value: themeChanger.themeData == darkMode,
-                            onChanged: (bool newValue) {
-                              // themeChanger.toggleTheme();
-                              Provider.of<ThemeChanger>(context, listen: false)
-                                  .toggleTheme();
-                            },
-                            activeTrackColor: const Color(0XFF758AFF),
-                            // focusColor: Colors.pink,
-                            autofocus: true,
-                            // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
-                            thumbColor: MaterialStateProperty.all(
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : Colors.white),
-                            inactiveTrackColor: const Color(0XFF4E4E61),
-                            trackOutlineColor: const MaterialStatePropertyAll(
-                                Color(0x00000000)),
+                          Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              value: themeChanger.themeData == darkMode,
+                              onChanged: (bool newValue) {
+                                // themeChanger.toggleTheme();
+                                Provider.of<ThemeChanger>(context, listen: false)
+                                    .toggleTheme();
+                              },
+                              activeTrackColor: const Color(0XFF758AFF),
+                              // focusColor: Colors.pink,
+                              autofocus: true,
+                              // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
+                              thumbColor: MaterialStateProperty.all(
+                                  Provider.of<ThemeChanger>(context).themeData ==
+                                          darkMode
+                                      ? Colors.white
+                                      : Colors.white),
+                              inactiveTrackColor: const Color(0XFF4E4E61),
+                              trackOutlineColor: const MaterialStatePropertyAll(
+                                  Color(0x00000000)),
+                            ),
                           ),
                           const SizedBox(
                             width: 20,

@@ -56,6 +56,10 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
     MySize().init(context);
     return SafeArea(
       child: Scaffold(
+        backgroundColor:
+        Provider.of<ThemeChanger>(context).themeData == darkMode
+            ?  Colors.black
+            : const Color(0XFFF7F7FF),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(
@@ -98,10 +102,6 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
             ),
           ),
         ),
-        backgroundColor:
-        Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF1C1C23)
-            : const Color(0XFFF7F7FF),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

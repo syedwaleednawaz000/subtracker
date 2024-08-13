@@ -57,7 +57,7 @@ class ShowDialogBox extends StatelessWidget {
                       SizedBox(
                         height: MySize.size20,
                       ),
-                      const Divider(color: AppColors.grey61,),
+                       Divider(color: Colors.grey.withOpacity(0.30),height: 1),
                       Row(
                         mainAxisAlignment:
                         MainAxisAlignment.center,
@@ -68,12 +68,12 @@ class ShowDialogBox extends StatelessWidget {
                             },
                             child: Text('Decline',
                               style: TextStyle(
-                                fontSize: MySize.size14,
-                                fontWeight: FontWeight.w400,
+                                fontSize: MySize.size18,
+                                fontWeight: FontWeight.w600,
                                 color:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
-                                    ?  const Color(0XFFC54646) // #2B83F2
-                                    :  const Color(0XFFC54646),
+                                      ?  const Color(0XFFC54646) // #2B83F2
+                                      :  const Color(0XFFC54646),
                               ),
                             ),
                           ),
@@ -90,8 +90,8 @@ class ShowDialogBox extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 40),
                                 child: profileProvider.isDeleteAccount ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):  Text('Accept',
                                   style: TextStyle(
-                                    fontSize: MySize.size14,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: MySize.size18,
+                                    fontWeight: FontWeight.w600,
                                     color:  Provider.of<ThemeChanger>(context)
                                         .themeData == darkMode
                                         ?  const Color(0XFF2B83F2) // #
