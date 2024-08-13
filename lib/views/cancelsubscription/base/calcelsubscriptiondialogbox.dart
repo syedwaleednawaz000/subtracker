@@ -195,7 +195,8 @@ class CancelSubsDialogBox extends StatelessWidget {
                             height: MySize.size20,
                           ),
                           const Divider(
-                            color: AppColors.grey61,
+                            thickness: .2,
+                            color: Color(0xff333339),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -208,7 +209,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                                     'Decline',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w500,
                                       color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                           darkMode
@@ -240,7 +241,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                                           'Accept',
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w500,
                                             color: Provider.of<ThemeChanger>(
                                                 context)
                                                 .themeData ==
@@ -289,7 +290,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ?  Colors.white
                           :  Colors.black,
-                      fontSize: MySize.size14,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ))),
           ),

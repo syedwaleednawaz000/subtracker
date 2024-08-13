@@ -65,8 +65,8 @@ class _ContactSupportState extends State<ContactSupport> {
                 SizedBox(height: MySize.size20,),
                 Text('Generate Ticket',
                   style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ? const Color(0XFFEEEEEE)
                           : const Color(0XFF333339),
@@ -93,10 +93,12 @@ class _ContactSupportState extends State<ContactSupport> {
               return const Center(child: Text('No issues found'));
             } else {
               return DropdownMenu(
+
                 onSelected: (value) {
                   Provider.of<ContactWithSupportProvider>(context,listen: false).getIssueId(issueID: value.toString());
                 },
                 hintText: "Select Issue",
+
                 textStyle: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -104,7 +106,7 @@ class _ContactSupportState extends State<ContactSupport> {
                       ? const Color(0XFFFFFFFF)
                       : const Color(0XFFD2D2D2),
                 ),
-                width: MySize.scaleFactorWidth * 340,
+                width: MySize.scaleFactorWidth * 310,
                 inputDecorationTheme: InputDecorationTheme(
                   constraints: const BoxConstraints(
                       maxWidth: 330,

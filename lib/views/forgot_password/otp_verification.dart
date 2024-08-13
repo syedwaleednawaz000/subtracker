@@ -170,10 +170,8 @@ class _OTPVerificationState extends State<OTPVerification> {
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
+                            padding: const EdgeInsets.only(left: 25.0,right: 24),
                             child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 45),
-                              padding: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   border: Border(
@@ -191,7 +189,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                                 child: forgotPasswordProvider.isVerifyOtp
                                     ? const CircularProgressIndicator()
                                     :  Text(
-                                  AppLocalizations.of(context)!.verify_otp,
+                                  AppLocalizations.of(context)!.reset_password,
                                   style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,

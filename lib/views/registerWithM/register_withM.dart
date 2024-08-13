@@ -33,20 +33,28 @@ class RegisterWithM extends StatelessWidget {
                 textColor: Colors.white, // Always white
               ),
                SizedBox(height:MySize.size16,),
-              FieldContainer(
-                myImage: AppImages.googleIcon,
-              containerColor:  Provider.of<ThemeChanger>(context)
-                  .themeData == darkMode
-                  ? AppColors.white100
-                  : AppColors.white100,
-
-                mytitle: 'Sign up with Google',
-                  // 1C1C23
-                textColor:  Provider.of<ThemeChanger>(context)
-                  .themeData == darkMode
-                  ? const Color(0XFF1C1C23)
-                  :  const Color(0XFF1C1C23),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: MySize.size30),
+                decoration: BoxDecoration(
+                  color:  Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.2),
+                      offset: const Offset(0, 8),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(MySize.size40),
+                ),
+                child: const FieldContainer(
+                  myImage: AppImages.googleIcon,
+                  containerColor: Colors.white,
+                  mytitle: 'Sign up with Google',
+                  textColor: Colors.black,
+                ),
               ),
+
               SizedBox(height:MySize.size16,),
               GestureDetector(
                 onTap: (){

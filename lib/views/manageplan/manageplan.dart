@@ -27,7 +27,6 @@ class ManagePlan extends StatefulWidget {
 class _ManagePlanState extends State<ManagePlan> {
   @override
   void initState() {
-    // TODO: implement initState
     Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).getPlanes());
     super.initState();
   }
@@ -44,7 +43,7 @@ class _ManagePlanState extends State<ManagePlan> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 centerTitle: true,
-                title:  Text('Manage Plan',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+                title:  Text('Manage Plan',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
                 leading:GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -116,8 +115,7 @@ class _ManagePlanState extends State<ManagePlan> {
                                             fontWeight: FontWeight.w600,
                                             color: Provider.of<ThemeChanger>(context).themeData ==
                                                 darkMode
-                                                ? Color(0XFFFFFFFF):Colors.black
-
+                                                ? const Color(0XFFFFFFFF):Colors.black
                                           ),
                                         ],
                                       ),
@@ -126,13 +124,20 @@ class _ManagePlanState extends State<ManagePlan> {
                                 ),
                               ],
                             ),
-                            StackPercentageWidget(percentValue: "20%"),
-                            MonthlyPercentWidget(packageTitle: "1 Month Free Trial"),
+                            index == 0
+                                ? StackPercentageWidget(percentValue: "~20%")
+                                : const SizedBox.shrink(),
+                           index==0
+                               ? MonthlyPercentWidget(packageTitle: "1 Month Free Trial")
+                               : MonthlyPercentWidget(packageTitle: "1 Year Free Trial"),
                           ],
                         ),
                       );
                     },
                   ),
+                ),
+                SizedBox(
+                  height: MySize.size10,
                 ),
 
                 Padding(
@@ -160,8 +165,8 @@ class _ManagePlanState extends State<ManagePlan> {
                     // color: AppColors.grey61.withOpacity(.20), F1F1FF
                     color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode
-                        ? Color(0XFF4E4E61).withOpacity(.2)
-                        : Color(0XFFF1F1FF),
+                        ? const Color(0XFF4E4E61).withOpacity(.2)
+                        : const Color(0XFFF1F1FF),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       width: MySize.size2,

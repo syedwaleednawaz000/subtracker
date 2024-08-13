@@ -23,9 +23,9 @@ class ShowDialogBox extends StatelessWidget {
               ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
               child: AlertDialog(
                   backgroundColor:  Provider.of<ThemeChanger>(context)
-                                    .themeData == darkMode
-                                    ?  const Color(0XFF4E4E61)
-                                    :  const Color(0XFFF1F1FF),
+                      .themeData == darkMode
+                      ?  const Color(0XFF4E4E61)
+                      :  const Color(0XFFF1F1FF),
                   // surfaceTintColor: Colors.orange,
                   titlePadding: EdgeInsets.only(top: MySize.size30),
                   title: Column(
@@ -57,7 +57,7 @@ class ShowDialogBox extends StatelessWidget {
                       SizedBox(
                         height: MySize.size20,
                       ),
-                       Divider(color: Colors.grey.withOpacity(0.30),height: 1),
+                      Divider(color: Colors.grey.withOpacity(0.30),height: 1),
                       Row(
                         mainAxisAlignment:
                         MainAxisAlignment.center,
@@ -72,8 +72,8 @@ class ShowDialogBox extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
-                                      ?  const Color(0XFFC54646) // #2B83F2
-                                      :  const Color(0XFFC54646),
+                                    ?  const Color(0XFFC54646) // #2B83F2
+                                    :  const Color(0XFFC54646),
                               ),
                             ),
                           ),

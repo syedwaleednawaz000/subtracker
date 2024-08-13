@@ -68,7 +68,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
@@ -119,7 +119,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
@@ -171,7 +171,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(

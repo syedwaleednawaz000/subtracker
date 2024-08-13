@@ -11,15 +11,18 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      centerTitle: true,
-      leading:GestureDetector(
-          onTap:onTap,
-          child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
-      title:  Text(text,style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+    return Padding(
+      padding:  EdgeInsets.only(left: MySize.size10 , top: MySize.size25),
+      child: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        leading:GestureDetector(
+            onTap:onTap,
+            child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
+        title:  Text(text,style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+      ),
     );
   }
 }

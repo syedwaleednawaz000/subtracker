@@ -98,7 +98,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _verifyOTpLoading(load: false);
         forgetToken = response.data['token'];
-        FlutterToast.toastMessage(message: "OTP Successfully verified",);
+        FlutterToast.toastMessage(message: "OTP successfully verified",);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdatePassword()));
 
       }else{
@@ -131,7 +131,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       Response response = await _apiService.changePassword(params: body);
       if(response.statusCode == 200){
         _ChangePassLoading(load: false);
-        FlutterToast.toastMessage(message: "Successfully password reset",);
+        FlutterToast.toastMessage(message: " Password reset successfully",);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
 
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));

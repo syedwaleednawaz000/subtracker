@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               top: 28, bottom: 165, left: 115, right: 115),
                         ),
                          Text(
-                          '${AppLocalizations.of(context)!.name}',
+                          '${AppLocalizations.of(context)!.welcome_back}',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
@@ -340,8 +340,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: MySize.size68,
                               fit: BoxFit.cover,
                             ),
-                            const SizedBox(
-                              height: 1,
+                             SizedBox(
+                              height: MySize.size10,
                             ),
                              Text(
                                AppLocalizations.of(context)!.enable_face_id,
