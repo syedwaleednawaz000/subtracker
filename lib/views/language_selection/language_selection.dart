@@ -45,12 +45,9 @@ class _LanguageSelectionState extends State<LanguageSelection> {
 
       body:  Column(
         children: [
-
           const SizedBox(height: 20,),
-        const LanguageTiles(),
+          LanguageTiles(),
           const SizedBox(height: 45,),
-
-
           Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
             return           CustomSaveButton(text: "Save",onTap: (){
               Get.back();
@@ -64,46 +61,22 @@ class _LanguageSelectionState extends State<LanguageSelection> {
 }
 
 class LanguageTiles extends StatelessWidget {
-  const LanguageTiles({super.key,});
+   LanguageTiles({super.key,});
 
 
 
-
+  List<LanguageModelClass> languageData = [
+    LanguageModelClass(languagesCode: "en",countryCode: "US",countryFlag: AppImages.psFlag,countryName: "English (UK)",countryLanguageName: "English"),
+    LanguageModelClass(languagesCode: "ur",countryCode: "PK",countryFlag: AppImages.pkFlag,countryName: "Pakistan",countryLanguageName: "Urdu")
+  ];
   @override
   Widget build(BuildContext context) {
-List<LanguageModelClass> languageData = [
-  LanguageModelClass(languagesCode: "en",countryCode: "US",countryFlag: AppImages.psFlag,countryName: "English (UK)",countryLanguageName: "English"),
-  LanguageModelClass(languagesCode: "ur",countryCode: "PK",countryFlag: AppImages.psFlag,countryName: "Pakistan",countryLanguageName: "Urdu")
-];
-    List<Color> listColors = [
-      const Color(0XFF758AFF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
-      const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
-      const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF)
-    ];
-    List<Color> containerColors = [
-      const Color(0XFF758AFF), const Color(0XFF272730), const Color(0XFF272730),
-      const Color(0XFF272730), const Color(0XFF272730), const Color(0XFF272730),
-      const Color(0XFF272730), const Color(0XFF272730), const Color(0XFF272730),
-    ];
-    List<Color> titleColors = [
-      const Color(0XFFFFFFFF), const Color(0XFF1C1C23), const Color(0XFF1C1C23),
-
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-    ];
-    List<Color> trailColors = [
-      const Color(0XFFFFFFFF), const Color(0XFF1C1C23), const Color(0XFF1C1C23),
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-    ];
-
     return Expanded(
       child: Consumer<LanguageProvider>(
         builder: (context, languageProvider, child) {
           return ListView.builder(
             itemCount: languageData.length,
             itemBuilder: (context, index) {
-              bool isSelected = languageProvider.languageCode == languageData[index].languagesCode;
               return Padding(
                 padding: const EdgeInsets.only(left: 29, right: 29, top: 10),
                 child: GestureDetector(
@@ -113,15 +86,15 @@ List<LanguageModelClass> languageData = [
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: isSelected
-                          ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.blue.withOpacity(0.5)) // Highlight selected
-                          : (Provider.of<ThemeChanger>(context).themeData == darkMode ? containerColors[index] : listColors[index]),
+                      color:languageData[index].languagesCode == languageProvider.languageCode
+                          ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF)) // Highlight selected
+                          : (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Color(0xffF1F1FF)),
                     ),
                     child: ListTile(
-                      tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
+                      // tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
                       dense: true,
                       title: Text(
-                        '${languageData[index].countryName}',
+                        languageData[index].countryName,
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
@@ -131,7 +104,7 @@ List<LanguageModelClass> languageData = [
                       ),
                       leading: Image(image: AssetImage(languageData[index].countryFlag), height: 24, width: 24,),
                       trailing: Text(
-                        '${languageData[index].countryLanguageName}',
+                        '(${languageData[index].countryLanguageName})',
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : const Color(0XFF1C1C23),
