@@ -9,7 +9,6 @@ import 'package:sub_tracker/views/calendar_screen/Model/schedule_model.dart';
 
 class ScheduleProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
-  // List<ScheduleModel> scheduleModelData = [];
   Map<String , dynamic> scheduleData = {};
   bool isLoading = false;
   Future<void> getScheduleData({required String date}) async {
