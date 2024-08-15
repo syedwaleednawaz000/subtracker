@@ -431,7 +431,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
                       ? const Color(0XFFFFFFFF)
                       : const Color(0XFF424252),
-                  fontSize: 22,
+                  fontSize: 20,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins_Regular'
                 ),

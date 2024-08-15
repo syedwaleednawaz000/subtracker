@@ -446,16 +446,9 @@ class CustomSaveButton extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(24), topRight: Radius.circular(24)),
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
-              ? const Color(0XFF353542).withOpacity(.7)
-              : const Color(0XFFF1F1FF).withOpacity(.86),
+              ? const Color(0XFF353542).withOpacity(0.50)
+              : const Color(0XFFF1F1FF).withOpacity(.50),
 
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 4),
-                blurRadius: 4,
-                color: AppColors.black00.withOpacity(.25)
-            )
-          ]
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -469,12 +462,11 @@ class CustomSaveButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40),
                   border: Border(
                     top: BorderSide( color: AppColors.whiteFc.withOpacity(0.10)),
-                    // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
                     left: BorderSide( color: AppColors.whiteFc.withOpacity(0.10)),
                   ),
                     color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode
-                        ? const Color(0XFFFFFFFF).withOpacity(.1)
+                        ? const Color(0XFFFFFFFF).withOpacity(.15)
                         : const Color(0XFFF1F1FF),
                     ),
                 child: Center(

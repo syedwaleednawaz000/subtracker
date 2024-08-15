@@ -66,7 +66,7 @@ class _ContactSupportState extends State<ContactSupport> {
                 Text('Generate Ticket',
                   style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ? const Color(0XFFEEEEEE)
                           : const Color(0XFF333339),
@@ -188,17 +188,11 @@ class _ContactSupportState extends State<ContactSupport> {
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                topLeft: Radius.circular(24), topRight: Radius.circular(24)),
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF353542)
-                : const Color(0XFFF1F1FF).withOpacity(.8),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 4,
-                  color: AppColors.black00.withOpacity(.25)
-              )
-            ]
+                ? const Color(0XFF353542).withOpacity(0.50)
+                : const Color(0XFFF1F1FF).withOpacity(.50),
+
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -217,14 +211,9 @@ class _ContactSupportState extends State<ContactSupport> {
                       borderRadius: BorderRadius.circular(40),
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? const Color(0XFFFFFFFF).withOpacity(.16)
+                          ? const Color(0XFFF1F1FF).withOpacity(.15)
                           : const Color(0XFFF1F1FF),
-                      border: Border(
-                          top: BorderSide(color: Colors.white.withOpacity(.15)),
-                          left: BorderSide(color: Colors.white.withOpacity(.15)),
-                          // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                          bottom: BorderSide.none
-                      ),
+
                     ),
                     child: Center(
                       child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(

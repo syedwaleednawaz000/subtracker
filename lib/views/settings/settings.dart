@@ -110,6 +110,7 @@ class _SettingsState extends State<Settings> {
                       : Colors.transparent,
               elevation: 0,
               centerTitle: true,
+
               title: Text(
                 'Settings',
                 style: TextStyle(
@@ -123,10 +124,10 @@ class _SettingsState extends State<Settings> {
                   child: InkWell(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const NotificationsScreen()));
+                           context,
+                           MaterialPageRoute(
+                           builder: (context) =>
+                           const NotificationsScreen()));
                       },
                       child: Image.asset(
                         AppImages.notificationIcon,
@@ -136,7 +137,8 @@ class _SettingsState extends State<Settings> {
                                 darkMode
                             ? const Color(0XFFA2A2B5)
                             : const Color(0XFF424252),
-                      )),
+                    ),
+                  ),
                 )
               ],
             ),

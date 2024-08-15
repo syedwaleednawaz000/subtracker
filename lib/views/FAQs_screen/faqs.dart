@@ -58,7 +58,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                       'Frequently Asked Questions',
                       style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Colors.white
