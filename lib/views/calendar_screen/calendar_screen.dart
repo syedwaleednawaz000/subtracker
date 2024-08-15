@@ -193,7 +193,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   .map((month) {
                                 return DropdownMenuItem<int>(
                                   value: month,
-                                  child: Text(DateFormat('MMM')
+                                  child: Text(DateFormat('MMMM')
                                       .format(DateTime(0, month))),
                                 );
                               }).toList(),
