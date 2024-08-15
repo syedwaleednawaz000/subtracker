@@ -27,6 +27,7 @@ class AppImages {
   // static const subtractIcon = 'assets/icons/subtract.png';
   static const additionIcon = 'assets/icons/add.png';
   static String  faceID = 'assets/icons/faceID.png';
+  static String  editingIcon = 'assets/images/editIcon.png';
 
 
 

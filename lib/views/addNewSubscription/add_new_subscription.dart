@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
@@ -330,21 +329,34 @@ class _SubscriptionState extends State<Subscription> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            AppImages.halfOneDriveLogo1,
-                          ),
-                          SizedBox(
-                            width: MySize.scaleFactorWidth * 86,
-                          ),
-                          const TresorlyContainer(),
-                          SizedBox(
-                            width: MySize.scaleFactorWidth * 91.2,
-                          ),
-                          Image.asset(AppImages.halfSpotifyLogo1)
-                        ],
-                      ),
+            Stack(
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      AppImages.halfOneDriveLogo1,
+                    ),
+                    SizedBox(
+                      width: MySize.scaleFactorWidth * 86,
+                    ),
+                    const TresorlyContainer(),
+                    const Spacer(),
+                    Image.asset(AppImages.halfSpotifyLogo1),
+                  ],
+                ),
+                // Positioned editing icon
+                Positioned(
+                  top: MySize.scaleFactorWidth*125,
+                  left: MySize.scaleFactorWidth*235,
+                  //right: MySize.scaleFactorWidth*,
+                  child: Image.asset(
+                    AppImages.editingIcon,
+                    height: MySize.size28,
+                    width: MySize.size28,
+                  ),
+                ),
+              ],
+            ),
                       SizedBox(
                         height: MySize.size16,
                       ),
