@@ -228,7 +228,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              DateFormat('MMM').format(DateTime(0, _selectedMonth)),
+                              DateFormat('MMMM').format(DateTime(0, _selectedMonth)),
                               style: TextStyle(
                                 fontSize: MySize.size20,
                                 fontWeight: FontWeight.w700,
