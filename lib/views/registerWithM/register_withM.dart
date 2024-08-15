@@ -39,10 +39,10 @@ class RegisterWithM extends StatelessWidget {
                   color:  Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withOpacity(0.25),
                       offset: const Offset(0, 8),
                       blurRadius: 15,
-                      spreadRadius: 1,
+                      spreadRadius: 0,
                     ),
                   ],
                   borderRadius: BorderRadius.circular(MySize.size40),
@@ -55,7 +55,7 @@ class RegisterWithM extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height:MySize.size16,),
+              SizedBox(height:MySize.size25,),
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder:  (context) => const SignupScreen()));
