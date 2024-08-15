@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 
@@ -178,7 +179,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                         return Center(
                           child: forgotPasswordProvider.isForgot
-                              ? const CircularProgressIndicator()
+                              ? const CircularProgressIndicator(color: AppColors.white100,)
                               :  Text(AppLocalizations.of(context)!.send_recovery_link,
                               style: const TextStyle(color: Colors.white, fontSize: 16)
                           ),

@@ -198,7 +198,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 color: const Color(0XFF4F63BE).withOpacity(.5))
                           ]),
                       child:  Center(
-                        child: forgotPasswordProvider.isChangePass == true ?  const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
+                        child: forgotPasswordProvider.isChangePass == true ?  const CircularProgressIndicator(color: AppColors.white100,):  Text(
                           AppLocalizations.of(context)!.reset_password,
                           style: const TextStyle(
                               fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),

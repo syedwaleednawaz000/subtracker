@@ -86,6 +86,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
             },
             child: Container(
               width: 60,
+              padding: const EdgeInsets.only(top: 8,bottom: 8),
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 color: _selectedDate != null &&
@@ -103,31 +104,35 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 border: Border.all(color: Colors.grey.withOpacity(0.3)),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    titleText[index],
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
+                  Column(
+                    children: [
+                      Text(
+                        titleText[index],
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? const Color(0xFF000000)
-                            :  Colors.black),
-                  ),
-                  Text(
-                    subtitleText[index],
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
+                                ? const Color(0xFF000000)
+                                :  Colors.black),
+                      ),
+                      Text(
+                        subtitleText[index],
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                            ? const Color(0xFF000000)
-                            : Colors.black),
+                                ? const Color(0xFF000000)
+                                : Colors.black),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                   // Show the icon if this date is selected
                   if (_selectedDate != null &&
                       _selectedDate!.isAtSameMomentAs(date))

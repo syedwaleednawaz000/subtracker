@@ -293,7 +293,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: registerProvider.isRegister == true ?  const SizedBox(
                               width: 20,
                               height: 20,
-                              child: CircularProgressIndicator(color: AppColors.purpleFF,)) :  Text(AppLocalizations.of(context)!.get_started,
+                              child: CircularProgressIndicator(color: AppColors.white100,)) :  Text(AppLocalizations.of(context)!.get_started,
                             style: const TextStyle(
                                 color:Colors.white,
                                 fontSize: 14,
