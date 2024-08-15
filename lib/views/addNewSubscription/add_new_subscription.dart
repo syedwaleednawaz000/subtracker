@@ -33,6 +33,19 @@ class _SubscriptionState extends State<Subscription> {
   final TextEditingController _monthlyPriceController = TextEditingController();
 
 
+  XFile? _pickedImage;
+
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _pickedImage = image;
+      });
+    }
+  }
+
   final ImagePicker _picker = ImagePicker();
   XFile? _imagePhoto;
   TextEditingController descriptionController = TextEditingController();
@@ -336,10 +349,28 @@ class _SubscriptionState extends State<Subscription> {
                     Image.asset(
                       AppImages.halfOneDriveLogo1,
                     ),
-                    SizedBox(
-                      width: MySize.scaleFactorWidth * 86,
-                    ),
-                    const TresorlyContainer(),
+                    const Spacer(),
+                    _pickedImage == null
+                        ? const TresorlyContainer()
+                        :GestureDetector(
+                      onTap: _pickImage,
+                          child: Container(
+                            height: 80,
+                            width: 80,
+                            decoration:const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.transparent
+                        ),
+                          child:  ClipOval(
+                            child: Image.file(
+                            File(_pickedImage!.path),
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.cover,
+                                                  ),
+                          ),
+                                              ),
+                        ),
                     const Spacer(),
                     Image.asset(AppImages.halfSpotifyLogo1),
                   ],
@@ -349,10 +380,13 @@ class _SubscriptionState extends State<Subscription> {
                   top: MySize.scaleFactorWidth*125,
                   left: MySize.scaleFactorWidth*235,
                   //right: MySize.scaleFactorWidth*,
-                  child: Image.asset(
-                    AppImages.editingIcon,
-                    height: MySize.size28,
-                    width: MySize.size28,
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: Image.asset(
+                      AppImages.editingIcon,
+                      height: MySize.size28,
+                      width: MySize.size28,
+                    ),
                   ),
                 ),
               ],
