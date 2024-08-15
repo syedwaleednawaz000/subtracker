@@ -1,16 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
-
-import '../bottomnavbar/bottom_navBar.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../utils/app_Images.dart';
-import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
-import 'base/button_container.dart';
-import 'base/custom_textField.dart';
-import 'otp_verification.dart';
 
 class ForgetPassword extends StatefulWidget {
   ForgetPassword({super.key});
@@ -39,164 +33,165 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       // backgroundColor: const Color(0xff073b5c),
       // resizeToAvoidBottomInset: false,
-      body: Container(
-        // height: MediaQuery.of(context).size.height,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover),
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-             Padding(
-               padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size44,top: MySize.size60),
-               child: Row(
-                 //mainAxisAlignment: MainAxisAlignment.start,
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   GestureDetector(
-                     onTap:(){
-                       Navigator.pop(context);
-                     },
-                     child: Image.asset(AppImages.backArrow),
-                   ),
-                 ],
-               ),
-             ),
-              // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
-              const Text('Forgot Password?',
-                style: TextStyle(
-                    color: Color(0XFFF0F4F7),
-                    fontSize: 26,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins_Regular'
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover),
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size36,top: MySize.size60),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap:(){
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(AppImages.backArrow),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: MySize.size10,
-              ),
-              const Text('Forgot Your Password? Don’t Worry we have\nyour back',
-                style: TextStyle(
-                  color: Color(0XFFF0F4F7),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Poppins_Regular',
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: MySize.size25,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 50),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('E-mail address',
-                    style: TextStyle(
-                      color: Color(0XFF666680),
-                      fontSize: 12,
+                // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
+                Text(AppLocalizations.of(context)!.forgot_password,
+                  style: const TextStyle(
+                      color: Color(0XFFF0F4F7),
+                      fontSize: 26,
                       fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins_Regular'
+                  ),
+                ),
+                SizedBox(
+                  height: MySize.size10,
+                ),
+                Text(AppLocalizations.of(context)!.forgot_your_password_dont_worry_we_have_your_back,
+                  style: const TextStyle(
+                    color: Color(0XFFF0F4F7),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Poppins_Regular',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: MySize.size25,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(AppLocalizations.of(context)!.email_address,
+                      style: const TextStyle(
+                        color: Color(0XFF666680),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 4,),
-              Padding(
-                padding: const EdgeInsets.only(left: 37, right: 38),
-                child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
-                  return TextFormField(
-                    controller: forgotPasswordProvider.emailTextEditingController,
-                    validator: emailValidation,
-                    style: const TextStyle(
-                        color: Color(0XFF666680)
-                    ),
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(MySize.size12),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Icon(Icons.email,
+                const SizedBox(height: 4,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25, right: 26),
+                  child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
+                    return TextFormField(
+                      controller: forgotPasswordProvider.emailTextEditingController,
+                      validator: emailValidation,
+                      style: const TextStyle(
+                          color: Color(0XFF666680)
+                      ),
+                      decoration: InputDecoration(
+                        errorMaxLines: 3,
+                          contentPadding: EdgeInsets.all(MySize.size12),
+                          suffixIcon: Icon(Icons.email,
                               color: Colors.grey.withOpacity(0.5)),
-                        ),
-                        hintText: 'Email',
-                        hintStyle: TextStyle(
-                            color: Colors.grey.withOpacity(0.5),
-                            fontSize: 12,
-                            fontFamily: 'Poppins_Regular',
-                            fontWeight: FontWeight.w400
-                        ),
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: const BorderSide(color: Color(0XFF353542))),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: const BorderSide(color: Color(0XFF353542))
-                        )
-                    ),
-                  );
-                }),
-              ),
-              SizedBox(
-                height: MySize.size5,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 42, top: 7),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('A link will be sent to your email to reset your\n password',
-                    style: TextStyle(
-                        color: Color(0XFFF0F4F7),
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Poppins_Regular'
+                          hintText: AppLocalizations.of(context)!.email,
+                          hintStyle: TextStyle(
+                              color: Colors.grey.withOpacity(0.5),
+                              fontSize: 12,
+                              fontFamily: 'Poppins_Regular',
+                              fontWeight: FontWeight.w400
+                          ),
+                          border:  OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: const BorderSide(color: Color(0XFF353542))
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: const BorderSide(color: Color(0XFF353542))),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: const BorderSide(color: Color(0XFF353542))
+                          )
+                      ),
+                    );
+                  }),
+                ),
+                SizedBox(
+                  height: MySize.size5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, top: 8),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(AppLocalizations.of(context)!.a_link_will_be_sent_to_your_email_to_reset_your_password,
+                      style: const TextStyle(
+                          color: Color(0XFFF0F4F7),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Poppins_Regular'
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: MySize.size25,),
+                GestureDetector(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      Provider.of<ForgotPasswordProvider>(context, listen: false).forgotPassword(context: context);
+                    }
+                  },
+                  child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: MySize.size28),
+                      height: MySize.scaleFactorHeight * 48,
+                      // width: MySize.scaleFactorWidth * 333,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(MySize.size40),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(0, 8),
+                              blurRadius: 25,
+                              color: const Color(0XFF4F63BE).withOpacity(.5)
+                          )
+                        ],
+                        color: const Color(0XFF758AFF),
+                      ),
+                      child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
+                        return Center(
+                          child: forgotPasswordProvider.isForgot
+                              ? const CircularProgressIndicator(color: AppColors.white100,)
+                              :  Text(AppLocalizations.of(context)!.send_recovery_link,
+                              style: const TextStyle(color: Colors.white, fontSize: 16)
+                          ),
+                        );
+                      })),
+                )
+              ],
+            ),
           ),
         ),
       ),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          if (_formKey.currentState!.validate()) {
-            Provider.of<ForgotPasswordProvider>(context, listen: false).forgotPassword(context: context);
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.only(top: MySize.size28),
-          child: Container(
-              height: MySize.scaleFactorHeight * 48,
-              width: MySize.scaleFactorWidth * 333,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(MySize.size40),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 8),
-                      blurRadius: 25,
-                      color: const Color(0XFF4F63BE).withOpacity(.5)
-                  )
-                ],
-                color: const Color(0XFF758AFF),
-              ),
-              child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
-                return Center(
-                  child: forgotPasswordProvider.isForgot
-                      ? const CircularProgressIndicator()
-                      : const Text('Send Recovery Link',
-                      style: TextStyle(color: Colors.white, fontSize: 16)
-                  ),
-                );
-              })),
-        ),
-      ),
+      // floatingActionButton: ,
     );
   }
 }

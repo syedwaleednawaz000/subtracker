@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../utils/app_Images.dart';
-import '../auth/login/login_screen.dart';
-import '../base/text_widgets.dart';
 
 
 
@@ -52,37 +52,32 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             child: ListView(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 40),
+                  padding:  EdgeInsets.symmetric(horizontal: MySize.size40),
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(height: 200,),
-                      const Text( 'Reset Password',
-                        style: TextStyle(
+                       Text( AppLocalizations.of(context)!.reset_password,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
                             fontFamily: 'Poppins_Regular',
                             fontSize: 26,
                             color: Colors.white
                         ),
-
                       ),
                       const SizedBox(height: 16,),
-                      const Text( 'Here’s a tip: Use a combination of numbers,'
-                          ' \nuppercase, lowercase and special characters',
+                       Text( AppLocalizations.of(context)!.heres_a_tip_use_a_combination_of_numbers_uppercase_lowercase_and_special_characters,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Poppins_Regular',
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white
-                        ),
-
-                      ),
-
-                      const SizedBox(height: 28,),
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),),
+                      SizedBox(height: MySize.size25,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Password',
+                           Text(AppLocalizations.of(context)!.password,
                             style: TextStyle(
                               // fontFamily: 'Poppins_Regular',
                               fontWeight: FontWeight.w400,
@@ -91,9 +86,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             ),
                           ),
 
-                          const SizedBox(
-                            height: 4,
-                          ),
+                          SizedBox(height: MySize.size4,),
                           TextFormField(
                             validator: validatePassword,
                             controller: forgotPasswordProvider.password,
@@ -101,9 +94,10 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 color:  Color(0XFF666680)
                             ),
                             decoration: InputDecoration(
+                              errorMaxLines: 3,
                               isDense: true,
                               contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                              hintText: 'Password',
+                              hintText: AppLocalizations.of(context)!.password,
                               hintStyle:  TextStyle(
                                 fontFamily: 'Poppins_Regular',
                                 fontSize: 12,
@@ -125,21 +119,20 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15,),
-
+                      SizedBox(height: MySize.size25,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text( 'Confirm Password',
-                            style: TextStyle(
+                           Text(AppLocalizations.of(context)!.confirm_password,
+                            style: const TextStyle(
                               // fontWeight: FontWeight.w400,
                               // fontFamily: 'Poppins_Regular',
                               fontSize: 12,
                               color: Color(0XFF666680),
                             ),
                           ),
-                          const SizedBox(
-                            height: 4,
+                           SizedBox(
+                            height: MySize.size4,
                           ),
                           TextFormField(
                             validator: validatePassword,
@@ -148,9 +141,10 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                                 color:  Color(0XFF666680)
                             ),
                             decoration: InputDecoration(
+                              errorMaxLines: 3,
                               isDense: true,
                               contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                              hintText: 'Confirm Password',
+                              hintText: AppLocalizations.of(context)!.confirm_password,
                               hintStyle:  TextStyle(
                                 fontFamily: 'Poppins_Regular',
                                 fontSize: 12,
@@ -172,56 +166,53 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             ),  ),
                         ],
                       ),
-
                     ],
                   ),
                 ),
-                SizedBox(height: MySize.size100,)
+                SizedBox(height: MySize.size25,),
+                Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
+                  return GestureDetector(
+                    onTap:(){
+                      if(_formKey.currentState!.validate()){
+                        if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
+                          forgotPasswordProvider.changePassword(context: context);
+                        }else{
+                          FlutterToast.toastMessage(message: "Confirm password doesn't match");
+                        }
+                      }
+                    },
+                    child: Container(
+                      height: MySize.scaleFactorHeight * 48,
+                      margin:  EdgeInsets.symmetric(horizontal: MySize.size35),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          border: Border(
+                              top: BorderSide(color: Colors.white.withOpacity(.5)),
+                              left: BorderSide(color: Colors.white.withOpacity(.5)),
+                              bottom: BorderSide.none),
+                          color: const Color(0XFF758AFF),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 8),
+                                blurRadius: 25,
+                                color: const Color(0XFF4F63BE).withOpacity(.5))
+                          ]),
+                      child:  Center(
+                        child: forgotPasswordProvider.isChangePass == true ?  const CircularProgressIndicator(color: AppColors.white100,):  Text(
+                          AppLocalizations.of(context)!.reset_password,
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  );
+                },),
               ],
             ),
           );
         },),
       ),
-      floatingActionButton:Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
-         return GestureDetector(
-           onTap:(){
-             if(_formKey.currentState!.validate()){
-               if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
-                 forgotPasswordProvider.changePassword(context: context);
-               }else{
-                 FlutterToast.toastMessage(message: "Confirm password doesn't match");
-               }
-             }
-           },
-           child: Padding(
-             padding: const EdgeInsets.only(left: 30.0),
-             child: Container(
-               height: MySize.scaleFactorHeight * 48,
-               margin: const EdgeInsets.symmetric(horizontal: 60),
-               decoration: BoxDecoration(
-                   borderRadius: BorderRadius.circular(40),
-                   border: Border(
-                       top: BorderSide(color: Colors.white.withOpacity(.5)),
-                       left: BorderSide(color: Colors.white.withOpacity(.5)),
-                       bottom: BorderSide.none),
-                   color: const Color(0XFF758AFF),
-                   boxShadow: [
-                     BoxShadow(
-                         offset: const Offset(0, 8),
-                         blurRadius: 25,
-                         color: const Color(0XFF4F63BE).withOpacity(.5))
-                   ]),
-               child:  Center(
-                 child: forgotPasswordProvider.isChangePass == true ? const CircularProgressIndicator(): const Text(
-                   'Reset Password',
-                   style: TextStyle(
-                       fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
-                 ),
-               ),
-             ),
-           ),
-         );
-      },),
+      // floatingActionButton:,
     );
   }
 }

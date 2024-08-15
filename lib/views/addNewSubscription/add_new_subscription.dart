@@ -5,20 +5,22 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/category_provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-import 'package:sub_tracker/views/subscription/base/hbocontainer.dart';
-import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
+import 'package:sub_tracker/views/addNewSubscription/base/hbocontainer.dart';
+import 'package:sub_tracker/views/addNewSubscription/model/all_category_model.dart';
+
 import 'package:intl/intl.dart';
 
 class Subscription extends StatefulWidget {
@@ -30,105 +32,23 @@ class Subscription extends StatefulWidget {
 
 class _SubscriptionState extends State<Subscription> {
   final TextEditingController _monthlyPriceController = TextEditingController();
-  Map<String, dynamic> _selectedOption = {
-    'Select Subscription Provider': "Select Subscription Provider"
-  };
 
-  ///
-  final Map<String, List<String>> categories = {
-    'Streaming Services': [
-      'Netflix',
-      'Hulu',
-      'Disney+',
-      'Amazon Prime Video',
-      'HBO Max',
-      'Apple TV+',
-      'YouTube Premium',
-      'Spotify',
-      'Pandora',
-      'Tidal',
-    ],
-    'Productivity Tools': [
-      'Microsoft 365',
-      'Google Workspace (formerly G Suite)',
-      'Adobe Creative Cloud',
-      'Evernote',
-      'Trello',
-      'Slack',
-      'Zoom',
-      'Dropbox',
-      'Notion',
-      'Todoist',
-    ],
-    'Cloud Storage': [
-      'Google Drive',
-      'Dropbox',
-      'iCloud',
-      'OneDrive',
-      'Box',
-    ],
-    'Fitness and Wellness': [
-      'Peloton',
-      'Fitbit Premium',
-      'Apple Fitness+',
-      'Headspace',
-      'Calm',
-      'MyFitnessPal Premium',
-      'Strava Summit',
-    ],
-    'News and Magazines': [
-      'The New York Times',
-      'The Washington Post',
-      'The Wall Street Journal',
-      'The Guardian',
-      'Bloomberg',
-      'Financial Times',
-      'The Economist',
-      'Wired',
-      'National Geographic',
-    ],
-    'Gaming': [
-      'Xbox Game Pass',
-      'PlayStation Plus',
-      'Nintendo Switch Online',
-      'EA Play',
-      'Apple Arcade',
-      'Humble Bundle', // Added new entry
-    ],
-    'Other Services': [
-      'Amazon Prime',
-      'Audible',
-      'Scribd',
-      'Patreon',
-      'Skillshare',
-      'MasterClass',
-      'Canva',
-      'LinkedIn Premium',
-      'Tinder Plus/Gold',
-      'Bumble Boost/Premium',
-    ],
-  };
+
   final ImagePicker _picker = ImagePicker();
-  XFile? _imageFile;
+  XFile? _imagePhoto;
   TextEditingController descriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImageForPhoto() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      _imageFile = image;
+      _imagePhoto = image;
     });
   }
 
-  void _selectOption(String category, String subcategory) {
-    setState(() {
-      _selectedOption = {category: subcategory};
-    });
-    Navigator.pop(context);
-  }
 
-  void showSubcategories(BuildContext context, String category) {
-    final subcategories = categories[category] ?? [];
+  void showSubcategories(BuildContext context, Categories category) {
+    final subcategories = category.providers ?? [];
 
     showModalBottomSheet(
       context: context,
@@ -138,15 +58,16 @@ class _SubscriptionState extends State<Subscription> {
           child: ListView(
             children: [
               Text(
-                'Subcategories of $category',
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                'Subcategories of ${category.name}',
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Divider(),
-              ...subcategories.map((subcat) {
+              ...subcategories.map((subCat) {
                 return ListTile(
-                  title: Text(subcat),
-                  onTap: () => _selectOption(category, subcat),
+                  title: Text(subCat.name ?? ""),
+                  onTap: () {
+                    Provider.of<CategoryProvider>(context,listen: false).setAllCategoryValue(categoryID: category.id.toString(),categoryName: category.name.toString(),subCategoryID: subCat.id.toString(),subCategoryName: subCat.name.toString());
+                  }
                 );
               }).toList(),
             ],
@@ -156,16 +77,18 @@ class _SubscriptionState extends State<Subscription> {
     );
   }
 
-  void showCategories(BuildContext context) {
+  void showCategories(BuildContext context, CategoryProvider provider) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return provider.isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Container(
           padding: const EdgeInsets.all(16.0),
           child: ListView(
-            children: categories.keys.map((category) {
+            children: provider.categories.map((category) {
               return ListTile(
-                title: Text(category),
+                title: Text(category.name ?? ""),
                 onTap: () {
                   Navigator.pop(context);
                   showSubcategories(context, category);
@@ -206,13 +129,14 @@ class _SubscriptionState extends State<Subscription> {
 
   @override
   void initState() {
+    Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
     super.initState();
     DateTime currentDate = DateTime.now();
 
-    _selectedDate = currentDate;
-    _selectedDate1 = currentDate;
-    dateInputController.text = _dateFormat.format(currentDate);
-    renewalDateController.text = _dateFormat.format(currentDate);
+    // _selectedStartDate = currentDate;
+    // _selectedRenewalDate = currentDate;
+    dateInputController.text = "Select date";
+    renewalDateController.text = "select date ";
 
     _monthlyPriceController.addListener(_formatInput);
   }
@@ -227,19 +151,20 @@ class _SubscriptionState extends State<Subscription> {
     }
   }
 
-  DateTime? _selectedDate;
+
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
-  DateTime? _selectedDate1;
+
   final DateFormat _dateFormat1 = DateFormat('yyyy-MM-dd');
   TextEditingController dateInputController = TextEditingController();
   TextEditingController renewalDateController = TextEditingController();
-
-  Future<void> _selectDate(BuildContext context) async {
+  DateTime? _selectedStartDate;
+  DateTime? _selectedRenewalDate;
+  Future<void> _startDate(BuildContext context) async {
     DateTime currentDate = DateTime.now();
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? currentDate,
-      firstDate: DateTime(2000),
+      initialDate: _selectedStartDate ?? currentDate,
+      firstDate: currentDate, // Disable all previous dates
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget? child) {
         return Theme(
@@ -254,42 +179,47 @@ class _SubscriptionState extends State<Subscription> {
       },
     );
 
-    if (picked != null && picked != _selectedDate) {
+    if (picked != null && picked != _selectedStartDate) {
       setState(() {
-        _selectedDate = picked;
+        _selectedStartDate = picked;
         dateInputController.text = _dateFormat1.format(picked);
       });
     }
   }
 
   Future<void> _renewalDate(BuildContext context) async {
-    DateTime currentDate = DateTime.now();
+    if (_selectedStartDate == null) {
+      // Handle case where start date hasn't been selected yet
+      print("Please select the start date first.");
+      return;
+    }
+
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate1 ?? currentDate,
-      firstDate: DateTime(2000),
+      initialDate: _selectedRenewalDate ?? _selectedStartDate!.add(const Duration(days: 1)), // Start with the next day after the selected start date
+      firstDate: _selectedStartDate!.add(const Duration(days: 1)), // Disable the start date and all earlier dates
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
             primaryColor: Colors.blue, // Header background color
             hintColor: Colors.blue, // Header text and icons color
-            colorScheme: ColorScheme.light(primary: Colors.blue),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: const ColorScheme.light(primary: Colors.blue),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
-          child: child ?? SizedBox(),
+          child: child ?? const SizedBox(),
         );
       },
     );
 
-    if (picked != null && picked != _selectedDate1) {
+    if (picked != null && picked != _selectedRenewalDate) {
       setState(() {
-        _selectedDate1 = picked;
-        print("this is my selected value $selectedValue1");
+        _selectedRenewalDate = picked;
         renewalDateController.text = _dateFormat1.format(picked);
       });
     }
   }
+
 
   @override
   void dispose() {
@@ -298,7 +228,7 @@ class _SubscriptionState extends State<Subscription> {
     super.dispose();
   }
 
-  String? _filePath;
+  FilePickerResult? _filePath;
 
   Future<void> _pickDocument() async {
     final result = await FilePicker.platform.pickFiles(
@@ -307,7 +237,8 @@ class _SubscriptionState extends State<Subscription> {
     );
     if (result != null) {
       setState(() {
-        _filePath = result.files.single.path;
+        _filePath = result;
+        // _filePath = result.files.single.path;
       });
     }
   }
@@ -318,17 +249,16 @@ class _SubscriptionState extends State<Subscription> {
     '1 Year',
   ];
   final List<String> billingCycleData = [
-    'weekly',
-    'Monthly',
-    'Yearly',
+    '1 week',
+    '1 month',
+    '1 year',
   ];
-  String? selectedValue1;
-  String? selectedValue2;
+  String? billingValue;
+  String? remindDurationValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? const Color(0XFF1C1C23)
           : Colors.white,
@@ -386,7 +316,7 @@ class _SubscriptionState extends State<Subscription> {
                         height: MySize.size20,
                       ),
                       Text(
-                        'Add new\nsubscription',
+                        'Add new\nSubscription',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 36,
@@ -418,17 +348,19 @@ class _SubscriptionState extends State<Subscription> {
                       SizedBox(
                         height: MySize.size16,
                       ),
-                      Text(
-                        'Tresorly',
-                        style: TextStyle(
-                          fontSize: MySize.size14,
-                          fontWeight: FontWeight.w600,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? Colors.white
-                              : const Color(0XFF333339),
-                        ),
-                      ),
+                      Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
+                        return                       Text(
+                          categoryProvider.categoryName.isEmpty ? 'Tresorly':categoryProvider.categoryName,
+                          style: TextStyle(
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.w600,
+                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? Colors.white
+                                : const Color(0XFF333339),
+                          ),
+                        );
+                      },),
                       SizedBox(
                         height: MySize.size15,
                       ),
@@ -457,7 +389,7 @@ class _SubscriptionState extends State<Subscription> {
                           Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Text(
-                                  'Select Subscription Provider',
+                                  'Select Provider',
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
@@ -469,7 +401,7 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                 )
                               : Text(
-                                  'Select Subscription Provider',
+                                  'Select Provider',
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
@@ -485,47 +417,49 @@ class _SubscriptionState extends State<Subscription> {
                       SizedBox(
                         height: MySize.size10,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          showCategories(context);
-                        },
-                        child: Container(
-                          height: MySize.size40,
-                          width: MySize.scaleFactorWidth * 340,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(17),
-                              border: Border.all(
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0XFFFFFFFF).withOpacity(.1)
-                                    : const Color(0XFF353542).withOpacity(.4),
-                              )),
-                          child: Row(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.search,
-                                    color: Color(0xff666680)),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                _selectedOption.values.first ??
-                                    "Select subscription Provider",
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFFA2A2B5)
-                                      : const Color(0XFFA2A2B5),
-                                ),
-                              ),
-                            ],
-                          ),
+            Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
+              return                       GestureDetector(
+                onTap: () {
+                  showCategories(context, categoryProvider);
+                },
+                child: Container(
+                  height: MySize.size40,
+                  width: MySize.scaleFactorWidth * 340,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(17),
+                      border: Border.all(
+                        color: Provider.of<ThemeChanger>(context)
+                            .themeData ==
+                            darkMode
+                            ? const Color(0XFFFFFFFF).withOpacity(.1)
+                            : const Color(0XFF353542).withOpacity(.4),
+                      )),
+                  child: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.search,
+                            color: Color(0xff666680)),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        categoryProvider.subCategoryName == ""?
+                            "Select Subscription Provider":categoryProvider.subCategoryName,
+                        style: TextStyle(
+                          fontSize: MySize.size12,
+                          fontWeight: FontWeight.w500,
+                          color: Provider.of<ThemeChanger>(context)
+                              .themeData ==
+                              darkMode
+                              ? const Color(0XFFA2A2B5)
+                              : const Color(0XFFA2A2B5),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              );
+            },),
                     ],
                   ),
                 ),
@@ -567,7 +501,7 @@ class _SubscriptionState extends State<Subscription> {
                     maxLines: 3,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter price';
+                        return 'Please enter description';
                       }
                       return null;
                     },
@@ -577,7 +511,7 @@ class _SubscriptionState extends State<Subscription> {
                         : const Color(0XFF1C1C23),
                     decoration: InputDecoration(
 
-                      hintText: 'Please Add Some Description',
+                      hintText: 'Description',
                       hintStyle: TextStyle(
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? const Color(0xffffffff)
@@ -609,8 +543,8 @@ class _SubscriptionState extends State<Subscription> {
                         border: Border.all(
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
-                              ? const Color(0xff353542)
-                              : const Color(0XFF353542).withOpacity(.10),
+                              ? const Color(0xffffffff)
+                              :  Colors.black,
                         )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: MySize.size30),
@@ -633,7 +567,7 @@ class _SubscriptionState extends State<Subscription> {
                             width: MySize.size10,
                           ),
                           Text(
-                            _dateFormat.format(_selectedDate!),
+                              _selectedStartDate == null ?"Select date ": _dateFormat.format(_selectedStartDate!),
                             style: TextStyle(
                               fontSize: MySize.size16,
                               fontFamily: '',
@@ -643,7 +577,7 @@ class _SubscriptionState extends State<Subscription> {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                _selectDate(context);
+                                _startDate(context);
                               },
                               icon: Icon(
                                 Icons.calendar_today,
@@ -668,10 +602,9 @@ class _SubscriptionState extends State<Subscription> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(MySize.size16),
                         border: Border.all(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? const Color(0XFFFFFFFF).withOpacity(.1)
-                              : const Color(0XFF353542).withOpacity(.4),
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? const Color(0xffffffff)
+                              :  Colors.black,
                         )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: MySize.size30),
@@ -694,7 +627,7 @@ class _SubscriptionState extends State<Subscription> {
                             width: MySize.size10,
                           ),
                           Text(
-                            _dateFormat.format(_selectedDate1!),
+                            _selectedRenewalDate == null ? "Select date":_dateFormat.format(_selectedRenewalDate!),
                             style: TextStyle(
                               fontSize: MySize.size16,
                               fontFamily: '',
@@ -773,10 +706,10 @@ class _SubscriptionState extends State<Subscription> {
                         ),
                       ))
                           .toList(),
-                      value: selectedValue1,
+                      value: billingValue,
                       onChanged: (String? value) {
                         setState(() {
-                          selectedValue1 = value;
+                          billingValue = value;
                         });
                       },
                       validator: (value) {
@@ -808,7 +741,7 @@ class _SubscriptionState extends State<Subscription> {
                           SizedBox(width: MySize.size4),
                           Expanded(
                             child: Text(
-                              'Renewal Date',
+                              'Reminder duration',
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,
@@ -841,15 +774,15 @@ class _SubscriptionState extends State<Subscription> {
                         ),
                       ))
                           .toList(),
-                      value: selectedValue2,
+                      value: remindDurationValue,
                       onChanged: (String? value) {
                         setState(() {
-                          selectedValue2 = value;
+                          remindDurationValue = value;
                         });
                       },
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select a Renewal Date';
+                          return 'Please select a remind duration';
                         }
                         return null;
                       },
@@ -867,15 +800,18 @@ class _SubscriptionState extends State<Subscription> {
                   height: MySize.size100,
                   child: GestureDetector(
                     onTap: () {
-                      _pickImage();
+                      _pickImageForPhoto();
                     },
                     child: DottedBorder(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0xffffffff)
+                        :  Colors.black,
                       borderType: BorderType.RRect,
                       strokeWidth: 1,
                       // borderPadding: EdgeInsets.all(8),
                       radius: Radius.circular(MySize.size10),
                       padding: EdgeInsets.all(MySize.size8),
-                      child: _imageFile != null
+                      child: _imagePhoto != null
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -883,7 +819,7 @@ class _SubscriptionState extends State<Subscription> {
                                 Expanded(
                                   flex: 6,
                                   child: Image.file(
-                                    File(_imageFile!.path),
+                                    File(_imagePhoto!.path),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -899,7 +835,7 @@ class _SubscriptionState extends State<Subscription> {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            _pickImage();
+                                            _pickImageForPhoto();
                                           },
                                           icon: Icon(
                                             Icons.edit,
@@ -954,7 +890,11 @@ class _SubscriptionState extends State<Subscription> {
                   padding: EdgeInsets.symmetric(horizontal: MySize.size24),
                   child: SizedBox(
                     width: double.infinity,
+                    // height: MediaQuery.of(context).size.width*0.2,
                     child: DottedBorder(
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? const Color(0xffffffff)
+                          :  Colors.black,
                       borderType: BorderType.RRect,
                       strokeWidth: 1,
                       // borderPadding: EdgeInsets.all(8),
@@ -962,17 +902,8 @@ class _SubscriptionState extends State<Subscription> {
                       padding: EdgeInsets.all(MySize.size8),
                       child: GestureDetector(
                         onTap: _pickDocument,
-                        child: _filePath != null
-                            ? Text(
-                                textAlign: TextAlign.center,
-                                'File path: $_filePath',
-                                style: TextStyle(
-                                  fontSize: MySize.size14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                ),
-                              )
-                            : Center(
+                        child:
+                             Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -986,7 +917,16 @@ class _SubscriptionState extends State<Subscription> {
                                           ? const Color(0xffFFFFFF)
                                           : const Color(0XFFA2A2B5),
                                     ),
-                                     Text('No document selected.',
+                                    _filePath != null
+                                        ? Text(
+                                      textAlign: TextAlign.center,
+                                      'File name: ${_filePath!.names[0]}',
+                                      style: TextStyle(
+                                        fontSize: MySize.size14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey,
+                                      ),
+                                    ): Text('No document selected.',
                                     style: TextStyle(
                                       color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
@@ -1065,48 +1005,50 @@ class _SubscriptionState extends State<Subscription> {
                           ),
                           SizedBox(
                             width: 100,
-                            child: TextFormField(
-                              controller: _monthlyPriceController,
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: MySize.size24,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : const Color(0XFF333339),
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(left: 20),
-                                hintText: "\$0.0",
-                                hintStyle: TextStyle(
+                            child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                              return TextFormField(
+                                controller: _monthlyPriceController,
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: MySize.size24,
                                   color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
+                                      .themeData ==
+                                      darkMode
                                       ? Colors.white
                                       : const Color(0XFF333339),
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0XFF353542)
-                                                : const Color(0XFF353542))),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? const Color(0XFF353542)
-                                                : const Color(0XFF353542))),
-                              ),
-                            ),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.only(left: 20),
+                                  hintText: "${currencyProvider.selectedCurrencySymbol} 0.0",
+                                  hintStyle: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: MySize.size24,
+                                    color: Provider.of<ThemeChanger>(context)
+                                        .themeData ==
+                                        darkMode
+                                        ? Colors.white
+                                        : const Color(0XFF333339),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                          Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                              darkMode
+                                              ? const Color(0XFF353542)
+                                              : const Color(0XFF353542))),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                          Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                              darkMode
+                                              ? const Color(0XFF353542)
+                                              : const Color(0XFF353542))),
+                                ),
+                              );
+                            },),
                           ),
                         ],
                       ),
@@ -1150,62 +1092,85 @@ class _SubscriptionState extends State<Subscription> {
                 /// Add this subscription button
                 Consumer<SubscriptionProvider>(
                   builder: (context, subscriptionProvider, child) {
-                    return InkWell(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            subscriptionProvider.storeSubscription(
-                                description: descriptionController.text.trim(),
-                                startDate: _dateFormat.format(_selectedDate!),
-                                renewalDate:
-                                    _dateFormat.format(_selectedDate1!),
-                                billingCycle: selectedValue1.toString(),
-                                userId: AppConstant.getUserID,
-                                price: _monthlyPriceController.text.trim(),
-                                reminderDuration: selectedValue2.toString(),
-                                categoryID: "2",
-                                providerId: "2");
-                          }
-                        },
-                        child: Container(
-                          height: MySize.scaleFactorHeight * 48,
-                          width: MySize.scaleFactorWidth * 324,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(MySize.size24),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: AppColors.purpleBE,
-                                  spreadRadius: 2,
-                                  blurRadius: 25,
-                                  offset: Offset(0, 9),
-                                ),
-                                BoxShadow(
-                                  color: AppColors.purpleFF,
-                                  offset: Offset(-5, 0),
-                                ),
-                                BoxShadow(
-                                  color: AppColors.purpleFF,
-                                  offset: Offset(5, 0),
-                                )
-                              ]),
-                          child: subscriptionProvider.isStoreSub == true
-                              ? const Center(child: CircularProgressIndicator())
-                              : Center(
-                                  child: Text(
-                                    'Add this subscription',
-                                    style: TextStyle(
-                                      fontSize: MySize.size14,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Regular-Poppins',
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? Colors.white
-                                          : Colors.white,
-                                    ),
+                    return Consumer<CategoryProvider>(builder: (context, categoryProvider, child) {
+                      return InkWell(
+                          onTap: () {
+                            if (categoryProvider.subCategoryID.isNotEmpty) {
+                              if (_formKey.currentState!.validate()) {
+                                // Check if image and document are selected
+                                if (_imagePhoto != null && _filePath != null) {
+                                  // Convert the selected dates to DateTime objects
+                                  DateTime startDate = _selectedStartDate!;
+                                  DateTime renewalDate = _selectedRenewalDate!;
+
+                                  // Check if the renewal date is greater than the start date
+                                  if (renewalDate.isAfter(startDate)) {
+                                    // Proceed with adding the subscription
+                                    subscriptionProvider.addNewSubscription(
+                                      image: _imagePhoto,
+                                      document: _filePath,
+                                      providerId: categoryProvider.subCategoryID,
+                                      description: descriptionController.text.trim(),
+                                      startDate: _dateFormat.format(startDate),
+                                      renewalDate: _dateFormat.format(renewalDate),
+                                      billingCycle: billingValue.toString(),
+                                      categoryID: categoryProvider.categoryID,
+                                      price: _monthlyPriceController.text.trim(),
+                                      reminderDuration: remindDurationValue.toString(),
+                                    );
+                                  } else {
+                                    // Show error message if renewal date is not greater than start date
+                                    FlutterToast.toastMessage(message: "Renewal date must be greater than start date", isError: true);
+                                  }
+                                } else {
+                                  FlutterToast.toastMessage(message: "Please select both image and document", isError: true);
+                                }
+                              }
+                            } else {
+                              FlutterToast.toastMessage(message: "Please select provider", isError: true);
+                            }
+                          },
+                          child: Container(
+                            height: MySize.scaleFactorHeight * 48,
+                            width: MySize.scaleFactorWidth * 324,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(MySize.size24),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: AppColors.purpleBE,
+                                    spreadRadius: 2,
+                                    blurRadius: 25,
+                                    offset: Offset(0, 9),
                                   ),
+                                  BoxShadow(
+                                    color: AppColors.purpleFF,
+                                    offset: Offset(-5, 0),
+                                  ),
+                                  BoxShadow(
+                                    color: AppColors.purpleFF,
+                                    offset: Offset(5, 0),
+                                  )
+                                ]),
+                            child: subscriptionProvider.isStoreSub == true
+                                ? const Center(child: CircularProgressIndicator())
+                                : Center(
+                              child: Text(
+                                'Add this Subscription',
+                                style: TextStyle(
+                                  fontSize: MySize.size14,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Regular-Poppins',
+                                  color: Provider.of<ThemeChanger>(context)
+                                      .themeData ==
+                                      darkMode
+                                      ? Colors.white
+                                      : Colors.white,
                                 ),
-                        ));
+                              ),
+                            ),
+                          ));
+                    },);
                   },
                 ),
                 const SizedBox(

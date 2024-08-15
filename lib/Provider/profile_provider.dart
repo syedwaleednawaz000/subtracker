@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -16,6 +18,7 @@ import 'package:sub_tracker/views/change_password/change_password.dart';
 import 'package:sub_tracker/views/currency_screen/currency_screen.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
+import 'package:sub_tracker/views/welcomeScreen/welcome_screen.dart';
 
 class ProfileProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
@@ -42,12 +45,18 @@ class ProfileProvider extends ChangeNotifier{
     notifyListeners();
   }
   Map<String , dynamic > userData = {};
-  Future<void> getProfile({required String userID})async{
+  Future<void> getProfile({required BuildContext context,required String userID})async{
     _updateLoading(load: true);
     try{
       Response response = await _apiService.getProfile();
       if(response.statusCode == 200){
         userData = response.data;
+        if(userData['data']['currency_code'] != null){
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(
+              currencyCode: userData['data']['currency_code'], currencySymbol: userData['data']['currency_symbol']);
+        }else{
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: "USD",currencySymbol: "\$");
+        }
         updateTextFieldData();
         _updateLoading(load: false);
         notifyListeners();
@@ -58,7 +67,7 @@ class ProfileProvider extends ChangeNotifier{
       _updateLoading(load: false);
     }
   }
-  Future<void> updateProfile({required String  email ,required String name , required String phone})async{
+  Future<void> updateProfile({required BuildContext context,required String  email ,required String name , required String phone})async{
     _updateLoading(load: true);
 
     var formData = FormData.fromMap({
@@ -82,7 +91,8 @@ class ProfileProvider extends ChangeNotifier{
       Response response = await _apiService.updateProfile(params: formData);
       if(response.statusCode == 200){
         _updateLoading(load: false);
-        getProfile(userID: "");
+        updatePic= null;
+        getProfile(userID: "",context: context);
         FlutterToast.toastMessage(message: "Profile updated successfully",);
         if (kDebugMode) {
           print("hit successfully");
@@ -140,7 +150,11 @@ class ProfileProvider extends ChangeNotifier{
     AppConstant.getUserID = '';
     // prefs.clear();
     FlutterToast.toastMessage(message: "Successfully Logout");
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    );
+
   }
 
 
@@ -153,6 +167,7 @@ class ProfileProvider extends ChangeNotifier{
       notifyListeners();
     }
   }
+
    List<Widget> screens =[];
   void getScreen(){
     screens = [

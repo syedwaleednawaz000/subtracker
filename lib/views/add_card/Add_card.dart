@@ -36,6 +36,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
@@ -62,8 +63,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
                       ? const Color(0XFFFFFFFF)
                       : const Color(0XFF424252),
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                   fontFamily: 'Poppins_Regular'
               ),
             ),
@@ -104,9 +105,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 boxShadow: [
                                   isSelected
                                   ? BoxShadow(
-                                  offset: const Offset(0, 4),
+                                  offset: const Offset(0, 13,),
                                   blurRadius: 4,
-                                  spreadRadius: 0,
+                                  spreadRadius: -5,
                                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                     ? const Color(0XFF4F63BE).withOpacity(.6)
                                     : const Color(0XFF4F63BE).withOpacity(.6),
@@ -114,8 +115,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                   :     const BoxShadow(
                                     offset: Offset(0, 0),
                                     blurRadius: 0,
-                                    spreadRadius: 0,
-                                  )
+                                    spreadRadius: -10,
+                                  ),
                                 ],
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                               ),
@@ -150,7 +151,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                           ? Colors.white
                                           : Colors.black,
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],
@@ -162,11 +163,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
                             alignment: Alignment.center,
                             children: [
                               Container(
-                                height: 19,
-                                width: 19,
+                                height: 22,
+                                width: 22,
                                 decoration: BoxDecoration(
                                   color: isSelected? Colors.white : Colors.transparent,
-                                  border: const Border.fromBorderSide(BorderSide(color: Color(0XFFD0D5DD), width: 1)),
+                                  border: const Border.fromBorderSide(BorderSide(color: Color(0XFFD0D5DD), width: .5)),
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -198,35 +199,43 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   children: [
                     TextWidgetInterMedium(
                       title: 'Name on card',
-                      fontSize: 14,
+                      fontSize: MySize.size15,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(height: 5,),
                     Container(
                       height: MySize.size44, width: MySize.size180,
                       decoration: BoxDecoration(
-                          color:  Provider.of<ThemeChanger>(context)
-                              .themeData == darkMode
-                              ? const Color(0XFF272730)
-                              :  const Color(0XFFF1F1FF),
+                        color:  Provider.of<ThemeChanger>(context)
+                            .themeData == darkMode
+                            ? const Color(0XFF272730)
+                            :  const Color(0XFFF1F1FF),
                         border: Border.all(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(child: Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                                'Olivia Rhye', style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode ? Colors.white : const Color(0XFF424252),
-                              fontSize: 14, fontWeight: FontWeight.w400,
+                          alignment: Alignment.centerLeft,
+                          child:  TextFormField(
+                            cursorColor: Colors.blueGrey,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(bottom: MySize.size20),
+                              hintText: 'Olivia Rhye',
+                              hintStyle: TextStyle(
+                                fontSize: MySize.size14,
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? Colors.white
+                                    : const Color(0XFF424252),
+                              ),
+                              border: InputBorder.none,
                             ),
-                            ),),
+                          ),
+                        ),
                       )),
                     ),
                   ],
@@ -237,14 +246,14 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   children: [
                     TextWidgetInterMedium(
                       title: 'Expiry',
-                      fontSize: 14,
+                      fontSize: MySize.size15,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(height: 5,),
                     Container(
                       height: 44, width: 120,
                       decoration: BoxDecoration(
@@ -256,13 +265,17 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderRadius: BorderRadius.circular(8)
                       ),
                       child: Center(
-                        child:  Text(
-                          textAlign: TextAlign.start,
-                          '06   2024', style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode ? Colors.white : const Color(0XFF424252),
-                          fontSize: 14, fontWeight: FontWeight.w400,
-                        ),
+                        child: TextFormField(
+                          cursorColor: Colors.blueGrey,
+                          decoration: InputDecoration(
+                            hintText: '  06 2024',
+                            hintStyle: TextStyle(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : const Color(0XFF424252),
+                            ),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),
@@ -281,14 +294,14 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   children: [
                     TextWidgetInterMedium(
                       title: 'Card number',
-                      fontSize: 14,
+                      fontSize: MySize.size15,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
-                    const SizedBox(height: 16,),
+                     SizedBox(height: MySize.size5,),
                     Container(
                       height: MySize.size44, width: MySize.size180,
                       decoration: BoxDecoration(
@@ -300,20 +313,21 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           borderRadius: BorderRadius.circular(8)
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            Image.asset(AppImages.payment2,height: MySize.size50,width: MySize.size30,),
-                            Center(
-                                child: Text(
-                                  '  1234 1234 1234 1234', style: TextStyle(
-                                  color:Provider.of<ThemeChanger>(context).themeData == darkMode
+                        padding:  EdgeInsets.only(left: MySize.size2),
+                        child:TextFormField(
+                          cursorColor: Colors.blueGrey,
+                          decoration: InputDecoration(
+                            contentPadding:  EdgeInsets.symmetric(vertical: MySize.size3,),
+                            prefixIcon: Image.asset(AppImages.payment2,scale: 5,width: MySize.size20,),
+                            hintText: '1234 1234 1234 1234',
+                            hintStyle: TextStyle(
+                              fontSize: 10,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? Colors.white
                                   : const Color(0XFF424252),
-                                  fontSize: 11, fontWeight: FontWeight.w400,
-                                // color: Colors.white
-                            ))),
-                          ],
+                            ),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),
@@ -323,13 +337,13 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidgetInterMedium(title: 'CVV', fontSize: 14, fontWeight: FontWeight.w500,
+                    TextWidgetInterMedium(title: 'CVV', fontSize: MySize.size15, fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
                           ? Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(height: 5,),
                    Container(
                       height: 44, width: 120,
                       decoration: BoxDecoration(
@@ -342,11 +356,19 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Image.asset(AppImages.three_dotsIcon, scale: 3.4,
-                                color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode ? Colors.white : const Color(0XFF424252),)),
+                        child: TextFormField(
+                          cursorColor: Colors.blueGrey,
+                          decoration: InputDecoration(
+                            hintText: '...',
+                            hintStyle: TextStyle(
+                              fontSize: 30,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : const Color(0XFF424252),
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
                       )
                     ),
                   ],

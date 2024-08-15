@@ -72,18 +72,16 @@ class CurrencyProvider with ChangeNotifier {
   }
 
 
-  int _selectedIndex=-1;
-  String _selectedCountry ='Country';
-  String _selectedCurrency ='Currency';
 
-  int get selectedIndex => _selectedIndex;
-  String get selectedCountry => _selectedCountry;
+
+  String _selectedCurrency ='';
   String get selectedCurrency => _selectedCurrency;
+  String _selectedCurrencySymbol ='';
+  String get selectedCurrencySymbol => _selectedCurrencySymbol;
 
-  void selectCurrency({required int index, required String currency, required String currencyCode}) {
-    _selectedIndex = index;
-    _selectedCountry = currency;
+  void selectCurrency({required String currencyCode, required String currencySymbol}) {
     _selectedCurrency = currencyCode;
+    _selectedCurrencySymbol = currencySymbol;
     notifyListeners();
   }
 }

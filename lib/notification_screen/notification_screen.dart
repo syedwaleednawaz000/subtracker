@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/my_size.dart';
 import '../theme/theme.dart';
-import '../views/base/text_widgets.dart';
 import '../views/language_selection/base/custom_appBar.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -19,24 +18,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child:  CustomAppBar(
-            onTap: (){
-              Navigator.pop(context);
-            },
-            text: 'Notifications',
-            icon: Icons.arrow_back_rounded,
-          ),
+        child: CustomAppBar(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          text: 'Notifications',
+          icon: Icons.arrow_back_rounded,
         ),
       ),
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF1C1C23)
-          : Color(0XFFF7F7FF),
+          ? const Color(0XFF1C1C23)
+          : const Color(0XFFF7F7FF),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 48, top: 25),
+            padding:  EdgeInsets.only(left:  MySize.size35, top: 25),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -47,13 +43,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     color:
                         Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? Colors.white
-                            : Color(0XFF424252),
+                            : const Color(0XFF424252),
                     fontFamily: 'Poppins_Regular'),
               ),
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
 
@@ -62,9 +58,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 itemCount: 4,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(
-                      left: 25,
-                      right: 28,
+                    padding:  EdgeInsets.only(left: MySize.size18, right: 28,
                     ),
                     child: Column(
                       children: [
@@ -78,7 +72,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                             .themeData ==
                                         darkMode
                                     ? Colors.white
-                                    : Color(0XFF424252),
+                                    : const Color(0XFF424252),
                                 fontFamily: 'Poppins_Regular'),
                           ),
                           subtitle: Text(
@@ -89,7 +83,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode
                                     ? Colors.white
-                                    : Color(0XFF424252),
+                                    : const Color(0XFF424252),
                                 fontFamily: 'Poppins_Regular'),),
                           leading: Container(
                             height: 48,
@@ -98,7 +92,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 color: Provider.of<ThemeChanger>(context).themeData ==
                                     darkMode
                                     ? Colors.white.withOpacity(.1)
-                                    : Color(0XFFC1C1FF).withOpacity(.2),
+                                    : const Color(0XFFC1C1FF).withOpacity(.2),
                               shape: BoxShape.circle
                             ),
                             child: Image.asset(
@@ -108,7 +102,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                                   ? Colors.white
-                                  : Color(0XFF424252),
+                                  : const Color(0XFF424252),
                             ),
                           ),
                         ),
@@ -117,8 +111,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           child: Divider(
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0xFFD0D3FF).withOpacity(.2)
-                                : Color(0xFFD0D3FF).withOpacity(.2),
+                                ? const Color(0xFFD0D3FF).withOpacity(.2)
+                                : const Color(0xFFD0D3FF).withOpacity(.2),
                             indent: 40,
                             endIndent: 80,
                           ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -28,7 +29,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
+          ? const Color(0xffA2A2B5)
           : Colors.white,
       body: SafeArea(
         child: ListView(
@@ -55,27 +56,25 @@ class _PrivPolicyState extends State<PrivPolicy> {
                         'Privacy Policy',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: 16,
                             color:
                                 Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
                                     ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFF1C1C23),
+                                    : const Color(0XFFA2A2B5),
                             fontFamily: 'Poppins_Regular'),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MySize.size30,
-                ),
+
                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Terms of Service',
+                      'Privacy Policy',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
@@ -93,13 +92,12 @@ class _PrivPolicyState extends State<PrivPolicy> {
                 ),
                 Consumer<PrivacyAndPolicyProvider>(
                   builder: (context, privacyAndPolicyProvider, child) {
-                    return Padding(
+                    return privacyAndPolicyProvider.isPrivacyAndPolicy ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),): Padding(
                       padding: EdgeInsets.only(left: MySize.size32),
                       child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            privacyAndPolicyProvider
-                                    .privacyAndPolicyData['value'] ??
+                            privacyAndPolicyProvider.privacyAndPolicyData['value'] ??
                                 "",
                             style: TextStyle(
                                 fontSize: 13,

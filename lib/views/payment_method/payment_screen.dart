@@ -503,7 +503,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                             : Provider.of<ThemeChanger>(context)
                                             .themeData == darkMode
                                             ? Colors.white
-                                            : Colors.black,
+                                            : Color(0xff757784),
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -565,19 +565,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           :  const Color(0XFFF1F1FF),
 
                   ),
-                  child: const Row(
+                  child:  Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Icon(
                         Icons.add,
-                        color: Color(0xFF757784),
+                        color: const Color(0xFF757784),
+                        size: MySize.size18,
                       ),
-                      SizedBox(
-                        width: 15,
+                      const SizedBox(
+                        width: 10,
                       ),
-                      Text(
+                      const Text(
                         'Add Card',
                         style: TextStyle(
                             fontSize: 14,
@@ -597,11 +598,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
               padding: const EdgeInsets.only(left: 45),
               child: TextWidgetInterMedium(
                   title: 'Cards',
-                  fontSize: 14,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                 color:Provider.of<ThemeChanger>(context).themeData ==
                     darkMode
-                    ? Color(0XFFFFFFFF)
+                    ? const Color(0XFFFFFFFF)
                     : Colors.black,
     ),
             ),
@@ -661,7 +662,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               padding: const EdgeInsets.only(left: 47),
               child: TextWidgetInterMedium(
                   title: 'Billing',
-                  fontSize: 14,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                 color:Provider.of<ThemeChanger>(context).themeData ==
                     darkMode

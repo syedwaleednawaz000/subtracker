@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -28,41 +32,133 @@ class SubscriptionProvider extends ChangeNotifier{
     _isStoreSub = load;
     notifyListeners();
   }
-  Future<void> storeSubscription({required String  description ,required String startDate ,
-    required String renewalDate, required String billingCycle, required String userId,
-    required String price, required String reminderDuration, required String categoryID,
-    required String providerId})async{
+  Future<void> addNewSubscription({
+    required String description,
+    required String startDate,
+    required String renewalDate,
+    required String billingCycle,
+    required String price,
+    required String reminderDuration,
+    required String categoryID,
+    required String providerId,
+    XFile? image,
+    FilePickerResult? document,
+  }) async {
     _storeSubLoading(load: true);
     String cleanedPrice = price.replaceAll('\$', '');
-    var body = {
-      'description': description.toString(),
-      'start_date': startDate.toString(),
+
+    FormData formData = FormData.fromMap({
+      'category_id': categoryID,
+      'provider_id': providerId,
+      'description': description,
+      'start_date': startDate,
       'renewal_date': renewalDate,
       'billing_cycle': billingCycle,
+      'reminder': reminderDuration,
       'price': cleanedPrice,
-      'reminder_duration': reminderDuration,
-      'category_id': categoryID,
-      'user_id': userId,
-      'provider_id': providerId
-    };
-    try{
-      Response response = await _apiService.storeSubscriptions(params: body);
-      if(response.statusCode == 200){
+      // 'color_code':'AD7BFF'
+    });
+
+    if (image != null) {
+      formData.files.add(MapEntry(
+        'image',
+        await MultipartFile.fromFile(image.path.toString(), filename: image.path.split('/').last),
+      ));
+    }
+    if (document != null) {
+      formData.files.add(MapEntry(
+        'document',
+        await MultipartFile.fromFile(document.files[0].path.toString(), filename: document.files[0].path.toString().split('/').last),
+      ));
+    }
+
+    try {
+      Response response = await _apiService.addNewSubscription(params: formData);
+      if (response.statusCode == 200) {
+        getSubscriptions();
         _storeSubLoading(load: false);
-        FlutterToast.toastMessage(message: "Subscription added successfully",);
-        Get.to(()=>SubscriptionInfo(subscriptionInfoData: {}),);
+        FlutterToast.toastMessage(message: "Subscription added successfully");
+        Get.back();
+        // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
         if (kDebugMode) {
           print("hit successfully");
         }
-        // Get.back();
-      }else{
+      } else {
         _storeSubLoading(load: false);
         if (kDebugMode) {
           print("hit successfully in else ");
         }
       }
-    }catch(error){
+    } catch (error) {
       _storeSubLoading(load: false);
+      print("this is error ${error.toString()}");
+    }
+  }
+
+  bool _isUpdateSub = false;
+  bool get isUpdateSub => _isUpdateSub;
+  void _updateSubLoading({required bool load}){
+    _isUpdateSub = load;
+    notifyListeners();
+  }
+  Future<void> updateSubscription({
+    required String description,
+    required String startDate,
+    required String renewalDate,
+    required String billingCycle,
+    required String price,
+    required BuildContext context,
+    required String subscriptionID,
+    required String reminderDuration,
+    required String categoryID,
+    required String providerId,
+    FilePickerResult? image,
+    // FilePickerResult? document,
+  }) async {
+    _updateSubLoading(load: true);
+    String cleanedPrice = price.replaceAll('\$', '');
+
+    FormData formData = FormData.fromMap({
+      'category_id': categoryID,
+      'provider_id': providerId,
+      'description': description,
+      'start_date': startDate,
+      'renewal_date': renewalDate,
+      'billing_cycle': billingCycle,
+      'reminder': reminderDuration,
+      'price': cleanedPrice,
+      '_method': "PUT",
+    });
+
+    if (image != null) {
+      formData.files.add(MapEntry(
+        'image',
+        await MultipartFile.fromFile(image.files[0].path.toString(), filename: image.files[0].path.toString().split('/').last),
+      ));
+    }
+
+
+    try {
+      Response response = await _apiService.updateSubscription(params: formData,subscriptionID: subscriptionID);
+      if (response.statusCode == 200) {
+        _updateSubLoading(load: false);
+        final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+        Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: dateFormat.format(DateTime.now()));
+        getSubscriptions();
+        FlutterToast.toastMessage(message: "Subscription updated  successfully");
+        Get.back();
+        // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
+        if (kDebugMode) {
+          print("hit successfully");
+        }
+      } else {
+        _updateSubLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    } catch (error) {
+      _updateSubLoading(load: false);
       print("this is error ${error.toString()}");
     }
   }
@@ -81,6 +177,10 @@ class SubscriptionProvider extends ChangeNotifier{
       Response response = await _apiService.deleteSubscriptions(subscriptionID: subscriptionID,params: body);
       if(response.statusCode == 200){
         _deleteSubscriptionLoading(load: false);
+        final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+        Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: dateFormat.format(DateTime.now()));
+        getSubscriptions();
+        Get.back();
         FlutterToast.toastMessage(message: response.data['message'],);
         if (kDebugMode) {
           print("hit successfully");
@@ -112,6 +212,7 @@ class SubscriptionProvider extends ChangeNotifier{
       Response response = await _apiService.getSubscriptions(params: {});
       if(response.statusCode == 200){
         _subscriptionLoading(load: false);
+        subscriptionData = {};
         subscriptionData = response.data;
         if (kDebugMode) {
           print("hit successfully getSubscriptions $subscriptionData");
@@ -129,44 +230,6 @@ class SubscriptionProvider extends ChangeNotifier{
     }
   }
 
-  Map<String, dynamic> activeSubscriptionData = {};
-  bool _isActiveSubscription = false;
-  bool get isActiveSubscription => _isActiveSubscription;
-  void _activeSubscriptionLoading({required bool load}){
-    _isActiveSubscription = load;
-    notifyListeners();
-  }
-  Future<void> activeSubscriptions()async{
-    _activeSubscriptionLoading(load: true);
-    try{
-      Response response = await _apiService.activeSubscriptions(params: {});
-      if(response.statusCode == 200){
-        _activeSubscriptionLoading(load: false);
-        activeSubscriptionData = response.data;
-        if (kDebugMode) {
-          print("hit successfully activeSubscriptionData $activeSubscriptionData");
-        }
-
-      }else{
-        _activeSubscriptionLoading(load: false);
-        if (kDebugMode) {
-          print("hit successfully in else ");
-        }
-      }
-    }catch(error){
-      _activeSubscriptionLoading(load: false);
-      print("this is error ${error.toString()}");
-    }
-  }
-
-  String _currentSubscriptionID= '';
-  int _cancelIndex = -1;
-  int get cancelIndex => _cancelIndex;
-  void changeCancelIndex ({required int index , required String subscriptionID})async{
-    _currentSubscriptionID = subscriptionID;
-    _cancelIndex = index;
-    notifyListeners();
-}
 
 
 }

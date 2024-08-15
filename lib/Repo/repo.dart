@@ -62,8 +62,8 @@ class ApiService {
   Future<Response> updateCategory({var params}) {
     return apiClient.post(url: AppUrl.updateCategories, params: params);
   }
-  Future<Response> storePlan({var params}) {
-    return apiClient.post(url: AppUrl.storePlan, params: params);
+  Future<Response> subscribePlane({var params}) {
+    return apiClient.post(url: AppUrl.subscribePlane, params: params);
   }
 
 
@@ -83,12 +83,25 @@ class ApiService {
     return apiClient.post(url: AppUrl.storeUserCategories, params: params);
   }
 
+  Future<Response> setBudget({var params}) {
+    return apiClient.post(url: AppUrl.setBudget, params: params);
+  }
   Future<Response> addCategories({var params}) {
     return apiClient.post(url: AppUrl.addCategories, params: params);
   }
+  Future<Response> addProviderInUserCategory({var params}) {
+    return apiClient.post(url: AppUrl.addProviderInUserCategory, params: params);
+  }
+  Future<Response> addNewSubscription({var params}) {
+    return apiClient.post(url: AppUrl.addNewSubscription, params: params);
+  }
+  Future<Response> updateSubscription({var params,required String subscriptionID}) {
+    return apiClient.post(url: AppUrl.updateSubscription+subscriptionID, params: params);
+  }
 
-  Future<Response> storeSubscriptions({var params}) {
-    return apiClient.post(url: AppUrl.subscriptions, params: params);
+
+  Future<Response> sendSupportRequest({var params}) {
+    return apiClient.post(url: AppUrl.sendSupportRequest, params: params);
   }
 
   //Todo here all get method
@@ -98,9 +111,9 @@ class ApiService {
     );
   }
 
-  Future<Response> getCategories({var params}) {
+  Future<Response> getAllCategory({var params}) {
     return apiClient.get(
-      url: AppUrl.getCategories,
+      url: AppUrl.getAllCategory,
     );
   }
 
@@ -155,9 +168,24 @@ class ApiService {
       url: AppUrl.getSubscriptions,
     );
   }
-  Future<Response> activeSubscriptions({var params}) {
+  Future<Response> getScheduleData({required String date}) {
     return apiClient.get(
-      url: AppUrl.activeSubscriptions,
+      url: AppUrl.getScheduleData+date,
+    );
+  }
+  Future<Response> getSpendingBudget() {
+    return apiClient.get(
+      url: AppUrl.getSpendingBudget,
+    );
+  }
+  Future<Response> getTicketIssuesTypes() {
+    return apiClient.get(
+      url: AppUrl.getTicketIssuesTypes,
+    );
+  }
+  Future<Response> userPlan({var params}) {
+    return apiClient.get(
+      url: AppUrl.userPlan,
     );
   }
   Future<Response> getTermAndCondition({var params}) {
@@ -192,7 +220,7 @@ class ApiService {
     return apiClient.delete(url: AppUrl.deleteCategories+categoryID, params: params);
   }
 //Todo here all patch
-  Future<Response> cancelPlan({required String planID,var params}) {
-    return apiClient.patch(url: "${AppUrl.plansCancel}$planID/cancel", params: params);
+  Future<Response> cancelPlan() {
+    return apiClient.patch(url: AppUrl.plansCancel);
   }
 }

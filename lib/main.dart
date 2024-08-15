@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
+import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/email_notification_provider.dart';
 import 'package:sub_tracker/Provider/faqs_provider.dart';
@@ -16,6 +19,7 @@ import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/Provider/splash_provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
@@ -27,6 +31,7 @@ import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
 import 'Provider/bottom_bar_provider.dart';
+import 'Provider/spending_budget_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,17 +82,39 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => TermAndConditionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CategoryProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PrivacyAndPolicyProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => ScheduleProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SpendingBudgetProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => ContactWithSupportProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
-        return GetMaterialApp(
+        return Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: themeChanger.themeData,
+            locale: languageProvider.appLocale,
+            localizationsDelegates:  [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+              Locale('ur'),
+            ],
 
-          debugShowCheckedModeBanner: false,
-          theme: themeChanger.themeData,
-
-          home: const SplashScreen(),
-        );
+            home: const SplashScreen(),
+            builder: (context, child) {
+              // Ensure text direction is applied
+              return Directionality(
+                textDirection: Directionality.of(context),
+                child: child!,
+              );
+            },
+          );
+        },);
       }),
     );
 

@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -75,25 +78,25 @@ class CurrencyTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CurrencyProvider>(
       builder: (context, currencyProvider, child) {
-        return currencyProvider.isCurrency == true ? const Center(child: CircularProgressIndicator(color: Colors.green,),):
-        currencyProvider.currencyData['data'].length == 0 ?
+        return currencyProvider.isCurrency == true ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):
+        currencyProvider.currencyData == null ?
         const Center(child: Text("data are not available"),):
         ListView.builder(
           shrinkWrap: true,
           itemCount: currencyProvider.currencyData['data'].length,
           itemBuilder: (context, index) {
-            bool isSelected = currencyProvider.selectedIndex == index;
+            var finalData = currencyProvider.currencyData['data'][index];
             return Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 8),
               child: GestureDetector(
                 onTap: () {
-                  currencyProvider.selectCurrency(index: index, currency: currencyProvider.currencyData['data'][index]['name'],currencyCode:  currencyProvider.currencyData['data'][index]['code']);
+                  currencyProvider.selectCurrency(currencyCode:  currencyProvider.currencyData['data'][index]['code'],currencySymbol: currencyProvider.currencyData['data'][index]['symbol']);
                 },
                 child: Container(
                   height: 52,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: isSelected
+                    color: currencyProvider.selectedCurrency == finalData['code']
                         ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.blue.withOpacity(0.5))
                         : (Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : const Color(0XFFF7F7FF)),
                   ),
@@ -106,7 +109,21 @@ class CurrencyTiles extends StatelessWidget {
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
                         ),
                       ),
-                      leading: const Image(image: AssetImage(AppImages.pkFlag), height: 24, width: 24),
+                      leading: CachedNetworkImage(
+                        imageUrl: finalData['image'],
+                        height: 24,
+                        width: 24,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: 24,
+                            width: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
                       trailing: Text(
                         currencyProvider.currencyData['data'][index]['code'].toString(),
                         // namingLists_urdu[index],

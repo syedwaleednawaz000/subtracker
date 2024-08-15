@@ -9,6 +9,9 @@ import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
 
 class LanguageProvider extends ChangeNotifier{
+  LanguageProvider(){
+    _loadLocale();
+  }
   final ApiService _apiService = ApiService();
 
   bool _isLanguages = false;
@@ -75,6 +78,52 @@ class LanguageProvider extends ChangeNotifier{
     _selectedLanguage = language;
     _selectedTranslation = translation;
     notifyListeners();
+  }
+
+  // local language transaltion code
+  Locale? _locale;
+  String languageCodeKey = 'languageCode';
+  TextDirection _textDirection = TextDirection.ltr;
+
+  Locale? get appLocale => _locale;
+  TextDirection get textDirection => _textDirection;
+
+  int _current = 0;
+
+  int get current => _current;
+
+  void setCurrent(int index) {
+  _current = index;
+  notifyListeners();
+  }
+
+  LanguageChangeController() {
+  _loadLocale();
+  }
+  String languageCode = "";
+  Future<void> _loadLocale() async {
+  final preferences = await SharedPreferences.getInstance();
+   languageCode = preferences.getString(languageCodeKey).toString();
+  if (languageCode != null) {
+  _locale = Locale(languageCode);
+  _textDirection = languageCode == 'ur' ? TextDirection.rtl : TextDirection.ltr;
+  _current = languageCode == 'ur' ? 1 : 0;  // Assuming 'ur' is at index 1 and 'en' is at index 0
+  } else {
+  _locale = const Locale('en');
+  _textDirection = TextDirection.ltr;
+  _current = 0;
+  }
+  notifyListeners();
+  }
+
+  Future<void> changeLanguage(Locale locale) async {
+  // _locale = locale;
+  languageCode = locale.languageCode.toString();
+  _textDirection = locale.languageCode == 'ur' ? TextDirection.rtl : TextDirection.ltr;
+  _current = locale.languageCode == 'ur' ? 1 : 0;  // Update current index based on the selected language
+  final preferences = await SharedPreferences.getInstance();
+  await preferences.setString(languageCodeKey, locale.languageCode);
+  notifyListeners();
   }
 
 }

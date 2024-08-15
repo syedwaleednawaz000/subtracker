@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
+import 'package:sub_tracker/utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -23,7 +24,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
+          ? const Color(0xffA2A2B5)
           : Colors.white,
       body: SafeArea(
         child: ListView(
@@ -45,20 +46,18 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                       Text('Terms of Service',
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: MySize.size16,
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                 ? const Color(0XFFA2A2B5)
-                                : const Color(0XFF333339),
+                                : const Color(0XFFA2A2B5),
                             fontFamily: 'Poppins_Regular'
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MySize.size30,
-                ),
+
                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32),
                   child: Align(
@@ -80,17 +79,20 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                   padding: EdgeInsets.only(left: MySize.size32,right: MySize.size14),
                   child: Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
                    return termAndConditionProvider.isTermAndCondition ?
-                       const Center(child: CircularProgressIndicator(color: Colors.green),):
+                       const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
                     termAndConditionProvider.termAndConditionData == null ?
                       const Center(child: Text("term and condition not available"),):
-                    Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",textAlign: TextAlign.left,style: TextStyle(
+                    Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? Colors.white
                             : const Color(0XFF333339),
                         fontFamily: 'Poppins_Regular'
-                    ),);
+                    ),
+                    );
                     }
                     ),
                 )

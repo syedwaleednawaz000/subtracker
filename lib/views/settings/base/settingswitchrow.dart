@@ -56,7 +56,7 @@ class _SettingSwitchRowState extends State<SettingSwitchRow> {
           activeTrackColor: Color(0XFF4E4E61),
           // focusColor: Colors.pink,
           autofocus: true,
-          // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.green,
+          // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
           thumbColor: MaterialStateProperty.all(Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.white),
           inactiveTrackColor:  Color(0XFF4E4E61),
           trackOutlineColor: const MaterialStatePropertyAll(Color(0x00000000)),

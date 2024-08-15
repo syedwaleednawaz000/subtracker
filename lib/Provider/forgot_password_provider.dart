@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,35 @@ class ForgotPasswordProvider extends ChangeNotifier{
     isForgot = load;
     notifyListeners();
   }
+  int secondsRemaining = 60;
+  bool isTimerRunning = false;
+  Timer? _timer;
+
+  void startTimer({required bool timer}) {
+    if(timer == true) {
+      if (_timer != null) {
+        _timer!.cancel();
+      }
+      secondsRemaining = 60;
+      isTimerRunning = true;
+      notifyListeners();
+      _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+        if (secondsRemaining > 0) {
+          secondsRemaining--;
+          notifyListeners();
+        } else {
+          _timer!.cancel();
+          isTimerRunning = false;
+          notifyListeners();
+        }
+      });
+    }else{
+      if (_timer != null) {
+        _timer!.cancel();
+      }
+    }
+  }
+
   Future<void> forgotPassword({required BuildContext context,})async{
     var body = {
       'email': emailTextEditingController.text.trim(),
@@ -32,6 +63,9 @@ class ForgotPasswordProvider extends ChangeNotifier{
         // print("this is res ")
         _loginLoading(load: false);
         FlutterToast.toastMessage(message: "OTP send successfully ${response.data['otp'].toString()}",);
+
+          startTimer(timer: true);
+
         Navigator.push(context, MaterialPageRoute(builder:  (context) => OTPVerification(otp: response.data['otp'].toString(),)));
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
       }else{
@@ -64,7 +98,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _verifyOTpLoading(load: false);
         forgetToken = response.data['token'];
-        FlutterToast.toastMessage(message: "OTP Successfully verified",);
+        FlutterToast.toastMessage(message: "OTP successfully verified",);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdatePassword()));
 
       }else{
@@ -97,7 +131,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       Response response = await _apiService.changePassword(params: body);
       if(response.statusCode == 200){
         _ChangePassLoading(load: false);
-        FlutterToast.toastMessage(message: "Successfully password reset",);
+        FlutterToast.toastMessage(message: " Password reset successfully",);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
 
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));

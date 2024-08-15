@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
-import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
-import '../personaldata/personaldata.dart';
-import '../settings/settings.dart';
 import 'base/custom_appBar.dart';
 
 
@@ -40,7 +38,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
             onTap: () {
               Navigator.pop(context);
             },
-            text: 'Language',
+            text: AppLocalizations.of(context)!.language,
             icon: Icons.arrow_back_rounded,
           ),
         ),
@@ -48,17 +46,16 @@ class _LanguageSelectionState extends State<LanguageSelection> {
 
       body:  Column(
         children: [
-
           const SizedBox(height: 20,),
-        const LanguageTiles(
-          title: 'Pakistan',
-          leadingIcon: AssetImage(AppImages.psFlag,),
-          trailingText: '()',
-        ),
+          LanguageTiles(),
           const SizedBox(height: 45,),
-
-
-          CustomSaveButton(text: "Save",onTap: (){}),
+          Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
+            return           CustomSaveButton(text: "Save",onTap: (){
+              FlutterToast.toastMessage(message: "Yet not implemented, we will add it later",isError: true);
+              // Get.back();
+            }
+            );
+          },)
         ],
       ),
     );
@@ -66,68 +63,40 @@ class _LanguageSelectionState extends State<LanguageSelection> {
 }
 
 class LanguageTiles extends StatelessWidget {
-  const LanguageTiles({
-    super.key, required this.title, required this.leadingIcon, required this.trailingText,
-  });
-
-  final String title;
-  final ImageProvider leadingIcon;
-  final String trailingText;
+   LanguageTiles({super.key,});
 
 
+
+  List<LanguageModelClass> languageData = [
+    LanguageModelClass(languagesCode: "en",countryCode: "US",countryFlag: AppImages.psFlag,countryName: "English (UK)",countryLanguageName: "English"),
+    LanguageModelClass(languagesCode: "ur",countryCode: "PK",countryFlag: AppImages.pkFlag,countryName: "Pakistan",countryLanguageName: "Urdu")
+  ];
   @override
   Widget build(BuildContext context) {
-
-    List<String> namingLists = [ 'English (UK)', 'Pakistan', 'Iran', 'English (UK)', 'Pakistan', 'English (UK)', 'Iran', 'English (UK)', 'English (UK)', ];
-    List<String> namingLists_urdu = ['(English)', '(اردو)', '(فارسی)', 'English ', '(اردو)', 'English', '(فارسی)', 'English', 'English', ];
-    List<AssetImage>  iconsList = [const AssetImage(AppImages.psFlag),const AssetImage(AppImages.pkFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag), const AssetImage(AppImages.gbFlag),];
-    List<Color> listColors = [
-      const Color(0XFF758AFF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
-      const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF),
-      const Color(0XFFF1F1FF), const Color(0XFFF1F1FF), const Color(0XFFF1F1FF)
-    ];
-    List<Color> containerColors = [
-      const Color(0XFF758AFF), const Color(0XFF272730), const Color(0XFF272730),
-      const Color(0XFF272730), const Color(0XFF272730), const Color(0XFF272730),
-      const Color(0XFF272730), const Color(0XFF272730), const Color(0XFF272730),
-    ];
-    List<Color> titleColors = [
-      const Color(0XFFFFFFFF), const Color(0XFF1C1C23), const Color(0XFF1C1C23),
-
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-    ];
-    List<Color> trailColors = [
-      const Color(0XFFFFFFFF), const Color(0XFF1C1C23), const Color(0XFF1C1C23),
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-      const Color(0XFF1C1C23),const Color(0XFF1C1C23),const Color(0XFF1C1C23),
-    ];
-
     return Expanded(
       child: Consumer<LanguageProvider>(
-        builder: (context, selectionProvider, child) {
+        builder: (context, languageProvider, child) {
           return ListView.builder(
-            itemCount: namingLists.length,
+            itemCount: languageData.length,
             itemBuilder: (context, index) {
-              bool isSelected = selectionProvider.selectedIndex == index;
               return Padding(
                 padding: const EdgeInsets.only(left: 29, right: 29, top: 10),
                 child: GestureDetector(
                   onTap: () {
-                    selectionProvider.selectIndex(index, namingLists[index], namingLists_urdu[index]);
+                      languageProvider.changeLanguage( Locale(languageData[index].languagesCode, languageData[index].countryCode),);
                   },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: isSelected
-                          ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.blue.withOpacity(0.5)) // Highlight selected
-                          : (Provider.of<ThemeChanger>(context).themeData == darkMode ? containerColors[index] : listColors[index]),
+                      color:languageData[index].languagesCode == languageProvider.languageCode
+                          ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF)) // Highlight selected
+                          : (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Color(0xffF1F1FF)),
                     ),
                     child: ListTile(
-                      tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
+                      // tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
                       dense: true,
                       title: Text(
-                        '${namingLists[index]}',
+                        languageData[index].countryName,
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
@@ -135,9 +104,9 @@ class LanguageTiles extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      leading: Image(image: iconsList[index], height: 24, width: 24,),
+                      leading: Image(image: AssetImage(languageData[index].countryFlag), height: 24, width: 24,),
                       trailing: Text(
-                        '${namingLists_urdu[index]}',
+                        '(${languageData[index].countryLanguageName})',
                         style: TextStyle(
                           fontFamily: 'Poppins_Regular',
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : const Color(0XFF1C1C23),
@@ -206,7 +175,7 @@ class CustomSaveButton extends StatelessWidget {
                     : const Color(0XFFF1F1FF),
               ),
               child: Center(
-                child: loading == true ? const CircularProgressIndicator(color: Colors.green,): Text(
+                child: loading == true ? const CircularProgressIndicator(color: AppColors.purpleFF,): Text(
                   text,
                   style: TextStyle(
                     fontSize: 14,
@@ -223,4 +192,13 @@ class CustomSaveButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class LanguageModelClass {
+  String countryName ;
+  String countryLanguageName ;
+  String countryFlag;
+  String countryCode;
+  String languagesCode;
+  LanguageModelClass({required this.languagesCode,required this.countryLanguageName,required this.countryCode, required this.countryFlag, required this.countryName});
 }

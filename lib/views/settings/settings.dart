@@ -1,14 +1,12 @@
-import 'dart:ui';
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
-import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
@@ -16,17 +14,11 @@ import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/FAQs_screen/faqs.dart';
-import 'package:sub_tracker/views/auth/login/login_screen.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/cancelsubscription/cancelsubscription.dart';
-import 'package:sub_tracker/views/change_password/change_password.dart';
 import 'package:sub_tracker/views/contactsupport/contactsupport.dart';
-import 'package:sub_tracker/views/currency_screen/currency_screen.dart';
-import 'package:sub_tracker/views/language_selection/language_selection.dart';
-import 'package:sub_tracker/views/language_selection/providers/language_provider.dart';
 import 'package:sub_tracker/views/manageplan/manageplan.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
-import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
 import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
@@ -69,11 +61,11 @@ class _SettingsState extends State<Settings> {
     AssetImage(AppImages.factor),
     AssetImage(AppImages.email)
   ];
-  List<AssetImage> plansImage = [
-    AssetImage(AppImages.plan),
-    AssetImage(AppImages.payment),
-    AssetImage(AppImages.payment)
-  ];
+  // List<AssetImage> plansImage = [
+  //   AssetImage(AppImages.plan),
+  //   AssetImage(AppImages.cancelSub),
+  //   AssetImage(AppImages.calendarIcon)
+  // ];
   List<String> subsTitle = [
     'Manage Plan',
     'Manage Payment',
@@ -93,8 +85,8 @@ class _SettingsState extends State<Settings> {
     CurrencyProvider currencyProvider = Provider.of<CurrencyProvider>(context);
     List<String> trailText = [
       'Data',
-      "${languageProvider.selectedLanguage.toString()} ${languageProvider.selectedTranslation.toString()}",
-      '${currencyProvider.selectedCountry.toString()} ${currencyProvider.selectedCurrency.toString()}',
+      "${languageProvider.selectedTranslation.toString()}",
+      '${currencyProvider.selectedCurrency.toString()}',
       'Password',
     ];
 
@@ -103,7 +95,7 @@ class _SettingsState extends State<Settings> {
       child: Scaffold(
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF1C1C23)
+                ?  Colors.black
                 : const Color(0XFFF7F7FF),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
@@ -157,72 +149,70 @@ class _SettingsState extends State<Settings> {
                 Column(
                   children: [
                     SizedBox(height: MySize.size40),
-                    Consumer<ProfileProvider>(
-                        builder: (context, profileProvider, child) {
-                      String profileImageUrl = "";
-                      if (profileProvider.userData != null) {
-                        if (profileProvider.userData['data'] != null) {
-                          profileImageUrl = profileProvider.userData['data']
-                                  ['profile_image'] ??
-                              "";
-                        }
-                      }
-                      return profileImageUrl != null &&
-                              profileImageUrl.isNotEmpty
-                          ? CachedNetworkImage(
-                              imageUrl: profileImageUrl,
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                height: MySize.size72,
-                                width: MySize.size72,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(90),
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                    Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                      final profileImageUrl = profileProvider.userData['data']['profile_image'];
+                      return  Container(
+                        height: MySize.size72,
+                        width: MySize.size72,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(90),
+                        ),
+                        child:profileProvider.updatePic == null ?
+                        profileImageUrl != null && profileImageUrl.isNotEmpty
+                            ?CachedNetworkImage(
+                          imageUrl: profileImageUrl,
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(90),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
                               ),
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  height: MySize.size72,
-                                  width: MySize.size72,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(90),
-                                  ),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                height: MySize.size72,
-                                width: MySize.size72,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(90),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      AppImages.person,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Container(
+                            ),
+                          ),
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
                               height: MySize.size72,
                               width: MySize.size72,
                               decoration: BoxDecoration(
-                                color: Colors.transparent,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(90),
-                                image: DecorationImage(
-                                  image: AssetImage(AppImages.person),
-                                  fit: BoxFit.cover,
-                                ),
                               ),
-                            );
-                    }),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(90),
+                              image: DecorationImage(
+                                image: AssetImage(AppImages.person),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ):
+                        Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(90),),
+                            child: Icon(Icons.person)) :
+                        Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(90),),
+                            child: Image.file(File(profileProvider.updatePic!.path.toString()))),
+                      );
+                    },),
                     SizedBox(height: MySize.size8),
                     Consumer<ProfileProvider>(
                       builder: (context, profileProvider, child) {
@@ -236,41 +226,46 @@ class _SettingsState extends State<Settings> {
                       },
                     ),
                     SizedBox(height: MySize.size8),
-                    Container(
-                      height: 36,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? Colors.white.withOpacity(.1)
-                            : const Color(0XFFF1F1FF),
-                        border: Border(
-                          top: BorderSide(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0xFFCFCFFC).withOpacity(.15)
-                                  : const Color(0xFFCFCFFC).withOpacity(.15)),
-                          left: BorderSide(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? const Color(0xFFCFCFFC).withOpacity(.15)
-                                  : const Color(0xFFCFCFFC).withOpacity(.15)),
+                    GestureDetector(
+                      onTap: (){
+                        Provider.of<ProfileProvider>(context,listen: false).picPicture();
+                      },
+                      child: Container(
+                        height: 36,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  darkMode
+                              ? Colors.white.withOpacity(.1)
+                              : const Color(0XFFF1F1FF),
+                          border: Border(
+                            top: BorderSide(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFCFCFFC).withOpacity(.15)
+                                    : const Color(0xFFCFCFFC).withOpacity(.15)),
+                            left: BorderSide(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFCFCFFC).withOpacity(.15)
+                                    : const Color(0xFFCFCFFC).withOpacity(.15)),
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Change',
-                          style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Colors.white
-                                  : const Color(0XFF424252),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
+                        child: Center(
+                          child: Text(
+                            'Change',
+                            style: TextStyle(
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? Colors.white
+                                    : const Color(0XFF424252),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
                     ),
@@ -328,9 +323,7 @@ class _SettingsState extends State<Settings> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        profileProvider
-                                                            .screens[index]));
+                                                    builder: (context) =>profileProvider.screens[index]));
                                           } else {
                                             FlutterToast.toastMessage(
                                                 message:
@@ -365,16 +358,13 @@ class _SettingsState extends State<Settings> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    trailText[index],
-                                                    style: const TextStyle(
-                                                      color: Color(0XFFA2A2B5),
-                                                    ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                Text(
+                                                  trailText[index],
+                                                  maxLines: 2,
+                                                  style: const TextStyle(
+                                                    color: Color(0XFFA2A2B5),
                                                   ),
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                                 const SizedBox(
                                                   width: 10,
@@ -414,32 +404,28 @@ class _SettingsState extends State<Settings> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      trailing: SizedBox(
-                                          width: 60,
-                                          child: Switch(
-                                            value: _switchValues[index],
-                                            onChanged: (bool newvalue) {
-                                              setState(() {
-                                                _switchValues[index] = newvalue;
-                                              });
-                                            },
-                                            activeTrackColor:
-                                                const Color(0XFF758AFF),
-                                            autofocus: true,
-                                            thumbColor:
-                                                MaterialStateProperty.all(
-                                                    Provider.of<ThemeChanger>(
-                                                                    context)
-                                                                .themeData ==
-                                                            darkMode
-                                                        ? Colors.white
-                                                        : Colors.white),
-                                            inactiveTrackColor:
-                                                const Color(0XFF4E4E61),
-                                            trackOutlineColor:
-                                                const MaterialStatePropertyAll(
-                                                    Color(0x00000000)),
-                                          )),
+                                      trailing: Transform.scale(
+                                        scale: 0.8, // Adjust this value to scale the switch size
+                                        child: Switch(
+                                          value: _switchValues[index],
+                                          onChanged: (bool newValue) {
+                                            setState(() {
+                                              _switchValues[index] = newValue;
+                                            });
+                                          },
+                                          activeTrackColor: const Color(0XFF758AFF),
+                                          autofocus: true,
+                                          thumbColor: MaterialStateProperty.all(
+                                            Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? Colors.white
+                                                : Colors.white,
+                                          ),
+                                          inactiveTrackColor: const Color(0XFF4E4E61),
+                                          trackOutlineColor: const MaterialStatePropertyAll(
+                                            Color(0x00000000),
+                                          ),
+                                        ),
+                                      ),
                                     );
                                   },
                                 ),
@@ -508,26 +494,28 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                           const Spacer(),
-                          Switch(
-                            // value: isDarkMode,
-                            value: themeChanger.themeData == darkMode,
-                            onChanged: (bool newValue) {
-                              // themeChanger.toggleTheme();
-                              Provider.of<ThemeChanger>(context, listen: false)
-                                  .toggleTheme();
-                            },
-                            activeTrackColor: const Color(0XFF758AFF),
-                            // focusColor: Colors.pink,
-                            autofocus: true,
-                            // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.green,
-                            thumbColor: MaterialStateProperty.all(
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : Colors.white),
-                            inactiveTrackColor: const Color(0XFF4E4E61),
-                            trackOutlineColor: const MaterialStatePropertyAll(
-                                Color(0x00000000)),
+                          Transform.scale(
+                            scale: 0.8,
+                            child: Switch(
+                              value: themeChanger.themeData == darkMode,
+                              onChanged: (bool newValue) {
+                                // themeChanger.toggleTheme();
+                                Provider.of<ThemeChanger>(context, listen: false)
+                                    .toggleTheme();
+                              },
+                              activeTrackColor: const Color(0XFF758AFF),
+                              // focusColor: Colors.pink,
+                              autofocus: true,
+                              // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
+                              thumbColor: MaterialStateProperty.all(
+                                  Provider.of<ThemeChanger>(context).themeData ==
+                                          darkMode
+                                      ? Colors.white
+                                      : Colors.white),
+                              inactiveTrackColor: const Color(0XFF4E4E61),
+                              trackOutlineColor: const MaterialStatePropertyAll(
+                                  Color(0x00000000)),
+                            ),
                           ),
                           const SizedBox(
                             width: 20,
@@ -636,21 +624,10 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  imageIcon: Stack(
-                                    children: [
-                                      Positioned(
-                                        left: 8,
-                                        child: Image.asset(
-                                          AppImages.crossIcon,
-                                          height: 15,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      Image.asset(
-                                        AppImages.payment,
-                                        height: 20,
-                                      ),
-                                    ],
+                                  type: "cancel",
+                                  imageIcon: Image.asset(
+                                    AppImages.cancelSub,
+                                    height: 20,
                                   ),
                                   text: 'Cancel Subscription',
                                   text2: 'Cancel',
@@ -814,10 +791,12 @@ class _SettingsState extends State<Settings> {
                             .cleanLocalData(context: context);
                       },
                       child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: MySize.size24, ),
                         padding: EdgeInsets.symmetric(
-                            horizontal: MySize.size20, vertical: MySize.size16),
+                          horizontal: MySize.size20, ),
                         height: MySize.scaleFactorHeight * 64,
-                        width: MySize.scaleFactorWidth * 328,
+                        // width: MySize.scaleFactorWidth * 328,
                         decoration: BoxDecoration(
                           // color: AppColors.grey61.withOpacity(.20),
                           // color: Theme.of(context).colorScheme.secondary,
@@ -834,21 +813,21 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              AppImages.logout,
-                              height: 20,
-                              width: 20,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Color(0XFFA2A2B5)
-                                  : Colors.red,
-                            ),
-                            SizedBox(
-                              width: MySize.size22,
-                            ),
+                            // Image.asset(
+                            //   AppImages.logout,
+                            //   height: 20,
+                            //   width: 20,
+                            //   color: Provider.of<ThemeChanger>(context)
+                            //               .themeData ==
+                            //           darkMode
+                            //       ? Color(0XFFA2A2B5)
+                            //       : Colors.red,
+                            // ),
+                            // SizedBox(
+                            //   width: MySize.size22,
+                            // ),
                             Text(
                               'Logout',
                               style: TextStyle(

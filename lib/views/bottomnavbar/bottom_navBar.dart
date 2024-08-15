@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
-import 'package:sub_tracker/views/subscription/subscription.dart';
+import 'package:sub_tracker/views/addNewSubscription/add_new_subscription.dart';
 import '../../theme/theme.dart';
 import '../calendar_screen/calendar_screen.dart';
 import '../home_screen/home_screen.dart';

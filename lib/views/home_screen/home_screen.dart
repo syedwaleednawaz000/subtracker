@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen>
         Provider.of<SubscriptionProvider>(context, listen: false)
             .getSubscriptions());
     Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false)
-        .getProfile(userID: ""));
+        .getProfile(userID: "", context: context));
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
       child: Scaffold(
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF1C1C23)
+                ? Colors.black
                 : const Color(0XFFF7F7FF),
         body: Consumer<SubscriptionProvider>(
           builder: (context, subscriptionProvider, child) {
@@ -64,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen>
             return subscriptionProvider.isSubscription
                 ? const Center(
                     child: CircularProgressIndicator(
-                      color: Colors.green,
+                      color: AppColors.purpleFF,
                     ),
                   )
                 : subscriptionProvider.subscriptionData['data'] == null
-                    ? const Center(child: Text("datae are not available"))
+                    ? const Center(child: Text("data are not available"))
                     : SingleChildScrollView(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -76,11 +76,25 @@ class _HomeScreenState extends State<HomeScreen>
                             Center(
                               child: CustomContainer(
                                 activeSubscription:
-                                    data['activesub'].toString(),
-                                highestSubscription: data['highsub'].toString(),
-                                lowestSubscription: data['lowsub'].toString(),
-                                monthlyBill: data['monthlybill'].toString(),
-                                totalBudget: data['totalBudget'].toString(),
+                                    data['activesub'].toString() == null
+                                        ? data['activesub'].toString()
+                                        : "0",
+                                highestSubscription:
+                                    data['highsub'].toString() == null
+                                        ? data['highsub'].toString()
+                                        : "0",
+                                lowestSubscription:
+                                    data['lowsub'].toString() == null
+                                        ? data['lowsub'].toString()
+                                        : "0",
+                                monthlyBill:
+                                    data['monthlybill'].toString() == null
+                                        ? data['monthlybill'].toString()
+                                        : "0",
+                                totalBudget:
+                                    data['totalBudget'].toString() == null
+                                        ? data['totalBudget'].toString()
+                                        : "0",
                               ),
                             ),
                             SizedBox(
@@ -92,7 +106,6 @@ class _HomeScreenState extends State<HomeScreen>
                               child: Container(
                                 width: double.infinity,
                                 padding: EdgeInsets.symmetric(
-                                    // horizontal: MySize.scaleFactorWidth * 9,
                                     vertical: MySize.scaleFactorHeight * 7),
                                 decoration: BoxDecoration(
                                   borderRadius:
@@ -117,7 +130,6 @@ class _HomeScreenState extends State<HomeScreen>
                                             .withOpacity(0.20)
                                         : const Color(0xFFCFCFFC)
                                             .withOpacity(0.3),
-
                                   ),
                                   indicatorColor: Colors.transparent,
                                   controller: _tabController,
@@ -169,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   data['subscriptions'].length == 0
                                       ? Center(
                                           child: Text(
-                                            "No Data found",
+                                            "Your subscriptions are not available",
                                             style: TextStyle(
                                                 fontSize: MySize.size14,
                                                 fontWeight: FontWeight.w600,
@@ -182,13 +194,27 @@ class _HomeScreenState extends State<HomeScreen>
                                                         : Colors.black),
                                           ),
                                         )
-                                      : SubscriptionWidget(
-                                          subscriptions: data['subscriptions'],
-                                        ),
+                                      : Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: MySize.size20),
+                                          child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                                data['subscriptions'].length,
+                                            itemBuilder: (context, index) {
+                                              return SubscriptionWidget(
+                                                subscriptions:
+                                                    data['subscriptions']
+                                                        [index],
+                                              );
+                                            },
+                                          )),
                                   data['upcommingbills'].length == 0
                                       ? Center(
                                           child: Text(
-                                            "No Data found",
+                                            "Your upcoming bills are not available",
                                             style: TextStyle(
                                                 fontSize: MySize.size14,
                                                 fontWeight: FontWeight.w600,
@@ -201,8 +227,20 @@ class _HomeScreenState extends State<HomeScreen>
                                                         : Colors.black),
                                           ),
                                         )
-                                      : UpComingBillWidget(
-                                          upComingBills: data['upcommingbills'])
+                                      : Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: MySize.size20),
+                                          child: ListView.builder(
+                                            itemCount:
+                                                data['upcommingbills'].length,
+                                            itemBuilder: (context, index) {
+                                              var finalData =
+                                                  data['upcommingbills'][index];
+                                              return UpComingBillWidget(
+                                                  upComingBills: finalData);
+                                            },
+                                          ),
+                                        ),
                                 ],
                               ),
                             ),

@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import 'package:sub_tracker/views/subscription/base/dialog_box.dart';
+import 'package:sub_tracker/views/spending_budgets/component/add_new_category_dialog.dart';
+import 'package:sub_tracker/views/addNewSubscription/model/all_category_model.dart';
 
 class CategoryProvider extends ChangeNotifier {
   final ApiService _apiService = ApiService();
@@ -40,26 +44,7 @@ class CategoryProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> addCategories(
-      {required String categoryName,}) async {
-    _storeUserCatLoading(load: true);
-    var body = { 'name': categoryName};
-    try {
-      Response response = await _apiService.addCategories(params: body);
-      if (response.statusCode == 200) {
-        _storeUserCatLoading(load: false);
-        FlutterToast.toastMessage(
-          message: "category added successfully",
-        );
-        // Get.back();
-      } else {
-        _storeUserCatLoading(load: false);
-        if (kDebugMode) {}
-      }
-    } catch (error) {
-      _storeUserCatLoading(load: false);
-    }
-  }
+
 
   Future<void> updateCategory(
       {required String categoryName,}) async {
@@ -121,20 +106,49 @@ class CategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getCategories() async {
-    _categoryLoading(load: true);
+  List<Categories> categories = [];
+  bool isLoading = false;
+  Future<void> getAllCategory() async {
+    isLoading = true;
+    notifyListeners();
+
     try {
-      Response response = await _apiService.getCategories(params: {});
+      Response response = await _apiService.getAllCategory(params: {});
       if (response.statusCode == 200) {
-        _categoryLoading(load: false);
-        categoriesData = response.data;
-      } else {
-        _categoryLoading(load: false);
+        var categoriesData = response.data['categories'];
+        categories = List<Categories>.from(categoriesData.map((category) => Categories.fromJson(category)));
+        log("Fetched categories: ${categoriesData}");
       }
     } catch (error) {
-      _categoryLoading(load: false);
+      log("Error fetching categories: $error");
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
   }
+  String _categoryName = "";
+  String get categoryName => _categoryName;
+  String _subCategoryName = "";
+  String get subCategoryName => _subCategoryName;
+  String _subCategoryID = "";
+  String get subCategoryID => _subCategoryID;
+  String _categoryID = "";
+  String get categoryID => _categoryID;
+  void setAllCategoryValue({required String categoryID, required String subCategoryID ,
+    required String subCategoryName,required String categoryName  }){
+    _categoryID = categoryID;
+    _categoryName = categoryName;
+    _subCategoryID = subCategoryID;
+    _subCategoryName = subCategoryName;
+    print('Category ID: $_categoryID');
+    print('Category Name: $_categoryName');
+    print('Subcategory ID: $_subCategoryID');
+    print('Subcategory Name: $_subCategoryName');
+    notifyListeners();
+    Get.back();
+
+  }
+
 
 
 

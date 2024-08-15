@@ -13,24 +13,20 @@ class PlanProvider extends ChangeNotifier {
     _isUpdatePlan = load;
     notifyListeners();
   }
-  Future<void> storePlan({ required BuildContext context})async{
+  Future<void> subscribePlan({ required BuildContext context})async{
+    print("hit successfully in mange ${_selectData}");
     _updatePlanLoading(load: true);
     var body = {
-      'user_id': _selectData['user_id'],
-      'type': _selectData['type'],
-      'price': _selectData['price'],
-      'start_date': _selectData['start_date'],
-      'end_date': _selectData['end_date'],
-      'is_active': _selectData['is_active']
+      'plan_id': _selectData['id'],
     };
     try{
-      Response response = await _apiService.storePlan(params: body);
+      Response response = await _apiService.subscribePlane(params: body);
       if(response.statusCode == 200){
         _updatePlanLoading(load: false);
-        FlutterToast.toastMessage(message: response.data['message'],);
+        FlutterToast.toastMessage(message: "Plan subscribe successfully",);
         Navigator.pop(context);
         if (kDebugMode) {
-          print("hit successfully");
+          print("hit successfully in mange");
         }
 
       }else{
@@ -77,11 +73,9 @@ class PlanProvider extends ChangeNotifier {
   }
 //Todo about set index
   Map<String , dynamic> _selectData = {};
-
   int _index = -1;
   int get selectIndex => _index;
   void updateIndex ({required int index ,required Map<String , dynamic> selectData}){
-    print("this is selct data ${selectData}");
     _index = index;
     _selectData = selectData;
     notifyListeners();
@@ -99,11 +93,11 @@ class PlanProvider extends ChangeNotifier {
   }
   Future<void> cancelPlan({ required BuildContext context, required String planID})async{
     _cancelLoading(load: true);
-    var body = {};
     try{
-      Response response = await _apiService.cancelPlan(planID: planID.toString(),params: body);
+      Response response = await _apiService.cancelPlan();
       if(response.statusCode == 200){
         _cancelLoading(load: false);
+        userPlan();
         FlutterToast.toastMessage(message: response.data['message'],);
         Navigator.pop(context);
         if (kDebugMode) {
@@ -121,4 +115,37 @@ class PlanProvider extends ChangeNotifier {
       print("this is error ${error.toString()}");
     }
   }
+
+
+  Map<String, dynamic> activeSubscriptionData = {};
+  bool _isActiveSubscription = false;
+  bool get isActiveSubscription => _isActiveSubscription;
+  void _activeSubscriptionLoading({required bool load}){
+    _isActiveSubscription = load;
+    notifyListeners();
+  }
+  Future<void> userPlan()async{
+    _activeSubscriptionLoading(load: true);
+    try{
+      Response response = await _apiService.userPlan(params: {});
+      if(response.statusCode == 200){
+        _activeSubscriptionLoading(load: false);
+        activeSubscriptionData = response.data;
+        if (kDebugMode) {
+          print("hit successfully activeSubscriptionData $activeSubscriptionData");
+        }
+
+      }else{
+        _activeSubscriptionLoading(load: false);
+        if (kDebugMode) {
+          print("hit successfully in else ");
+        }
+      }
+    }catch(error){
+      _activeSubscriptionLoading(load: false);
+      print("this is error ${error.toString()}");
+    }
+  }
+
+
 }

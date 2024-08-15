@@ -1,19 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:sub_tracker/Provider/subscription_provider.dart';
-import 'package:sub_tracker/views/payment_method/payment_screen.dart';
-import 'package:sub_tracker/views/settings/base/showdialog.dart';
+import 'package:sub_tracker/Provider/plan_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
 import '../base/text_widgets.dart';
 import '../manageplan/base/manageplanrowlist.dart';
-import '../personaldata/personaldata.dart';
-import '../settings/settings.dart';
 import 'base/calcelsubscriptiondialogbox.dart';
 import 'base/subscribestackwidget.dart';
 
@@ -22,7 +18,7 @@ class CancelSubscription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.microtask(() => Provider.of<SubscriptionProvider>(context,listen: false).activeSubscriptions());
+    Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).userPlan());
     return SafeArea(
         child: Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -62,68 +58,70 @@ class CancelSubscription extends StatelessWidget {
             SizedBox(
               height: MySize.size54,
             ),
-          Consumer<SubscriptionProvider>(builder: (context, subscriptionProvider, child) {
-            return subscriptionProvider.activeSubscriptionData.isEmpty ?
-            const Center(child: CircularProgressIndicator(color: Colors.green),):
-            subscriptionProvider.activeSubscriptionData['data'].length == 0 ?
-            const Center(child: Text("Active subscription are not available "),):
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: subscriptionProvider.activeSubscriptionData['data'].length,
-              itemBuilder: (context, index) {
-                var finalData = subscriptionProvider.activeSubscriptionData['data'][index];
-                return  InkWell(
-                  onTap: () {
-                    subscriptionProvider.changeCancelIndex(index: index,subscriptionID: finalData['id'].toString());
-                  },
-                  child: Container(
-                    height: MySize.scaleFactorHeight * 68,
-                    width: MySize.scaleFactorWidth * 288,
-                    decoration: BoxDecoration(
-                      color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF4E4E61).withOpacity(.2)
-                          : const Color(0XFFF1F1FF),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border(
-                          top: BorderSide(color: Colors.white.withOpacity(.15)),
-                          left: BorderSide(color: Colors.white.withOpacity(.15)),
-                          // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                          bottom: BorderSide.none
+          Consumer<PlanProvider>(builder: (context, planProvider, child) {
+            return planProvider.activeSubscriptionData.isEmpty ?
+            const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
+            planProvider.activeSubscriptionData['data'] == null ?
+            const Center(child: Text("Active addNewSubscription are not available "),):
+            InkWell(
+              onTap: () {
+              },
+              child: Container(
+                height: MySize.scaleFactorHeight * 75,
+                width: MySize.scaleFactorWidth * 288,
+                margin: EdgeInsets.symmetric(vertical: MySize.size5),
+                child: Stack(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MySize.scaleFactorHeight * 68,
+                      width: MySize.scaleFactorWidth * 288,
+                      decoration: BoxDecoration(
+                        color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF4E4E61).withOpacity(.2)
+                            : const Color(0XFFF1F1FF),
+                        borderRadius: BorderRadius.circular(16),
+                        // border: planProvider.cancelIndex == index ? Border.all(color: AppColors.purpleFF)
+                        //     : null,
                       ),
-                    ),
-                    child: Stack(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Yearly',
-                                style: TextStyle(
-                                  color: Color(0XFF83839C),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-
-                              TextWidgetInterMedium(
-                                title: '\$39.95',
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${planProvider.activeSubscriptionData['data']['type']}',
+                              style: TextStyle(
+                                color: Color(0XFF83839C),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                // color: AppColors.whiteFF
                               ),
-                            ],
-                          ),
+                            ),
+
+                            TextWidgetInterMedium(
+                              title: '\$${planProvider.activeSubscriptionData['data']['price']}',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              // color: AppColors.whiteFF
+                            ),
+                          ],
                         ),
-                        const SubscribeStackWidget(),
-                      ],
+                      ),
                     ),
-                  ),
-                );
-              },);
+                    Positioned(
+                      left: MySize.scaleFactorWidth * 120,
+                        child: Container(
+                      width: MySize.scaleFactorWidth * 46,
+                      height: MySize.scaleFactorHeight*2,
+                      decoration: BoxDecoration(
+                        color: Color(0xff758AFF),
+                        borderRadius: BorderRadius.circular(50),
+                      ),)),
+                    const SubscribeStackWidget(),
+                  ],
+                ),
+              ),
+            );
           },),
             SizedBox(
               height: MySize.size48,
@@ -211,23 +209,16 @@ class CancelSubscription extends StatelessWidget {
         ),
       ),
           bottomNavigationBar:Container(
-            height: 114,
+            height: MySize.size48,
+            margin: EdgeInsets.only(left: MySize.size35,right: MySize.size35,bottom:MySize.size35 ),
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+                borderRadius:  BorderRadius.circular(100),
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
                     ? const Color(0XFF353542).withOpacity(.7)
                     : const Color(0XFFF1F1FF).withOpacity(.8),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 4,
-                      color: AppColors.black00.withOpacity(.25)
-                  )
-                ]
             ),
-            child:  CancelSubsDialogBox(planID: "2"),
+            child:  const CancelSubsDialogBox(),
           ),
     ));
   }

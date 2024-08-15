@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
@@ -27,7 +28,6 @@ class ManagePlan extends StatefulWidget {
 class _ManagePlanState extends State<ManagePlan> {
   @override
   void initState() {
-    // TODO: implement initState
     Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).getPlanes());
     super.initState();
   }
@@ -44,7 +44,7 @@ class _ManagePlanState extends State<ManagePlan> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 centerTitle: true,
-                title:  Text('Manage Plan',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+                title:  Text('Manage Plan',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
                 leading:GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -71,7 +71,7 @@ class _ManagePlanState extends State<ManagePlan> {
                     itemBuilder: (context, index) {
                       var finalData = planProvider.planData[index];
                       return Container(
-                        margin: EdgeInsets.symmetric(vertical: MySize.size5),
+                        margin: EdgeInsets.only(bottom: MySize.size14,top: index ==0 ?MySize.size35 : MySize.size14),
                         height: 80,
                         child: Stack(
                           children: [
@@ -110,15 +110,16 @@ class _ManagePlanState extends State<ManagePlan> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                          TextWidgetInterMedium(
-                                            title: '\$${finalData['price']}',
+                                      Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                                        return                                           TextWidgetInterMedium(
+                                            title: '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
                                             fontSize: MySize.size14,
                                             fontWeight: FontWeight.w600,
                                             color: Provider.of<ThemeChanger>(context).themeData ==
                                                 darkMode
-                                                ? Color(0XFFFFFFFF):Colors.black
-
-                                          ),
+                                                ? const Color(0XFFFFFFFF):Colors.black
+                                        );
+                                      },),
                                         ],
                                       ),
                                     ),
@@ -126,13 +127,20 @@ class _ManagePlanState extends State<ManagePlan> {
                                 ),
                               ],
                             ),
-                            StackPercentageWidget(percentValue: "20%"),
-                            MonthlyPercentWidget(packageTitle: "1 Month Free Trial"),
+                            index == 0
+                                ? StackPercentageWidget(percentValue: "~20%")
+                                : const SizedBox.shrink(),
+                           index==0
+                               ? MonthlyPercentWidget(packageTitle: "1 Month Free Trial")
+                               : MonthlyPercentWidget(packageTitle: "1 Year Free Trial"),
                           ],
                         ),
                       );
                     },
                   ),
+                ),
+                SizedBox(
+                  height: MySize.size10,
                 ),
 
                 Padding(
@@ -160,8 +168,8 @@ class _ManagePlanState extends State<ManagePlan> {
                     // color: AppColors.grey61.withOpacity(.20), F1F1FF
                     color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode
-                        ? Color(0XFF4E4E61).withOpacity(.2)
-                        : Color(0XFFF1F1FF),
+                        ? const Color(0XFF4E4E61).withOpacity(.2)
+                        : const Color(0XFFF1F1FF),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       width: MySize.size2,
@@ -217,7 +225,7 @@ class _ManagePlanState extends State<ManagePlan> {
               loading: planProvider.isUpdatePlan,
               onTap: (){
                 if(planProvider.selectIndex != -1){
-                  planProvider.storePlan( context: context);
+                  planProvider.subscribePlan( context: context);
                 }else{
                   FlutterToast.toastMessage(message: "Please select plane ",isError: true);
                 }

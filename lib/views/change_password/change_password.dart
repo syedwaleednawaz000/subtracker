@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -30,22 +31,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   TextEditingController currentPassEditingController = TextEditingController();
   TextEditingController newPassTextEditingController = TextEditingController();
   TextEditingController newConfirmPassTextEditingController = TextEditingController();
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    }
-    // Validate password complexity (e.g., length and character types)
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
-    // Additional custom checks (optional), e.g., character types
-    if (!RegExp(
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
-        .hasMatch(value)) {
-      return 'Password must contain at least one uppercase letter, lowercase letter, number, and special character';
-    }
-    return null; // Return null if validation succeeds
-  }
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -78,23 +64,27 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Current password',
+                        Text('Password',
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
                         TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black,
                           controller: currentPassEditingController,
-                          validator: validatePassword,
+                          validator: Validation.validatePassword,
                           decoration: InputDecoration(
                             isDense: true,
+                            errorMaxLines: 3,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter current password',
+                            hintText: 'Enter password',
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
@@ -125,23 +115,28 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('New Password',
+                        Text('New password',
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
                           height: 4,
                         ),
                         TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black,
                           controller: newPassTextEditingController,
-                          validator: validatePassword,
+                          validator: Validation.validatePassword,
                           decoration: InputDecoration(
+
+                            errorMaxLines: 3,
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter new password',
+                            hintText: 'Enter password',
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
@@ -172,11 +167,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('New Confirm Password',
+                        Text('New confirm password',
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
-                              fontWeight: FontWeight.w500
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                         const SizedBox(
@@ -184,46 +179,74 @@ class _ChangePasswordState extends State<ChangePassword> {
                         ),
                         TextFormField(
                           controller: newConfirmPassTextEditingController,
-                          validator: validatePassword,
+                          validator: Validation.validatePassword,
+                          onChanged: (newValue) {
+                            Provider.of<ChangePasswordProvider>(context, listen: false).updatePasswordStepper(newValue);
+                          },
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black,
+                          style: TextStyle(
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Colors.white
+                                : Colors.black, // Set text color based on the theme
+                            fontSize: MySize.size14,
+                          ),
                           decoration: InputDecoration(
+                            errorMaxLines: 3,
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter new Confirm Password',
+                            hintText: 'Enter password',
                             hintStyle: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-                              const Color(0XFF666680).withOpacity(.6) :
-                              const Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680).withOpacity(.6)
+                                  : const Color(0XFF666680).withOpacity(.6),
                               fontSize: MySize.size12,
                             ),
                             suffixIcon: Icon(
                               Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680).withOpacity(.6)
+                                  : const Color(0XFF666680).withOpacity(.6),
                             ),
                             focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                                )
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
+                              ),
                             ),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                                )
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
+                              ),
                             ),
                           ),
+                          selectionControls: MaterialTextSelectionControls(), // Ensure text selection is supported
+                          enableSuggestions: true, // Suggest words as you type
+                          textInputAction: TextInputAction.done, // Specify the action when "done" is pressed
                         ),
                       ],
                     ),
-                     Padding(
-                      padding: const EdgeInsets.only(top: 28, ),
-                      child: StepProgressIndicator(totalSteps: 4,
-                       selectedColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                       unselectedColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                        // gradientColor: LinearGradient(
-                        //     colors: [Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0XFF353542) : Color(0XFF353542).withOpacity(.1)]),\
-                      ),
-                    ),
+                    SizedBox(height: MySize.size20,),
+
+                    Consumer<ChangePasswordProvider>(builder: (context, registerProvider, child) {
+                      return StepProgressIndicator(
+                        totalSteps: 4,
+                        currentStep: registerProvider.strengthLevel,
+                        size: 8,
+                        padding: 0,
+                        selectedColor: registerProvider.strengthLevel == 0
+                            ? Colors.grey
+                            : registerProvider.colors[registerProvider.strengthLevel - 1],
+                        unselectedColor: Color(0XFF353542),
+                        roundedEdges: Radius.circular(10),
+                      );
+                    },),
 
                   ],
                 ),

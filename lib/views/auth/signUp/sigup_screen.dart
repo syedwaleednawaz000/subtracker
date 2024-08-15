@@ -1,19 +1,15 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
-import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
-
+import 'package:sub_tracker/utils/validation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
+import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../base/field_container.dart';
@@ -36,39 +32,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-
-// Custom email validator function
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    // Basic email format validation
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Invalid email format';
-    }
-    // Additional custom checks (optional), e.g., domain name validation
-    if (!value.contains('@gmail') || !value.contains('.com')) {
-      return 'Enter a Gmail address with .com domain';
-    }
-    return null; // Return null if validation succeeds
-  }
-
-// Custom password validator function
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password cannot be empty';
-    }
-    // Validate password complexity (e.g., length and character types)
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
-    }
-    // Additional custom checks (optional), e.g., character types
-    if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$').hasMatch(value)) {
-      return 'Password must contain at least one uppercase letter, lowercase letter, number, and special character';
-    }
-    return null; // Return null if validation succeeds
-  }
   TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   @override
@@ -88,106 +53,54 @@ class _SignupScreenState extends State<SignupScreen> {
               key: _formKey,
               child: Column(
                 children: [
-
-                  const Padding(
-                    padding: EdgeInsets.only(
-                         left: 115, right: 115),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 60,right: 280),
                     child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
+                        child: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
                   ),
-                  const SizedBox(height: 100,),
-                  const Text( 'Create Account',
-                    style: TextStyle(
+
+                  SizedBox(height:MySize.size140,),
+                   Text( AppLocalizations.of(context)!.create_account,
+                    style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 24,
                         color: Colors.white
                     ),
                   ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, top: 22),                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text('User Name',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF666680)
-                              ),),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            TextFormField(
-                              style: const TextStyle(
-                                  color:  Color(0XFF666680)
-                              ),
-                              obscureText: isSelected1,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                                  isDense: true,
-                                  hintText: 'Enter User Name',
-                                  hintStyle:  TextStyle(
-                                    fontFamily: 'Poppins_Regular',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0XFF666680).withOpacity(.3),
-                                  ),
-                                  suffixIcon: IconButton(onPressed: (){
-                                    setState(() {
-                                      isSelected1 = !isSelected1;
-                                    });
-                                  }, icon: isSelected1
-                                      ? Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)
-                                      : Icon(Icons.lock_open, color: const Color(0XFF666680).withOpacity(.3),)),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                      borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2))),
-                                  focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                            ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(16),
-                                            borderSide: BorderSide(color: const Color(0XFF4E4E61).withOpacity(.2)),
-                                          ),
-                              ),
-
-                            ),
-                          ],
-                        ),
-                      ),
+                  SizedBox(height:MySize.size24,),
                  Padding(
-                   padding: const EdgeInsets.only(left: 24, right: 24, top: 22),
+                   padding:  EdgeInsets.symmetric(horizontal: MySize.size35),
                    child: Column(
                      children: [
                        CustomTextFormField(
-                         controller: emailController,
-                         text: 'E-mail address',
-                         hintText: 'Email',
-                         validator: validateEmail,
+                         controller: nameController,
+                         text: "Name",
+                         hintText: "Enter your name",
+                         validator: Validation.validateName,
                          suffixIcons: IconButton(onPressed: (){},
                              icon:  Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),)),
                        ),
-                       const SizedBox(
-                         height: 10,
+                       SizedBox(height: MySize.size10,),
+                       CustomTextFormField(
+                         controller: emailController,
+                         text: AppLocalizations.of(context)!.email_address,
+                         hintText: AppLocalizations.of(context)!.email,
+                         validator: Validation.validateEmail,
+                         suffixIcons: IconButton(onPressed: (){},
+                             icon:  Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),)),
                        ),
+                       SizedBox(height: MySize.size10,),
                        CustomTextFormField(
                          controller: passwordController,
-                         text: 'Password',
-                         hintText: 'Password',
-                         validator:  validatePassword,
+                         text: AppLocalizations.of(context)!.password,
+                         hintText: AppLocalizations.of(context)!.password,
+                         validator:  Validation.validatePassword,
                          obscureText: isSelected1 ,
                          suffixIcons: IconButton(
                              onPressed: (){
                                isSelected1 = !isSelected1;
-
                              setState(() {
                                    });
                                  }, icon: isSelected1
@@ -203,10 +116,10 @@ class _SignupScreenState extends State<SignupScreen> {
                          registerProvider.updatePassword(newValue);
                        },
                        controller: confirmPasswordController,
-                       text: 'Confirm Password',
-                       hintText: 'Confirm Password',
+                       text: AppLocalizations.of(context)!.confirm_password,
+                       hintText: AppLocalizations.of(context)!.confirm_password,
                        obscureText: isSelected2,
-                       validator: validatePassword,
+                       validator:  Validation.validatePassword,
                        suffixIcons: IconButton(onPressed: (){
                          setState(() {
                            isSelected2 = !isSelected2;
@@ -216,97 +129,113 @@ class _SignupScreenState extends State<SignupScreen> {
                            : Icon(Icons.lock, color: const Color(0XFF666680).withOpacity(.3),)),
                      );
                    },),
-                       const SizedBox(
-                         height: 10,
-                       ),
+                        SizedBox(height: MySize.size20,),
 
-                       Padding(
-                         padding: const EdgeInsets.only(left: 5, right: 5, top: 16, bottom: 16),
-                         child:  Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
-                           return StepProgressIndicator(
+                       Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                         return Container(
+                           width: double.infinity,
+                           child: StepProgressIndicator(
                              totalSteps: 4,
                              currentStep: registerProvider.strengthLevel,
                              size: 8,
-                             padding: 0,
+                             padding: MySize.size2,
                              selectedColor: registerProvider.strengthLevel == 0
                                  ? Colors.grey
                                  : registerProvider.colors[registerProvider.strengthLevel - 1],
-                             unselectedColor: Color(0XFF353542),
-                             roundedEdges: Radius.circular(10),
-                           );
-                         },),
-                       ),
+                             unselectedColor: const Color(0XFF353542),
+                             roundedEdges: const Radius.circular(10),
+                           ),
+                         );
 
-                       Padding(
-                         padding: const EdgeInsets.only(left: 7),
-                         child: Align(
-                           alignment: Alignment.centerLeft,
-                           child: Text('Use 8 or more characters with a mix of letters, \nnumbers & symbols to be secure.',
-                             textAlign: TextAlign.start,
-                             style: TextStyle(
-                               fontSize: 15,
-                               // fontWeight: FontWeight.w600,
-                               // color: Color(0XFF666680),
-                                 color: AppColors.grey30.withOpacity(.3)
-                             ),),
-                         ),
+                       },
                        ),
-                        const SizedBox(
-                         height: 12,
+                       SizedBox(height: MySize.size17,),
+                       Align(
+                         alignment: Alignment.centerLeft,
+                         child: Text(AppLocalizations.of(context)!.use_or_more_characters_with_a_mix_of_letters_numbers_symbols_to_be_secure,
+                           textAlign: TextAlign.start,
+                           style: TextStyle(
+                             fontSize: 12,
+                             fontWeight: FontWeight.w500,
+                             color: AppColors.grey30.withOpacity(.3)
+                           ),),
                        ),
+                       SizedBox(height: MySize.size12,),
                        Row(
                          children: [
-                           Checkbox(
-                             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                             visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
-                             checkColor: const Color(0XFF666680),
-                             side: BorderSide(
-                               style: BorderStyle.solid,
-                               width: 3,
-                               color: const Color(0XFF353542).withOpacity(.5),
+                           Transform.scale(
+                             scale: 1.2,
+                             child: Checkbox(
+                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                               visualDensity: const VisualDensity(horizontal: -1, vertical: -1),
+                               checkColor: const Color(0XFF666680),
+                               side: BorderSide(
+                                 style: BorderStyle.solid,
+                                 width: 1,
+                                 color: const Color(0XFF353542).withOpacity(.5),
+                               ),
+                               value: val,
+                               onChanged: (value) => setState(() {
+                                 val = !val;
+                               }),
                              ),
-                             value: val,
-                             onChanged: (value) => setState(() {
-                               val = !val;
-                             }),
                            ),
-                           SizedBox(width: MySize.size25),
-                           Expanded( // Ensure text wraps within available space
+                           Expanded(
                              child: RichText(
                                text: TextSpan(
                                  children: [
                                    TextSpan(
-                                     text: 'By proceeding, you agree to our ',
+                                     text: "${AppLocalizations.of(context)!.by_proceeding_you_agree_to_our} ",
                                      style: TextStyle(
-                                       fontSize: 15,
+                                       fontSize: 14,
                                        color: AppColors.grey30.withOpacity(.3),
+
                                      ),
                                    ),
-                                   const TextSpan(
-                                     text: 'Privacy Policy',
-                                     style: TextStyle(
+
+                                    TextSpan(
+                                     text: AppLocalizations.of(context)!.privacy_policy,
+                                     style: const TextStyle(
                                        color: Color(0XFF758AFF),
-                                       fontSize: 15,
+                                       fontSize: 14,
                                        decoration: TextDecoration.underline,
                                        decorationColor: AppColors.lightBlue,
+                                       height: 1.5,
+
                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // Handle navigation here
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const PrivPolicy()), // Replace with your page
+                                          );
+                                        },
                                    ),
                                    TextSpan(
-                                     text: ' and ',
+                                     text: ' ${AppLocalizations.of(context)!.and} ',
                                      style: TextStyle(
                                        color: AppColors.grey30.withOpacity(.3),
-                                       fontSize: 15,
+                                       fontSize: 14,
                                      ),
                                    ),
-                                   const TextSpan(
-                                     text: 'Terms of Use',
-                                     style: TextStyle(
+                                    TextSpan(
+                                     text: AppLocalizations.of(context)!.terms_of_use,
+                                     style:  const TextStyle(
                                        color: Color(0XFF758AFF),
-                                       fontSize: 15,
+                                       fontSize: 14,
                                        decoration: TextDecoration.underline,
                                        decorationColor: AppColors.lightBlue,
                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // Handle navigation here
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const TermsOfServices()), // Replace with your page
+                                          );
+                                        },
                                    ),
                                  ],
                                ),
@@ -317,35 +246,36 @@ class _SignupScreenState extends State<SignupScreen> {
                      ],
                    ),
                  ),
-              Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
-                return  GestureDetector(
-                  onTap: (){
-                    if (_formKey.currentState!.validate()) {
-                      if (passwordController.text.trim() == confirmPasswordController.text.trim()) {
-                        if (val == true) {
-                          registerProvider.register(
-                            context: context,
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
+                  SizedBox(height: MySize.size18,),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: MySize.size35),
+                child: Consumer<RegisterProvider>(builder: (context, registerProvider, child) {
+                  return  GestureDetector(
+                    onTap: (){
+                      if (_formKey.currentState!.validate()) {
+                        if (passwordController.text.trim() == confirmPasswordController.text.trim()) {
+                          if (val == true) {
+                            registerProvider.register(
+                              name: nameController.text.trim(),
+                              context: context,
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
+                            );
+                          } else {
+                            FlutterToast.toastMessage(
+                              message: "Please accept privacy and policy",
+                              isError: true,
+                            );
+                          }
                         } else {
                           FlutterToast.toastMessage(
-                            message: "Please accept privacy and policy",
+                            message: "Password doesn't match with confirm password",
                             isError: true,
                           );
                         }
-                      } else {
-                        FlutterToast.toastMessage(
-                          message: "Password doesn't match with confirm password",
-                          isError: true,
-                        );
                       }
-                    }
-                  },
-                  child: Padding(
-                    padding:
-                    EdgeInsets.only(top: MySize.size34, bottom: MySize.size15),
-                    child:Container(
+                    },
+                    child: Container(
                         height: MySize.scaleFactorHeight * 48,
                         width: MySize.scaleFactorWidth * 333,
                         decoration: BoxDecoration(
@@ -363,40 +293,43 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: registerProvider.isRegister == true ?  const SizedBox(
                               width: 20,
                               height: 20,
-                              child: CircularProgressIndicator()) : const Text('Get started!',
-                            style: TextStyle(color:Colors.white, fontSize: 16),
+                              child: CircularProgressIndicator(color: AppColors.white100,)) :  Text(AppLocalizations.of(context)!.get_started,
+                            style: const TextStyle(
+                                color:Colors.white,
+                                fontSize: 14,
+                               fontWeight: FontWeight.w600
+                            ),
                           ),
                         )),
-                  ),
-                );
-              },),
-                  const Padding(
-                    padding: EdgeInsets.only(
-                        left: 25, right: 25, top: 12, bottom: 12),
-                    child:   Text(
-                      'Do you have already an account?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),),
-                  ),
+                  );
+                },),
+              ),
+                  SizedBox(height: MySize.size40,),
+                   Text(
+                     AppLocalizations.of(context)!.do_you_have_already_an_account,
+                     textAlign: TextAlign.center,
+                     style: const TextStyle(
+                       fontSize: 14,
+                       fontWeight: FontWeight.w400,
+                       color: Colors.white,
+                     ),),
+                  SizedBox(height: MySize.size20,),
                   GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
                     },
                     child: Padding(
-                      padding: EdgeInsets.only(bottom: MySize.size20),
+                      padding: EdgeInsets.only(bottom: MySize.size35,left: 25,right: 25
+                      ),
                       child: FieldContainer(
-                        // containerColor: AppColors.grey30.withOpacity(.3),
                         containerColor:  Provider.of<ThemeChanger>(context)
                             .themeData == darkMode
                             ?  AppColors.grey30.withOpacity(.15)
                             :  AppColors.grey30.withOpacity(.15),
 
-                        mytitle: 'Sign In',
+                        mytitle: AppLocalizations.of(context)!.sign_in,
                         textColor: AppColors.white100.withOpacity(.8),
+
                       ),
                     ),
                   ),
@@ -444,8 +377,8 @@ class _SignupScreenState extends State<SignupScreen> {
               color: Color(0XFF666680),
             ),),
          // color: Color(0XFF666680),
-          const SizedBox(
-            height: 4,
+           SizedBox(
+            height: MySize.size4,
           ),
           TextFormField(
             onChanged: onChanged,
@@ -456,6 +389,7 @@ class _SignupScreenState extends State<SignupScreen> {
                  color:  Color(0XFF666680)
             ),
             decoration: InputDecoration(
+              errorMaxLines: 3,
                isDense: true,
                 contentPadding: const EdgeInsets.only(left: 20, right: 20),
                 hintText: hintText,
