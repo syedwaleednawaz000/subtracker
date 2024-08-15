@@ -268,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child:  Text(
                                       AppLocalizations.of(context)!.forgot_password,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: Color(0XFF666680),
@@ -336,24 +336,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Image.asset(
                               AppImages.faceID,
-                              height: MySize.size68,
-                              width: MySize.size68,
+                              height: MySize.scaleFactorHeight * 69,
+                              width: MySize.scaleFactorWidth * 69,
                               fit: BoxFit.cover,
                             ),
                              SizedBox(
-                              height: MySize.size10,
+                              height: MySize.scaleFactorHeight * 1,
                             ),
                              Text(
                                AppLocalizations.of(context)!.enable_face_id,
                               style: const TextStyle(
-                                  fontFamily: 'Inter-Regular',
+                                  fontFamily: 'Poppins',
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0XFFF0F4F7)),
+                                  color: Color(0xFFF0F4F7)),
                             )
                           ],
                         ),
-                        SizedBox(height: MySize.size44,),
+                        SizedBox(height: MySize.scaleFactorHeight * 45,),
                          Text(
                            AppLocalizations.of(context)!.if_you_dont_have_an_account_yet,
                            textAlign: TextAlign.center,
