@@ -44,7 +44,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
       ),
       body: Column(
         children: [
-
+         SizedBox(height: MySize.size18,),
           const Expanded(
             child: CurrencyTiles(),
           ),
@@ -81,6 +81,7 @@ class CurrencyTiles extends StatelessWidget {
         currencyProvider.currencyData == null ?
         const Center(child: Text("data are not available"),):
         ListView.builder(
+
           shrinkWrap: true,
           itemCount: currencyProvider.currencyData['data'].length,
           itemBuilder: (context, index) {
@@ -94,7 +95,7 @@ class CurrencyTiles extends StatelessWidget {
                 child: Container(
                   height: 52,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(MySize.size15),
                     color: currencyProvider.selectedCurrency == finalData['code']
                         ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.blue.withOpacity(0.5))
                         : (Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : const Color(0XFFF7F7FF)),
@@ -105,6 +106,8 @@ class CurrencyTiles extends StatelessWidget {
                       title: Text(
                         currencyProvider.currencyData['data'][index]['name'].toString(),
                         style: TextStyle(
+                          fontSize:14,
+                          fontWeight: FontWeight.w500,
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF1C1C23),
                         ),
                       ),
@@ -125,8 +128,10 @@ class CurrencyTiles extends StatelessWidget {
                       ),
                       trailing: Text(
                         currencyProvider.currencyData['data'][index]['code'].toString(),
-                        // namingLists_urdu[index],
+
                         style: TextStyle(
+                          fontSize:12,
+                          fontWeight: FontWeight.w500,
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white.withOpacity(.5) : const Color(0XFF1C1C23),
                         ),
                       ),

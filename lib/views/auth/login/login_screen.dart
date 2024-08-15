@@ -321,7 +321,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   child: Center(
                                     child: loginProvider.isLogin == true
-                                        ? const CircularProgressIndicator()
+                                        ? const CircularProgressIndicator(color: Colors.white,)
                                         :  Text(AppLocalizations.of(context)!.sign_in,
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,

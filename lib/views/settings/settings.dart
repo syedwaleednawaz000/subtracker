@@ -17,12 +17,15 @@ import 'package:sub_tracker/views/FAQs_screen/faqs.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/cancelsubscription/cancelsubscription.dart';
 import 'package:sub_tracker/views/contactsupport/contactsupport.dart';
+import 'package:sub_tracker/views/home_screen/home_screen.dart';
 import 'package:sub_tracker/views/manageplan/manageplan.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
 import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
+
+import '../bottomnavbar/bottom_navBar.dart';
 
 class Settings extends StatefulWidget {
   const Settings({
@@ -110,7 +113,11 @@ class _SettingsState extends State<Settings> {
                       : Colors.transparent,
               elevation: 0,
               centerTitle: true,
-
+              leading:GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const BnavBar()));
+                  },
+                  child: Image.asset(AppImages.backArrow)),
               title: Text(
                 'Settings',
                 style: TextStyle(
@@ -831,7 +838,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             const Spacer(),
-                            Image.asset(AppImages.arrowLeft),
+                            Image.asset(AppImages.logout,color: Color(0xffC1C1CD),height: 20,width: 20,),
                           ],
                         ),
                       ),

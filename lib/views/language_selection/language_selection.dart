@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
@@ -50,7 +51,8 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           const SizedBox(height: 45,),
           Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
             return           CustomSaveButton(text: "Save",onTap: (){
-              Get.back();
+              FlutterToast.toastMessage(message: "Yet not implemented, we will add it later",isError: true);
+              // Get.back();
             }
             );
           },)
@@ -81,11 +83,11 @@ class LanguageTiles extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 29, right: 29, top: 10),
                 child: GestureDetector(
                   onTap: () {
-                      // languageProvider.changeLanguage( Locale(languageData[index].languagesCode, languageData[index].countryCode),);
+                      languageProvider.changeLanguage( Locale(languageData[index].languagesCode, languageData[index].countryCode),);
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(MySize.size15),
                       color:languageData[index].languagesCode == languageProvider.languageCode
                           ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF)) // Highlight selected
                           : (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Color(0xffF1F1FF)),

@@ -6,6 +6,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/textStyle.dart';
 import '../../utils/app_Images.dart';
@@ -187,7 +188,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                                   ]),
                               child: Center(
                                 child: forgotPasswordProvider.isVerifyOtp
-                                    ? const CircularProgressIndicator()
+                                    ? const CircularProgressIndicator(color: AppColors.white100,)
                                     :  Text(
                                   AppLocalizations.of(context)!.reset_password,
                                   style: const TextStyle(
