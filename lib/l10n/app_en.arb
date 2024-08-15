@@ -186,5 +186,9 @@
     "renewal_date_must_be_greater_than_start_date": "Renewal date must be greater than start date",
     "please_select_both_image_and_document": "Please select both image and document",
     "please_select_provider": "Please select provider",
-    "add_this_subscription": "Add this addNewSubscription"
+    "add_this_subscription": "Add this addNewSubscription",
+    "exit_app": "Exit App",
+    "do_you_really_want_to_exit_the_app": "Do you really want to exit the app?",
+    "no": "No",
+    "yes": "Yes"
 }

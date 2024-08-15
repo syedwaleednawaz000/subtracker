@@ -787,6 +787,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     GestureDetector(
                       onTap: () {
+
                         Provider.of<ProfileProvider>(context, listen: false)
                             .cleanLocalData(context: context);
                       },
@@ -815,19 +816,6 @@ class _SettingsState extends State<Settings> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Image.asset(
-                            //   AppImages.logout,
-                            //   height: 20,
-                            //   width: 20,
-                            //   color: Provider.of<ThemeChanger>(context)
-                            //               .themeData ==
-                            //           darkMode
-                            //       ? Color(0XFFA2A2B5)
-                            //       : Colors.red,
-                            // ),
-                            // SizedBox(
-                            //   width: MySize.size22,
-                            // ),
                             Text(
                               'Logout',
                               style: TextStyle(

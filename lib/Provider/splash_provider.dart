@@ -31,7 +31,7 @@ class SplashProvider extends ChangeNotifier{
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         if(prefs.getString(AppConstant.saveUserToken) != null){
           AppConstant.getUserToken = prefs.getString(AppConstant.saveUserToken).toString();
-          Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder:  (context) => const BnavBar()));
         }else{
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(

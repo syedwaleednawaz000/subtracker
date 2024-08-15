@@ -43,11 +43,12 @@ class LoginProvider extends ChangeNotifier{
         if (kDebugMode) {
           log("hit successfully");
         }
-        FlutterToast.toastMessage(message: "Successfull login",);
+        FlutterToast.toastMessage(message: "Successfully logged in",);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const BnavBar()),
+          MaterialPageRoute(builder: (context) => BnavBar()),
         );
+
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
         emailController.clear();
         passwordController.clear();
