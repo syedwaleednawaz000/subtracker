@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
