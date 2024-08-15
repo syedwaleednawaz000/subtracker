@@ -117,7 +117,7 @@ class LanguageProvider extends ChangeNotifier{
   }
 
   Future<void> changeLanguage(Locale locale) async {
-  _locale = locale;
+  // _locale = locale;
   languageCode = locale.languageCode.toString();
   _textDirection = locale.languageCode == 'ur' ? TextDirection.rtl : TextDirection.ltr;
   _current = locale.languageCode == 'ur' ? 1 : 0;  // Update current index based on the selected language

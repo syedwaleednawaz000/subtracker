@@ -33,7 +33,7 @@ class _ContactSupportState extends State<ContactSupport> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF1C1C23)
+            ? const Color(0xff1C1C23)
             : Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),
@@ -68,8 +68,8 @@ class _ContactSupportState extends State<ContactSupport> {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFFEEEEEE)
-                          : const Color(0XFF333339),
+                          ? const Color(0xffEEEEEE)
+                          : const Color(0xff333339),
                       fontFamily: 'Poppins_Regular'
                   ),
                 ),
@@ -79,8 +79,8 @@ class _ContactSupportState extends State<ContactSupport> {
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w400,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFFEEEEEE)
-                          : const Color(0XFF424252),
+                          ? const Color(0xffEEEEEE)
+                          : const Color(0xff424252),
                       fontFamily: 'Poppins_Regular'
                   ),
                 ),
@@ -103,8 +103,8 @@ class _ContactSupportState extends State<ContactSupport> {
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? const Color(0XFFFFFFFF)
-                      : const Color(0XFFD2D2D2),
+                      ? const Color(0xffFFFFFF)
+                      : const Color(0xffD2D2D2),
                 ),
                 width: MySize.scaleFactorWidth * 310,
                 inputDecorationTheme: InputDecorationTheme(
@@ -115,15 +115,15 @@ class _ContactSupportState extends State<ContactSupport> {
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFF757784)
-                            : const Color(0XFFE2E2E2),),
+                            ? const Color(0xff757784)
+                            : const Color(0xffE2E2E2),),
                       borderRadius: const BorderRadius.all(Radius.circular(4))
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF757784)
-                          : const Color(0XFFE2E2E2),
+                          ? const Color(0xff757784)
+                          : const Color(0xffE2E2E2),
                     ),
                   ),
                   isDense: true,
@@ -146,8 +146,8 @@ class _ContactSupportState extends State<ContactSupport> {
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w400,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFFEEEEEE)
-                          : const Color(0XFF424252),
+                          ? const Color(0xffEEEEEE)
+                          : const Color(0xff424252),
                       fontFamily: 'Poppins_Regular'
                   ),
                 ),
@@ -165,8 +165,8 @@ class _ContactSupportState extends State<ContactSupport> {
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w400,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFFEEEEEE)
-                          : const Color(0XFF424252),
+                          ? const Color(0xffEEEEEE)
+                          : const Color(0xff424252),
                       fontFamily: 'Poppins_Regular'
                   ),
                 ),
@@ -190,8 +190,8 @@ class _ContactSupportState extends State<ContactSupport> {
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(40), topRight: Radius.circular(40)),
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF353542)
-                : const Color(0XFFF1F1FF).withOpacity(.8),
+                ? const Color(0xff353542)
+                : const Color(0xffF1F1FF).withOpacity(.8),
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 4),
@@ -217,8 +217,8 @@ class _ContactSupportState extends State<ContactSupport> {
                       borderRadius: BorderRadius.circular(40),
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? const Color(0XFFFFFFFF).withOpacity(.16)
-                          : const Color(0XFFF1F1FF),
+                          ? const Color(0xffFFFFFF).withOpacity(.16)
+                          : const Color(0xffF1F1FF),
                       border: Border(
                           top: BorderSide(color: Colors.white.withOpacity(.15)),
                           left: BorderSide(color: Colors.white.withOpacity(.15)),
