@@ -188,7 +188,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                   ),
                                   SizedBox(height: MySize.size4),
                                   Text(
-                                    'of ${currencyProvider.selectedCurrencySymbol} ${spendingBudgetProvider.totalBudget}',
+                                    'of ${currencyProvider.selectedCurrencySymbol} ${spendingBudgetProvider.totalBudget} budget',
                                     style: TextStyle(
                                       fontSize: MySize.size12,
                                       fontWeight: FontWeight.w500,
