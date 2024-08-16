@@ -126,10 +126,14 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                           radiusFactor: 01.2,
                           showLabels: false,
                           showTicks: false,
-                          axisLineStyle: const AxisLineStyle(
+                          axisLineStyle: AxisLineStyle(
                             thickness: 0.07,
                             cornerStyle: CornerStyle.bothCurve,
-                            color: Colors.black,
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? Colors.white
+                                    : Colors.black,
                             thicknessUnit: GaugeSizeUnit.factor,
                           ),
                           pointers: const <GaugePointer>[
@@ -234,9 +238,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                     TextWidgetInterMedium(
                       title: 'Your budgets are on track',
                       fontSize: MySize.size14,
-
                       fontWeight: FontWeight.w600,
-
                       color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
                           ? const Color(0XFFFFFFFF)
