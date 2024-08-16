@@ -46,7 +46,7 @@ double fontSize = 12, FontWeight fontWeight = FontWeight.normal,TextAlign align 
          color: color,
     // height: 1.5,
     // wordSpacing: 5,
-        fontFamily: 'Inter-Medium',
+        fontFamily: 'Inter',
   ),
     maxLines: 2,
     overflow: TextOverflow.ellipsis,

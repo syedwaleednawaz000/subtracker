@@ -190,9 +190,9 @@ class _HomeScreenState extends State<HomeScreen>
                                     color: Provider.of<ThemeChanger>(context)
                                                 .themeData ==
                                             darkMode
-                                        ? const Color(0XFF0E0E12)
+                                        ? const Color(0xFF0E0E12)
                                         // ? Colors.orange
-                                        : const Color(0XFFFFFFFF),
+                                        : const Color(0xFFFFFFFF),
                                   ),
                                   child: TabBar(
                                     indicatorPadding:

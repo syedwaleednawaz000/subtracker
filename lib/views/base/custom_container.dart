@@ -49,8 +49,8 @@ class _CustomContainerState extends State<CustomContainer> {
           bottomLeft: Radius.circular(MySize.size25),
         ),
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF353542)
-            : const Color(0XFFFFFFFF),
+            ? const Color(0xFF353542)
+            : const Color(0xFFFFFFFF),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

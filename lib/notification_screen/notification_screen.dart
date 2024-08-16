@@ -19,7 +19,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
         child: CustomAppBar(
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
           },
           text: 'Notifications',
@@ -27,19 +27,19 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ),
       ),
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
-          : const Color(0XFFF7F7FF),
+          ? const Color(0xFF1C1C23)
+          : const Color(0xFFF7F7FF),
       body: Column(
         children: [
           Padding(
-            padding:  EdgeInsets.only(left:  MySize.size35, top: 25),
+            padding: EdgeInsets.only(left: MySize.size40, top: MySize.size25),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Notifications(4)',
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: MySize.size16,
+                    fontSize: MySize.size14,
                     color:
                         Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? Colors.white
@@ -49,8 +49,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             ),
           ),
 
-          const SizedBox(
-            height: 25,
+           SizedBox(
+            height: MySize.size18,
           ),
 
           Expanded(
@@ -58,7 +58,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 itemCount: 4,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding:  EdgeInsets.only(left: MySize.size18, right: 28,
+                    padding: EdgeInsets.only(
+                      left: MySize.size18,
+                      right: 28,
                     ),
                     child: Column(
                       children: [
@@ -66,55 +68,63 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           title: Text(
                             'Payment Alert',
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w800,
+                                fontSize: MySize.size14,
+
+                                fontWeight: FontWeight.w500,
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
                                         darkMode
                                     ? Colors.white
                                     : const Color(0XFF424252),
-                                fontFamily: 'Poppins_Regular'),
+                                fontFamily: 'Poppins'),
                           ),
                           subtitle: Text(
                             'Lorem ipsum dolor sit amet consectetur. Turpis diam quis odio ipsum in.',
                             style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: MySize.size12,
-                                color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode
+                                fontWeight: FontWeight.w300,
+                                fontSize: MySize.size10,
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
                                     ? Colors.white
-                                    : const Color(0XFF424252),
-                                fontFamily: 'Poppins_Regular'),),
+                                    : const Color(0xFF424252),
+                                fontFamily: 'Poppins_Regular'),
+                          ),
                           leading: Container(
-                            height: 48,
-                            width: 48,
+                            height: MySize.size48,
+                            width: MySize.size48,
                             decoration: BoxDecoration(
-                                color: Provider.of<ThemeChanger>(context).themeData ==
-                                    darkMode
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
                                     ? Colors.white.withOpacity(.1)
-                                    : const Color(0XFFC1C1FF).withOpacity(.2),
-                              shape: BoxShape.circle
-                            ),
+                                    : const Color(0xFFC1C1FF).withOpacity(.20),
+                                shape: BoxShape.circle),
                             child: Image.asset(
                               'assets/icons/notif.png',
-                              height: 48,
-                              width: 48,
-                              color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
+                              height: MySize.size19,
+                              width: MySize.size19,
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
                                   ? Colors.white
-                                  : const Color(0XFF424252),
+                                  : const Color(0xFF424252),
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 12, bottom: 8),
+                          padding:  EdgeInsets.only(top: MySize.size12, bottom: MySize.size10),
                           child: Divider(
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? const Color(0xFFD0D3FF).withOpacity(.2)
-                                : const Color(0xFFD0D3FF).withOpacity(.2),
-                            indent: 40,
-                            endIndent: 80,
+
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0xFFD0D3FF).withOpacity(.2)
+                                    : const Color(0xFFD0D3FF).withOpacity(.2),
+                            indent: 59,
+                            endIndent: 63,
+                            thickness: 1.3,
+                            // height: 1.6,
                           ),
                         )
                       ],

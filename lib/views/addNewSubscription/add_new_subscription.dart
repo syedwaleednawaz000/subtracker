@@ -97,7 +97,7 @@ class _SubscriptionState extends State<Subscription> {
       context: context,
       builder: (BuildContext context) {
         return provider.isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Container(
                 padding: const EdgeInsets.all(16.0),
                 child: ListView(
@@ -290,13 +290,13 @@ class _SubscriptionState extends State<Subscription> {
               children: [
                 /// Above container
                 Container(
-                  height: MySize.scaleFactorHeight * 515,
+                  height: MySize.scaleFactorHeight * 540,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                          ? const Color(0XFF353542)
-                          : const Color(0XFFF1F1FF),
+                          ? const Color(0xFF353542)
+                          : const Color(0xFFF1F1FF),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(MySize.size24),
                           bottomRight: Radius.circular(MySize.size24))),
@@ -311,7 +311,7 @@ class _SubscriptionState extends State<Subscription> {
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Image.asset(AppImages.backArrow),
+                              child: Image.asset(AppImages.backArrow,width: MySize.size24,height: MySize.size24,),
                             ),
                             SizedBox(
                               width: MySize.scaleFactorWidth * 145,
@@ -658,8 +658,8 @@ class _SubscriptionState extends State<Subscription> {
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
-                                  ? const Color(0XFFA2A2B5)
-                                  : const Color(0XFFA2A2B5),
+                                  ? const Color(0xFFA2A2B5)
+                                  : const Color(0xFFA2A2B5),
                               fontSize: MySize.size16,
                               fontFamily: '',
                               fontWeight: FontWeight.w600,
