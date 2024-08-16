@@ -74,6 +74,7 @@ class AppImages {
   static String  analytics = 'assets/icons/analytics.png';
   static String  backArrow = 'assets/icons/back_arrow.png';
   static String  downwardArrow = 'assets/icons/downwardArrow.png';
+  static String  bioMetricimg = 'assets/icons/bioMetric.png';
 
   ///images
 
