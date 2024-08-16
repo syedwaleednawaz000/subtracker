@@ -7,7 +7,7 @@ import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 
 class ForgetPassword extends StatefulWidget {
-  ForgetPassword({super.key});
+  const ForgetPassword({super.key});
 
   @override
   State<ForgetPassword> createState() => _ForgetPasswordState();
@@ -36,7 +36,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     final localizations = AppLocalizations.of(context);
     return Scaffold(
       // backgroundColor: const Color(0xff073b5c),
-      // resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -65,9 +65,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
                 Text(AppLocalizations.of(context)!.forgot_password,
-                  style: const TextStyle(
-                      color: Color(0XFFF0F4F7),
-                      fontSize: 26,
+                  style:  TextStyle(
+                      color: const Color(0xFFF0F4F7),
+                      fontSize: MySize.size26,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Poppins_Regular'
                   ),
@@ -77,7 +77,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
                 Text(AppLocalizations.of(context)!.forgot_your_password_dont_worry_we_have_your_back,
                   style: const TextStyle(
-                    color: Color(0XFFF0F4F7),
+                    color: Color(0xFFF0F4F7),
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'Poppins_Regular',

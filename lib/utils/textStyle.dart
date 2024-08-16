@@ -5,6 +5,7 @@ class CustomTextStyles {
   static TextStyle textStyleWith14WhiteBold400() {
     return const TextStyle(
       fontSize: 14,
+      fontFamily: "Inter",
       fontWeight: FontWeight.w400,
       color: Colors.white,
     );

@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             theme: themeChanger.themeData,
             locale: languageProvider.appLocale,
-            localizationsDelegates:  [
+            localizationsDelegates:  const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
