@@ -119,11 +119,13 @@ class AppImages {
   static const String homeIcon = 'assets/icons/home.png';
   static const String dashboardIcon = 'assets/icons/dashboard.png';
   static const String calendarIcon = 'assets/icons/Calendar.png';
+  static const String settingIcon = 'assets/icons/settings.png';
   static const String creditCard = 'assets/icons/creditCard.png';
   static const String fingerIcon = 'assets/icons/finger.png';
   static const String carIcon = 'assets/icons/car.png';
   static const String starsIcon = 'assets/icons/stars.png';
   static const String notificationIcon = 'assets/icons/notify.png';
+  static const String notificationIconSvg = 'assets/icons/bell.svg';
 
   static const String half_chartIcon = 'assets/images/chart_half.png';
   static const String chart_halfIcon = 'assets/images/half_chart.png';

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
@@ -15,6 +16,8 @@ import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
 import 'circular_ProgressBar.dart';
 import 'linecolor_container.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+
 
 class CustomContainer extends StatefulWidget {
   String monthlyBill;
@@ -124,22 +127,21 @@ class _CustomContainerState extends State<CustomContainer> {
                 right: 24,
                 top: 31,
                 child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NotificationsScreen()));
-                    },
-                    child: Image.asset(
-                      AppImages.notificationIcon,
-                      height: 25,
-                      width: 25,
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                          ? const Color(0XFFA2A2B5)
-                          : const Color(0XFF424252),
-                    )),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const NotificationsScreen()),
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    AppImages.notificationIconSvg,
+                    height: MySize.size24,
+                    width: MySize.size24,
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0xFFA2A2B5)
+                        : const Color(0xFFC1C1CD),
+                  ),
+                ),
               )
             ],
           ),
@@ -235,7 +237,7 @@ class DottedArcPainter extends CustomPainter {
         final Path extractPath =
             pathMetric.extractPath(distance, distance + dashWidth);
         dottedPath.addPath(extractPath, Offset.zero);
-        distance += dashWidth * 20; // Gap between dashes
+        distance += dashWidth * 16; // Gap between dashes
       }
     }
     return dottedPath;

@@ -27,35 +27,38 @@ class UpComingBillWidget extends StatelessWidget {
                     )));
       },
       child: Container(
-        height: 64,
+        height: MySize.size64,
         width: double.infinity,
         margin: EdgeInsets.symmetric(vertical: MySize.size5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? Color(0XFF353542)
-                    : Color(0XFF353542).withOpacity(.1),
+                    ? const Color(0XFF353542)
+                    : const Color(0XFF353542).withOpacity(.1),
                 width: 1)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               children: [
                 Padding(
                   padding:
-                  EdgeInsets.only(left: MySize.size12, right: MySize.size15),
+                  EdgeInsets.only(left: MySize.size12, right: MySize.size14),
                   child: Container(
                     height: MySize.size40,
                     width: MySize.size40,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(MySize.size12),
                       color:
                       Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFF353542)
-                          : Color(0XFFF1F1FF),
+                          ? const Color(0xFF353542)
+                          : const Color(0xFFF1F1FF),
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           '${month}',
@@ -63,37 +66,42 @@ class UpComingBillWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: MySize.size12,
                             fontWeight: FontWeight.w500,
+                            fontFamily: 'Inter',
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFFA2A2B5)
-                                : Color(0XFF424252),
+                                ? const Color(0XFFA2A2B5)
+                                : const Color(0XFF424252),
                           ),
                         ),
+
                         Text(
                           '${day}',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: MySize.size14,
                             fontWeight: FontWeight.w600,
+                            fontFamily: "Inter",
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? Color(0XFFA2A2B5)
-                                : Color(0XFF424252),
+                                ? const Color(0XFFA2A2B5)
+                                : const Color(0XFF424252),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
+
                 Text(
                   "${finalData['provider'] == null ? "" : finalData['provider']['name']}",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: MySize.size14,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
                     color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Color(0XFFFFFFFF)
-                        : Color(0XFF424252),
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0xFF424252),
                   ),
                 ),
               ],
@@ -106,11 +114,12 @@ class UpComingBillWidget extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontSize: MySize.size14,
+                      fontFamily: "Inter",
                       fontWeight: FontWeight.w600,
                       color:
                       Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFFFFFFFF)
-                          : Color(0XFF424252),
+                          ? const Color(0xFFFFFFFF)
+                          : const Color(0xFF1C1C23),
                     ),
                   );
                 },))

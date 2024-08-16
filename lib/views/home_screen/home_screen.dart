@@ -54,70 +54,77 @@ class _HomeScreenState extends State<HomeScreen>
     return WillPopScope(
       onWillPop: () async {
         return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor:  Provider.of<ThemeChanger>(context)
-                .themeData == darkMode
-                ?  const Color(0XFF4E4E61)
-                :  const Color(0XFFF1F1FF),
-            titlePadding: EdgeInsets.only(top: MySize.size30,left:  MySize.size120),
-            title: Text('Exit App',
-              style: TextStyle(
-                fontSize: MySize.size18,
-                fontWeight: FontWeight.w600,
-                color:  Provider.of<ThemeChanger>(context)
-                    .themeData == darkMode
-                    ?  Colors.white
-                    :  const Color(0XFF424252),
-              ),
-            ),
-            content: Text('Do you really want to exit the app?',
-              textAlign:TextAlign.center,
-              style: TextStyle(
-                fontSize: MySize.size14,
-                fontWeight: FontWeight.w400,
-                color:  Provider.of<ThemeChanger>(context)
-                    .themeData == darkMode
-                    ?  Colors.white
-                    :  const Color(0XFF424252),
-              ),
-            ),
-
-            actions: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('No',
-                    style: TextStyle(
-                      fontSize: MySize.size18,
-                      fontWeight: FontWeight.w600,
-                      color:  Provider.of<ThemeChanger>(context)
-                          .themeData == darkMode
-                          ?  const Color(0XFFC54646) // #2B83F2
-                          :  const Color(0XFFC54646),
-                    ),
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor:
+                    Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0XFF4E4E61)
+                        : const Color(0XFFF1F1FF),
+                titlePadding:
+                    EdgeInsets.only(top: MySize.size30, left: MySize.size120),
+                title: Text(
+                  'Exit App',
+                  style: TextStyle(
+                    fontSize: MySize.size18,
+                    fontWeight: FontWeight.w600,
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? Colors.white
+                            : const Color(0XFF424252),
                   ),
                 ),
-                TextButton(
-                  onPressed: () => exit(0),
-                  child: Text('Yes',
-                    style: TextStyle(
-                      fontSize: MySize.size18,
-                      fontWeight: FontWeight.w600,
-                      color:  Provider.of<ThemeChanger>(context)
-                          .themeData == darkMode
-                          ?  const Color(0XFF2B83F2) // #
-                          :  const Color(0XFF2B83F2),
-                    ),
+                content: Text(
+                  'Do you really want to exit the app?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: MySize.size14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? Colors.white
+                            : const Color(0XFF424252),
                   ),
                 ),
-              ],
-            )
-            ],
-          ),
-        ) ?? false;
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text(
+                          'No',
+                          style: TextStyle(
+                            fontSize: MySize.size18,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0XFFC54646) // #2B83F2
+                                    : const Color(0XFFC54646),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => exit(0),
+                        child: Text(
+                          'Yes',
+                          style: TextStyle(
+                            fontSize: MySize.size18,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0XFF2B83F2) // #
+                                    : const Color(0XFF2B83F2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ) ??
+            false;
       },
       child: SafeArea(
         child: Scaffold(
@@ -209,11 +216,12 @@ class _HomeScreenState extends State<HomeScreen>
                                                 darkMode
                                             ? const Color(0XFFA2A2B5)
                                             : const Color(0XFFA2A2B5),
-                                    labelColor: Provider.of<ThemeChanger>(context)
-                                                .themeData ==
-                                            darkMode
-                                        ? const Color(0XFFFFFFFF)
-                                        : const Color(0XFF424252),
+                                    labelColor:
+                                        Provider.of<ThemeChanger>(context)
+                                                    .themeData ==
+                                                darkMode
+                                            ? const Color(0XFFFFFFFF)
+                                            : const Color(0XFF424252),
                                     tabs: [
                                       Tab(
                                         child: Center(
@@ -301,11 +309,13 @@ class _HomeScreenState extends State<HomeScreen>
                                             margin: EdgeInsets.symmetric(
                                                 horizontal: MySize.size20),
                                             child: ListView.builder(
+                                              shrinkWrap: true,
                                               itemCount:
                                                   data['upcommingbills'].length,
                                               itemBuilder: (context, index) {
                                                 var finalData =
-                                                    data['upcommingbills'][index];
+                                                    data['upcommingbills']
+                                                        [index];
                                                 return UpComingBillWidget(
                                                     upComingBills: finalData);
                                               },

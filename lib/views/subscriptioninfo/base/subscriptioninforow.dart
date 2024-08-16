@@ -18,7 +18,7 @@ class SubscriptionInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
           text,
@@ -26,9 +26,10 @@ class SubscriptionInfoRow extends StatelessWidget {
           style: TextStyle(
             fontSize: MySize.size14,
             fontWeight: FontWeight.w600,
+            fontFamily: 'Inter',
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
                 ? Colors.white
-                : Color(0XFF424252),
+                : const Color(0xFF424252),
           ),
         ),
         const Spacer(),
@@ -39,9 +40,10 @@ class SubscriptionInfoRow extends StatelessWidget {
             style: TextStyle(
               fontSize: MySize.size12,
               fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
               color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                  ? Color(0XFFA2A2B5)
-                  : Color(0XFFA2A2B5),
+                  ? const Color(0xFFA2A2B5)
+                  : const Color(0xFFA2A2B5),
             ),
           ),
 
