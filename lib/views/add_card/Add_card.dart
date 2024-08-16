@@ -64,7 +64,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       ? const Color(0XFFFFFFFF)
                       : const Color(0XFF424252),
                   fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins_Regular'
               ),
             ),

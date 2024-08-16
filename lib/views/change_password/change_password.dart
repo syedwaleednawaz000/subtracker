@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -235,18 +237,23 @@ class _ChangePasswordState extends State<ChangePassword> {
                     SizedBox(height: MySize.size20,),
 
                     Consumer<ChangePasswordProvider>(builder: (context, registerProvider, child) {
-                      return StepProgressIndicator(
-                        totalSteps: 4,
-                        currentStep: registerProvider.strengthLevel,
-                        size: 8,
-                        padding: 0,
-                        selectedColor: registerProvider.strengthLevel == 0
-                            ? Colors.grey
-                            : registerProvider.colors[registerProvider.strengthLevel - 1],
-                        unselectedColor: Color(0XFF353542),
-                        roundedEdges: Radius.circular(10),
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(MySize.size90),
+                        child: StepProgressIndicator(
+                          totalSteps: 4,
+                          currentStep: registerProvider.strengthLevel,
+                          size: 8, // Ensure this value is half the height for fully rounded ends
+                          padding: 0,
+                          selectedColor: registerProvider.strengthLevel == 0
+                              ? Colors.grey
+                              : registerProvider.colors[registerProvider.strengthLevel - 1],
+                          unselectedColor: const Color(0XFF353542),
+                          roundedEdges:Radius.circular(MySize.size90), // Full circular edges
+                        ),
                       );
-                    },),
+
+                    },
+                    ),
 
                   ],
                 ),

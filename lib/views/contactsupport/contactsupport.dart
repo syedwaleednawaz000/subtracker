@@ -66,7 +66,7 @@ class _ContactSupportState extends State<ContactSupport> {
                 Text('Generate Ticket',
                   style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ? const Color(0xffEEEEEE)
                           : const Color(0xff333339),
@@ -188,10 +188,11 @@ class _ContactSupportState extends State<ContactSupport> {
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                topLeft: Radius.circular(24), topRight: Radius.circular(24)),
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0xff353542)
-                : const Color(0xffF1F1FF).withOpacity(.8),
+                ? const Color(0XFF353542).withOpacity(0.50)
+                : const Color(0XFFF1F1FF).withOpacity(.50),
+
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 4),
@@ -217,8 +218,8 @@ class _ContactSupportState extends State<ContactSupport> {
                       borderRadius: BorderRadius.circular(40),
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? const Color(0xffFFFFFF).withOpacity(.16)
-                          : const Color(0xffF1F1FF),
+                          ? const Color(0XFFF1F1FF).withOpacity(.15)
+                          : const Color(0XFFF1F1FF),
                       border: Border(
                           top: BorderSide(color: Colors.white.withOpacity(.15)),
                           left: BorderSide(color: Colors.white.withOpacity(.15)),

@@ -87,7 +87,7 @@ class LanguageTiles extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(MySize.size15),
                       color:languageData[index].languagesCode == languageProvider.languageCode
                           ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF)) // Highlight selected
                           : (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Color(0xffF1F1FF)),
@@ -146,19 +146,12 @@ class CustomSaveButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
         ),
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF353542)
-            : const Color(0XFFF1F1FF).withOpacity(.86),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 4),
-            blurRadius: 4,
-            color: AppColors.black00.withOpacity(.25),
-          ),
-        ],
+            ? const Color(0XFF353542).withOpacity(0.50)
+            : const Color(0XFFF1F1FF).withOpacity(.50),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -169,9 +162,9 @@ class CustomSaveButton extends StatelessWidget {
               height: 48,
               width: 288,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(24),
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? const Color(0XFFFFFFFF).withOpacity(.1)
+                    ? const Color(0XFFFFFFFF).withOpacity(.15)
                     : const Color(0XFFF1F1FF),
               ),
               child: Center(
