@@ -9,6 +9,7 @@ import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 import '../base/text_widgets.dart';
+import '../language_selection/base/custom_appBar.dart';
 import '../manageplan/base/manageplanrowlist.dart';
 import 'base/calcelsubscriptiondialogbox.dart';
 import 'base/subscribestackwidget.dart';
@@ -24,37 +25,22 @@ class CancelSubscription extends StatelessWidget {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? const Color(0XFF1C1C23)
           : Colors.white,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(MySize.size72),
+            child: Padding(
+              padding: EdgeInsets.only(top: MySize.size25),
+              child: CustomAppBar(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                text: 'Cancel Subscription',
+                icon: Icons.abc,
+              ),
+            ),
+          ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MySize.size23, vertical: MySize.size32),
-              child: Row(
-                children: [
-                  GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(AppImages.backArrow)),
-                  SizedBox(
-                    width: MySize.scaleFactorWidth * 88,
-                  ),
-                  Text(
-                    'Cancel Subscription',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: MySize.size16,
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                          darkMode
-                          ? const Color(0XFFA2A2B5)
-                          : const Color(0XFFA2A2B5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             SizedBox(
               height: MySize.size54,
             ),

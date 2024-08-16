@@ -24,15 +24,13 @@ class AppImages {
 
   static const halfSpotifyLogo1 = 'assets/icons/halfspotifylogo.png';
   static const halfOneDriveLogo1 = 'assets/icons/halfonedrivelogo.png';
-  // static const subtractIcon = 'assets/icons/subtract.png';
   static const additionIcon = 'assets/icons/add.png';
-  static String  faceID = 'assets/icons/faceID.png';
-  static String  editingIcon = 'assets/images/editIcon.png';
+  static const  String faceID = 'assets/icons/FaceID.png';
+  static const  String  editingIcon = 'assets/images/editIcon.png';
 
 
 
   static const googleIcon= 'assets/icons/google.png';
-  // static const personIcon = 'assets/images/person.png';
   static const indeedIcon = 'assets/images/indeed.png';
   static const spotifyIcon = 'assets/images/Vector.png';
   static const hboIcons = 'assets/images/hbo.png';
@@ -52,7 +50,7 @@ class AppImages {
   // static  Image addition_Image = Image(image: const AssetImage('assets/icons/add.png'),height:MySize.scaleFactorHeight*4,width: MySize.size24, );
 
 
-  static String  faceID_Image = 'assets/faceid/Group.png';
+  static String  faceIdImage = 'assets/images/face_id.png';
   static String  trash = 'assets/icons/Trash.png';
   static String  notify = 'assets/icons/notify.png';
   static String  person = 'assets/images/person.png';
@@ -74,17 +72,15 @@ class AppImages {
   static String  logout = 'assets/icons/logout.png';
   static String  chart = 'assets/icons/Chart.png';
   static String  analytics = 'assets/icons/analytics.png';
-  static String  backArrow = 'assets/icons/backArrow.png';
+  static String  backArrow = 'assets/icons/back_arrow.png';
   static String  downwardArrow = 'assets/icons/downwardArrow.png';
 
   ///images
 
   static  Image hbo_Image = Image(image: const AssetImage('assets/images/hbo.png'), height:MySize.scaleFactorHeight*40, width: MySize.scaleFactorWidth*50);
-  // static  Image tresorlyImage = Image(image: const AssetImage('assets/icons/tresorly.png'), height: 25,);
   static  Image spotify_Image = Image(image: const AssetImage('assets/images/Vector.png'), height:MySize.scaleFactorHeight*70, width: MySize.scaleFactorWidth*70);
   static  Image indeed_Image = Image(image: const AssetImage('assets/images/indeed.png'), height:MySize.scaleFactorHeight*70, width: MySize.scaleFactorWidth*70);
-  // static  Image person_Image = Image(image: const AssetImage('assets/images/person.png'), height:MySize.scaleFactorHeight*72, width: MySize.scaleFactorWidth*72);
-  // static  Image google_Image = Image(image: const AssetImage('assets/images/google.png'), height:MySize.scaleFactorHeight*27, width: MySize.scaleFactorWidth*27);
+
 
 
 

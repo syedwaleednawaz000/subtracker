@@ -396,22 +396,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+          ? const Color(0XFF1C1C23)
+          : Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
-          padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child: AppBar(
-            scrolledUnderElevation: 0,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            leading:GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
-            title:  Text('Manage Payment',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+          padding: EdgeInsets.only(top: MySize.size25),
+          child: CustomAppBar(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            text: 'Manage Payment',
+            icon: Icons.abc,
           ),
         ),
       ),
@@ -751,42 +748,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
             CustomSaveButton(
                titleText: 'Save',
             ),
-            // Container(
-            //   height: 114, width: double.infinity,
-            //   decoration: BoxDecoration(
-            //       // gradient: LinearGradient(colors: [Color(0XFF1C1C23), Color(0XFF3F3F4B)]),
-            //       color: Color(0XFF272730),
-            //       borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-            //       boxShadow: [
-            //         BoxShadow(
-            //             offset: Offset(0, 4),
-            //             blurRadius: 4,
-            //             color: AppColors.black00.withOpacity(.25)
-            //         )
-            //       ]
-            //   ),
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       GestureDetector(
-            //         onTap:(){
-            //           Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
-            //         },
-            //         child: Container(
-            //             height: 48, width: 288,
-            //             decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(40),
-            //                 // color: Color(0XFFFFFFFF).withOpacity(.15),
-            //                 color: Colors.white.withOpacity(.10),
-            //                 border: Border.all(color: Color(0XFFFFFFFF).withOpacity(.1))
-            //             ),
-            //             child: Center(child: TextWidgetInterMedium(title: 'Save',
-            //                 // color: Colors.white
-            //             ))),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

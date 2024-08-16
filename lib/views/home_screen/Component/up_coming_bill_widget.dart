@@ -31,7 +31,7 @@ class UpComingBillWidget extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.symmetric(vertical: MySize.size5),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(MySize.size16),
             border: Border.all(
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
                     ? const Color(0XFF353542)

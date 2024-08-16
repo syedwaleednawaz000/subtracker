@@ -252,9 +252,10 @@ class _HomeScreenState extends State<HomeScreen>
                                 ),
                               ),
                               SizedBox(
-                                height: MySize.size100,
+                                height: MySize.size200,
                                 child: TabBarView(
                                   controller: _tabController,
+
                                   children: [
                                     data['subscriptions'].length == 0
                                         ? Center(

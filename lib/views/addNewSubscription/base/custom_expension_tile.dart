@@ -13,20 +13,25 @@ class CustomExpensionTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color:  Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Color(0XFF272730)
-          : Color(0XFFF7F7FF),
+          ? const Color(0XFF272730)
+          : const Color(0XFFF7F7FF),
           borderRadius: BorderRadius.circular(10)),
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          trailing: Icon(Icons.keyboard_arrow_down,color: Colors.black,),
-          iconColor: Colors.black,
+          trailing: Icon(
+            Icons.keyboard_arrow_down,
+            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                ? Colors.white
+                :  Colors.black,
+          ),
+          //iconColor: Colors.black,
           title: Text( title, style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                   ? Colors.white
-                  : Color(0XFF333339),
+                  : const Color(0XFF333339),
               fontFamily: 'Poppins_Regular'
           ),),
           children: <Widget>[
