@@ -12,7 +12,6 @@ import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/auth/signUp/sigup_screen.dart';
 import 'package:sub_tracker/views/forgot_password/forget_password.dart';
 
-
 import '../../../theme/theme.dart';
 import '../../base/field_container.dart';
 
@@ -24,8 +23,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   bool val = false;
   bool isSelected = true;
 
@@ -61,23 +58,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: EdgeInsets.only(
                               top: 28, bottom: 165, left: 115, right: 115),
                         ),
-                         Text(
+                        Text(
                           '${AppLocalizations.of(context)!.welcome_back}',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
                               color: Colors.white),
                         ),
-                        SizedBox(height: MySize.size30,),
+                        SizedBox(
+                          height: MySize.size30,
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 24, right: 24,),
+                            left: 24,
+                            right: 24,
+                          ),
                           child: Column(
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                   Text(
+                                  Text(
                                     '${AppLocalizations.of(context)!.email_address}',
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
@@ -98,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isDense: true,
                                       contentPadding: const EdgeInsets.only(
                                           left: 20, right: 20),
-                                      hintText: AppLocalizations.of(context)!.email,
+                                      hintText:
+                                          AppLocalizations.of(context)!.email,
                                       hintStyle: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -140,8 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                   Text(
-                                     AppLocalizations.of(context)!.password,
+                                  Text(
+                                    AppLocalizations.of(context)!.password,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 14,
@@ -164,7 +166,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isDense: true,
                                       contentPadding: const EdgeInsets.only(
                                           left: 20, right: 20),
-                                      hintText: AppLocalizations.of(context)!.password,
+                                      hintText: AppLocalizations.of(context)!
+                                          .password,
                                       hintStyle: TextStyle(
                                         fontFamily: 'Poppins_Regular',
                                         fontSize: 14,
@@ -211,11 +214,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: MySize.size20,),
+                              SizedBox(
+                                height: MySize.size20,
+                              ),
                               Row(
                                 children: [
                                   Transform.scale(
-                                    scale: 1.2,
+                                    scale: 1.6,
                                     child: Checkbox(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -246,9 +251,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       }),
                                     ),
                                   ),
-                                   SizedBox(width: MySize.size6,),
-                                   Text(
-                                     AppLocalizations.of(context)!.remember_me,
+                                  SizedBox(
+                                    width: MySize.size6,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.remember_me,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 14,
@@ -265,8 +272,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               builder: (context) =>
                                                   ForgetPassword()));
                                     },
-                                    child:  Text(
-                                      AppLocalizations.of(context)!.forgot_password,
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .forgot_password,
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         fontSize: 14,
@@ -277,7 +285,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   )
                                 ],
                               ),
-                              SizedBox(height: MySize.size20,),
+                              SizedBox(
+                                height: MySize.size20,
+                              ),
                             ],
                           ),
                         ),
@@ -321,45 +331,61 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   child: Center(
                                     child: loginProvider.isLogin == true
-                                        ? const CircularProgressIndicator(color: Colors.white,)
-                                        :  Text(AppLocalizations.of(context)!.sign_in,
+                                        ? const CircularProgressIndicator(
+                                            color: Colors.white,
+                                          )
+                                        : Text(
+                                            AppLocalizations.of(context)!
+                                                .sign_in,
                                             style: const TextStyle(
-                                              fontWeight: FontWeight.w600,
+                                                fontWeight: FontWeight.w600,
                                                 color: Colors.white,
                                                 fontSize: 14)),
                                   )),
                             );
                           },
                         ),
-                        SizedBox(height: MySize.size30,),
+                        SizedBox(
+                          height: MySize.size30,
+                        ),
                         Column(
                           children: [
                             Image.asset(
-                              AppImages.faceID,
+                              AppImages.faceIdImage,
                               height: MySize.scaleFactorHeight * 69,
                               width: MySize.scaleFactorWidth * 69,
                               fit: BoxFit.cover,
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? Colors.grey
+                                  : const Color(0xFFF0F4F7),
                             ),
-                             SizedBox(
-                              height: MySize.scaleFactorHeight * 1,
+                            SizedBox(
+                              height: MySize.scaleFactorHeight * 5,
                             ),
-                             Text(
-                               AppLocalizations.of(context)!.enable_face_id,
-                              style: const TextStyle(
+                            Text(
+                              AppLocalizations.of(context)!.enable_face_id,
+                              style: TextStyle(
                                   fontFamily: 'Poppins',
-                                  fontSize: 12,
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0xFFF0F4F7)),
+                                  color: const Color(0xFFF0F4F7)),
                             )
                           ],
                         ),
-                        SizedBox(height: MySize.scaleFactorHeight * 45,),
-                         Text(
-                           AppLocalizations.of(context)!.if_you_dont_have_an_account_yet,
-                           textAlign: TextAlign.center,
-                           style: CustomTextStyles.textStyleWith14WhiteBold400(),
-                         ),
-                        SizedBox(height: MySize.size20,),
+                        SizedBox(
+                          height: MySize.scaleFactorHeight * 45,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .if_you_dont_have_an_account_yet,
+                          textAlign: TextAlign.center,
+                          style: CustomTextStyles.textStyleWith14WhiteBold400(),
+                        ),
+                        SizedBox(
+                          height: MySize.size20,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -369,15 +395,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                         const SignupScreen()));
                           },
                           child: FieldContainer(
-                            containerColor: Provider.of<ThemeChanger>(context)
-                                        .themeData ==
-                                    darkMode
-                                ? AppColors.grey30.withOpacity(.15)
-                                : AppColors.grey30.withOpacity(.15),
-                            mytitle: AppLocalizations.of(context)!.sign_up,
-                            textColor: Colors.white),
-                          ),
-
+                              containerColor: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? AppColors.grey30.withOpacity(.15)
+                                  : AppColors.grey30.withOpacity(.15),
+                              mytitle: AppLocalizations.of(context)!.sign_up,
+                              textColor: Colors.white),
+                        ),
+                        SizedBox(
+                          height: MySize.size20,
+                        ),
                       ],
                     ));
               },

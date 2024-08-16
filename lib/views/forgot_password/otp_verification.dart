@@ -27,7 +27,7 @@ class _OTPVerificationState extends State<OTPVerification> {
   late PinTheme defaultPinTheme;
   late PinTheme focusedPinTheme;
   late PinTheme submittedPinTheme;
-
+  bool otpCorrect = false;
   @override
   void initState() {
     Future.microtask(() =>
@@ -87,7 +87,21 @@ class _OTPVerificationState extends State<OTPVerification> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 250),
+                  Padding(
+                    padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*170.0,left: MySize.size36,top: MySize.size60),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap:(){
+                            Navigator.pop(context);
+                          },
+                          child: Image.asset(AppImages.backArrow),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // const SizedBox(height: 250),
                    Text(
                      AppLocalizations.of(context)!.check_email,
                     style: const TextStyle(
@@ -116,6 +130,11 @@ class _OTPVerificationState extends State<OTPVerification> {
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: submittedPinTheme,
                     validator: (value) {
+                      if(value == widget.otp){
+                        otpCorrect = true;
+                      }else{
+                        otpCorrect = false;
+                      }
                       return value == widget.otp ? null : 'Pin is incorrect';
                     },
                     pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
@@ -141,7 +160,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                         text:  TextSpan(
                           text: AppLocalizations.of(context)!.didnt_get_a_code,
                           style: TextStyle(fontSize: 15, color: Colors.white),
-                          children: [
+                          children: const [
                             TextSpan(
                               text: ' Resend',
                               style: TextStyle(
@@ -164,10 +183,16 @@ class _OTPVerificationState extends State<OTPVerification> {
                         return GestureDetector(
                           onTap: () {
                             if (otpController.text.length >= 6) {
-                              forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim());
-                              forgotPasswordProvider.startTimer(timer: false);
+                              if(otpCorrect){
+                                forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim()).then((value) {
+                                  otpController.clear();
+                                  forgotPasswordProvider.startTimer(timer: false);
+                                });
+                              }else{
+                                FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
+                              }
                             } else {
-                              FlutterToast.toastMessage(message: "Please enter correct otp");
+                              FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
                             }
                           },
                           child: Padding(

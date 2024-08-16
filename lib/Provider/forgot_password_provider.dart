@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
@@ -47,6 +49,8 @@ class ForgotPasswordProvider extends ChangeNotifier{
     }else{
       if (_timer != null) {
         _timer!.cancel();
+        secondsRemaining = 0;
+        notifyListeners();
       }
     }
   }
@@ -132,9 +136,8 @@ class ForgotPasswordProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _ChangePassLoading(load: false);
         FlutterToast.toastMessage(message: " Password reset successfully",);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-
-        // Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
+        Get.offAll(()=> const LoginScreen());
+        notifyListeners();
       }else{
         _ChangePassLoading(load: false);
         if (kDebugMode) {

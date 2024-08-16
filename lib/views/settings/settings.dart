@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
@@ -131,15 +132,15 @@ class _SettingsState extends State<Settings> {
                            builder: (context) =>
                            const NotificationsScreen()));
                       },
-                      child: Image.asset(
-                        AppImages.notificationIcon,
-                        height: 25,
-                        width: 25,
+                      child: SvgPicture.asset(
+                        AppImages.notificationIconSvg,
+                        height: MySize.size24,
+                        width: MySize.size24,
                         color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFFA2A2B5)
-                            : const Color(0XFF424252),
-                    ),
+                            darkMode
+                           ? const Color(0XFFA2A2B5)
+                          : const Color(0XFF424252),
+                      ),
                   ),
                 )
               ],
