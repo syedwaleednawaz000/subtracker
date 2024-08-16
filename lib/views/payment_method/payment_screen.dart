@@ -402,18 +402,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(MySize.size72),
         child: Padding(
-          padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child: AppBar(
-            scrolledUnderElevation: 0,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            leading:GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
-            title:  Text('Manage Payment',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+          padding: EdgeInsets.only(top: MySize.size25),
+          child: CustomAppBar(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            text: 'Manage Payment',
+            icon: Icons.abc,
           ),
         ),
       ),

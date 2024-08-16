@@ -7,6 +7,7 @@ import 'package:sub_tracker/utils/app_Images.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
+import '../language_selection/base/custom_appBar.dart';
 import '../settings/settings.dart';
 import 'base/formfieldcomponent.dart';
 
@@ -38,18 +39,13 @@ class _ContactSupportState extends State<ContactSupport> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(
-            padding: EdgeInsets.only(left: 8, top: MySize.size25),
-            child: AppBar(
-              scrolledUnderElevation: 0,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              leading:GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
-              title:  Text('Support',style: TextStyle(color: const Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+            padding: EdgeInsets.only(top: MySize.size25),
+            child: CustomAppBar(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              text: 'Support',
+              icon: Icons.abc,
             ),
           ),
         ),
@@ -191,15 +187,7 @@ class _ContactSupportState extends State<ContactSupport> {
                 topLeft: Radius.circular(24), topRight: Radius.circular(24)),
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
                 ? const Color(0XFF353542).withOpacity(0.50)
-                : const Color(0XFFF1F1FF).withOpacity(.50),
-
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 4),
-                  blurRadius: 4,
-                  color: AppColors.black00.withOpacity(.25)
-              )
-            ]
+                : const Color(0xFFF1F1FF).withOpacity(0.50),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -208,23 +196,18 @@ class _ContactSupportState extends State<ContactSupport> {
               return GestureDetector(
                 onTap: () {
                   contactWithSupportProvider.sendSupportRequest( subject: subjectController.text.trim(), description: descriptionController.text.trim());
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => const Settings()));
                 },
                 child: Container(
                     height: 48,
                     width: 288,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                          darkMode
-                          ? const Color(0XFFF1F1FF).withOpacity(.15)
-                          : const Color(0XFFF1F1FF),
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? const Color(0XFF353542).withOpacity(0.50)
+                          : const Color(0xFFF1F1FF),
                       border: Border(
                           top: BorderSide(color: Colors.white.withOpacity(.15)),
                           left: BorderSide(color: Colors.white.withOpacity(.15)),
-                          // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                          bottom: BorderSide.none
                       ),
                     ),
                     child: Center(
@@ -233,11 +216,10 @@ class _ContactSupportState extends State<ContactSupport> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color:
-                          Provider.of<ThemeChanger>(context).themeData ==
+                          color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : const Color(0XFF1c1c23),
+                              ? const Color(0XFFFFFFFF).withOpacity(.15)
+                              : Colors.black,
                         ),
                       ),
                     )),
