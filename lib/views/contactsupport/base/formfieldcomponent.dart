@@ -10,34 +10,39 @@ class FormFieldComponent extends StatelessWidget {
   final int? maxLines;
   final String hintText;
   final double? height;
-  const FormFieldComponent({super.key,  this.height, required this.hintText, this.maxLines});
+  String? Function(String?)? validator;
+  TextEditingController? controller;
+   FormFieldComponent({super.key,this.validator,this.controller,  this.height, required this.hintText, this.maxLines});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: MySize.size30),
+     // width: MySize.scaleFactorWidth*310,
       decoration:BoxDecoration(
         borderRadius: BorderRadius.circular(MySize.size4),
           border: Border.all(
             color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Color(0XFF757784)
-                : Color(0XFFE2E2E2),
+                ? const Color(0XFF757784)
+                : const Color(0XFFE2E2E2),
             width: .5,
           )
       ) ,
       child: TextFormField(
+        controller: controller,
         maxLines: maxLines,
+        validator: validator,
         decoration:InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+          contentPadding:  EdgeInsets.symmetric(horizontal: MySize.size15),
             hintText:hintText,
             hintStyle:TextStyle(
                 fontSize: MySize.size14,
                 fontWeight: FontWeight.w400,
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? Color(0XFFD2D2D2).withOpacity(.8)
-                    : Color(0XFFD2D2D2),
+                    ? const Color(0XFFD2D2D2).withOpacity(.8)
+                    : const Color(0XFFD2D2D2),
                 fontFamily: 'Poppins_Regular'
             ),
-            // TextStyle(color: AppColors.whiteFF.withOpacity(.6),fontSize: MySize.size14,fontWeight: FontWeight.w400),
             border: InputBorder.none,
         ),
       ),

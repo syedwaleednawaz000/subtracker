@@ -36,16 +36,17 @@ double fontSize = 12, FontWeight fontWeight = FontWeight.normal,TextAlign align 
   );
 }
 
-Widget TextWidgetInterMedium({required String title,
-// Color color = Colors.black,
-double fontSize = 12, FontWeight fontWeight = FontWeight.normal,TextAlign align = TextAlign.start}){
-  return Text(title,style:TextStyle(
-    fontSize: fontSize,
-    fontWeight: fontWeight,
-    // color: color,
+ Widget TextWidgetInterMedium({
+  required String title,
+  Color color = Colors.black,
+  double fontSize = 12, FontWeight fontWeight = FontWeight.normal,TextAlign align = TextAlign.start}){
+     return Text(title,style:TextStyle(
+       fontSize: fontSize,
+        fontWeight: fontWeight,
+         color: color,
     // height: 1.5,
     // wordSpacing: 5,
-    fontFamily: 'Inter-Medium',
+        fontFamily: 'Inter',
   ),
     maxLines: 2,
     overflow: TextOverflow.ellipsis,

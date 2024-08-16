@@ -1,18 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
+import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/home_screen/Component/subscription_widget.dart';
+import 'package:sub_tracker/views/home_screen/Component/up_coming_bill_widget.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../base/custom_container.dart';
 import '../base/text_widgets.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,11 +26,18 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
- bool isSelected = false;
+  bool isSelected = false;
+
   @override
   void initState() {
+    Future.microtask(() =>
+        Provider.of<SubscriptionProvider>(context, listen: false)
+            .getSubscriptions());
+    Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false)
+        .getProfile(userID: "", context: context));
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -35,559 +47,291 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     _tabController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? Color(0XFF1C1C23)
-            : Color(0XFFF7F7FF),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Center(
-                  child: CustomContainer(
-
+    return WillPopScope(
+      onWillPop: () async {
+        return await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor:
+                    Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0XFF4E4E61)
+                        : const Color(0XFFF1F1FF),
+                titlePadding:
+                    EdgeInsets.only(top: MySize.size30, left: MySize.size120),
+                title: Text(
+                  'Exit App',
+                  style: TextStyle(
+                    fontSize: MySize.size18,
+                    fontWeight: FontWeight.w600,
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? Colors.white
+                            : const Color(0XFF424252),
                   ),
                 ),
-
-                SizedBox(height: 10,),
-                Container(
-                  width: MySize.scaleFactorWidth * 328,
-                  height: MySize.scaleFactorHeight * 60,
-                  decoration: BoxDecoration(
-
-                      borderRadius: BorderRadius.circular(15),
-                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFF0E0E12)
-                      // ? Colors.orange
-                          : Color(0XFFFFFFFF),
+                content: Text(
+                  'Do you really want to exit the app?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: MySize.size14,
+                    fontWeight: FontWeight.w400,
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? Colors.white
+                            : const Color(0XFF424252),
                   ),
-                  child: TabBar(
-                    indicatorPadding: EdgeInsets.symmetric(vertical: 8),
-                    indicator: BoxDecoration( borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ?  Color(0XFFCFCFFC).withOpacity(.15)
-                          :  Color(0XFFCFCFFC).withOpacity(.15)
+                ),
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text(
+                          'No',
+                          style: TextStyle(
+                            fontSize: MySize.size18,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0XFFC54646) // #2B83F2
+                                    : const Color(0XFFC54646),
+                          ),
+                        ),
                       ),
-
-                     color:  Provider.of<ThemeChanger>(context).themeData == darkMode
-                         ? Color(0XFF4E4E61).withOpacity(.2)
-                         : Color(0XFFF1F1FF),
-
-                    ),
-                    indicatorColor: Colors.transparent,
-                    controller: _tabController,
-                    unselectedLabelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? Color(0XFFA2A2B5)
-                          : Color(0XFFA2A2B5),
-                    labelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Color(0XFFFFFFFF)
-                        : Color(0XFF424252),
-                    tabs: [
-                      Tab(
-                        child: Center(
-                            child:   Text('Your subscriptions',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: MySize.size12,
-                                fontWeight: FontWeight.w600,
-
-                              ),
-                            ),),
-                      ),
-                      Tab(
-                        child: Center(
-                            child:  Text('Upcoming bills',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: MySize.size12,
-                                fontWeight: FontWeight.w600,
-
-                              ),
-                            ),),
+                      TextButton(
+                        onPressed: () => exit(0),
+                        child: Text(
+                          'Yes',
+                          style: TextStyle(
+                            fontSize: MySize.size18,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0XFF2B83F2) // #
+                                    : const Color(0XFF2B83F2),
+                          ),
+                        ),
                       ),
                     ],
-                  ),
-                ),
-      
-                SizedBox(
-                  height: 250,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      Center(
+                  )
+                ],
+              ),
+            ) ??
+            false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor:
+              Provider.of<ThemeChanger>(context).themeData == darkMode
+                  ? Colors.black
+                  : const Color(0XFFF7F7FF),
+          body: Consumer<SubscriptionProvider>(
+            builder: (context, subscriptionProvider, child) {
+              var data;
+              if (subscriptionProvider.subscriptionData['data'] != null) {
+                data = subscriptionProvider.subscriptionData['data'];
+              }
+              return subscriptionProvider.isSubscription
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.purpleFF,
+                      ),
+                    )
+                  : subscriptionProvider.subscriptionData['data'] == null
+                      ? const Center(child: Text("data are not available"))
+                      : SingleChildScrollView(
                           child: Column(
-                        children: [
-                          SizedBox(
-                            height: MySize.size16,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                            },
-                            child: Container(
-                              height: 64,
-                              width: 328,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? Color(0XFF353542)
-                                    : Color(0XFF353542).withOpacity(.1),
-                                  width: 1
-                              ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: MySize.size12, right: MySize.size15),
-                                    child: Image.asset('assets/icons/esss.png',  height: 40, width: 40,),
-                                  ),
-                                  TextWidgetInterMedium(
-                                      title: 'SignNTrack',
-                                      fontSize: MySize.size14,
-                                      // color: AppColors.white100
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: MySize.scaleFactorWidth * 115,
-                                        right: MySize.size22),
-                                    child: TextWidgetInterMedium(
-                                        title: '\$5.99',
-                                        fontSize: MySize.size14,
-                                        // color: AppColors.white100
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MySize.size8,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                            },
-                            child: Container(
-                              height: 64,
-                              width: 328,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                        ? Color(0XFF353542)
-                                        : Color(0XFF353542).withOpacity(.1),
-                                    width: 1
-                                )
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: MySize.size12, right: MySize.size15),
-                                    child: Image.asset('assets/icons/pee.png',  height: 40, width: 40,),
-                                  ),
-                                  TextWidgetInterMedium(
-                                    title: 'Profilio',
-                                    fontSize: MySize.size14,
-                                    // color: AppColors.white100,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: MySize.scaleFactorWidth * 135,
-                                        right: MySize.size22),
-                                    child: TextWidgetInterMedium(
-                                      title: '\$18.99',
-                                      fontSize: MySize.size14,
-                                      // color: AppColors.white100,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MySize.size8,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                            },
-                            child: Container(
-                              height: 64,
-                              width: 328,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(
-                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                        ? Color(0XFF353542)
-                                        : Color(0XFF353542).withOpacity(.1),
-                                    width: 1
-                                )
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: MySize.size12, right: MySize.size15),
-                                    child: Image.asset('assets/icons/tresorly.png', height: 40, width: 40,),
-                                  ),
-                                  Text('Tresorly',
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: MySize.size14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Provider.of<ThemeChanger>(context).themeData ==
-                                          darkMode
-                                          ? Color(0XFFFFFFFF)
-                                          : Color(0XFF424252),
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: MySize.scaleFactorWidth * 128,
-                                        right: MySize.size22),
-                                    child: Text('\$29.99',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: MySize.size14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                            darkMode
-                                            ? Color(0XFFFFFFFF)
-                                            : Color(0XFF424252),
-                                      ),
-                                    ),
-
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MySize.size6,
-                          ),
-      
-                        ],
-                      )),
-                      Center(
-                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: MySize.size16,
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                                },
-                                child: Container(
-                                  height: 64,
-                                  width: 328,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                              ? Color(0XFF353542)
-                                              : Color(0XFF353542).withOpacity(.1),
-                                          width: 1
-                                      )
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: MySize.size12, right: MySize.size15),
-                                        child: Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? Color(0XFF353542)
-                                                : Color(0XFFF1F1FF),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Text('Jun',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                                      darkMode
-                                                      ? Color(0XFFA2A2B5  )
-                                                      : Color(0XFF424252),
-
-                                                ),
-                                              ),
-                                              Text('25',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                                      darkMode
-                                                      ? Color(0XFFA2A2B5  )
-                                                      : Color(0XFF424252),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Text('SignNTrack',
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                              darkMode
-                                              ? Color(0XFFFFFFFF)
-                                              : Color(0XFF424252),
-
-                                        ),
-                                      ),
-
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: MySize.scaleFactorWidth * 115,
-                                            right: MySize.size22),
-                                        child:  Text(  '\$5.99',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: MySize.size14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                                darkMode
-                                                ? Color(0XFFFFFFFF)
-                                                : Color(0XFF424252),
-
-                                          ),
-                                        )
-                                      )
-                                    ],
-                                  ),
+                              Center(
+                                child: CustomContainer(
+                                  activeSubscription:
+                                      data['activesub'].toString() == null
+                                          ? data['activesub'].toString()
+                                          : "0",
+                                  highestSubscription:
+                                      data['highsub'].toString() == null
+                                          ? data['highsub'].toString()
+                                          : "0",
+                                  lowestSubscription:
+                                      data['lowsub'].toString() == null
+                                          ? data['lowsub'].toString()
+                                          : "0",
+                                  monthlyBill:
+                                      data['monthlybill'].toString() == null
+                                          ? data['monthlybill'].toString()
+                                          : "0",
+                                  totalBudget:
+                                      data['totalBudget'].toString() == null
+                                          ? data['totalBudget'].toString()
+                                          : "0",
                                 ),
                               ),
                               SizedBox(
-                                height: MySize.size8,
+                                height: MySize.scaleFactorHeight * 21,
                               ),
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                                },
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: MySize.size24),
                                 child: Container(
-                                  height: 64,
-                                  width: 328,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: MySize.scaleFactorHeight * 7),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    border:   Border.all(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? Color(0XFF353542)
-                                      : Color(0XFF353542).withOpacity(.1),
-                                    width: 1
-                                )
+                                    borderRadius:
+                                        BorderRadius.circular(MySize.size16),
+                                    color: Provider.of<ThemeChanger>(context)
+                                                .themeData ==
+                                            darkMode
+                                        ? const Color(0xFF0E0E12)
+                                        // ? Colors.orange
+                                        : const Color(0xFFFFFFFF),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: MySize.size12, right: MySize.size15),
-                                        child: Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? Color(0XFF353542)
-                                                : Color(0XFFF1F1FF),
-                                          ),
-                                          child:  Column(
-                                            children: [
-                                              Text('Jun',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                                      darkMode
-                                                      ? Color(0XFFA2A2B5  )
-                                                      : Color(0XFF424252),
-
-                                                ),
-                                              ),
-                                              Text('25',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                                      darkMode
-                                                      ? Color(0XFFA2A2B5  )
-                                                      : Color(0XFF424252),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Text('Profilio',
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Provider.of<ThemeChanger>(context).themeData ==
+                                  child: TabBar(
+                                    indicatorPadding:
+                                        const EdgeInsets.symmetric(vertical: 3),
+                                    indicator: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(MySize.size16),
+                                      color: Provider.of<ThemeChanger>(context)
+                                                  .themeData ==
                                               darkMode
-                                              ? Color(0XFFFFFFFF)
-                                              : Color(0XFF424252),
-
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: MySize.scaleFactorWidth * 135,
-                                            right: MySize.size22),
-                                        child:  Text(  '\$18.99',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: MySize.size14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                          ? const Color(0xFF4E4E61)
+                                              .withOpacity(0.20)
+                                          : const Color(0xFFCFCFFC)
+                                              .withOpacity(0.3),
+                                    ),
+                                    indicatorColor: Colors.transparent,
+                                    controller: _tabController,
+                                    unselectedLabelColor:
+                                        Provider.of<ThemeChanger>(context)
+                                                    .themeData ==
                                                 darkMode
-                                                ? Color(0XFFFFFFFF)
-                                                : Color(0XFF424252),
-
-                                          ),
-                                        )
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: MySize.size8,
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                                },
-                                child: Container(
-                                  height: 64,
-                                  width: 328,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                              ? Color(0XFF353542)
-                                              : Color(0XFF353542).withOpacity(.1),
-                                          width: 1
-                                      )
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: MySize.size12, right: MySize.size15),
-                                        child: Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? Color(0XFF353542)
-                                                : Color(0XFFF1F1FF),
-                                          ),
-                                          child:  Column(
-                                            children: [
-                                              Text('Jun',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                                      darkMode
-                                                      ? Color(0XFFA2A2B5  )
-                                                      : Color(0XFF424252),
-
-                                                ),
-                                              ),
-                                              Text('25',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: MySize.size14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                                      darkMode
-                                                      ? Color(0XFFA2A2B5  )
-                                                      : Color(0XFF424252),
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Text('Tresorly',
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: MySize.size14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                              darkMode
-                                              ? Color(0XFFFFFFFF)
-                                              : Color(0XFF424252),
-
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: MySize.scaleFactorWidth * 128,
-                                            right: MySize.size22),
-                                        child:  Text(  '\$29.99',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: MySize.size14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                            ? const Color(0XFFA2A2B5)
+                                            : const Color(0XFFA2A2B5),
+                                    labelColor:
+                                        Provider.of<ThemeChanger>(context)
+                                                    .themeData ==
                                                 darkMode
-                                                ? Color(0XFFFFFFFF)
-                                                : Color(0XFF424252),
-
+                                            ? const Color(0XFFFFFFFF)
+                                            : const Color(0XFF424252),
+                                    tabs: [
+                                      Tab(
+                                        child: Center(
+                                          child: Text(
+                                            'Your subscriptions',
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: MySize.size12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
-                                        )
+                                        ),
+                                      ),
+                                      Tab(
+                                        child: Center(
+                                          child: Text(
+                                            'Upcoming bills',
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: MySize.size12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
                               SizedBox(
-                                height: MySize.size6,
+                                height: MySize.size200,
+                                child: TabBarView(
+                                  controller: _tabController,
+
+                                  children: [
+                                    data['subscriptions'].length == 0
+                                        ? Center(
+                                            child: Text(
+                                              "Your subscriptions are not available",
+                                              style: TextStyle(
+                                                  fontSize: MySize.size14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      Provider.of<ThemeChanger>(
+                                                                      context)
+                                                                  .themeData ==
+                                                              darkMode
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            ),
+                                          )
+                                        : Container(
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: MySize.size20),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount:
+                                                  data['subscriptions'].length,
+                                              itemBuilder: (context, index) {
+                                                return SubscriptionWidget(
+                                                  subscriptions:
+                                                      data['subscriptions']
+                                                          [index],
+                                                );
+                                              },
+                                            )),
+                                    data['upcommingbills'].length == 0
+                                        ? Center(
+                                            child: Text(
+                                              "Your upcoming bills are not available",
+                                              style: TextStyle(
+                                                  fontSize: MySize.size14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      Provider.of<ThemeChanger>(
+                                                                      context)
+                                                                  .themeData ==
+                                                              darkMode
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            ),
+                                          )
+                                        : Container(
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: MySize.size20),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount:
+                                                  data['upcommingbills'].length,
+                                              itemBuilder: (context, index) {
+                                                var finalData =
+                                                    data['upcommingbills']
+                                                        [index];
+                                                return UpComingBillWidget(
+                                                    upComingBills: finalData);
+                                              },
+                                            ),
+                                          ),
+                                  ],
+                                ),
                               ),
                             ],
-                          )),
-      
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                          ),
+                        );
+            },
           ),
+        ),
       ),
     );
   }
 }
-
-
-
-
-
-

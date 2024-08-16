@@ -1,27 +1,20 @@
-import 'package:circular_seek_bar/circular_seek_bar.dart';
-import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:semicircle_indicator/semicircle_indicator.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_colors.dart';
-import 'package:sub_tracker/utils/app_constant.dart';
-import 'package:sub_tracker/views/base/settingIcon_screen.dart';
-import 'package:sub_tracker/views/credit_card/credit_card.dart';
-
-import '../../bottom_nav/bottom_navBar.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
-import '../../utils/app_colors.dart';
+
 import '../../utils/my_size.dart';
 import '../base/calendar_container.dart';
 import '../base/subscription_container.dart';
-import '../base/text_widgets.dart';
 import '../subscriptioninfo/subscription_info.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -32,280 +25,416 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
+  int _selectedMonth = DateTime.now().month;
+  DateTime dateTime = DateTime.now();
+  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd');
+  String dateTimeInString = '';
+
+  @override
+  void initState() {
+    dateTimeInString = _dateFormat.format(dateTime).toString();
+    Future.microtask(() => Provider.of<ScheduleProvider>(context, listen: false)
+        .getScheduleData(date: _dateFormat.format(DateTime.now())));
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(70),
           child: Padding(
             padding: const EdgeInsets.only(top: 20),
             child: AppBar(
               automaticallyImplyLeading: false,
               scrolledUnderElevation: 0,
-              backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                  ? Color(0XFF353542)
-                  : Color(0XFFFFFFFF),
+              backgroundColor:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0xFF353542)
+                      : const Color(0xFFFFFFFF),
               elevation: 0,
               centerTitle: true,
-              title:  Text('Calendar',style: TextStyle(color: Color(0XFFA2A2B5),fontSize: MySize.size16, fontWeight: FontWeight.w400),),
+              title: Text(
+                'Calendar',
+                style: TextStyle(
+                    color: const Color(0xFFA2A2B5),
+                    fontSize: MySize.size16,
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.w400),
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 25),
                   child: InkWell(
-                      onTap: (){
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NotificationsScreen()));
                       },
-                      child: Image.asset('assets/icons/alert.png', height: 25, width: 25,
+                      child: SvgPicture.asset(
+                        AppImages.notificationIconSvg,
+                        height: MySize.size24,
+                        width: MySize.size24,
                         color: Provider.of<ThemeChanger>(context).themeData ==
-                            darkMode
-                            ? Color(0XFFA2A2B5)
-                            : Color(0XFF424252),
+                                darkMode
+                            ? const Color(0xFFA2A2B5)
+                            : const Color(0xFFC1C1CD),
                       )),
                 )
               ],
             ),
           ),
         ),
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? Color(0XFF1C1C23)
-            : Color(0XFFF7F7FF),
-        // backgroundColor: Color(0XFF4E4E61),
-        body: Column(
-          children: [
-            Container(
-              height: MySize.scaleFactorHeight * 389,
-              // width: MySize.scaleFactorWidth * 375,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(MySize.size24),
-                    bottomRight: Radius.circular(MySize.size24)),
-                color: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode
-                    ? Color(0XFF353542)
-                    : Color(0XFFFFFFFF)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Subs\nSchedule',
-                      style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? Color(0XFFFFFFFF)
-                              : Color(0XFF424252),
-                          fontSize: 42,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Poppins_Regular'
-                      ),),
-
-                    SizedBox(height: 8,),
-                    Row(
-                      children: [
-                        Text('3 subscriptions for today',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                                  ? Color(0xFFA2A2B5)
-                                  : Color(0xFFA2A2B5),
-                              fontFamily: 'Poppins_Regular'
-                          ),),
-                        Spacer(),
-                        DropdownMenu(
-                            inputDecorationTheme: InputDecorationTheme(
-                              constraints: BoxConstraints(minHeight: 20, maxHeight: 34, maxWidth: 95, minWidth: 89),
-                              contentPadding: EdgeInsets.only(left: 15, top: 10),
-                               fillColor:  Provider.of<ThemeChanger>(context).themeData == darkMode
-                               ? Color(0XFFFFFFFF).withOpacity(.1)
-                               : Color(0XFFF1F1FF),
-                              filled: true,
-                              isDense: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                borderSide: BorderSide.none
-                                  // (
-                                  //  color: Provider.of<ThemeChanger>(context).themeData ==
-                                  //                       darkMode
-                                  //                       ? Color(0XFFCFCFFC).withOpacity(.15)
-                                  //                       : Color(0xFFFFFFFF).withOpacity(.15),
-                                // ),
-                                // borderSide: Border(
-                                //           top: BorderSide(
-                                //               color: Provider.of<ThemeChanger>(context).themeData ==
-                                //                         darkMode
-                                //                         ? Color(0XFFCFCFFC).withOpacity(.15)
-                                //                         : Color(0xFFFFFFFF).withOpacity(.15),
-                                //           ),
-                                //           left: BorderSide(
-                                //             color: Provider.of<ThemeChanger>(context).themeData ==
-                                //                 darkMode
-                                //                 ? Color(0XFFCFCFFC).withOpacity(.15)
-                                //                 : Color(0xFFFFFFFF).withOpacity(.15),
-                                //           ),
-                                //
-                                //         ),
+        backgroundColor:
+            Provider.of<ThemeChanger>(context).themeData == darkMode
+                ? Colors.black
+                : const Color(0XFFF7F7FF),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: MySize.scaleFactorHeight * 389,
+                // width: MySize.scaleFactorWidth * 375,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(MySize.size24),
+                        bottomRight: Radius.circular(MySize.size24)),
+                    color:
+                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF353542)
+                            : const Color(0XFFFFFFFF)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MySize.size42,
+                      ),
+                      Text(
+                        'Subs\nSchedule',
+                        style: TextStyle(
+                            color:
+                                Provider.of<ThemeChanger>(context).themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF424252),
+                            fontSize: MySize.size40,
+                            height: 1.1,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Inter'),
+                      ),
+                      SizedBox(
+                        height: MySize.size22,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Consumer<ScheduleProvider>(
+                            builder: (context, scheduleProvider, child) {
+                              int length = 0;
+                              if (scheduleProvider.scheduleData.isNotEmpty) {
+                                if (scheduleProvider
+                                        .scheduleData['data']['providers']
+                                        .length !=
+                                    0) {
+                                  length = scheduleProvider
+                                      .scheduleData['data']['providers'].length;
+                                } else {
+                                  print("provider is empty");
+                                }
+                              } else {
+                                print("model data is empty");
+                              }
+                              return Text(
+                                '$length subscriptions for today',
+                                style: TextStyle(
+                                  fontSize: MySize.size14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
+                                      ? const Color(0xFFA2A2B5)
+                                      : const Color(0xFFA2A2B5),
+                                  fontFamily: 'Inter',
+                                ),
+                              );
+                            },
+                          ),
+                          const Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(MySize.size16),
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? const Color(0xFF000000)
+                                  : const Color(0xFFF1F1FF),
+                            ),
+                            child: DropdownButton2<int>(
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: MySize.size200,
                               ),
-
-                              // outlineBorder: BorderSide(color: Colors.blue)
+                              style: TextStyle(
+                                fontSize: MySize.size14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Inter',
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              value: _selectedMonth,
+                              underline: const SizedBox.shrink(),
+                              onChanged: (int? newValue) {
+                                if (newValue != null) {
+                                  setState(() {
+                                    _selectedMonth = newValue;
+                                  });
+                                }
+                              },
+                              items: List.generate(12, (index) => index + 1)
+                                  .map((month) {
+                                return DropdownMenuItem<int>(
+                                  value: month,
+                                  child: Text(DateFormat('MMMM')
+                                      .format(DateTime(0, month))),
+                                );
+                              }).toList(),
                             ),
-                            width: 100,
-                            enableSearch: true,
-                            hintText: 'Jan',
-                            textStyle: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? Color(0XFFFFFFFF)
-                                : Color(0xFF424252),
-                            fontFamily: 'Poppins_Regular'
-
-                            ),
-                            trailingIcon: const Icon(Icons.expand_more),
-                            dropdownMenuEntries: const[
-                          DropdownMenuEntry(value: 1, label: 'January'),
-                          DropdownMenuEntry(value: 2, label: 'February'),
-                          DropdownMenuEntry(value: 3, label: 'March'),
-                          DropdownMenuEntry(value: 4, label: 'April'),
-                          DropdownMenuEntry(value: 4, label: 'May'),
-                          DropdownMenuEntry(value: 4, label: 'June'),
-                          DropdownMenuEntry(value: 4, label: 'July'),
-                          DropdownMenuEntry(value: 4, label: 'August'),
-                          DropdownMenuEntry(value: 4, label: 'September'),
-                          DropdownMenuEntry(value: 4, label: 'Octube'),
-                          DropdownMenuEntry(value: 4, label: 'November'),
-                          DropdownMenuEntry(value: 4, label: 'December'),
-                        ])
-
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-                    const CalendarContainer(
-                       // containerColor: Color(0XFF4E4E61),
-                      containerColor: Colors.transparent,
-                    ),
-                  ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: MySize.size30),
+                      CalendarContainer(
+                        selectedMonth: _selectedMonth,
+                        onDateSelected: (DateTime date) {
+                          setState(() {});
+                          final DateFormat dateFormat =
+                              DateFormat('yyyy-MM-dd');
+                          dateTimeInString = dateFormat.format(date);
+                          setState(() {});
+                          Provider.of<ScheduleProvider>(context, listen: false)
+                              .getScheduleData(date: dateFormat.format(date));
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 18),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: MySize.size24,
+                    right: MySize.size24,
+                    top: MySize.size24),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                  Text('January',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                          darkMode
-                          ? Color(0xFFFFFFFF)
-                          : Color(0xFF1C1C23),
-                      // fontFamily: 'Poppins_Regular'
-                  ),),
-                            Text('01.08.2022',
+                            Text(
+                              DateFormat('MMMM')
+                                  .format(DateTime(0, _selectedMonth)),
                               style: TextStyle(
-                                  fontSize: 14,
+                                fontSize: MySize.size20,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Inter',
+                                color: Provider.of<ThemeChanger>(context)
+                                            .themeData ==
+                                        darkMode
+                                    ? const Color(0xFFFFFFFF)
+                                    : const Color(0xFF1C1C23),
+                                // fontFamily: 'Poppins_Regular'
+                              ),
+                            ),
+                            Text(
+                              '${dateTimeInString}',
+                              style: TextStyle(
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? Color(0xFFA2A2B5)
-                                      : Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'
-                              ),),
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
+                                      ? const Color(0xFFA2A2B5)
+                                      : const Color(0xFFA2A2B5),
+                                  fontFamily: 'Inter'),
+                            ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('\$24.98',
+                            Consumer<ScheduleProvider>(
+                              builder: (context, scheduleProvider, child) {
+                                return Consumer<CurrencyProvider>(
+                                  builder: (context, currencyProvider, child) {
+                                    return Text(
+                                      '${currencyProvider.selectedCurrencySymbol} ${scheduleProvider.scheduleData.isNotEmpty ? scheduleProvider.scheduleData['data']['total_bill'] : "0"}',
+                                      style: TextStyle(
+                                          fontSize: MySize.size20,
+                                          fontWeight: FontWeight.w700,
+                                          color:
+                                              Provider.of<ThemeChanger>(context)
+                                                          .themeData ==
+                                                      darkMode
+                                                  ? const Color(0xFFFFFFFF)
+                                                  : const Color(0xFF1C1C23),
+                                          fontFamily: 'Inter'),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            Text(
+                              'in upcoming bills',
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? Color(0xFFFFFFFF)
-                                      : Color(0xFF1C1C23),
-                                  // fontFamily: 'Poppins_Regular'
-                              ),),
-                            Text('in upcoming bills',
-                              style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context).themeData ==
-                                      darkMode
-                                      ? Color(0xFFA2A2B5)
-                                      : Color(0xFFA2A2B5),
-                                  fontFamily: 'Poppins_Regular'
-                              ),),
-
+                                  color: Provider.of<ThemeChanger>(context)
+                                              .themeData ==
+                                          darkMode
+                                      ? const Color(0xFFA2A2B5)
+                                      : const Color(0xFFA2A2B5),
+                                  fontFamily: 'Inter'),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24,),
-                    Expanded(
-                      child: GridView.count(
-                        crossAxisSpacing: 8,
-                        crossAxisCount: 2,
-                        scrollDirection: Axis.vertical,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                            },
-                            child: SubsContainer(
-                              title: 'SignNTrack',
-                              subtitle: '\$5.99',
-                              imageIcon: Image.asset('assets/icons/esss.png', height: 40, width: 40,),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                            },
-                            child: SubsContainer(
-                              title: 'Profilio',
-                              subtitle: '\$18.99',
-                              imageIcon: Image.asset('assets/icons/pee.png', height: 40, width: 40,),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SubscriptionInfo()));
-                            },
-                            child: SubsContainer(
-                              title: 'Microsoft ',
-                              subtitle: '\$5.99',
-                              imageIcon: Image.asset('assets/icons/tresorly.png', height: 40, width: 40,),
-                            ),
-                          ),
-                        ],
-                      ),
+                    SizedBox(
+                      height: MySize.size24,
                     ),
+                    Consumer<ScheduleProvider>(
+                      builder: (context, scheduleProvider, child) {
+                        return scheduleProvider.isLoading
+                            ? const CircularProgressIndicator(
+                                color: AppColors.purpleFF,
+                              )
+                            : scheduleProvider.scheduleData.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      "Please try again",
+                                      style: TextStyle(
+                                          color:
+                                              Provider.of<ThemeChanger>(context)
+                                                          .themeData ==
+                                                      darkMode
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                    ),
+                                  )
+                                : scheduleProvider
+                                            .scheduleData['data']['providers']
+                                            .length ==
+                                        0
+                                    ? Center(
+                                        child: Text(
+                                          "Upcoming bills not available",
+                                          style: TextStyle(
+                                              color: Provider.of<ThemeChanger>(
+                                                              context)
+                                                          .themeData ==
+                                                      darkMode
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                      )
+                                    : GridView.builder(
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 8,
+                                          // mainAxisSpacing: 10
+                                        ),
+                                        itemCount: scheduleProvider
+                                            .scheduleData['data']['providers']
+                                            .length,
+                                        // Update the item count based on your actual data
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, index) {
+                                          final subscription = scheduleProvider
+                                                  .scheduleData['data']
+                                              ['providers'][index];
+
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SubscriptionInfo(
+                                                          subscriptionInfoData:
+                                                              subscription),
+                                                ),
+                                              );
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: MySize.size10),
+                                              child: SubsContainer(
+                                                title: subscription[
+                                                        'provider_name'] ??
+                                                    "",
+                                                subtitle:
+                                                    subscription['price'] ?? "",
+                                                imageIcon: CachedNetworkImage(
+                                                  imageUrl: subscription[
+                                                          'provider_icon'] ??
+                                                      "",
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    height: MySize.size40,
+                                                    width: MySize.size40,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      Shimmer.fromColors(
+                                                    baseColor:
+                                                        Colors.grey[300]!,
+                                                    highlightColor:
+                                                        Colors.grey[100]!,
+                                                    child: Container(
+                                                      height: 40.0,
+                                                      width: 40.0,
+                                                      color: Colors.grey[300],
+                                                    ),
+                                                  ),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                      },
+                    )
                   ],
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ));
   }
 }
-
-
-
-

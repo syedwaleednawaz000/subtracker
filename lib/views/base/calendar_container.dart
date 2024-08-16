@@ -1,161 +1,249 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
 
 import '../../theme/theme.dart';
-import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
 
-class CalendarContainer extends StatelessWidget {
+class CalendarContainer extends StatefulWidget {
+  final int selectedMonth;
+  final ValueChanged<DateTime> onDateSelected;
+
   const CalendarContainer({
     super.key,
-    // required this.titleText,
-    // required this.subtitleText,
-    required this.containerColor,
-    // this.bgColor,
+    required this.selectedMonth,
+    required this.onDateSelected,
   });
 
-  // final String titleText;
-  // final String subtitleText;
-  final Color containerColor;
-  // final Color? bgColor;
+  @override
+  _CalendarContainerState createState() => _CalendarContainerState();
+}
+
+class _CalendarContainerState extends State<CalendarContainer> {
+  DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the current date as selected by default if it's in the current month
+    DateTime now = DateTime.now();
+    if (now.month == widget.selectedMonth) {
+      _selectedDate =
+          now; // Set the current date as selected if it's in the selected month
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    int year = now.year;
+    DateTime firstDayOfMonth = DateTime(year, widget.selectedMonth, 1);
+    int lastDayOfMonth = DateTime(year, widget.selectedMonth + 1, 0).day;
 
-    List<String> titleText = [
-      '01', '02', '03', '04', '05', '06', '07',
-      '08', '09', '10', '11', '12', '13', '14',
-      '15', '16', '17', '18', '19', '20', '21',
-      '22', '23', '24', '25', '26', '27', '28',
-      '29', '30', '31',
-    ];
-    List<String> subtitleText = [
-      'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
-      'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
-      'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
-      'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su',
-      'Mo', 'Tu', 'We',
-    ];
+    List<String> titleText = List.generate(
+        lastDayOfMonth, (index) => (index + 1).toString().padLeft(2, '0'));
+    List<String> subtitleText = List.generate(
+        lastDayOfMonth,
+        (index) => DateFormat('E')
+            .format(DateTime(year, widget.selectedMonth, index + 1))
+            .substring(0, 2)
+            .toUpperCase());
 
-      List<Color> darkColors = [
-        Color(0XFF4E4E61),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-        Color(0XFF4E4E61).withOpacity(.15), Color(0XFF4E4E61).withOpacity(.15),
-      ];
+    List<Color> colors = List.generate(lastDayOfMonth, (index) {
+      DateTime date = DateTime(year, widget.selectedMonth, index + 1);
+      if (_selectedDate != null &&
+          date.year == _selectedDate!.year &&
+          date.month == _selectedDate!.month &&
+          date.day == _selectedDate!.day) {
+        return Colors.blueAccent; // Selected color
+      } else {
+        return index % 2 == 0
+            ? const Color(0XFFF1F1FF)
+            : const Color(0XFFF1F1FF); // Default color
+      }
+    });
 
-    List<Color> lightColors = [
-      Color(0XFFD3DAFF),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-      Color(0XFFF1F1FF).withOpacity(.8), Color(0XFFF1F1FF).withOpacity(.8),
-
-    ];
-
-      List<Color>   dotColor = [
-        Color(0XFFFF7966),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-        Color(0XFF4E4E61).withOpacity(.01),  Color(0XFF4E4E61).withOpacity(.01),
-
-      ];
     return SizedBox(
-      height: MySize.scaleFactorHeight * 96,
+      height: 100, // Adjust height as needed
       child: ListView.builder(
-        itemCount: titleText.length,
         scrollDirection: Axis.horizontal,
+        itemCount: lastDayOfMonth,
         itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(left: 2),
-          child: Container(
-            height: MySize.scaleFactorHeight * 103,
-            width: MySize.size48,
-            margin: const EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border(
-                top: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
-                // bottom: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
-                left: BorderSide( color: Color(0XFFCFCFFC).withOpacity(.15)),
+          DateTime date = DateTime(year, widget.selectedMonth, index + 1);
+
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_selectedDate != null &&
+                    _selectedDate!.isAtSameMomentAs(date)) {
+                  _selectedDate = null; // Deselect if already selected
+                } else {
+                  _selectedDate = date; // Select the new date
+                }
+                widget.onDateSelected(_selectedDate ??
+                    DateTime(0)); // Pass the selected date or default
+              });
+            },
+            child: Container(
+              width: 60,
+              padding: const EdgeInsets.only(top: 8,bottom: 8),
+              margin: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: _selectedDate != null &&
+                        _selectedDate!.isAtSameMomentAs(date)
+                    ? Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ?  Colors.grey
+                        : const Color(0XFF4E4E61)
+                            .withOpacity(.20) // Selected color
+                    : Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0XFFF1F1FF)
+                            .withOpacity(.15) // Selected color
+                , // Default color
+                borderRadius: BorderRadius.circular(MySize.size16),
+                border: Border.all(color: Colors.grey.withOpacity(0.3)),
               ),
-
-              color:  Provider.of<ThemeChanger>(context).themeData ==
-                  darkMode
-                  ? darkColors[index]
-                  : lightColors[index],
-
-            ),
-            child: Column(
-              children: [
-                const Padding(padding: EdgeInsets.only(top: 8, left: 10, bottom: 4)),
-                Text( titleText[index],
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                    color: Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode
-                        ? Color(0XFFFFFFFF)
-                        : Color(0XFF1C1C23), // A2A2B5
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        titleText[index],
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? const Color(0xFF000000)
+                                :  Colors.black),
+                      ),
+                      Text(
+                        subtitleText[index],
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? const Color(0xFF000000)
+                                : Colors.black),
+                      ),
+                    ],
                   ),
-                ),
-                Text( subtitleText[index],
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Provider.of<ThemeChanger>(context).themeData ==
-                        darkMode
-                        ? Color(0XFFA2A2B5)
-                        : Color(0XFFA2A2B5), //
-                  ),
-                ),
-
-                const Spacer(),
-                CircleAvatar(backgroundColor: dotColor[index], radius: 3,),
-                const SizedBox(height: 15,),
-              ],
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // Show the icon if this date is selected
+                  if (_selectedDate != null &&
+                      _selectedDate!.isAtSameMomentAs(date))
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    ), // // Adjust icon color as needed
+                ],
+              ),
             ),
-          ),
-        );
-      },),
+          );
+        },
+      ),
     );
   }
 }
+
+// class CalendarContainer extends StatefulWidget {
+//   final int selectedMonth; // Add this line to accept the selected month
+//   final ValueChanged<DateTime> onDateSelected; // Callback to handle date selection
+//
+//   const CalendarContainer({
+//     super.key,
+//     required this.selectedMonth,
+//     required this.onDateSelected,
+//   });
+//
+//   @override
+//   State<CalendarContainer> createState() => _CalendarContainerState();
+// }
+//
+// class _CalendarContainerState extends State<CalendarContainer> {
+//
+//   DateTime? _selectedDate;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     // Set the current date as selected by default if it's in the current month
+//     DateTime now = DateTime.now();
+//     if (now.month == widget.selectedMonth) {
+//       _selectedDate = now;
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     DateTime now = DateTime.now();
+//     int year = now.year;
+//     DateTime firstDayOfMonth = DateTime(year, widget.selectedMonth, 1);
+//     int lastDayOfMonth = DateTime(year, widget.selectedMonth + 1, 0).day;
+//
+//     List<String> titleText = List.generate(lastDayOfMonth, (index) => (index + 1).toString().padLeft(2, '0'));
+//     List<String> subtitleText = List.generate(lastDayOfMonth, (index) => DateFormat('E').format(DateTime(year, widget.selectedMonth, index + 1)).substring(0, 2).toUpperCase());
+//
+//     List<Color> colors = List.generate(lastDayOfMonth, (index) {
+//       DateTime date = DateTime(year, widget.selectedMonth, index + 1);
+//       if (_selectedDate == date) {
+//         return Colors.blueAccent; // Selected color
+//       } else {
+//         return index % 2 == 0 ? Color(0XFFD3DAFF) : Color(0XFFF1F1FF); // Default color
+//       }
+//     });
+//     return SizedBox(
+//       height: 100, // Adjust height as needed
+//       child: ListView.builder(
+//         scrollDirection: Axis.horizontal,
+//         itemCount: lastDayOfMonth,
+//         itemBuilder: (context, index) {
+//           DateTime date = DateTime(year, widget.selectedMonth, index + 1);
+//
+//           return GestureDetector(
+//             onTap: () {
+//               setState(() {
+//                 if (_selectedDate == date) {
+//                   _selectedDate = null; // Deselect if already selected
+//                 } else {
+//                   _selectedDate = date; // Select the new date
+//                 }
+//                 widget.onDateSelected(_selectedDate ?? DateTime(0)); // Pass the selected date or default
+//               });
+//             },
+//             child: Container(
+//               width: 60, // Adjust width as needed
+//               margin: EdgeInsets.all(4),
+//               decoration: BoxDecoration(
+//                 color: colors[index],
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: Colors.grey.withOpacity(0.3)),
+//               ),
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Text(
+//                     titleText[index],
+//                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+//                   ),
+//                   Text(
+//                     subtitleText[index],
+//                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
