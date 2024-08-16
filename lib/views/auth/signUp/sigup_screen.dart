@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/register_provider.dart';
@@ -25,8 +26,8 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   bool val = false;
   bool isSelected = false;
-  bool isSelected1 = false;
-  bool isSelected2 = false;
+  bool isSelected1 = true;
+  bool isSelected2 = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -258,13 +259,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       ),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          // Handle navigation here
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PrivPolicy()), // Replace with your page
-                                          );
+                                          Get.to(()=>const PrivPolicy());
                                         },
                                     ),
                                     TextSpan(
@@ -288,12 +283,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           // Handle navigation here
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const TermsOfServices()), // Replace with your page
-                                          );
+                                          Get.to(()=>const TermsOfServices());
                                         },
                                     ),
                                   ],
@@ -333,7 +323,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               } else {
                                 FlutterToast.toastMessage(
                                   message:
-                                      "Password doesn't match with confirm password",
+                                      "Password do not match",
                                   isError: true,
                                 );
                               }

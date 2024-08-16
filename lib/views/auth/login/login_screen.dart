@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Row(
                                 children: [
                                   Transform.scale(
-                                    scale: 1.2,
+                                    scale: 1.6,
                                     child: Checkbox(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
