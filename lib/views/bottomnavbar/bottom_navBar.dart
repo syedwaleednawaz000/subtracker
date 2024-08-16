@@ -78,11 +78,11 @@ class _BnavBarState extends State<BnavBar> {
                         MaterialPageRoute(
                             builder: (context) => const Subscription()));
                   },
-                  child: const Icon(Icons.add),
+                  child: const Icon(Icons.add,color: Colors.white,),
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: size.width,
               height: 60,
               child: Row(
@@ -113,8 +113,8 @@ class _BnavBarState extends State<BnavBar> {
                     return IconButton(
                       icon: Image.asset(
                         AppImages.dashboardIcon,
-                        width: 18,
-                        height: 18,
+                        width: MySize.size18,
+                        height: MySize.size18,
                         // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
                         color: value.isSelected(1)
                             ? Provider.of<ThemeChanger>(context).themeData ==
