@@ -49,7 +49,9 @@ class _ManagePlanState extends State<ManagePlan> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),)),
+                    child: Transform.scale(
+                         scale: 0.5,
+                        child: Image.asset(AppImages.backArrow,color: const Color(0XFFA2A2B5),))),
               ),
             ),
           ),

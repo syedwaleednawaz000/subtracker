@@ -24,7 +24,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0xffA2A2B5)
+          ? const Color(0XFF1C1C23)
           : Colors.white,
       body: SafeArea(
         child: ListView(
@@ -62,19 +62,21 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                   padding: EdgeInsets.only(left: MySize.size32),
                   child: Align(
                     alignment: Alignment.topLeft,
-                    child: Text('Terms of Service',
+                    child: Text(
+                      'Terms of Service',
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                           fontSize: 18,
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? const Color(0XFFEEEEEE)
-                              : const Color(0XFF1C1C23),
-                          fontFamily: 'Poppins_Regular'
-                      ),
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                              ? Colors.white
+                              : const Color(0XFF1c1c23),
+                          fontFamily: 'Poppins_Regular'),
                     ),
                   ),
                 ),
+                SizedBox(height: MySize.size12,),
                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32,right: MySize.size14),
                   child: Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {

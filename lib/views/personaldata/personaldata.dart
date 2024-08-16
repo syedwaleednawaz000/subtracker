@@ -447,7 +447,7 @@ class CustomSaveButton extends StatelessWidget {
               topLeft: Radius.circular(24), topRight: Radius.circular(24)),
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
               ? const Color(0XFF353542).withOpacity(0.50)
-              : const Color(0XFFF1F1FF).withOpacity(.50),
+              : const Color(0XFFF1F1FF).withOpacity(0.50),
 
       ),
       child: Column(

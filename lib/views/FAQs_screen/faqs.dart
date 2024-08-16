@@ -94,10 +94,13 @@ class _FaqsScreenState extends State<FaqsScreen> {
                                           : const Color(0XFF333339).withOpacity(.8),
                                       fontFamily: 'Poppins_Regular'),
                                 ),
-                              ])),
+                              ],
+                              ),
+                          ),
                         ),
                       );
-                    },);
+                    },
+                  );
 
                 },)
               ],

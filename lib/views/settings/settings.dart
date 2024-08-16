@@ -64,11 +64,6 @@ class _SettingsState extends State<Settings> {
     AssetImage(AppImages.factor),
     AssetImage(AppImages.email)
   ];
-  // List<AssetImage> plansImage = [
-  //   AssetImage(AppImages.plan),
-  //   AssetImage(AppImages.cancelSub),
-  //   AssetImage(AppImages.calendarIcon)
-  // ];
   List<String> subsTitle = [
     'Manage Plan',
     'Manage Payment',
@@ -117,7 +112,7 @@ class _SettingsState extends State<Settings> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>const BnavBar()));
                   },
-                  child: Image.asset(AppImages.backArrow)),
+                  child: Transform.scale(scale:0.4,child: Image.asset(AppImages.backArrow,))),
               title: Text(
                 'Settings',
                 style: TextStyle(
@@ -395,7 +390,6 @@ class _SettingsState extends State<Settings> {
                                 height: 150,
                                 width: double.infinity,
                                 child: ListView.builder(
-                                  // itemCount: titleText2.length,
                                   itemCount: _switchValues.length,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder:

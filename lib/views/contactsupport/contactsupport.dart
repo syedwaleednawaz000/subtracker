@@ -65,7 +65,7 @@ class _ContactSupportState extends State<ContactSupport> {
                 SizedBox(height: MySize.size20,),
                 Text('Generate Ticket',
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w500,
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ? const Color(0xffEEEEEE)
