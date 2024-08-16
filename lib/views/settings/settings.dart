@@ -60,7 +60,7 @@ class _SettingsState extends State<Settings> {
     AssetImage(AppImages.password)
   ];
   List<AssetImage> leadingImage = [
-    AssetImage(AppImages.faceID),
+    AssetImage(AppImages.bioMetricimg),
     AssetImage(AppImages.factor),
     AssetImage(AppImages.email)
   ];
