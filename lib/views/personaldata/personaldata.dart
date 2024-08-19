@@ -357,7 +357,7 @@ class _PersonalDataState extends State<PersonalData> {
                       ),
                       SizedBox(height: MySize.size4,),
                       SizedBox(
-                        height: MySize.size48,
+                        // height: MySize.size48,
                         child: TextFormField(
                           cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                               ? Colors.white
