@@ -50,7 +50,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*200.0,left: MySize.size36,top: MySize.size60),
+                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*170.0,left: MySize.size36,top: MySize.size60),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -58,7 +58,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         onTap:(){
                           Navigator.pop(context);
                         },
-                        child: Image.asset(AppImages.backArrow),
+                        child: SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Image.asset(AppImages.backArrow)),
                       ),
                     ],
                   ),

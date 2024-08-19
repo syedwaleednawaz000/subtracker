@@ -96,7 +96,10 @@ class _OTPVerificationState extends State<OTPVerification> {
                           onTap:(){
                             Navigator.pop(context);
                           },
-                          child: Image.asset(AppImages.backArrow),
+                          child: SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Image.asset(AppImages.backArrow)),
                         ),
                       ],
                     ),
