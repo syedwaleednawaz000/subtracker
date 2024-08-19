@@ -63,7 +63,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
                 ? Colors.black
-                : const Color(0XFFF7F7FF),
+                : const Color(0XFFF1F1FF),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(MySize.size72),
           child: Padding(

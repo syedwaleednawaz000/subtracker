@@ -40,17 +40,20 @@ class _BnavBarState extends State<BnavBar> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? Colors.black
-          : const Color(0XFFF7F7FF),
+          : const Color(0XFFF1F1FF),
       bottomNavigationBar: Container(
         width: size.width,
         height: 80,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              color: Colors.indigoAccent.withOpacity(0.2),
-              offset: const Offset(0, -4),
-              spreadRadius: 1,
-              blurRadius: 19)
-        ]),
+        decoration: BoxDecoration(
+          color: Color(0xffF1F1FF),
+        //     boxShadow: [
+        //   BoxShadow(
+        //       color: Colors.indigoAccent.withOpacity(0.2),
+        //       offset: const Offset(0, -4),
+        //       spreadRadius: 1,
+        //       blurRadius: 19)
+        // ]
+        ),
         padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
         child: Stack(
           // overflow: Overflow.visible,
@@ -71,7 +74,7 @@ class _BnavBarState extends State<BnavBar> {
               child: ClipOval(
                 child: FloatingActionButton(
                   backgroundColor: const Color(0XFF758AFF),
-                  elevation: 1,
+                  elevation: 0,
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -191,6 +194,8 @@ class _BnavBarState extends State<BnavBar> {
   }
 }
 
+
+
 class BNBCustomPainter extends CustomPainter {
   final bool isDarkMode;
 
@@ -235,8 +240,8 @@ class BNBCustomPainter extends CustomPainter {
     // Close the path to the starting point
     path.lineTo(0, 20);
 
-    // Draw shadow and path with indigo color shadow
-    canvas.drawShadow(path, Colors.indigo, 5, true);
+    // Draw shadow and path with custom shadow color
+    canvas.drawShadow(path, const Color(0xFFF1F1FF), 5, true);
     canvas.drawPath(path, paint);
   }
 
@@ -245,3 +250,4 @@ class BNBCustomPainter extends CustomPainter {
     return false;
   }
 }
+

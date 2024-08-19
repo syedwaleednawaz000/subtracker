@@ -43,6 +43,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     MySize().init(context);
     return Scaffold(
+
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
           child: Padding(
@@ -92,7 +93,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
                 ? Colors.black
-                : const Color(0XFFF7F7FF),
+                : const Color(0XFFF1F1FF),
         body: SingleChildScrollView(
           child: Column(
             children: [

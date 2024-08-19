@@ -53,7 +53,7 @@ class _SettingsState extends State<Settings> {
 
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
   List<AssetImage> leadingAccImage = [
-    AssetImage(
+    const AssetImage(
       AppImages.manIcon,
     ),
     AssetImage(AppImages.language),
@@ -95,7 +95,7 @@ class _SettingsState extends State<Settings> {
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode
                 ?  Colors.black
-                : const Color(0XFFF7F7FF),
+                : const Color(0XFFF1F1FF),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
           child: Padding(
