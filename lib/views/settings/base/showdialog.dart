@@ -68,7 +68,7 @@ class ShowDialogBox extends StatelessWidget {
                             },
                             child: Text('Decline',
                               style: TextStyle(
-                                fontSize: MySize.size18,
+                                fontSize: MySize.size16,
                                 fontWeight: FontWeight.w600,
                                 color:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
@@ -91,7 +91,7 @@ class ShowDialogBox extends StatelessWidget {
                                 child: profileProvider.isDeleteAccount ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):
                                 Text('Accept',
                                   style: TextStyle(
-                                    fontSize: MySize.size18,
+                                    fontSize: MySize.size16,
                                     fontWeight: FontWeight.w600,
                                     color:  Provider.of<ThemeChanger>(context)
                                         .themeData == darkMode

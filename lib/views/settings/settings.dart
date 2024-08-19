@@ -434,8 +434,9 @@ class _SettingsState extends State<Settings> {
                                   },
                                 ),
                               ),
+                              SizedBox(height: MySize.size8,),
                               const Padding(
-                                padding: EdgeInsets.only(left: 18, bottom: 10),
+                                padding: EdgeInsets.only(left: 18,),
                                 child: ShowDialogBox(),
                               ),
                             ],

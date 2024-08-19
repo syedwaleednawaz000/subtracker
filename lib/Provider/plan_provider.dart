@@ -14,7 +14,7 @@ class PlanProvider extends ChangeNotifier {
     notifyListeners();
   }
   Future<void> subscribePlan({ required BuildContext context})async{
-    print("hit successfully in mange ${_selectData}");
+    print("hit successfully in manage ${_selectData}");
     _updatePlanLoading(load: true);
     var body = {
       'plan_id': _selectData['id'],
@@ -23,10 +23,10 @@ class PlanProvider extends ChangeNotifier {
       Response response = await _apiService.subscribePlane(params: body);
       if(response.statusCode == 200){
         _updatePlanLoading(load: false);
-        FlutterToast.toastMessage(message: "Plan subscribe successfully",);
+        FlutterToast.toastMessage(message: "Plan subscribed successfully",);
         Navigator.pop(context);
         if (kDebugMode) {
-          print("hit successfully in mange");
+          print("hit successfully in manage");
         }
 
       }else{

@@ -89,10 +89,12 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
+
         return Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: themeChanger.themeData,
+
             locale: languageProvider.appLocale,
             localizationsDelegates:  const [
               AppLocalizations.delegate,
@@ -113,6 +115,7 @@ class _MyAppState extends State<MyApp> {
                 child: child!,
               );
             },
+
           );
         },);
       }),

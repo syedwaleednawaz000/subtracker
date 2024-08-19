@@ -76,39 +76,63 @@ class _ChangePasswordState extends State<ChangePassword> {
                         const SizedBox(
                           height: 4,
                         ),
-                        TextFormField(
-                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? Colors.white
-                              : Colors.black,
-                          controller: currentPassEditingController,
-                          validator: Validation.validatePassword,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            errorMaxLines: 3,
-                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter password',
-                            hintStyle: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
-                              fontSize: MySize.size12,
-                            ),
-                            suffixIcon: Icon(
-                              Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                                )
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                                )
-                            ),
-                          ),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    textSelectionTheme: TextSelectionThemeData(
+                      cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? Colors.white
+                          : Colors.black,
+                      selectionColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? Colors.blue.withOpacity(0.5)  // Dark mode selection color
+                          : Colors.blue.withOpacity(0.3), // Light mode selection color
+                      selectionHandleColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  child: TextFormField(
+                    cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? Colors.white
+                        : Colors.black,
+                    controller: currentPassEditingController,
+                    enableInteractiveSelection: true,
+                    validator: Validation.validatePassword,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      errorMaxLines: 3,
+                      contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                      hintText: 'Enter password',
+                      hintStyle: TextStyle(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF666680).withOpacity(.6)
+                            : const Color(0XFF666680).withOpacity(.6),
+                        fontSize: MySize.size12,
+                      ),
+                      suffixIcon: Icon(
+                        Icons.lock,
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                            ? const Color(0XFF666680).withOpacity(.6)
+                            : const Color(0XFF666680).withOpacity(.6),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? const Color(0XFF353542)
+                              : const Color(0XFF353542).withOpacity(.1),
                         ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? const Color(0XFF353542)
+                              : const Color(0XFF353542).withOpacity(.1),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                       ],
                     ),
                     const SizedBox(
@@ -127,37 +151,52 @@ class _ChangePasswordState extends State<ChangePassword> {
                         const SizedBox(
                           height: 4,
                         ),
-                        TextFormField(
-                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? Colors.white
-                              : Colors.black,
-                          controller: newPassTextEditingController,
-                          validator: Validation.validatePassword,
-                          decoration: InputDecoration(
+                        Theme(
+                          data: Theme.of(context).copyWith(
+                            textSelectionTheme: TextSelectionThemeData(
+                              cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                              selectionColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.blue.withOpacity(0.5)  // Dark mode selection color
+                                  : Colors.blue.withOpacity(0.3), // Light mode selection color
+                              selectionHandleColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                          child: TextFormField(
+                            cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Colors.white
+                                : Colors.black,
+                            controller: newPassTextEditingController,
+                            validator: Validation.validatePassword,
+                            decoration: InputDecoration(
 
-                            errorMaxLines: 3,
-                            isDense: true,
-                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter password',
-                            hintStyle: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
-                              fontSize: MySize.size12,
-                            ),
-                            suffixIcon: Icon(
-                              Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                                )
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
-                                )
+                              errorMaxLines: 3,
+                              isDense: true,
+                              contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                              hintText: 'Enter password',
+                              hintStyle: TextStyle(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
+                                fontSize: MySize.size12,
+                              ),
+                              suffixIcon: Icon(
+                                Icons.lock,
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
+                                  )
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF353542) : const Color(0XFF353542).withOpacity(.1),
+                                  )
+                              ),
                             ),
                           ),
                         ),
@@ -179,58 +218,73 @@ class _ChangePasswordState extends State<ChangePassword> {
                         const SizedBox(
                           height: 4,
                         ),
-                        TextFormField(
-                          controller: newConfirmPassTextEditingController,
-                          validator: Validation.validatePassword,
-                          onChanged: (newValue) {
-                            Provider.of<ChangePasswordProvider>(context, listen: false).updatePasswordStepper(newValue);
-                          },
-                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                              ? Colors.white
-                              : Colors.black,
-                          style: TextStyle(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        Theme(
+                          data: Theme.of(context).copyWith(
+                            textSelectionTheme: TextSelectionThemeData(
+                              cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                              selectionColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.blue.withOpacity(0.5)  // Dark mode selection color
+                                  : Colors.blue.withOpacity(0.3), // Light mode selection color
+                              selectionHandleColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                          child: TextFormField(
+                            controller: newConfirmPassTextEditingController,
+                            validator: Validation.validatePassword,
+                            onChanged: (newValue) {
+                              Provider.of<ChangePasswordProvider>(context, listen: false).updatePasswordStepper(newValue);
+                            },
+                            cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                                 ? Colors.white
-                                : Colors.black, // Set text color based on the theme
-                            fontSize: MySize.size14,
-                          ),
-                          decoration: InputDecoration(
-                            errorMaxLines: 3,
-                            isDense: true,
-                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            hintText: 'Enter password',
-                            hintStyle: TextStyle(
+                                : Colors.black,
+                            style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? const Color(0XFF666680).withOpacity(.6)
-                                  : const Color(0XFF666680).withOpacity(.6),
-                              fontSize: MySize.size12,
+                                  ? Colors.white
+                                  : Colors.black, // Set text color based on the theme
+                              fontSize: MySize.size14,
                             ),
-                            suffixIcon: Icon(
-                              Icons.lock,
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                  ? const Color(0XFF666680).withOpacity(.6)
-                                  : const Color(0XFF666680).withOpacity(.6),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(
+                            decoration: InputDecoration(
+                              errorMaxLines: 3,
+                              isDense: true,
+                              contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                              hintText: 'Enter password',
+                              hintStyle: TextStyle(
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF353542)
-                                    : const Color(0XFF353542).withOpacity(.1),
+                                    ? const Color(0XFF666680).withOpacity(.6)
+                                    : const Color(0XFF666680).withOpacity(.6),
+                                fontSize: MySize.size12,
+                              ),
+                              suffixIcon: Icon(
+                                Icons.lock,
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF666680).withOpacity(.6)
+                                    : const Color(0XFF666680).withOpacity(.6),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                      ? const Color(0XFF353542)
+                                      : const Color(0XFF353542).withOpacity(.1),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                      ? const Color(0XFF353542)
+                                      : const Color(0XFF353542).withOpacity(.1),
+                                ),
                               ),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF353542)
-                                    : const Color(0XFF353542).withOpacity(.1),
-                              ),
-                            ),
+                            selectionControls: MaterialTextSelectionControls(), // Ensure text selection is supported
+                            enableSuggestions: true, // Suggest words as you type
+                            textInputAction: TextInputAction.done, // Specify the action when "done" is pressed
                           ),
-                          selectionControls: MaterialTextSelectionControls(), // Ensure text selection is supported
-                          enableSuggestions: true, // Suggest words as you type
-                          textInputAction: TextInputAction.done, // Specify the action when "done" is pressed
                         ),
                       ],
                     ),
@@ -273,7 +327,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       newPasswordConfirmation: newConfirmPassTextEditingController.text.trim(),
                     );
                   } else {
-                    FlutterToast.toastMessage(message: "Confirm password not matched", isError: true);
+                    FlutterToast.toastMessage(message: "Confirm password doesn't get matched with password ", isError: true);
                   }
                 }
                 },
