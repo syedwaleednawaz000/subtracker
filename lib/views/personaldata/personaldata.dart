@@ -211,6 +211,9 @@ class _PersonalDataState extends State<PersonalData> {
                       SizedBox(
                         height: MySize.size48,
                         child: TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black,
                           validator: Validation.validateEmail,
                           controller: profileProvider.emailEditingController,
                           decoration: InputDecoration(
@@ -283,6 +286,9 @@ class _PersonalDataState extends State<PersonalData> {
                       SizedBox(
                         height: MySize.size48,
                         child: TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black,
                           validator: Validation.validateName,
                           controller: profileProvider.nameEditingController,
                           decoration: InputDecoration(
@@ -353,12 +359,15 @@ class _PersonalDataState extends State<PersonalData> {
                       SizedBox(
                         height: MySize.size48,
                         child: TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? Colors.white
+                              : Colors.black,
                           validator: Validation.validatePhoneNumber,
                           controller: profileProvider.phoneNumberEditingController,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                            isDense: false, // Avoid density adjustments
+                            contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20), // Adjust padding
                             labelText: 'Phone No.',
                             labelStyle: TextStyle(
                               fontFamily: 'Poppins_Regular',
@@ -398,9 +407,28 @@ class _PersonalDataState extends State<PersonalData> {
                                     : const Color(0XFF353542).withOpacity(.1),
                               ),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              gapPadding:MySize.size40,
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              gapPadding: MySize.size40,
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      )
+,
                     ],
                   ),
                 );
@@ -408,7 +436,7 @@ class _PersonalDataState extends State<PersonalData> {
 
               const Spacer(),
               Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                return             CustomSaveButton(
+                return  CustomSaveButton(
                   loading: profileProvider.isUpdated,
                   onTap: (){
                     if(_formKey.currentState!.validate()){

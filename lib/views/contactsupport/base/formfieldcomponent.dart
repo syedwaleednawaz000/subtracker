@@ -29,6 +29,9 @@ class FormFieldComponent extends StatelessWidget {
           )
       ) ,
       child: TextFormField(
+        cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+          ? Colors.white
+          : Colors.black,
         controller: controller,
         maxLines: maxLines,
         validator: validator,

@@ -195,7 +195,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                                 FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
                               }
                             } else {
-                              FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
+                              FlutterToast.toastMessage(message: "Please enter complete otp",isError: true);
                             }
                           },
                           child: Padding(
@@ -230,7 +230,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                         );
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

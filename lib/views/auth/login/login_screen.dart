@@ -375,7 +375,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: MySize.scaleFactorHeight * 45,
+                          height: MySize.scaleFactorHeight * 50,
                         ),
                         Text(
                           AppLocalizations.of(context)!
@@ -402,9 +402,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   : AppColors.grey30.withOpacity(.15),
                               mytitle: AppLocalizations.of(context)!.sign_up,
                               textColor: Colors.white),
-                        ),
-                        SizedBox(
-                          height: MySize.size20,
                         ),
                       ],
                     ));
