@@ -97,7 +97,7 @@ class CurrencyTiles extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(MySize.size15),
                     color: currencyProvider.selectedCurrency == finalData['code']
-                        ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.blue.withOpacity(0.5))
+                        ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF))
                         : (Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : const Color(0XFFF7F7FF)),
                   ),
                   child: Center(

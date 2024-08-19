@@ -47,388 +47,385 @@ class _PersonalDataState extends State<PersonalData> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
-        body: Container(
-          height: height,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MySize.size23,
-                    vertical: MySize.size32,
-                  ),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Image.asset(AppImages.backArrow, height: 20,)),
-                      SizedBox(
-                        width: MySize.scaleFactorWidth * 110,
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MySize.size23,
+                  vertical: MySize.size32,
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(AppImages.backArrow, height: 20,)),
+                    SizedBox(
+                      width: MySize.scaleFactorWidth * 110,
+                    ),
+                    Text('Personal Data',
+                      style: TextStyle(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
+                        fontSize: MySize.size16,
+                        fontWeight: FontWeight.w400,
                       ),
-                      Text('Personal Data',
+                    ),
+                  ],
+                ),
+              ),
+               SizedBox(
+                height:  MySize.size40,
+              ),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                final profileImageUrl = profileProvider.userData['data']['profile_image'];
+                return  Container(
+                  height: MySize.size72,
+                  width: MySize.size72,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(90),
+                  ),
+                  child:profileProvider.updatePic == null ?
+                  profileImageUrl != null && profileImageUrl.isNotEmpty
+                      ?CachedNetworkImage(
+                    imageUrl: profileImageUrl,
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: MySize.size72,
+                      width: MySize.size72,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(90),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        height: MySize.size72,
+                        width: MySize.size72,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(90),
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      height: MySize.size72,
+                      width: MySize.size72,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(90),
+                        image: DecorationImage(
+                          image: AssetImage(AppImages.person),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ):
+                  Container(
+                      height: MySize.size72,
+                      width: MySize.size72,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(90),),
+                      child: Image.asset(AppImages.person)) :
+                  Container(
+                      height: MySize.size72,
+                      width: MySize.size72,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(90),),
+                      child: Image.file(File(profileProvider.updatePic!.path.toString()))),
+                );
+              },),
+              SizedBox(
+                height: MySize.size8,
+              ),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                return  TextWidgetInterBold(
+                  align: TextAlign.center,
+                  title: profileProvider.userData['data']['name'],
+                  fontSize: MySize.size20,
+                  fontWeight: FontWeight.w700,
+                  // color: AppColors.whiteFF,
+                );
+              },),
+              SizedBox(
+                height: MySize.size8,
+              ),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                return GestureDetector(
+                  onTap: (){
+                    profileProvider.picPicture();
+                  },
+                  child: Container(
+                    height:  MySize.size36, width: 70,
+
+                    decoration: BoxDecoration(
+                      borderRadius:  BorderRadius.circular(16),
+                      color:   Provider.of<ThemeChanger>(context).themeData ==
+                          darkMode ? Colors.white.withOpacity(.1) : const Color(0XFFF1F1FF),
+                      border: Border(
+                        top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
+                            darkMode
+                            ? const Color(0xFFCFCFFC).withOpacity(.15)
+                            : const Color(0xFFCFCFFC).withOpacity(.15)),
+
+                        left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
+                            darkMode
+                            ? const Color(0xFFCFCFFC).withOpacity(.15)
+                            : const Color(0xFFCFCFFC).withOpacity(.15)),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text('Change',
                         style: TextStyle(
-                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
-                          fontSize: MySize.size16,
-                          fontWeight: FontWeight.w400,
+                            color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF424252),
+                            fontSize: 12, fontWeight: FontWeight.w600),),
+                    ),
+                  ),
+                );
+              },),
+              SizedBox(height: MySize.size20,),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                return      Padding(
+                  padding: const EdgeInsets.only(left: 37, right: 38),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('E-mail address',
+                        style: TextStyle(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(
+                        height: MySize.size4,
+                      ),
+                      SizedBox(
+                        height: MySize.size48,
+                        child: TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ?  Colors.white
+                              :  Colors.black,
+                          validator: Validation.validateEmail,
+                          controller: profileProvider.emailEditingController,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            contentPadding: EdgeInsets.only(
+                              left: MySize.size20,
+                              right: MySize.size20,
+                            ),
+                            labelText: 'Email', // Use labelText for consistency
+                            labelStyle: TextStyle(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                              fontSize: MySize.size12,
+                              fontFamily: 'Poppins_Regular',
+                            ),
+                            hintText: 'Email',
+                            hintStyle: TextStyle(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                              fontSize: MySize.size12,
+                              fontFamily: 'Poppins_Regular',
+                            ),
+                            suffixIcon: Icon(
+                              Icons.email,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                 SizedBox(
-                  height:  MySize.size40,
-                ),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  final profileImageUrl = profileProvider.userData['data']['profile_image'];
-                  return  Container(
-                    height: MySize.size72,
-                    width: MySize.size72,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(90),
-                    ),
-                    child:profileProvider.updatePic == null ?
-                    profileImageUrl != null && profileImageUrl.isNotEmpty
-                        ?CachedNetworkImage(
-                      imageUrl: profileImageUrl,
-                      imageBuilder: (context, imageProvider) => Container(
-                        height: MySize.size72,
-                        width: MySize.size72,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(90),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          height: MySize.size72,
-                          width: MySize.size72,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(90),
-                          ),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                        height: MySize.size72,
-                        width: MySize.size72,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(90),
-                          image: DecorationImage(
-                            image: AssetImage(AppImages.person),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ):
-                    Container(
-                        height: MySize.size72,
-                        width: MySize.size72,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(90),),
-                        child: Image.asset(AppImages.person)) :
-                    Container(
-                        height: MySize.size72,
-                        width: MySize.size72,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(90),),
-                        child: Image.file(File(profileProvider.updatePic!.path.toString()))),
-                  );
-                },),
-                SizedBox(
-                  height: MySize.size8,
-                ),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  return  TextWidgetInterBold(
-                    align: TextAlign.center,
-                    title: profileProvider.userData['data']['name'],
-                    fontSize: MySize.size20,
-                    fontWeight: FontWeight.w700,
-                    // color: AppColors.whiteFF,
-                  );
-                },),
-                SizedBox(
-                  height: MySize.size8,
-                ),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  return GestureDetector(
-                    onTap: (){
-                      profileProvider.picPicture();
-                    },
-                    child: Container(
-                      height:  MySize.size36, width: 70,
-
-                      decoration: BoxDecoration(
-                        borderRadius:  BorderRadius.circular(16),
-                        color:   Provider.of<ThemeChanger>(context).themeData ==
-                            darkMode ? Colors.white.withOpacity(.1) : const Color(0XFFF1F1FF),
-                        border: Border(
-                          top: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? const Color(0xFFCFCFFC).withOpacity(.15)
-                              : const Color(0xFFCFCFFC).withOpacity(.15)),
-
-                          left: BorderSide( color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? const Color(0xFFCFCFFC).withOpacity(.15)
-                              : const Color(0xFFCFCFFC).withOpacity(.15)),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text('Change',
-                          style: TextStyle(
-                              color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF424252),
-                              fontSize: 12, fontWeight: FontWeight.w600),),
-                      ),
-                    ),
-                  );
-                },),
-                SizedBox(height: MySize.size20,),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  return      Padding(
-                    padding: const EdgeInsets.only(left: 37, right: 38),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('E-mail address',
-                          style: TextStyle(
+                );
+              }),
+              SizedBox(height: MySize.size20,),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                return             Padding(
+                  padding: const EdgeInsets.only(left: 37, right: 38),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Name',
+                        style: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
+                            fontWeight: FontWeight.w500
                         ),
-                        SizedBox(
-                          height: MySize.size4,
-                        ),
-                        SizedBox(
-                          height: MySize.size48,
-                          child: TextFormField(
-                            cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ?  Colors.white
-                                :  Colors.black,
-                            validator: Validation.validateEmail,
-                            controller: profileProvider.emailEditingController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                              contentPadding: EdgeInsets.only(
-                                left: MySize.size20,
-                                right: MySize.size20,
-                              ),
-                              labelText: 'Email', // Use labelText for consistency
-                              labelStyle: TextStyle(
+                      ),
+                      SizedBox(height: MySize.size4,),
+                      SizedBox(
+                        height: MySize.size48,
+                        child: TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ?  Colors.white
+                              :  Colors.black,
+                          validator: Validation.validateName,
+                          controller: profileProvider.nameEditingController,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                            labelText: 'Name', // Use labelText for consistency
+                            labelStyle: TextStyle(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                              fontSize: MySize.size12,
+                              fontFamily: 'Poppins_Regular',
+                            ),
+                            hintText: 'Name',
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            hintStyle: TextStyle(
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                              fontSize: MySize.size12,
+                              fontFamily: 'Poppins_Regular',
+                            ),
+                            suffixIcon: Icon(
+                              Icons.person_rounded,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                                fontSize: MySize.size12,
-                                fontFamily: 'Poppins_Regular',
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
                               ),
-                              hintText: 'Email',
-                              hintStyle: TextStyle(
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                                fontSize: MySize.size12,
-                                fontFamily: 'Poppins_Regular',
-                              ),
-                              suffixIcon: Icon(
-                                Icons.email,
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? const Color(0XFF353542)
-                                      : const Color(0XFF353542).withOpacity(.1),
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? const Color(0XFF353542)
-                                      : const Color(0XFF353542).withOpacity(.1),
-                                ),
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                }),
-                SizedBox(height: MySize.size20,),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  return             Padding(
-                    padding: const EdgeInsets.only(left: 37, right: 38),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Name',
-                          style: TextStyle(
-                              color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500
-                          ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+               SizedBox(height: MySize.size20,),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                return             Padding(
+                  padding: const EdgeInsets.only(left: 37, right: 38),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Phone No.',
+                        style: TextStyle(
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          // fontFamily: 'Poppins_Regular'
                         ),
-                        SizedBox(height: MySize.size4,),
-                        SizedBox(
-                          height: MySize.size48,
-                          child: TextFormField(
-                            cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ?  Colors.white
-                                :  Colors.black,
-                            validator: Validation.validateName,
-                            controller: profileProvider.nameEditingController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                              labelText: 'Name', // Use labelText for consistency
-                              labelStyle: TextStyle(
+                      ),
+                      SizedBox(height: MySize.size4,),
+                      SizedBox(
+                        height: MySize.size48,
+                        child: TextFormField(
+                          cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ?  Colors.white
+                              :  Colors.black,
+                          validator: Validation.validatePhoneNumber,
+                          controller: profileProvider.phoneNumberEditingController,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: const EdgeInsets.only(left: 20, right: 20),
+                            labelText: 'Phone No.',
+                            labelStyle: TextStyle(
+                              fontFamily: 'Poppins_Regular',
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                              fontSize: MySize.size12,
+                            ),
+                            hintText: 'Phone No.',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Poppins_Regular',
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                              fontSize: MySize.size12,
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            suffixIcon: Icon(
+                              Icons.phone,
+                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                  ? const Color(0XFF666680)
+                                  : const Color(0XFF666680).withOpacity(.4),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                                fontSize: MySize.size12,
-                                fontFamily: 'Poppins_Regular',
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
                               ),
-                              hintText: 'Name',
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                              hintStyle: TextStyle(
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                                fontSize: MySize.size12,
-                                fontFamily: 'Poppins_Regular',
-                              ),
-                              suffixIcon: Icon(
-                                Icons.person_rounded,
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? const Color(0XFF353542)
-                                      : const Color(0XFF353542).withOpacity(.1),
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? const Color(0XFF353542)
-                                      : const Color(0XFF353542).withOpacity(.1),
-                                ),
+                                    ? const Color(0XFF353542)
+                                    : const Color(0XFF353542).withOpacity(.1),
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                }),
-                 SizedBox(height: MySize.size20,),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  return             Padding(
-                    padding: const EdgeInsets.only(left: 37, right: 38),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Phone No.',
-                          style: TextStyle(
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            // fontFamily: 'Poppins_Regular'
-                          ),
-                        ),
-                        SizedBox(height: MySize.size4,),
-                        SizedBox(
-                          height: MySize.size48,
-                          child: TextFormField(
-                            cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ?  Colors.white
-                                :  Colors.black,
-                            validator: Validation.validatePhoneNumber,
-                            controller: profileProvider.phoneNumberEditingController,
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                              labelText: 'Phone No.',
-                              labelStyle: TextStyle(
-                                fontFamily: 'Poppins_Regular',
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                                fontSize: MySize.size12,
-                              ),
-                              hintText: 'Phone No.',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Poppins_Regular',
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                                fontSize: MySize.size12,
-                              ),
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                              suffixIcon: Icon(
-                                Icons.phone,
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680)
-                                    : const Color(0XFF666680).withOpacity(.4),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? const Color(0XFF353542)
-                                      : const Color(0XFF353542).withOpacity(.1),
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                      ? const Color(0XFF353542)
-                                      : const Color(0XFF353542).withOpacity(.1),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-                const Spacer(),
-                Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                  return             CustomSaveButton(
-                    loading: profileProvider.isUpdated,
-                    onTap: (){
-                      if(_formKey.currentState!.validate()){
-                        profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
-                            name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
-                      }
-                    },
-                    titleText: 'Save',);
-                },)
-              ],
-            ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+              SizedBox(height: MySize.size100,),
+              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                return             CustomSaveButton(
+                  loading: profileProvider.isUpdated,
+                  onTap: (){
+                    if(_formKey.currentState!.validate()){
+                      profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
+                          name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
+                    }
+                  },
+                  titleText: 'Save',);
+              },)
+            ],
           ),
         ),
       ),
