@@ -30,7 +30,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     }
     return null;
   }
-
+  TextEditingController emailController = TextEditingController();
+@override
+void dispose() {
+    // TODO: implement dispose
+  emailController.clear();
+  emailController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
@@ -108,7 +115,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   padding: const EdgeInsets.only(left: 25, right: 26),
                   child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                     return TextFormField(
-                      controller: forgotPasswordProvider.emailTextEditingController,
+                      controller: emailController,
+                      // controller: forgotPasswordProvider.emailTextEditingController,
                       validator: emailValidation,
                       style: const TextStyle(
                           color: Color(0XFF666680)
@@ -161,7 +169,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Provider.of<ForgotPasswordProvider>(context, listen: false).forgotPassword(context: context);
+                      Provider.of<ForgotPasswordProvider>(context, listen: false).forgotPassword(email: emailController.text.trim(),context: context);
                     }
                   },
                   child: Container(
