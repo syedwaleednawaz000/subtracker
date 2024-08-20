@@ -208,7 +208,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('New confirm password',
+                        Text('Confirm password',
                           style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                               fontSize: 12,
@@ -297,11 +297,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                           totalSteps: 4,
                           currentStep: registerProvider.strengthLevel,
                           size: 8, // Ensure this value is half the height for fully rounded ends
-                          padding: 0,
+                          padding: MySize.size2,
                           selectedColor: registerProvider.strengthLevel == 0
-                              ? Colors.grey
+                              ? const Color(0XFF3535421A).withOpacity(.10)
                               : registerProvider.colors[registerProvider.strengthLevel - 1],
-                          unselectedColor: const Color(0XFF353542),
+                          unselectedColor: const Color(0XFF3535421A).withOpacity(.10),
                           roundedEdges:Radius.circular(MySize.size90), // Full circular edges
                         ),
                       );

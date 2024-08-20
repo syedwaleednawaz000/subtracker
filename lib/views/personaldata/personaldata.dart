@@ -209,7 +209,6 @@ class _PersonalDataState extends State<PersonalData> {
                         height: MySize.size4,
                       ),
                       SizedBox(
-                        height: MySize.size48,
                         child: TextFormField(
                           cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                               ? Colors.white
@@ -253,6 +252,22 @@ class _PersonalDataState extends State<PersonalData> {
                                     : const Color(0XFF353542).withOpacity(.1),
                               ),
                             ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFF353542)
+                                : const Color(0XFF353542).withOpacity(.1),
+                          ),
+                        ),
+                        focusedErrorBorder:OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFF353542)
+                                : const Color(0XFF353542).withOpacity(.1),
+                          ),
+                        ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(
