@@ -55,10 +55,11 @@ class ForgotPasswordProvider extends ChangeNotifier{
     }
   }
 
-  Future<void> forgotPassword({required BuildContext context,required String email})async{
+  Future<void> forgotPassword({required BuildContext context, String? email})async{
+
     email = emailTextEditingController.text;
     var body = {
-      'email': email,
+      'email': email ?? emailTextEditingController.text.trim(),
     };
     _loginLoading(load: true);
     print("this is the body ${body}");
