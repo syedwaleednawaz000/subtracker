@@ -212,7 +212,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Transform.scale(
-                           scale: 1.6,
+                           scale: 1.33,
                               child: Checkbox(
                                 materialTapTargetSize:
                                     MaterialTapTargetSize.shrinkWrap,

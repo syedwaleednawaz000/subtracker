@@ -116,7 +116,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                   const SizedBox(height: 15),
                    Text(
                      AppLocalizations.of(context)!.check_your_email_we_have_sent_you_the_recovery_code,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0XFFF0F4F7),
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -146,7 +146,13 @@ class _OTPVerificationState extends State<OTPVerification> {
                   ),
                   SizedBox(height: MySize.size25),
                   Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
-                    return Text("00:${forgotPasswordProvider.secondsRemaining.toString()}",style: CustomTextStyles.textStyleWith14WhiteBold400(),);
+                    return Text("00 : ${forgotPasswordProvider.secondsRemaining.toString()}",style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: "Inter",
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),);
                   },),
                   SizedBox(height: MySize.size25),
                   Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
@@ -195,7 +201,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                                 FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
                               }
                             } else {
-                              FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
+                              FlutterToast.toastMessage(message: "Please enter the complete OTP code. The OTP must be 6 digits long.p",isError: true);
                             }
                           },
                           child: Padding(

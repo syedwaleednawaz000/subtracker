@@ -98,7 +98,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             SizedBox(height: MySize.size4,),
                             TextFormField(
                               validator: Validation.validatePassword,
-
+                              obscureText: password,
                               controller: forgotPasswordProvider.password,
                               style: TextStyle(
                                   color:  Color(0XFF666680)
