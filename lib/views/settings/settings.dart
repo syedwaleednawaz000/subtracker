@@ -38,7 +38,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  List<bool> _switchValues = List.generate(3, (index) => false);
+  // List<bool> _switchValues = List.generate(3, (index) => false);
   List<String> titleText = [
     'Personal Data',
     'Language',
@@ -383,44 +383,44 @@ class _SettingsState extends State<Settings> {
                               },
                             ),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 150,
-                                width: double.infinity,
-                                child: ListView.builder(
-                                  itemCount: _switchValues.length,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ListTile(
-                                      dense: true,
-                                      leading: Image(
-                                        image: leadingImage[index],
-                                        height: MySize.size20,
-                                      ),
-                                      title: Text(
-                                        titleText2[index],
-                                        style: TextStyle(
-                                          fontSize: MySize.size14,
-                                          fontWeight: FontWeight.w600,
+                          Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                            return                           Column(
+                              children: [
+                                SizedBox(
+                                  height: 150,
+                                  width: double.infinity,
+                                  child: ListView.builder(
+                                    itemCount: profileProvider.switchValues.length,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return ListTile(
+                                        dense: true,
+                                        leading: Image(
+                                          image: leadingImage[index],
+                                          height: MySize.size20,
                                         ),
-                                      ),
-                                      trailing: Transform.scale(
-                                        scale: 0.8, // Adjust this value to scale the switch size
-                                        child: Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                                          return Switch(
-                                            value: _switchValues[index],
+                                        title: Text(
+                                          titleText2[index],
+                                          style: TextStyle(
+                                            fontSize: MySize.size14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        trailing: Transform.scale(
+                                          scale: 0.8, // Adjust this value to scale the switch size
+                                          child: Switch(
+                                            value: profileProvider.switchValues[index],
                                             onChanged: (bool newValue) {
                                               setState(() {
                                                 if(index == 0){
-                                                    profileProvider.bioMetricAuth(context: context);
+                                                  profileProvider.bioMetricAuth(context: context);
                                                 }else if(index ==1){
-                                                  print("this is two factor auth");
+                                                  profileProvider.twoFactorAuth(context: context);
                                                 }else {
                                                   profileProvider.emailNotification(context: context);
                                                 }
-                                                _switchValues[index] = newValue;
+                                                profileProvider.switchValues[index] = newValue;
                                               });
                                             },
                                             activeTrackColor: const Color(0XFF758AFF),
@@ -434,20 +434,20 @@ class _SettingsState extends State<Settings> {
                                             trackOutlineColor: const MaterialStatePropertyAll(
                                               Color(0x00000000),
                                             ),
-                                          );
-                                        },),
-                                      ),
-                                    );
-                                  },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: MySize.size8,),
-                              const Padding(
-                                padding: EdgeInsets.only(left: 18,),
-                                child: ShowDialogBox(),
-                              ),
-                            ],
-                          ),
+                                SizedBox(height: MySize.size8,),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 18,),
+                                  child: ShowDialogBox(),
+                                ),
+                              ],
+                            );
+                          },)
                         ],
                       ),
                     ),

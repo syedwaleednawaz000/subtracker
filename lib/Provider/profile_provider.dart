@@ -44,6 +44,15 @@ class ProfileProvider extends ChangeNotifier{
     _isUpdateProfile = load;
     notifyListeners();
   }
+  List<bool> switchValues = [];
+  Future<void> setSwitchValue({required Map<String , dynamic> map}) async {
+    Map<String , dynamic> data = map['data'];
+    switchValues.add(data['biometric_auth'] =="disabled"?false:true);
+    switchValues.add(data['two_factor'] =="disabled"?false:true);
+    switchValues.add(data['email_notifications'] =="disabled"?false:true);
+    notifyListeners();
+  }
+  // List<bool> switchValues = List.generate(3, (index) => false);
   Map<String , dynamic > userData = {};
   Future<void> getProfile({required BuildContext context,required String userID})async{
     _updateLoading(load: true);
@@ -51,6 +60,7 @@ class ProfileProvider extends ChangeNotifier{
       Response response = await _apiService.getProfile();
       if(response.statusCode == 200){
         userData = response.data;
+        setSwitchValue(map: userData);
         if(userData['data']['currency_code'] != null){
           Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(
               currencyCode: userData['data']['currency_code'], currencySymbol: userData['data']['currency_symbol']);
@@ -207,16 +217,16 @@ class ProfileProvider extends ChangeNotifier{
   Future<void> twoFactorAuth({required BuildContext context,})async{
     try{
       Response? response;
-      if(userData['data']['biometric_auth'] =="enabled"){
+      if(userData['data']['two_factor'] =="enabled"){
         response = await _apiService.disableTwoFactorAuth(params: {});
       }else{
         response = await _apiService.enableTwoFactorAuth(params: {});
       }
       if(response!.statusCode == 200){
-        if(userData['data']['biometric_auth'] =="enabled"){
-          userData['data']['biometric_auth'] = "disable";
+        if(userData['data']['two_factor'] =="enabled"){
+          userData['data']['two_factor'] = "disable";
         }else{
-          userData['data']['biometric_auth'] = "enabled";
+          userData['data']['two_factor'] = "enabled";
         }
         FlutterToast.toastMessage(message: response.data['message'],);
         notifyListeners();
