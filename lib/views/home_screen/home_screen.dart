@@ -317,8 +317,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                 var finalData =
                                                     data['upcommingbills']
                                                         [index];
-                                                return UpComingBillWidget(
-                                                    upComingBills: finalData);
+                                                return UpComingBillWidget(upComingBills: finalData);
                                               },
                                             ),
                                           ),

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -77,7 +78,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
               title: Text(
                 'Spending & Budgets',
                 style: TextStyle(
-                    color: const Color(0xFF424252),
+                    color: const Color(0xFFA2A2B5),
                     fontSize: MySize.size16,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400),
@@ -97,12 +98,10 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                         AppImages.notificationIconSvg,
                         height: MySize.size24,
                         width: MySize.size24,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0xFF424252)
-                            : const Color(0xFF424252),
-                      )),
-                )
+                        color: const Color(0xFFA2A2B5),
+                  ),
+                ),
+                ),
               ],
             ),
           ),
@@ -190,7 +189,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Text(
-                                        '${currencyProvider.selectedCurrencySymbol} ${spendingBudgetProvider.totalSpendBudget}',
+                                        '${currencyProvider.selectedCurrencySymbol}${spendingBudgetProvider.totalSpendBudget}',
                                         style: TextStyle(
                                             fontSize: MySize.size24,
                                             fontFamily: "Inter",
@@ -199,7 +198,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       ),
                                       SizedBox(height: MySize.size4),
                                       Text(
-                                        'of ${currencyProvider.selectedCurrencySymbol} ${spendingBudgetProvider.totalBudget} budget',
+                                        'of ${currencyProvider.selectedCurrencySymbol}${spendingBudgetProvider.totalBudget} budget',
                                         style: TextStyle(
                                           fontSize: MySize.size12,
                                           fontFamily: 'Inter',
@@ -324,7 +323,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(
-                                            bottom: MySize.size8),
+                                            bottom: MySize.size2),
                                         child: Column(
                                           children: [
                                             Consumer<CurrencyProvider>(
@@ -337,13 +336,12 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                   child: Container(
                                                     height: MySize
                                                             .scaleFactorHeight *
-                                                        96,
+                                                        110,
                                                     width: double.infinity,
                                                     decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(MySize
-                                                                    .size16),
+                                                                .circular(MySize.size16),
                                                         color: Provider.of<ThemeChanger>(
                                                                         context)
                                                                     .themeData ==
@@ -395,8 +393,9 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                                       0XFF424252),
                                                             ),
                                                           ),
+
                                                           subtitle: Text(
-                                                            "${currencyProvider.selectedCurrencySymbol} ${finalData['left_to_spend'] ?? "0"} left to spend",
+                                                            "${currencyProvider.selectedCurrencySymbol}${finalData['left_to_spend'] ?? "0"} left to spend",
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: TextStyle(
@@ -405,14 +404,9 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
-                                                              color: Provider.of<ThemeChanger>(
-                                                                              context)
-                                                                          .themeData ==
-                                                                      darkMode
-                                                                  ? const Color(
-                                                                      0xFFA2A2B5)
-                                                                  : const Color(
-                                                                      0xFFA2A2B5),
+                                                              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                                  ? const Color(0xFFA2A2B5)
+                                                                  : const Color(0xFFA2A2B5),
                                                             ),
                                                           ),
                                                           leading: Image.asset(
@@ -422,79 +416,60 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                             height:
                                                                 MySize.size32,
                                                           ),
-                                                          trailing: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                " ${finalData['user_id'] == null ? finalData['total_budget'] == null ? "Set Budget" : "" : "Add Provider"}",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: MySize
-                                                                      .size14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Provider.of<ThemeChanger>(context)
-                                                                              .themeData ==
-                                                                          darkMode
-                                                                      ? const Color(
-                                                                          0XFFFFFFFF)
-                                                                      : const Color(
-                                                                          0XFF424252),
+                                                            trailing: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Flexible(
+                                                                  child: Text(
+                                                                    "${finalData['user_id'] == null ? finalData['total_budget'] == null ? "Set Budget" : "" : "Add Provider"}",
+                                                                    style: TextStyle(
+                                                                      fontSize: MySize.size14,
+                                                                      fontWeight: FontWeight.w600,
+                                                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                                          ? const Color(0XFFFFFFFF)
+                                                                          : const Color(0XFF424252),
+                                                                    ),
+                                                                    softWrap: true, // Allow text to wrap within the available space
+                                                                    overflow: TextOverflow.ellipsis, // Handle overflow with ellipsis
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              Text(
-                                                                "${currencyProvider.selectedCurrencySymbol} ${finalData['price'] ?? "0"}",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: MySize
-                                                                      .size14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Provider.of<ThemeChanger>(context)
-                                                                              .themeData ==
-                                                                          darkMode
-                                                                      ? const Color(
-                                                                          0XFFFFFFFF)
-                                                                      : const Color(
-                                                                          0XFF424252),
+                                                                Flexible(
+                                                                  child: Text(
+                                                                    "${currencyProvider.selectedCurrencySymbol} ${finalData['price'] ?? "0"}",
+                                                                    textAlign: TextAlign.start,
+                                                                    style: TextStyle(
+                                                                      fontSize: MySize.size14,
+                                                                      fontWeight: FontWeight.w600,
+                                                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                                          ? const Color(0XFFFFFFFF)
+                                                                          : const Color(0XFF424252),
+                                                                    ),
+                                                                    softWrap: true,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              Text(
-                                                                "of ${currencyProvider.selectedCurrencySymbol} ${finalData['total_budget'] ?? "0"}",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: MySize
-                                                                      .size12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Provider.of<ThemeChanger>(context)
-                                                                              .themeData ==
-                                                                          darkMode
-                                                                      ? const Color(
-                                                                          0XFFA2A2B5)
-                                                                      : const Color(
-                                                                          0XFFA2A2B5),
+                                                                Flexible(
+                                                                  child: Text(
+                                                                    "of ${currencyProvider.selectedCurrencySymbol} ${finalData['total_budget'] ?? "0"}",
+                                                                    textAlign: TextAlign.start,
+                                                                    style: TextStyle(
+                                                                      fontSize: MySize.size12,
+                                                                      fontWeight: FontWeight.w500,
+                                                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                                          ? const Color(0XFFA2A2B5)
+                                                                          : const Color(0XFFA2A2B5),
+                                                                    ),
+                                                                    softWrap: true,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                              ],
+                                                            ),
                                                         ),
                                                         Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  bottom: MySize
-                                                                      .size5,
+
                                                                   left: MySize
                                                                       .size20,
                                                                   right: MySize
@@ -555,34 +530,10 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                   : const Color(0XFFA2A2B5),
                             ),
                           ),
-                          SizedBox(width: MySize.size10),
-                          Container(
-                            height: MySize.size16,
-                            width: MySize.size16,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.circular(MySize.size90),
-                              border: Border.all(
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0xFF4E4E61).withOpacity(0.4)
-                                    : const Color(0xFF4E4E61).withOpacity(0.4),
-                                width: 1.5,
-                              ),
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.add,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFFA2A2B5),
-                                size: MySize.size14,
-                              ),
-                            ),
+                          SizedBox(width:  MySize.size10,),
+                          SizedBox(
+                            width: MySize.size20,
+                            child: Image.asset(AppImages.addIcon),
                           ),
                         ],
                       ),

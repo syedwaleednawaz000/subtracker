@@ -89,6 +89,10 @@ class AppImages {
   static String  editImage = 'assets/icons/editimage.png';
   static String exclMark = 'assets/icons/mark.png';
 
+
+
+  static String addIcon = 'assets/images/Add.png';
+
   ///
 
 

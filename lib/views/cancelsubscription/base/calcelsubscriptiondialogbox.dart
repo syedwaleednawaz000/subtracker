@@ -15,7 +15,7 @@ class CancelSubsDialogBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<PlanProvider>(builder: (context, planProvider, child) {
-      return InkWell(
+      return GestureDetector(
         onTap: () {
           if(planProvider.activeSubscriptionData['data'] != null){
             showDialog(
