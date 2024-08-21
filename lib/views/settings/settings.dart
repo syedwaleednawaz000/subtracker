@@ -113,7 +113,8 @@ class _SettingsState extends State<Settings> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>const BnavBar()));
                   },
-                  child: Transform.scale(scale:0.4,child: Image.asset(AppImages.backArrow,))),
+                  child: Transform.scale(scale:0.4,child: Image.asset(AppImages.backArrow,)),
+              ),
               title: Text(
                 'Settings',
                 style: TextStyle(
@@ -834,7 +835,13 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                             const Spacer(),
-                            Image.asset(AppImages.logout,color: Color(0xffC1C1CD),height: 20,width: 20,),
+                            Image.asset(AppImages.logout,
+                              color: Provider.of<ThemeChanger>(context)
+                                  .themeData ==
+                                  darkMode
+                                  ? Colors.white
+                                  : Colors.red,
+                              height: 20,width: 20,),
                           ],
                         ),
                       ),

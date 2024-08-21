@@ -359,8 +359,6 @@ class _SubscriptionState extends State<Subscription> {
                             children: [
                               Image.asset(
                                 AppImages.halfOneDriveLogo1,
-                                width: MySize.size28,
-                                height: MySize.size28,
                               ),
                               const Spacer(),
                               _pickedImage == null

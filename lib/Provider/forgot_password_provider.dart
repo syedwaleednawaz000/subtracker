@@ -56,8 +56,9 @@ class ForgotPasswordProvider extends ChangeNotifier{
   }
 
   Future<void> forgotPassword({required BuildContext context, String? email})async{
-
-    email = emailTextEditingController.text;
+    if(email != null){
+      email = emailTextEditingController.text;
+    }
     var body = {
       'email': email ?? emailTextEditingController.text.trim(),
     };

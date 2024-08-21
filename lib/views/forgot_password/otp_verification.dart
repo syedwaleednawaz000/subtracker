@@ -236,7 +236,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                         );
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
