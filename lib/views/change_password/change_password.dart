@@ -29,6 +29,9 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
+  bool _isPasswordVisible = false;
+  bool _isNewPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
   bool val = false;
   TextEditingController currentPassEditingController = TextEditingController();
   TextEditingController newPassTextEditingController = TextEditingController();
@@ -94,10 +97,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                     cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                         ? Colors.white
                         : Colors.black,
+                    obscureText: _isPasswordVisible,
                     controller: currentPassEditingController,
                     enableInteractiveSelection: true,
                     validator: Validation.validatePassword,
                     decoration: InputDecoration(
+
                       isDense: true,
                       errorMaxLines: 3,
                       contentPadding: const EdgeInsets.only(left: 20, right: 20),
@@ -108,11 +113,18 @@ class _ChangePasswordState extends State<ChangePassword> {
                             : const Color(0XFF666680).withOpacity(.6),
                         fontSize: MySize.size12,
                       ),
-                      suffixIcon: Icon(
-                        Icons.lock,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFF666680).withOpacity(.6)
-                            : const Color(0XFF666680).withOpacity(.6),
+                      suffixIcon: GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                        child: Icon(
+                          Icons.lock,
+                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                              ? const Color(0XFF666680).withOpacity(.6)
+                              : const Color(0XFF666680).withOpacity(.6),
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -169,6 +181,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                                 ? Colors.white
                                 : Colors.black,
+                            obscureText: _isPasswordVisible,
                             controller: newPassTextEditingController,
                             validator: Validation.validatePassword,
                             decoration: InputDecoration(
@@ -181,9 +194,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
                                 fontSize: MySize.size12,
                               ),
-                              suffixIcon: Icon(
-                                Icons.lock,
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
+                              suffixIcon: GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    _isNewPasswordVisible = !_isNewPasswordVisible;
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.lock,
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680).withOpacity(.6) : const Color(0XFF666680).withOpacity(.6),
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
@@ -234,6 +254,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           ),
                           child: TextFormField(
                             controller: newConfirmPassTextEditingController,
+                            obscureText: _isConfirmPasswordVisible,
                             validator: Validation.validatePassword,
                             onChanged: (newValue) {
                               Provider.of<ChangePasswordProvider>(context, listen: false).updatePasswordStepper(newValue);
@@ -258,11 +279,18 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     : const Color(0XFF666680).withOpacity(.6),
                                 fontSize: MySize.size12,
                               ),
-                              suffixIcon: Icon(
-                                Icons.lock,
-                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                    ? const Color(0XFF666680).withOpacity(.6)
-                                    : const Color(0XFF666680).withOpacity(.6),
+                              suffixIcon: GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.lock,
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                      ? const Color(0XFF666680).withOpacity(.6)
+                                      : const Color(0XFF666680).withOpacity(.6),
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16),

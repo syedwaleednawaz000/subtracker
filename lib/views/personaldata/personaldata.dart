@@ -40,7 +40,6 @@ class _PersonalDataState extends State<PersonalData> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    // ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
     MySize().init(context);
     var height = MediaQuery.of(context).size.height -56;
     return SafeArea(
@@ -88,9 +87,9 @@ class _PersonalDataState extends State<PersonalData> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(90),
                   ),
-                  child:profileProvider.updatePic == null ?
-                  profileImageUrl != null && profileImageUrl.isNotEmpty
-                      ?CachedNetworkImage(
+                  child: profileProvider.updatePic == null
+                      ? profileImageUrl != null && profileImageUrl.isNotEmpty
+                      ? CachedNetworkImage(
                     imageUrl: profileImageUrl,
                     imageBuilder: (context, imageProvider) => Container(
                       height: MySize.size72,
@@ -99,7 +98,7 @@ class _PersonalDataState extends State<PersonalData> {
                         borderRadius: BorderRadius.circular(90),
                         image: DecorationImage(
                           image: imageProvider,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.cover, // Adjusts the image to cover the entire container
                         ),
                       ),
                     ),
@@ -123,24 +122,35 @@ class _PersonalDataState extends State<PersonalData> {
                         borderRadius: BorderRadius.circular(90),
                         image: DecorationImage(
                           image: AssetImage(AppImages.person),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.cover, // Ensures the error image covers the container
                         ),
                       ),
                     ),
-                  ):
-                  Container(
-                      height: MySize.size72,
-                      width: MySize.size72,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(90),),
-                      child: Image.asset(AppImages.person)) :
-                  Container(
-                      height: MySize.size72,
-                      width: MySize.size72,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(90),),
-                      child: Image.file(File(profileProvider.updatePic!.path.toString()))),
+                  )
+                      : Container(
+                    height: MySize.size72,
+                    width: MySize.size72,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(90),
+                    ),
+                    child: Image.asset(
+                      AppImages.person,
+                      fit: BoxFit.cover, // Ensures the asset image covers the container
+                    ),
+                  )
+                      : Container(
+                    height: MySize.size72,
+                    width: MySize.size72,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(90),
+                    ),
+                    child: Image.file(
+                      File(profileProvider.updatePic!.path.toString()),
+                      fit: BoxFit.cover, // Ensures the selected image covers the container
+                    ),
+                  ),
                 );
+
               },),
               SizedBox(
                 height: MySize.size8,

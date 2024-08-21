@@ -323,11 +323,7 @@ class _SubscriptionState extends State<Subscription> {
                                 fontWeight: FontWeight.w400,
                                 fontSize: MySize.size16,
                                 fontFamily: 'Inter',
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFF424252),
+                                color: const Color(0xFFA2A2B5),
                               ),
                             ),
                           ],

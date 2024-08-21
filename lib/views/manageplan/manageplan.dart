@@ -229,7 +229,7 @@ class _ManagePlanState extends State<ManagePlan> {
                 if(planProvider.selectIndex != -1){
                   planProvider.subscribePlan( context: context);
                 }else{
-                  FlutterToast.toastMessage(message: "Please select plane ",isError: true);
+                  FlutterToast.toastMessage(message: "Please select plan ",isError: true);
                 }
               },
               titleText: 'Next',

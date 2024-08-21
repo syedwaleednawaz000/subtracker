@@ -57,7 +57,6 @@ class CancelSubscription extends StatelessWidget {
                 width: MySize.scaleFactorWidth * 288,
                 margin: EdgeInsets.symmetric(vertical: MySize.size5),
                 child: Stack(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       height: MySize.scaleFactorHeight * 68,
@@ -68,27 +67,31 @@ class CancelSubscription extends StatelessWidget {
                             ? const Color(0XFF4E4E61).withOpacity(.2)
                             : const Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
-                        // border: planProvider.cancelIndex == index ? Border.all(color: AppColors.purpleFF)
-                        //     : null,
+
                       ),
                       child: Center(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            SizedBox(height: 8,),
                             Text(
                               '${planProvider.activeSubscriptionData['data']['type']}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0XFF83839C),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                            SizedBox(height: 2,),
 
                             TextWidgetInterMedium(
                               title: '\$${planProvider.activeSubscriptionData['data']['price']}',
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              // color: AppColors.whiteFF
+                              color: Provider.of<ThemeChanger>(context)
+                                  .themeData == darkMode
+                                  ? Colors.white
+                                  : Colors.black38,
                             ),
                           ],
                         ),
@@ -122,8 +125,11 @@ class CancelSubscription extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Provider.of<ThemeChanger>(context)
-                        .themeData == darkMode ? Colors.white : const Color(0XFF424252),
-                  ),),
+                        .themeData == darkMode
+                        ? Colors.white
+                        : const Color(0XFF424252),
+                  ),
+                ),
 
               ),
             ),
@@ -195,16 +201,29 @@ class CancelSubscription extends StatelessWidget {
         ),
       ),
           bottomNavigationBar:Container(
-            height: MySize.size48,
-            margin: EdgeInsets.only(left: MySize.size35,right: MySize.size35,bottom:MySize.size35 ),
+            height: 114,
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius:  BorderRadius.circular(100),
-                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? const Color(0XFF353542).withOpacity(.7)
-                    : const Color(0XFFF1F1FF).withOpacity(.8),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+              color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                  ? const Color(0XFF353542).withOpacity(0.50)
+                  : const Color(0xFFF1F1FF).withOpacity(0.50),
             ),
-            child:  const CancelSubsDialogBox(),
+            child: Center(
+              child: Container(
+                height: MySize.size48,
+                margin: EdgeInsets.only(left: MySize.size35,right: MySize.size35,bottom:MySize.size10 ),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius:  BorderRadius.circular(100),
+                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                        ? const Color(0XFF353542).withOpacity(.7)
+                        : const Color(0XFFF1F1FF).withOpacity(.8),
+                ),
+                child:  const CancelSubsDialogBox(),
+              ),
+            ),
           ),
     ));
   }

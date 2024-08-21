@@ -137,10 +137,7 @@ class _SettingsState extends State<Settings> {
                         AppImages.notificationIconSvg,
                         height: MySize.size24,
                         width: MySize.size24,
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                            darkMode
-                           ? const Color(0XFFA2A2B5)
-                          : const Color(0XFF424252),
+                        color: const Color(0xFFA2A2B5),
                       ),
                   ),
                 )

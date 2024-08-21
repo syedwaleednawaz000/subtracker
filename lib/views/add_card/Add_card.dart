@@ -57,7 +57,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 32, right: 10, bottom: 10, top: 18),
+            padding: const EdgeInsets.only(left: 32, right: 10, bottom: 10, top: 40),
             child:  Text('Payment Method',
               style: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -203,7 +203,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                     const SizedBox(height: 5,),
@@ -250,7 +250,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                     const SizedBox(height: 5,),
@@ -298,7 +298,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                      SizedBox(height: MySize.size5,),
@@ -340,7 +340,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     TextWidgetInterMedium(title: 'CVV', fontSize: MySize.size15, fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                     const SizedBox(height: 5,),
@@ -387,7 +387,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                Navigator.push(context, MaterialPageRoute(builder:  (context) => const PaymentScreen()));
              },
                child: Container(
-                 height: MySize.size44, width:  MySize.scaleFactorWidth*154,
+                 height: MySize.size48, width:  MySize.scaleFactorWidth*154,
                  decoration: BoxDecoration(
                      color: const Color(0XFF3D3D47),
                      border: Border.all(color: const Color(0XFF3D3D47)),
@@ -396,19 +396,18 @@ class _AddCardScreenState extends State<AddCardScreen> {
                      BoxShadow(
                        color: const Color(0XFF101828).withOpacity(.5),
                        blurRadius: 2,
+                       spreadRadius: 0,
                        offset: const Offset(0, 1)
                      )
                    ]
                  ),
-                 child: Center(
+                 child: const Center(
                  child:   Text('Cancel',
                      style: TextStyle(
-                       fontSize: 14, fontWeight: FontWeight.w400,
+                       fontSize: 14,
+                       fontWeight: FontWeight.w400,
                        fontFamily: 'Poppins_Regular',
-                       color:  Provider.of<ThemeChanger>(context)
-                           .themeData == darkMode
-                           ? Colors.white
-                           :  Colors.white,
+                       color:  Colors.white,
                      ),
                    ),
 
@@ -421,28 +420,28 @@ class _AddCardScreenState extends State<AddCardScreen> {
                  Navigator.push(context, MaterialPageRoute(builder:  (context) => const PaymentScreen()));
                },
                child: Container(
-                 height:  MySize.size44, width:  MySize.scaleFactorWidth*154,
+                 height:  MySize.size48,
+                 width:  MySize.scaleFactorWidth*154,
                  decoration: BoxDecoration(
                      color: const Color(0XFF758AFF),
-                   borderRadius: BorderRadius.circular(10),
+                   borderRadius: BorderRadius.circular(8),
                      border: Border.all(color: Colors.transparent),
                      boxShadow: [
                        BoxShadow(
                            color: const Color(0XFF101828).withOpacity(.5),
                            blurRadius: 2,
+                           spreadRadius: 0,
                            offset: const Offset(0, 1)
+
                        )
                      ]
                  ),
-                 child: Center(
+                 child: const Center(
                      child: Text('Confirm',
                   style: TextStyle(
                     fontSize: 14, fontWeight: FontWeight.w400,
                     fontFamily: 'Poppins_Regular',
-                    color:  Provider.of<ThemeChanger>(context)
-                        .themeData == darkMode
-                        ? Colors.white
-                        :  Colors.white,
+                    color:  Colors.white,
                   ),
                  ),
                  ),

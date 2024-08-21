@@ -53,7 +53,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               scrolledUnderElevation: 0,
               backgroundColor:
                   Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? const Color(0xFF353542)
+                      ? const Color(0XFF353542).withOpacity(.50)
                       : const Color(0xFFFFFFFF),
               elevation: 0,
               centerTitle: true,
@@ -84,7 +84,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 darkMode
                             ? const Color(0xFFA2A2B5)
                             : const Color(0xFFC1C1CD),
-                      )),
+                      ),
+                  ),
                 )
               ],
             ),
@@ -99,14 +100,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
             children: [
               Container(
                 height: MySize.scaleFactorHeight * 389,
-                // width: MySize.scaleFactorWidth * 375,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(MySize.size24),
                         bottomRight: Radius.circular(MySize.size24)),
                     color:
                         Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFF353542)
+                            ? const Color(0XFF353542).withOpacity(.50)
                             : const Color(0XFFFFFFFF)),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24),

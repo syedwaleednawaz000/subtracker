@@ -218,7 +218,7 @@ class _ContactSupportState extends State<ContactSupport> {
                           fontWeight: FontWeight.w600,
                           color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                              ? const Color(0XFFFFFFFF).withOpacity(.15)
+                              ? const Color(0XFFFFFFFF)
                               : Colors.black,
                         ),
                       ),

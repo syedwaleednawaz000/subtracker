@@ -25,11 +25,10 @@ class _CalendarContainerState extends State<CalendarContainer> {
   @override
   void initState() {
     super.initState();
-    // Set the current date as selected by default if it's in the current month
     DateTime now = DateTime.now();
     if (now.month == widget.selectedMonth) {
       _selectedDate =
-          now; // Set the current date as selected if it's in the selected month
+          now;
     }
   }
 
@@ -64,7 +63,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
     });
 
     return SizedBox(
-      height: 100, // Adjust height as needed
+      height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: lastDayOfMonth,
@@ -92,11 +91,11 @@ class _CalendarContainerState extends State<CalendarContainer> {
                 color: _selectedDate != null &&
                         _selectedDate!.isAtSameMomentAs(date)
                     ? Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ?  Colors.grey
-                        : const Color(0XFF4E4E61)
+                        ?  const Color(0XFF4E4E61)
+                        : const Color(0XFFD3DAFF)
                             .withOpacity(.20) // Selected color
                     : Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0xFFFFFFFF)
+                        ? const Color(0xFF4E4E61).withOpacity(.20)
                         : const Color(0XFFF1F1FF)
                             .withOpacity(.15) // Selected color
                 , // Default color
