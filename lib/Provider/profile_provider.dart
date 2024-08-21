@@ -179,4 +179,74 @@ class ProfileProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+
+
+  Future<void> bioMetricAuth({required BuildContext context,})async{
+    try{
+      Response? response;
+      if(userData['data']['biometric_auth'] =="enabled"){
+        response = await _apiService.disableBiometric(params: {});
+      }else{
+        response = await _apiService.enableBiometric(params: {});
+      }
+      if(response!.statusCode == 200){
+        if(userData['data']['biometric_auth'] =="enabled"){
+          userData['data']['biometric_auth'] = "disable";
+        }else{
+          userData['data']['biometric_auth'] = "enabled";
+        }
+        FlutterToast.toastMessage(message: response.data['message'],);
+        notifyListeners();
+      }else{
+      }
+    }catch(error){
+      print("this is error ${error.toString()}");
+    }
+  }
+
+  Future<void> twoFactorAuth({required BuildContext context,})async{
+    try{
+      Response? response;
+      if(userData['data']['biometric_auth'] =="enabled"){
+        response = await _apiService.disableTwoFactorAuth(params: {});
+      }else{
+        response = await _apiService.enableTwoFactorAuth(params: {});
+      }
+      if(response!.statusCode == 200){
+        if(userData['data']['biometric_auth'] =="enabled"){
+          userData['data']['biometric_auth'] = "disable";
+        }else{
+          userData['data']['biometric_auth'] = "enabled";
+        }
+        FlutterToast.toastMessage(message: response.data['message'],);
+        notifyListeners();
+      }else{
+      }
+    }catch(error){
+      print("this is error ${error.toString()}");
+    }
+  }
+
+  Future<void> emailNotification({required BuildContext context,})async{
+    try{
+      Response? response;
+      if(userData['data']['email_notifications'] =="enabled"){
+        response = await _apiService.disableEmailNotifications(params: {});
+      }else{
+        response = await _apiService.enableEmailNotifications(params: {});
+      }
+      if(response!.statusCode == 200){
+        if(userData['data']['email_notifications'] =="enabled"){
+          userData['data']['email_notifications'] = "disable";
+        }else{
+          userData['data']['email_notifications'] = "enabled";
+        }
+        FlutterToast.toastMessage(message: response.data['message'],);
+        notifyListeners();
+      }else{
+      }
+    }catch(error){
+      print("this is error ${error.toString()}");
+    }
+  }
 }

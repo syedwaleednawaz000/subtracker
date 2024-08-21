@@ -411,25 +411,34 @@ class _SettingsState extends State<Settings> {
                                       ),
                                       trailing: Transform.scale(
                                         scale: 0.8, // Adjust this value to scale the switch size
-                                        child: Switch(
-                                          value: _switchValues[index],
-                                          onChanged: (bool newValue) {
-                                            setState(() {
-                                              _switchValues[index] = newValue;
-                                            });
-                                          },
-                                          activeTrackColor: const Color(0XFF758AFF),
-                                          autofocus: true,
-                                          thumbColor: MaterialStateProperty.all(
-                                            Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? Colors.white
-                                                : Colors.white,
-                                          ),
-                                          inactiveTrackColor: const Color(0XFF4E4E61),
-                                          trackOutlineColor: const MaterialStatePropertyAll(
-                                            Color(0x00000000),
-                                          ),
-                                        ),
+                                        child: Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                                          return Switch(
+                                            value: _switchValues[index],
+                                            onChanged: (bool newValue) {
+                                              setState(() {
+                                                if(index == 0){
+                                                    profileProvider.bioMetricAuth(context: context);
+                                                }else if(index ==1){
+                                                  print("this is two factor auth");
+                                                }else {
+                                                  profileProvider.emailNotification(context: context);
+                                                }
+                                                _switchValues[index] = newValue;
+                                              });
+                                            },
+                                            activeTrackColor: const Color(0XFF758AFF),
+                                            autofocus: true,
+                                            thumbColor: MaterialStateProperty.all(
+                                              Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                  ? Colors.white
+                                                  : Colors.white,
+                                            ),
+                                            inactiveTrackColor: const Color(0XFF4E4E61),
+                                            trackOutlineColor: const MaterialStatePropertyAll(
+                                              Color(0x00000000),
+                                            ),
+                                          );
+                                        },),
                                       ),
                                     );
                                   },
