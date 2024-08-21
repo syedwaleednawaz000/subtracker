@@ -804,15 +804,13 @@ class _SettingsState extends State<Settings> {
                             .cleanLocalData(context: context);
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: MySize.size24, ),
+                        margin: EdgeInsets.symmetric(horizontal: MySize.size26, ),
                         padding: EdgeInsets.symmetric(
                           horizontal: MySize.size20, ),
                         height: MySize.scaleFactorHeight * 64,
                         // width: MySize.scaleFactorWidth * 328,
                         decoration: BoxDecoration(
-                          // color: AppColors.grey61.withOpacity(.20),
-                          // color: Theme.of(context).colorScheme.secondary,
+
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? const Color(0XFF4E4E61).withOpacity(.2)
