@@ -28,6 +28,7 @@ import 'package:sub_tracker/Provider/two_factor_auth_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_url.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/auth/local_auth_provider.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
 import 'Provider/bottom_bar_provider.dart';
@@ -76,6 +77,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ChangePasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PlanProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => LocalAuthProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => FaqsProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => SubscriptionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TicketProvider()),

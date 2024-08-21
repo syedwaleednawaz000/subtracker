@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/route_manager.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/textStyle.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/auth/local_auth_provider.dart';
 import 'package:sub_tracker/views/auth/signUp/sigup_screen.dart';
 import 'package:sub_tracker/views/forgot_password/forget_password.dart';
 
@@ -348,31 +352,49 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: MySize.size30,
                         ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              AppImages.faceIdImage,
-                              height: MySize.scaleFactorHeight * 69,
-                              width: MySize.scaleFactorWidth * 69,
-                              fit: BoxFit.cover,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Colors.grey
-                                  : const Color(0xFFF0F4F7),
-                            ),
-                            SizedBox(
-                              height: MySize.scaleFactorHeight * 5,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.enable_face_id,
-                              style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFFF0F4F7)),
-                            )
-                          ],
+                        Consumer<LocalAuthProvider>(
+                          builder: (context, biometricProvider, child) {
+                            return GestureDetector(
+                              onTap: () {
+                                if (biometricProvider.canCheckBiometrics == false) {
+                                  FlutterToast.toastMessage(
+                                    message: "Your device does not support biometrics.",
+                                  );
+                                } else if (biometricProvider.availableBiometrics?.isEmpty ?? true) {
+                                  FlutterToast.toastMessage(
+                                    message: "No biometrics available.",
+                                  );
+                                } else {
+                                  biometricProvider.authenticateWithBiometrics();
+                                }
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    AppImages.faceIdImage,
+                                    height: MySize.scaleFactorHeight * 69,
+                                    width: MySize.scaleFactorWidth * 69,
+                                    fit: BoxFit.cover,
+                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                        ? Colors.grey
+                                        : const Color(0xFFF0F4F7),
+                                  ),
+                                  SizedBox(
+                                    height: MySize.scaleFactorHeight * 5,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.enable_face_id,
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: MySize.size12,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xFFF0F4F7),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
                           height: MySize.scaleFactorHeight * 50,

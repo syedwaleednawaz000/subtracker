@@ -26,7 +26,7 @@ class SplashProvider extends ChangeNotifier{
   }
 
   Future<void> checkLogin({required BuildContext context})async{
-    Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
+    // Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
     Timer(const Duration(seconds: 3), () async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         if(prefs.getString(AppConstant.saveUserToken) != null){
