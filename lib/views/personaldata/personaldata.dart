@@ -80,73 +80,79 @@ class _PersonalDataState extends State<PersonalData> {
               ),
               Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
                 final profileImageUrl = profileProvider.userData['data']['profile_image'];
-                return  Container(
-                  height: MySize.size72,
-                  width: MySize.size72,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(90),
-                  ),
-                  child: profileProvider.updatePic == null
-                      ? profileImageUrl != null && profileImageUrl.isNotEmpty
-                      ? CachedNetworkImage(
-                    imageUrl: profileImageUrl,
-                    imageBuilder: (context, imageProvider) => Container(
+                return  SizedBox(
+                  width: 72,
+                  child: ClipOval(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: MySize.scaleFactorWidth*155),
                       height: MySize.size72,
-                      width: MySize.size72,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(90),
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover, // Adjusts the image to cover the entire container
-                        ),
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                       shape: BoxShape.circle,
                       ),
-                    ),
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
+                      child: profileProvider.updatePic == null
+                          ? profileImageUrl != null && profileImageUrl.isNotEmpty
+                          ? CachedNetworkImage(
+                        imageUrl: profileImageUrl,
+                        imageBuilder: (context, imageProvider) =>
+                          Container(
+                          height: MySize.size72,
+                          width: MySize.size72,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: MySize.size72,
+                            width: MySize.size72,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(90),
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          height: MySize.size72,
+                          width: MySize.size72,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(AppImages.person),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      )
+                          : Container(
                         height: MySize.size72,
                         width: MySize.size72,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(90),
+                          shape: BoxShape.circle
+                        ),
+                        child: Image.asset(
+                          AppImages.person,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                          : Container(
+                        height: MySize.size72,
+                        width: MySize.size72,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle
+                        ),
+                        child: Image.file(
+                          File(profileProvider.updatePic!.path.toString()),
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      height: MySize.size72,
-                      width: MySize.size72,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(90),
-                        image: DecorationImage(
-                          image: AssetImage(AppImages.person),
-                          fit: BoxFit.cover, // Ensures the error image covers the container
-                        ),
-                      ),
-                    ),
-                  )
-                      : Container(
-                    height: MySize.size72,
-                    width: MySize.size72,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(90),
-                    ),
-                    child: Image.asset(
-                      AppImages.person,
-                      fit: BoxFit.cover, // Ensures the asset image covers the container
-                    ),
-                  )
-                      : Container(
-                    height: MySize.size72,
-                    width: MySize.size72,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(90),
-                    ),
-                    child: Image.file(
-                      File(profileProvider.updatePic!.path.toString()),
-                      fit: BoxFit.cover, // Ensures the selected image covers the container
                     ),
                   ),
                 );
@@ -173,8 +179,8 @@ class _PersonalDataState extends State<PersonalData> {
                     profileProvider.picPicture();
                   },
                   child: Container(
-                    height:  MySize.size36, width: 70,
-
+                    height:  MySize.size36,
+                    margin: EdgeInsets.symmetric(horizontal: MySize.scaleFactorWidth*155),
                     decoration: BoxDecoration(
                       borderRadius:  BorderRadius.circular(16),
                       color:   Provider.of<ThemeChanger>(context).themeData ==
@@ -194,7 +200,9 @@ class _PersonalDataState extends State<PersonalData> {
                     child: Center(
                       child: Text('Change',
                         style: TextStyle(
-                            color:   Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : const Color(0XFF424252),
+                            color:Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? Colors.white
+                                : const Color(0XFF424252),
                             fontSize: 12, fontWeight: FontWeight.w600),),
                     ),
                   ),
@@ -368,7 +376,7 @@ class _PersonalDataState extends State<PersonalData> {
               }),
                SizedBox(height: MySize.size20,),
               Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                return             Padding(
+                return Padding(
                   padding: const EdgeInsets.only(left: 37, right: 38),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,7 +391,7 @@ class _PersonalDataState extends State<PersonalData> {
                       ),
                       SizedBox(height: MySize.size4,),
                       SizedBox(
-                        // height: MySize.size48,
+                        height: MySize.size48,
                         child: TextFormField(
                           cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                               ? Colors.white

@@ -159,24 +159,24 @@ class _SettingsState extends State<Settings> {
                         width: MySize.size72,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(90),
+                          shape: BoxShape.circle
                         ),
                         child:profileProvider.updatePic == null ?
                         profileImageUrl != null && profileImageUrl.isNotEmpty
                             ?CachedNetworkImage(
-                          imageUrl: profileImageUrl,
-                          imageBuilder: (context, imageProvider) => Container(
+                            imageUrl: profileImageUrl,
+                            imageBuilder: (context, imageProvider) => Container(
                             height: MySize.size72,
                             width: MySize.size72,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(90),
+                              shape: BoxShape.circle,
                               image: DecorationImage(
                                 image: imageProvider,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                          placeholder: (context, url) => Shimmer.fromColors(
+                            ),
+                             placeholder: (context, url) => Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.grey[100]!,
                             child: Container(
@@ -184,23 +184,23 @@ class _SettingsState extends State<Settings> {
                               width: MySize.size72,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(90),
+                                shape: BoxShape.circle
                               ),
                             ),
-                          ),
-                          errorWidget: (context, url, error) => Container(
+                             ),
+                             errorWidget: (context, url, error) => Container(
                             height: MySize.size72,
                             width: MySize.size72,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(90),
+                              shape: BoxShape.circle,
                               image: DecorationImage(
                                 image: AssetImage(AppImages.person),
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                        ):
+                           ),
+                                                    ):
                         Container(
                             height: MySize.size72,
                             width: MySize.size72,
@@ -211,8 +211,8 @@ class _SettingsState extends State<Settings> {
                         Container(
                             height: MySize.size72,
                             width: MySize.size72,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(90),),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle),
                             child: Image.file(File(profileProvider.updatePic!.path.toString()))),
                       );
                     },),
@@ -384,11 +384,11 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                           Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                            return                           Column(
+                            return Column(
                               children: [
                                 SizedBox(
                                   height: 150,
-                                  width: double.infinity,
+                                width: double.infinity,
                                   child: ListView.builder(
                                     itemCount: profileProvider.switchValues.length,
                                     physics: const NeverScrollableScrollPhysics(),
@@ -408,7 +408,7 @@ class _SettingsState extends State<Settings> {
                                           ),
                                         ),
                                         trailing: Transform.scale(
-                                          scale: 0.8, // Adjust this value to scale the switch size
+                                          scale: 0.8,
                                           child: Switch(
                                             value: profileProvider.switchValues[index],
                                             onChanged: (bool newValue) {
@@ -440,9 +440,9 @@ class _SettingsState extends State<Settings> {
                                     },
                                   ),
                                 ),
-                                SizedBox(height: MySize.size8,),
+                                 SizedBox(height: MySize.size8,),
                                 const Padding(
-                                  padding: EdgeInsets.only(left: 18,),
+                                  padding: EdgeInsets.only(left: 18,top: 1),
                                   child: ShowDialogBox(),
                                 ),
                               ],
@@ -469,7 +469,6 @@ class _SettingsState extends State<Settings> {
 
                     /// Appearance Container
                     Container(
-                      // padding: EdgeInsets.symmetric(horizontal: MySize.size20, vertical: MySize.size16),
                       height: MySize.scaleFactorHeight * 64,
                       width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
