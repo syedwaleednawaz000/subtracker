@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
@@ -70,7 +69,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => SplashProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ProfileProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => LanguageProvider()),
-        ChangeNotifierProvider(create: (BuildContext context) => BioMetricProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CurrencyProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => EmailNotificationProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TwoFactorAuthProvider()),

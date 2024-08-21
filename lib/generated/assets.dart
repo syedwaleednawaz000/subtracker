@@ -19,6 +19,8 @@ class Assets {
   static const String iconsApple = 'assets/icons/apple.png';
   static const String iconsArrowleft = 'assets/icons/arrowleft.png';
   static const String iconsBackArrow = 'assets/icons/backArrow.png';
+  static const String iconsBell = 'assets/icons/bell.svg';
+  static const String iconsBioMetric = 'assets/icons/bioMetric.png';
   static const String iconsCalendar = 'assets/icons/Calendar.png';
   static const String iconsCar = 'assets/icons/car.png';
   static const String iconsChart = 'assets/icons/Chart.png';
@@ -34,7 +36,7 @@ class Assets {
   static const String iconsEditimage = 'assets/icons/editimage.png';
   static const String iconsEmail = 'assets/icons/email.png';
   static const String iconsEsss = 'assets/icons/esss.png';
-  static const String iconsFaceID = 'assets/icons/faceID.png';
+  static const String iconsFaceID = 'assets/icons/FaceID.png';
   static const String iconsFactor = 'assets/icons/factor.png';
   static const String iconsFaqs = 'assets/icons/faqs.png';
   static const String iconsFb = 'assets/icons/fb.png';
@@ -59,6 +61,8 @@ class Assets {
   static const String iconsPlan = 'assets/icons/plan.png';
   static const String iconsPrivpolicy = 'assets/icons/privpolicy.png';
   static const String iconsRightArrow = 'assets/icons/right_arrow.png';
+  static const String iconsSearch = 'assets/icons/search.png';
+  static const String iconsSettings = 'assets/icons/settings.png';
   static const String iconsSpotify = 'assets/icons/spotify.png';
   static const String iconsStars = 'assets/icons/stars.png';
   static const String iconsSubtract = 'assets/icons/subtract.png';
@@ -66,10 +70,15 @@ class Assets {
   static const String iconsTrash = 'assets/icons/Trash.png';
   static const String iconsTresorly = 'assets/icons/tresorly.png';
   static const String iconsYtb = 'assets/icons/ytb.png';
+  static const String imagesAdd = 'assets/images/Add.png';
+  static const String imagesAppIcon = 'assets/images/appIcon.png';
   static const String imagesB = 'assets/images/b.png';
   static const String imagesBb = 'assets/images/bb.png';
+  static const String imagesBgBlack = 'assets/images/bgBlack.png';
   static const String imagesBgContainer = 'assets/images/bgContainer.png';
+  static const String imagesBgGetStarted = 'assets/images/bg_get_started.png';
   static const String imagesBgImage = 'assets/images/bgImage.png';
+  static const String imagesBgWhite = 'assets/images/bgWhite.png';
   static const String imagesBgr = 'assets/images/bgr.png';
   static const String imagesCancelsubscription = 'assets/images/cancelsubscription.png';
   static const String imagesCard = 'assets/images/Card.png';
@@ -82,6 +91,7 @@ class Assets {
   static const String imagesDiceL = 'assets/images/diceL.png';
   static const String imagesDiceR = 'assets/images/diceR.png';
   static const String imagesDoted = 'assets/images/doted.png';
+  static const String imagesEditIcon = 'assets/images/editIcon.png';
   static const String imagesEllipse = 'assets/images/Ellipse.png';
   static const String imagesFaceId = 'assets/images/face_id.png';
   static const String imagesHalfChart = 'assets/images/half_chart.png';
