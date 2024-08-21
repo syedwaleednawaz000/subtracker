@@ -75,7 +75,6 @@ class LoginProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
   Future<void> storeRememberMe({required String email, required String password })async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(AppConstant.saveUserEmail, email);
@@ -94,6 +93,16 @@ class LoginProvider extends ChangeNotifier{
       notifyListeners();
     }
   }
+  Future<void> clearPassword()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString(AppConstant.saveUserPassword) != null){
+      prefs.remove(AppConstant.saveUserPassword);
+      passwordController.clear();
+      notifyListeners();
+    }
+
+  }
+
 
 
 }

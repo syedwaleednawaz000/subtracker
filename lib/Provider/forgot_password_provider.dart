@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/login_provider.dart';
 
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -57,7 +59,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
 
   Future<void> forgotPassword({required BuildContext context, String? email})async{
     if(email != null){
-      email = emailTextEditingController.text;
+      emailTextEditingController.text = email;
     }
     var body = {
       'email': email ?? emailTextEditingController.text.trim(),
@@ -68,6 +70,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       Response response = await _apiService.forgotPassword(params: body);
       if(response.statusCode == 200){
         // print("this is res ")
+        Provider.of<LoginProvider>(context,listen: false).clearPassword();
         _loginLoading(load: false);
         FlutterToast.toastMessage(message: "OTP send successfully ${response.data['otp'].toString()}",);
 
@@ -137,6 +140,9 @@ class ForgotPasswordProvider extends ChangeNotifier{
     try{
       Response response = await _apiService.changePassword(params: body);
       if(response.statusCode == 200){
+        emailTextEditingController.clear();
+        password.clear();
+        confirmPassword.clear();
         _ChangePassLoading(load: false);
         FlutterToast.toastMessage(message: " Password reset successfully",);
         Get.offAll(()=> const LoginScreen());
