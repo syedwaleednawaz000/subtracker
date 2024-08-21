@@ -93,7 +93,6 @@ class LanguageTiles extends StatelessWidget {
                           : (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Color(0xffF1F1FF)),
                     ),
                     child: ListTile(
-                      // tileColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : listColors[index],
                       dense: true,
                       title: Text(
                         languageData[index].countryName,
