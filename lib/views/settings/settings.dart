@@ -328,10 +328,7 @@ class _SettingsState extends State<Settings> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>profileProvider.screens[index]));
                                           } else {
-                                            FlutterToast.toastMessage(
-                                                message:
-                                                    "User data not found please try again",
-                                                isError: true);
+                                            FlutterToast.toastMessage(message: "User data not found please try again", isError: true);
                                           }
                                         } else {
                                           Navigator.push(

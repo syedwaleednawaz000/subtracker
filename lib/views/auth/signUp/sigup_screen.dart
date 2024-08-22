@@ -315,17 +315,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                     password: passwordController.text.trim(),
                                   );
                                 } else {
-                                  FlutterToast.toastMessage(
-                                    message: "Please accept privacy and policy",
-                                    isError: true,
+                                  FlutterToast.toastMessage(message: "Please accept privacy and policy", isError: true,
                                   );
                                 }
                               } else {
-                                FlutterToast.toastMessage(
-                                  message:
-                                      "Password do not match",
-                                  isError: true,
-                                );
+                                FlutterToast.toastMessage(message:"Password do not match", isError: true,);
                               }
                             }
                           },

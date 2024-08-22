@@ -1236,23 +1236,14 @@ class _SubscriptionState extends State<Subscription> {
                                             remindDurationValue.toString(),
                                       );
                                     } else {
-                                      // Show error message if renewal date is not greater than start date
-                                      FlutterToast.toastMessage(
-                                          message:
-                                              "Renewal date must be greater than start date",
-                                          isError: true);
+                                      FlutterToast.toastMessage(message:"Renewal date must be greater than start date", isError: true);
                                     }
                                   } else {
-                                    FlutterToast.toastMessage(
-                                        message:
-                                            "Please select both image and document",
-                                        isError: true);
+                                    FlutterToast.toastMessage(message: "Please select both image and document", isError: true);
                                   }
                                 }
                               } else {
-                                FlutterToast.toastMessage(
-                                    message: "Please select provider",
-                                    isError: true);
+                                FlutterToast.toastMessage(message: "Please select provider", isError: true);
                               }
                             },
                             child: Container(

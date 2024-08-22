@@ -57,7 +57,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
                 if(currencyProvider.selectedCurrency != "Currency"){
                   currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
                 }else{
-                  FlutterToast.toastMessage(message: "Please select Currency");
+                  FlutterToast.toastMessage(message: "Please select Currency",isError: true);
                 }
               },
             );
