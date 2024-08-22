@@ -73,7 +73,7 @@ class CancelSubscription extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: 8,),
+                            const SizedBox(height: 8,),
                             Text(
                               '${planProvider.activeSubscriptionData['data']['type']}',
                               style: const TextStyle(
@@ -82,7 +82,7 @@ class CancelSubscription extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(height: 2,),
+                           const SizedBox(height: 2,),
 
                             TextWidgetInterMedium(
                               title: '\$${planProvider.activeSubscriptionData['data']['price']}',
@@ -91,7 +91,7 @@ class CancelSubscription extends StatelessWidget {
                               color: Provider.of<ThemeChanger>(context)
                                   .themeData == darkMode
                                   ? Colors.white
-                                  : Colors.black38,
+                                  : Colors.black,
                             ),
                           ],
                         ),

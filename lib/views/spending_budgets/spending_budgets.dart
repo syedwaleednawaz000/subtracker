@@ -433,7 +433,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                                 ),
                                                                 Flexible(
                                                                   child: Text(
-                                                                    "${currencyProvider.selectedCurrencySymbol} ${finalData['price'] ?? "0"}",
+                                                                    "${currencyProvider.selectedCurrencySymbol}${finalData['price'] ??"0"}",
                                                                     textAlign: TextAlign.start,
                                                                     style: TextStyle(
                                                                       fontSize: MySize.size14,
@@ -448,7 +448,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                                 ),
                                                                 Flexible(
                                                                   child: Text(
-                                                                    "of ${currencyProvider.selectedCurrencySymbol} ${finalData['total_budget'] ?? "0"}",
+                                                                    "of ${currencyProvider.selectedCurrencySymbol}${finalData['total_budget']??"0"}",
                                                                     textAlign: TextAlign.start,
                                                                     style: TextStyle(
                                                                       fontSize: MySize.size12,

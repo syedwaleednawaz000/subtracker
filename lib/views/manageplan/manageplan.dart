@@ -113,7 +113,7 @@ class _ManagePlanState extends State<ManagePlan> {
                                             ),
                                           ),
                                       Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
-                                        return                                           TextWidgetInterMedium(
+                                        return   TextWidgetInterMedium(
                                             title: '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
                                             fontSize: MySize.size14,
                                             fontWeight: FontWeight.w600,
