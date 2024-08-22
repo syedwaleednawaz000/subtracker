@@ -31,7 +31,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF1C1C23),
+      backgroundColor: const Color(0XFF1C1C23),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover)
@@ -87,8 +87,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                              Text(AppLocalizations.of(context)!.password,
-                              style: TextStyle(
-                                // fontFamily: 'Poppins_Regular',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
                                 color: Color(0XFF666680),
@@ -100,7 +99,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                               validator: Validation.validatePassword,
                               obscureText: password,
                               controller: forgotPasswordProvider.password,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color:  Color(0XFF666680)
                               ),
                               decoration: InputDecoration(
@@ -139,9 +138,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           children: [
                              Text(AppLocalizations.of(context)!.confirm_password,
                               style: const TextStyle(
-                                // fontWeight: FontWeight.w400,
-                                // fontFamily: 'Poppins_Regular',
-                                fontSize: 12,
+                                 fontSize: 12,
                                 color: Color(0XFF666680),
                               ),
                             ),

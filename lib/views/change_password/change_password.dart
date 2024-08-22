@@ -181,7 +181,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             cursorColor: Provider.of<ThemeChanger>(context).themeData == darkMode
                                 ? Colors.white
                                 : Colors.black,
-                            obscureText: _isPasswordVisible,
+                            obscureText: _isNewPasswordVisible,
                             controller: newPassTextEditingController,
                             validator: Validation.validatePassword,
                             decoration: InputDecoration(
@@ -265,7 +265,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             style: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? Colors.white
-                                  : Colors.black, // Set text color based on the theme
+                                  : Colors.black,
                               fontSize: MySize.size14,
                             ),
                             decoration: InputDecoration(
