@@ -51,6 +51,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
     }else{
       if (_timer != null) {
         _timer!.cancel();
+        isTimerRunning = false;
         secondsRemaining = 0;
         notifyListeners();
       }
