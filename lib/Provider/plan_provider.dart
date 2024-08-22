@@ -23,7 +23,7 @@ class PlanProvider extends ChangeNotifier {
       Response response = await _apiService.subscribePlane(params: body);
       if(response.statusCode == 200){
         _updatePlanLoading(load: false);
-        FlutterToast.toastMessage(message: "Plan subscribed successfully",);
+        FlutterToast.toastMessage(message: "Plan subscribe successfully",);
         Navigator.pop(context);
         if (kDebugMode) {
           print("hit successfully in manage");
