@@ -467,9 +467,7 @@ class CustomTextFormField extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: const Color(0XFF666680).withOpacity(.3),
             ),
-            // hintStyle: TextStyle(color: Color(0XFF666680)),
-            // suffixIcon: Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),),
-            suffixIcon: suffixIcons,
+           suffixIcon: suffixIcons,
             prefixIcon: prefixIcons,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),

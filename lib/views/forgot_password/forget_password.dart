@@ -116,7 +116,7 @@ void dispose() {
                   child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                     return TextFormField(
                       controller: emailController,
-                      // controller: forgotPasswordProvider.emailTextEditingController,
+
                       validator: emailValidation,
                       style: const TextStyle(
                           color: Color(0XFF666680)

@@ -30,10 +30,6 @@ class WelcomeScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                     image: AssetImage("assets/images/bg_get_started.png")
                 ),
-                // gradient: const LinearGradient(colors: [
-                //   Color(0XFF3F3F4B),
-                //   Color(0XFF1C1C23),
-                // ]),
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40)),
@@ -116,29 +112,7 @@ class WelcomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // Stack(
-                        //   children: [
-                        //     Positioned(
-                        //         child: Image.asset(
-                        //       'assets/images/bb.png',
-                        //       scale: 3.4,
-                        //     )),
-                        //     Positioned(
-                        //         right: MySize.size56,
-                        //         top: MySize.size56,
-                        //         child: Image.asset(
-                        //           'assets/images/s.png',
-                        //           scale: 3,
-                        //         )),
-                        //     Positioned(
-                        //         left: MySize.size64,
-                        //         top: MySize.size76,
-                        //         child: Image.asset(
-                        //           'assets/images/m.png',
-                        //           scale: 3.4,
-                        //         )),
-                        //   ],
-                        // )
+
                       ],
                     ),
                   ),

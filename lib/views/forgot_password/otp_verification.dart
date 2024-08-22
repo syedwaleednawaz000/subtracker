@@ -37,7 +37,6 @@ class _OTPVerificationState extends State<OTPVerification> {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize the pin themes with the correct context
     defaultPinTheme = PinTheme(
       width: 40,
       height: 40,
