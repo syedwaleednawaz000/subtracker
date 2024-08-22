@@ -54,13 +54,15 @@ class ProfileProvider extends ChangeNotifier{
   }
   // List<bool> switchValues = List.generate(3, (index) => false);
   Map<String , dynamic > userData = {};
-  Future<void> getProfile({required BuildContext context,required String userID})async{
+  Future<void> getProfile({required BuildContext context,required String userID, String? type})async{
     _updateLoading(load: true);
     try{
       Response response = await _apiService.getProfile();
       if(response.statusCode == 200){
         userData = response.data;
-        setSwitchValue(map: userData);
+        if(type == null){
+          setSwitchValue(map: userData);
+        }
         if(userData['data']['currency_code'] != null){
           Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(
               currencyCode: userData['data']['currency_code'], currencySymbol: userData['data']['currency_symbol']);
@@ -102,7 +104,8 @@ class ProfileProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _updateLoading(load: false);
         updatePic= null;
-        getProfile(userID: "",context: context);
+        getProfile(userID: "",context: context,type: "switch");
+
         FlutterToast.toastMessage(message: "Profile updated successfully",);
         if (kDebugMode) {
           print("hit successfully");

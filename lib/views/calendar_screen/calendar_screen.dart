@@ -43,7 +43,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     MySize().init(context);
     return Scaffold(
-
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
           child: Padding(
@@ -171,45 +170,76 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.circular(MySize.size16),
+                                  BorderRadius.circular(MySize.size24),
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                       darkMode
-                                  ? const Color(0xFF000000)
+                                  ? const Color(0xFFFFFFFF).withOpacity(.10)
                                   : const Color(0xFFF1F1FF),
                             ),
                             child: DropdownButton2<int>(
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: MySize.size200,
-                              ),
-                              style: TextStyle(
-                                fontSize: MySize.size14,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Inter',
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                              value: _selectedMonth,
-                              underline: const SizedBox.shrink(),
-                              onChanged: (int? newValue) {
-                                if (newValue != null) {
-                                  setState(() {
-                                    _selectedMonth = newValue;
-                                  });
-                                }
-                              },
-                              items: List.generate(12, (index) => index + 1)
-                                  .map((month) {
-                                return DropdownMenuItem<int>(
-                                  value: month,
-                                  child: Text(DateFormat('MMMM')
-                                      .format(DateTime(0, month))),
-                                );
-                              }).toList(),
-                            ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: 200,
+                                  padding: EdgeInsets.all(10),
+                                ),
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Inter',
+                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                                value: _selectedMonth,
+                                underline: const SizedBox.shrink(),
+                                onChanged: (int? newValue) {
+                                  if (newValue != null) {
+                                    setState(() {
+                                      _selectedMonth = newValue;
+                                    });
+                                  }
+                                },
+                                items: List.generate(12, (index) => index + 1).map((month) {
+                                  return DropdownMenuItem<int>(
+                                    value: month,
+                                    child: Text(DateFormat('MMMM').format(DateTime(0, month))),
+                                  );
+                                }).toList(),
+
+                                // Custom button with an icon
+                                customButton: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        _selectedMonth != null
+                                            ? DateFormat('MMMM').format(DateTime(0, _selectedMonth!))
+                                            : 'Select Month',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8.0),
+                                       Icon(
+                                        Icons.expand_more, // Custom icon
+                                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: 24, // Custom size
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                          ),
                           ),
                         ],
                       ),

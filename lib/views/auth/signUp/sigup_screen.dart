@@ -83,13 +83,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       children: [
                         CustomTextFormField(
                           controller: nameController,
-                          text: "Username",
+                          text: "User Name",
                           hintText: "Enter your name",
                           validator: Validation.validateName,
                           suffixIcons: IconButton(
                               onPressed: () {},
                               icon: Icon(
-                                Icons.email,
+                                Icons.person,
                                 color: const Color(0XFF666680).withOpacity(.3),
                               )),
                         ),

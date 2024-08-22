@@ -49,7 +49,7 @@ class CancelSubscription extends StatelessWidget {
             const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
             planProvider.activeSubscriptionData['data'] == null ?
             const Center(child: Text("Active addNewSubscription are not available "),):
-            InkWell(
+            GestureDetector(
               onTap: () {
               },
               child: Container(

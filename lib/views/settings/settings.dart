@@ -383,59 +383,56 @@ class _SettingsState extends State<Settings> {
                           Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
                             return Column(
                               children: [
-                                SizedBox(
-                                  height: 150,
-                                width: double.infinity,
-                                  child: ListView.builder(
-                                    itemCount: profileProvider.switchValues.length,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return ListTile(
-                                        dense: true,
-                                        leading: Image(
-                                          image: leadingImage[index],
-                                          height: MySize.size20,
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: profileProvider.switchValues.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ListTile(
+                                      dense: true,
+                                      leading: Image(
+                                        image: leadingImage[index],
+                                        height: MySize.size20,
+                                      ),
+                                      title: Text(
+                                        titleText2[index],
+                                        style: TextStyle(
+                                          fontSize: MySize.size14,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        title: Text(
-                                          titleText2[index],
-                                          style: TextStyle(
-                                            fontSize: MySize.size14,
-                                            fontWeight: FontWeight.w600,
+                                      ),
+                                      trailing: Transform.scale(
+                                        scale: 0.8,
+                                        child: Switch(
+                                          value: profileProvider.switchValues[index],
+                                          onChanged: (bool newValue) {
+                                            setState(() {
+                                              if(index == 0){
+                                                profileProvider.bioMetricAuth(context: context);
+                                              }else if(index ==1){
+                                                profileProvider.twoFactorAuth(context: context);
+                                              }else {
+                                                profileProvider.emailNotification(context: context);
+                                              }
+                                              profileProvider.switchValues[index] = newValue;
+                                            });
+                                          },
+                                          activeTrackColor: const Color(0XFF758AFF),
+                                          autofocus: true,
+                                          thumbColor: MaterialStateProperty.all(
+                                            Provider.of<ThemeChanger>(context).themeData == darkMode
+                                                ? Colors.white
+                                                : Colors.white,
+                                          ),
+                                          inactiveTrackColor: const Color(0XFF4E4E61),
+                                          trackOutlineColor: const MaterialStatePropertyAll(
+                                            Color(0x00000000),
                                           ),
                                         ),
-                                        trailing: Transform.scale(
-                                          scale: 0.8,
-                                          child: Switch(
-                                            value: profileProvider.switchValues[index],
-                                            onChanged: (bool newValue) {
-                                              setState(() {
-                                                if(index == 0){
-                                                  profileProvider.bioMetricAuth(context: context);
-                                                }else if(index ==1){
-                                                  profileProvider.twoFactorAuth(context: context);
-                                                }else {
-                                                  profileProvider.emailNotification(context: context);
-                                                }
-                                                profileProvider.switchValues[index] = newValue;
-                                              });
-                                            },
-                                            activeTrackColor: const Color(0XFF758AFF),
-                                            autofocus: true,
-                                            thumbColor: MaterialStateProperty.all(
-                                              Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                  ? Colors.white
-                                                  : Colors.white,
-                                            ),
-                                            inactiveTrackColor: const Color(0XFF4E4E61),
-                                            trackOutlineColor: const MaterialStatePropertyAll(
-                                              Color(0x00000000),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
                                  SizedBox(height: MySize.size8,),
                                 const Padding(
