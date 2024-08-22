@@ -191,17 +191,21 @@ class _OTPVerificationState extends State<OTPVerification> {
                       builder: (context, forgotPasswordProvider, child) {
                         return GestureDetector(
                           onTap: () {
-                            if (otpController.text.length >= 6) {
-                              if(otpCorrect){
-                                forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim()).then((value) {
-                                  otpController.clear();
-                                  forgotPasswordProvider.startTimer(timer: false);
-                                });
-                              }else{
-                                FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
+                            if(forgotPasswordProvider.isTimerRunning){
+                              if (otpController.text.length >= 6) {
+                                if(otpCorrect){
+                                  forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim()).then((value) {
+                                    otpController.clear();
+                                    forgotPasswordProvider.startTimer(timer: false);
+                                  });
+                                }else{
+                                  FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
+                                }
+                              } else {
+                                FlutterToast.toastMessage(message: "Please enter the complete OTP code. The OTP must be 6 digits long.",isError: true);
                               }
-                            } else {
-                              FlutterToast.toastMessage(message: "Please enter the complete OTP code. The OTP must be 6 digits long.p",isError: true);
+                            }else{
+                              FlutterToast.toastMessage(message: "Your OTP has been expired, please try again with new OTP",isError: true);
                             }
                           },
                           child: Padding(
