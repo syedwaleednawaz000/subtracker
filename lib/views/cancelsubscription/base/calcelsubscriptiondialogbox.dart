@@ -126,7 +126,7 @@ class CancelSubsDialogBox extends StatelessWidget {
               },
             );
           }else{
-            FlutterToast.toastMessage(message: "Your active subscription is not available");
+            FlutterToast.toastMessage(message: "Your active subscription is not available",isError: true);
           }
         },
         child: Center(

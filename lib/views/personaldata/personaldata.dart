@@ -33,10 +33,6 @@ class _PersonalDataState extends State<PersonalData> {
     super.initState();
   }
 
-
-
-
-
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {

@@ -308,9 +308,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                 categoryID:
                                                     finalData['id'].toString());
                                           } else {
-                                            FlutterToast.toastMessage(
-                                                message:
-                                                    "Budget is already set");
+                                            FlutterToast.toastMessage(message:"Budget is already set");
                                           }
                                         } else {
                                           addProvider(

@@ -215,7 +215,6 @@ class _SubscriptionState extends State<Subscription> {
       context: context,
       initialDate: _selectedRenewalDate ??
           _selectedStartDate!.add(const Duration(days: 1)),
-      // Start with the next day after the selected start date
       firstDate: _selectedStartDate!.add(const Duration(days: 1)),
       // Disable the start date and all earlier dates
       lastDate: DateTime(2101),
@@ -1236,23 +1235,14 @@ class _SubscriptionState extends State<Subscription> {
                                             remindDurationValue.toString(),
                                       );
                                     } else {
-                                      // Show error message if renewal date is not greater than start date
-                                      FlutterToast.toastMessage(
-                                          message:
-                                              "Renewal date must be greater than start date",
-                                          isError: true);
+                                      FlutterToast.toastMessage(message:"Renewal date must be greater than start date", isError: true);
                                     }
                                   } else {
-                                    FlutterToast.toastMessage(
-                                        message:
-                                            "Please select both image and document",
-                                        isError: true);
+                                    FlutterToast.toastMessage(message: "Please select both image and document", isError: true);
                                   }
                                 }
                               } else {
-                                FlutterToast.toastMessage(
-                                    message: "Please select provider",
-                                    isError: true);
+                                FlutterToast.toastMessage(message: "Please select provider", isError: true);
                               }
                             },
                             child: Container(

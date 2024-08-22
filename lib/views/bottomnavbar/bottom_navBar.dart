@@ -48,13 +48,6 @@ class _BnavBarState extends State<BnavBar> {
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
               ? Colors.black
               : const Color(0XFFF1F1FF),
-        //     boxShadow: [
-        //   BoxShadow(
-        //       color: Colors.indigoAccent.withOpacity(0.2),
-        //       offset: const Offset(0, -4),
-        //       spreadRadius: 1,
-        //       blurRadius: 19)
-        // ]
         ),
         padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
         child: Stack(

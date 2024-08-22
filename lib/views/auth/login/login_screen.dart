@@ -358,13 +358,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             return GestureDetector(
                               onTap: () {
                                 if (biometricProvider.canCheckBiometrics == false) {
-                                  FlutterToast.toastMessage(
-                                    message: "Your device does not support biometrics.",
+                                  FlutterToast.toastMessage(message: "Your device does not support biometrics.",isError: true
                                   );
                                 } else if (biometricProvider.availableBiometrics?.isEmpty ?? true) {
-                                  FlutterToast.toastMessage(
-                                    message: "No biometrics available.",
-                                  );
+                                  FlutterToast.toastMessage(message: "No biometrics available.",isError: true);
                                 } else {
                                   biometricProvider.authenticateWithBiometrics();
                                 }

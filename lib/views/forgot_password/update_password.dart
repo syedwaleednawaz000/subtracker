@@ -195,7 +195,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
                             forgotPasswordProvider.changePassword(context: context);
                           }else{
-                            FlutterToast.toastMessage(message: "Confirm password doesn't match");
+                            FlutterToast.toastMessage(message: "Confirm password doesn't match",isError: true);
                           }
                         }
                       },
