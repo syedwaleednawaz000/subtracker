@@ -74,7 +74,7 @@ class _ManagePlanState extends State<ManagePlan> {
                       var finalData = planProvider.planData[index];
                       return Container(
                         margin: EdgeInsets.only(bottom: MySize.size14,top: index ==0 ?MySize.size35 : MySize.size14),
-                        height: 80,
+                        height: MySize.scaleFactorHeight * 80,
                         child: Stack(
                           children: [
                             Column(
