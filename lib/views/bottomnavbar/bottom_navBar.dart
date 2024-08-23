@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
@@ -154,8 +156,8 @@ class _BnavBarState extends State<BnavBar> {
                   }),
                   Consumer<BottomBarProvider>(
                     builder: (context, value, child) {
-                      return
-                        IconButton(
+                      return Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                        return                         IconButton(
                           icon: Image.asset(
                             AppImages.settingIcon,
                             width: MySize.size18,
@@ -171,9 +173,17 @@ class _BnavBarState extends State<BnavBar> {
                                 ? const Color(0xffA2A2B5)
                                 : const Color(0xffA2A2B5),
                           ),
-                          onPressed: () => value.selection(3),
+                          onPressed: () {
+                            if(profileProvider.userData.isNotEmpty){
+                              value.selection(3);
+                            }else{
+                              FlutterToast.toastMessage(message: "Please wait user data is loading",isError: true);
+                              profileProvider.getProfile(context: context, userID: "");
+                            }
+                          },
                           // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
                         );
+                      },);
                     },
                   ),
                 ],
