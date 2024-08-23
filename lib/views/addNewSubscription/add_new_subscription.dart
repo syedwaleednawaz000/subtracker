@@ -506,16 +506,12 @@ class _SubscriptionState extends State<Subscription> {
                                   Padding(
                                     padding:
                                         EdgeInsets.only(left: MySize.size16),
-                                    child: Image.asset(
-                                      "assets/icons/search.png",
-                                      width: MySize.size20,
-                                      height: MySize.size20,
+                                    child: Icon(Icons.expand_more,
                                       color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
                                           darkMode
                                           ? Colors.white
-                                          : const Color(0xFF666680),
-                                    ),
+                                          : const Color(0XFF353542).withOpacity(0.3),)
                                   ),
                                    SizedBox(width: MySize.size12),
                                   Text(
