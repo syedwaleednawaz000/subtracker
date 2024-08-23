@@ -194,7 +194,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                             fontSize: MySize.size24,
                                             fontFamily: "Inter",
                                             fontWeight: FontWeight.w700,
-                                            color: const Color(0xFF424252)),
+                                            color: Provider.of<ThemeChanger>(context).themeData == darkMode? Colors.white: Color(0xFF424252)),
                                       ),
                                       SizedBox(height: MySize.size4),
                                       Text(
@@ -225,8 +225,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.transparent,
                   border: Border.all(
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
                           ? const Color(0xFF4E4E61)
                           : const Color(0xFF4E4E61).withOpacity(.20),
                       width: 1),
