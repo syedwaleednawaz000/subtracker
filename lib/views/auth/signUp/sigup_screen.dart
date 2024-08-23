@@ -272,7 +272,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                     TextSpan(
                                       text: AppLocalizations.of(context)!
-                                          .terms_of_use,
+                                          .term_of_use,
                                       style: const TextStyle(
                                         color: Color(0XFF758AFF),
                                         fontSize: 14,
