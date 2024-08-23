@@ -16,7 +16,7 @@ class ButtonContainer extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MySize.size40),
-          color: Color(0XFF758AFF)),
+          color: const Color(0XFF758AFF)),
       child: Center(
         child: TextWidgetInterRegular(
             title: title,

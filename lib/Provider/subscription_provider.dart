@@ -79,7 +79,7 @@ class SubscriptionProvider extends ChangeNotifier{
         _storeSubLoading(load: false);
         FlutterToast.toastMessage(message: "Subscription added successfully");
         Get.back();
-        // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
+
         if (kDebugMode) {
           print("hit successfully");
         }

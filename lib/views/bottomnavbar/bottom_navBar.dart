@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
-import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
@@ -49,9 +47,11 @@ class _BnavBarState extends State<BnavBar> {
         decoration: BoxDecoration(
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
               ? Colors.black
-              : const Color(0XFFF1F1FF),),
+              : const Color(0XFFF1F1FF),
+        ),
         padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
         child: Stack(
+          // overflow: Overflow.visible,
           children: [
             PhysicalModel(
               color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -154,34 +154,26 @@ class _BnavBarState extends State<BnavBar> {
                   }),
                   Consumer<BottomBarProvider>(
                     builder: (context, value, child) {
-                      return Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                         return                         IconButton(
-                           icon: Image.asset(
-                             AppImages.settingIcon,
-                             width: MySize.size18,
-                             height: MySize.size18,
-                             // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
-                             color: value.isSelected(3)
-                                 ? Provider.of<ThemeChanger>(context).themeData ==
-                                 darkMode
-                                 ? const Color(0xffFFFFFF)
-                                 : const Color(0xff758AFF)
-                                 : Provider.of<ThemeChanger>(context).themeData ==
-                                 darkMode
-                                 ? const Color(0xffA2A2B5)
-                                 : const Color(0xffA2A2B5),
-                           ),
-                           onPressed: () {
-                             if(profileProvider.userData.isNotEmpty){
-                               value.selection(3);
-                             }else{
-                               profileProvider.getProfile(context: context, userID: "");
-                               FlutterToast.toastMessage(message: "Please wait, user data is loading.",isError: true);
-                             }
-                           },
-                           // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
-                         );
-                      },);
+                      return
+                        IconButton(
+                          icon: Image.asset(
+                            AppImages.settingIcon,
+                            width: MySize.size18,
+                            height: MySize.size18,
+                            // color: value.selectedColor ? Color(0XFF758AFF) :  Color(0XFFC1C1CD),
+                            color: value.isSelected(3)
+                                ? Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? const Color(0xffFFFFFF)
+                                : const Color(0xff758AFF)
+                                : Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                                ? const Color(0xffA2A2B5)
+                                : const Color(0xffA2A2B5),
+                          ),
+                          onPressed: () => value.selection(3),
+                          // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
+                        );
                     },
                   ),
                 ],

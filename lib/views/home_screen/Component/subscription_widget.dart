@@ -10,7 +10,6 @@ import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
 class SubscriptionWidget extends StatelessWidget {
   Map<String, dynamic> subscriptions;
    SubscriptionWidget({required this.subscriptions,super.key});
-
   @override
   Widget build(BuildContext context) {
     var finalData = subscriptions;
@@ -38,7 +37,6 @@ class SubscriptionWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                   left: MySize.size12, right: MySize.size15),
-              //  child: Image.asset(AppImages.subtrackrIcon,  height: 40, width: 40,),
             ),
             TextWidgetInterMedium(
               title: '${finalData['provider'] == null ? "":finalData['provider']['name']}',

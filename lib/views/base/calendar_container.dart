@@ -92,7 +92,7 @@ class _CalendarContainerState extends State<CalendarContainer> {
                         _selectedDate!.isAtSameMomentAs(date)
                     ? Provider.of<ThemeChanger>(context).themeData == darkMode
                         ?  const Color(0XFF4E4E61)
-                        : const Color(0XFFD3DAFF)
+                        : const Color(0XFFD3DAFF).withOpacity(.20)
                             .withOpacity(.20) // Selected color
                     : Provider.of<ThemeChanger>(context).themeData == darkMode
                         ? const Color(0xFF4E4E61).withOpacity(.20)
@@ -114,8 +114,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
                             fontWeight: FontWeight.bold,
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? const Color(0xFF000000)
-                                :  Colors.black),
+                                ? const Color(0xFFFFFFFF)
+                                :  Colors.black,
+                        ),
                       ),
                       Text(
                         subtitleText[index],
@@ -124,8 +125,9 @@ class _CalendarContainerState extends State<CalendarContainer> {
                             fontWeight: FontWeight.normal,
                             color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
-                                ? const Color(0xFF000000)
-                                : Colors.black),
+                                ? const Color(0xFFA2A2B5)
+                                : const Color(0xffA2A2B5),
+                        ),
                       ),
                     ],
                   ),
