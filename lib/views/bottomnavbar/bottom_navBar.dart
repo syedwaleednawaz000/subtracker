@@ -30,6 +30,8 @@ class _BnavBarState extends State<BnavBar> {
   @override
   void initState() {
     // TODO: implement initState
+    Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false)
+        .getProfile(userID: "", context: context));
     Future.microtask(() =>
         Provider.of<BottomBarProvider>(context, listen: false).selection(0));
     super.initState();
