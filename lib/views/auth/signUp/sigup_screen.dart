@@ -83,7 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       children: [
                         CustomTextFormField(
                           controller: nameController,
-                          text: "User Name",
+                          text: "Full Name",
                           hintText: "Enter your name",
                           validator: Validation.validateName,
                           suffixIcons: IconButton(

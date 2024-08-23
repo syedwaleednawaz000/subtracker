@@ -169,7 +169,9 @@ void dispose() {
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Provider.of<ForgotPasswordProvider>(context, listen: false).forgotPassword(email: emailController.text.trim(),context: context);
+                      Provider.of<ForgotPasswordProvider>(context, listen: false).forgotPassword(email: emailController.text.trim(),context: context).then((value) {
+                        emailController.clear();
+                      });
                     }
                   },
                   child: Container(
