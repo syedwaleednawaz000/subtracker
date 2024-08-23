@@ -120,7 +120,15 @@ class _CalendarContainerState extends State<CalendarContainer> {
                       ),
                       Text(
                         subtitleText[index],
-                        style: TextStyle(
+                        style: _selectedDate != null &&
+                            _selectedDate!.isAtSameMomentAs(date) ? TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                              ? const Color(0xFFFFFFFF)
+                              :  Colors.black,
+                        ): TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
                             color: Provider.of<ThemeChanger>(context).themeData ==
