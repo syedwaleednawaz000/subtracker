@@ -109,7 +109,7 @@ class _ManagePlanState extends State<ManagePlan> {
   Widget _buildPlanItem(BuildContext context, PlanProvider planProvider, ThemeChanger themeProvider, dynamic finalData, int index) {
     return Container(
       margin: EdgeInsets.only(bottom: MySize.size14, top: index == 0 ? MySize.size35 : MySize.size14),
-      height:  MySize.scaleFactorHeight * 80,
+      height:  MySize.scaleFactorHeight * 85,
       child: Stack(
         children: [
           Column(
