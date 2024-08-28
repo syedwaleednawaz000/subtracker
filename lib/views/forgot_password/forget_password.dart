@@ -30,8 +30,7 @@ void dispose() {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     return Scaffold(
-      // backgroundColor: const Color(0xff073b5c),
-      appBar: const CustomAppBarInAll(leading: false,actions: false,),
+      appBar: const CustomAppBarInAll(type: "forgot",leading: false,actions: false,),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(

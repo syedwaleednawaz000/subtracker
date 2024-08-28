@@ -2,6 +2,7 @@ import 'package:circular_seek_bar/circular_seek_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 
 import '../../theme/theme.dart';
@@ -66,7 +67,8 @@ class CircularProgressBarWidget extends StatelessWidget {
               ),
           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
             return               Text(
-              '${currencyProvider.selectedCurrencySymbol} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
+              AppConstant.validatePrice(context: context,price: double.parse(monlthyBill == null ? "${monlthyBill}" : "0")),
+              // '${currencyProvider.selectedCurrencySymbol} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
               style: TextStyle(
                 fontSize: MySize.size40,
                 fontWeight: FontWeight.w700,

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'app_colors.dart';
 import 'package:intl/intl.dart';
 import 'my_size.dart';
@@ -94,20 +96,28 @@ class AppConstant {
       '\nmaecenas euismod a dictum. Interdum massa\nsenectus ultricies malesuada scelerisque sed.';
 
 
-  static String validatePrice({double? price, String? currencyCode}) {
-    // Use intl package to format the price according to international standards
-    final format = NumberFormat.simpleCurrency(name: currencyCode);
+  static String validatePrice({double? price, String? currencyCode, required BuildContext context}) {
 
-    // If the price is zero or negative, format "0" with the correct currency symbol
-    if (price! <= 0) {
-      return format.format(0); // This will return something like "$0.00" or "₨0.00"
+    String priceSymbol = Provider.of<CurrencyProvider>(context, listen: false).selectedCurrencySymbol;
+    if (price == null || price < 0) {
+      switch (priceSymbol.toUpperCase()) {
+        case '\$':
+          return "0.0$priceSymbol"; // Assuming '$' is for USD
+        default:
+          return "$priceSymbol${"0.0"}";
+      }
+    } else {
+      switch (priceSymbol.toUpperCase()) {
+        case 'PKR':
+          return 'PKR $price'; // PKR symbol comes before the price
+        case '\$':
+          return "$price$priceSymbol"; // Price comes before the USD symbol
+        default:
+          return '$priceSymbol$price'; // Default format
+      }
     }
-
-    // Otherwise, format the actual price
-    String formattedPrice = format.format(price);
-
-    return formattedPrice;
   }
+
 
 
 

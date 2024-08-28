@@ -9,10 +9,11 @@ import 'package:sub_tracker/utils/my_size.dart';
 
 class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
+  final String? type;
   final bool leading;
   final bool? actions;
 
-  const CustomAppBarInAll({super.key, this.title,  this.leading = false, this.actions = false});
+  const CustomAppBarInAll({super.key,this.type, this.title,  this.leading = false, this.actions = false});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? Colors.black
-          : const Color(0XFFF1F1FF),
+          : type != null? Colors.black:Color(0XFFF1F1FF),
       elevation: 0,
       centerTitle: true,
       title: title != null

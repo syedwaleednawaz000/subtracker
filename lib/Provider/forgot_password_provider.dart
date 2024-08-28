@@ -20,7 +20,10 @@ class ForgotPasswordProvider extends ChangeNotifier{
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
   String forgetToken = "";
-
+  void clearPassword(){
+    password.clear();
+    confirmPassword.clear();
+  }
   bool isForgot = false;
   void _loginLoading({required bool load}){
     isForgot = load;

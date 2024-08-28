@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import '../../theme/theme.dart';
@@ -101,7 +102,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       LineColorContainer(
                         borderColor: const Color(0xFF758AFF),
                         titleText: 'Active subs',
-                        numberCount: '${widget.activeSubscription}',
+                        numberCount:AppConstant.validatePrice(context: context,price: double.parse(widget.activeSubscription.toString()??"0")),
                       ),
                       SizedBox(
                         width: MySize.scaleFactorWidth * 14,
@@ -109,7 +110,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       LineColorContainer(
                         borderColor: const Color(0xFFDC23FF),
                         titleText: 'Highest subs',
-                        numberCount: '${currencyProvider.selectedCurrencySymbol} ${widget.highestSubscription}',
+                        numberCount: AppConstant.validatePrice(context: context,price: double.parse(widget.highestSubscription.toString()??"0")),
                       ),
                       const SizedBox(
                         width: 14,
@@ -117,7 +118,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       LineColorContainer(
                         borderColor: AppColors.accentLine,
                         titleText: 'Lowest subs',
-                        numberCount: '${currencyProvider.selectedCurrencySymbol} ${widget.lowestSubscription}',
+                        numberCount:AppConstant.validatePrice(context: context,price: double.parse(widget.lowestSubscription.toString()??"0")),
                       ),
                     ],
                   );

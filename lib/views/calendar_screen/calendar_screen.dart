@@ -275,15 +275,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           children: [
                             Consumer<ScheduleProvider>(
                               builder: (context, scheduleProvider, child) {
+                                String finalData = "0";
+                                if(scheduleProvider.scheduleData != null){
+                                  if(scheduleProvider.scheduleData['data'] != null){
+                                    finalData = scheduleProvider.scheduleData['data']['total_bill'].toString() ??"";
+                                  }
+                                }
                                 return Consumer<CurrencyProvider>(
                                   builder: (context, currencyProvider, child) {
-                                    String? formattedPrice;
-                                    if(scheduleProvider.scheduleData.isNotEmpty){
-                                       formattedPrice = AppConstant.validatePrice(price: double.parse(scheduleProvider.scheduleData['data']['total_bill'].toString()),currencyCode: currencyProvider.selectedCurrencySymbol);
-                                    }
                                     return Text(
-                                      formattedPrice??"0",
-                                      // '${currencyProvider.selectedCurrencySymbol} ${scheduleProvider.scheduleData.isNotEmpty ? scheduleProvider.scheduleData['data']['total_bill'] : "0"}',
+                                      AppConstant.validatePrice(price: double.parse(finalData),context: context,),
                                       style: TextStyle(
                                           fontSize: MySize.size20,
                                           fontWeight: FontWeight.w700,

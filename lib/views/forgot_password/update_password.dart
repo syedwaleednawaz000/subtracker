@@ -28,13 +28,24 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   bool password = true;
   bool confirmPassword = true;
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<ForgotPasswordProvider>(context,listen: false).clearPassword());
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Future.microtask(() => Provider.of<ForgotPasswordProvider>(context,listen: false).clearPassword());
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBarInAll(leading: false,actions: false,),
-      // backgroundColor: const Color(0XFF1C1C23),
+      appBar: const CustomAppBarInAll(type: "forgot",leading: false,actions: false,),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover)
         ),

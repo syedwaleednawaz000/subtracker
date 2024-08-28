@@ -14,6 +14,7 @@ import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
 import 'package:sub_tracker/views/language_selection/base/custom_appBar.dart';
@@ -152,7 +153,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Text(
-                                        '${currencyProvider.selectedCurrencySymbol}${spendingBudgetProvider.totalSpendBudget}',
+                                        AppConstant.validatePrice(context: context,price: double.parse(spendingBudgetProvider.totalSpendBudget.toString())),
+                                        // '${currencyProvider.selectedCurrencySymbol}${spendingBudgetProvider.totalSpendBudget}',
                                         style: TextStyle(
                                             fontSize: MySize.size24,
                                             fontFamily: "Inter",
@@ -161,7 +163,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                       ),
                                       SizedBox(height: MySize.size4),
                                       Text(
-                                        'of ${currencyProvider.selectedCurrencySymbol}${spendingBudgetProvider.totalBudget} budget',
+                                        'of ${AppConstant.validatePrice(context: context,price: double.parse(spendingBudgetProvider.totalSpendBudget.toString()))} budget',
                                         style: TextStyle(
                                           fontSize: MySize.size12,
                                           fontFamily: 'Inter',
@@ -276,8 +278,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                           addProvider(
                                               context: context,
                                               categoryName: finalData['name'],
-                                              categoryID:
-                                                  finalData['id'].toString());
+                                              categoryID: finalData['id'].toString());
                                           // open dialog box for add provider
                                         }
                                       },
@@ -355,7 +356,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                           ),
 
                                                           subtitle: Text(
-                                                            "${currencyProvider.selectedCurrencySymbol}${finalData['left_to_spend'] ?? "0"} left to spend",
+                                                            "${AppConstant.validatePrice(context: context,price: double.parse(finalData['left_to_spend'].toString()))} left to spend",
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style: TextStyle(
@@ -395,7 +396,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                                 ),
                                                                 Flexible(
                                                                   child: Text(
-                                                                    "${currencyProvider.selectedCurrencySymbol}${finalData['price'] ??"0"}",
+                                                                    AppConstant.validatePrice(context: context,price: double.parse(finalData['price'].toString())),
                                                                     textAlign: TextAlign.start,
                                                                     style: TextStyle(
                                                                       fontSize: MySize.size14,
@@ -410,7 +411,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                                 ),
                                                                 Flexible(
                                                                   child: Text(
-                                                                    "of ${currencyProvider.selectedCurrencySymbol}${finalData['total_budget']??"0"}",
+                                                                    "of ${AppConstant.validatePrice(context: context,price: double.parse(finalData['total_budget'] == null ? "0":finalData['total_budget'].toString()))}",
                                                                     textAlign: TextAlign.start,
                                                                     style: TextStyle(
                                                                       fontSize: MySize.size12,

@@ -72,10 +72,10 @@ class _OTPVerificationState extends State<OTPVerification> {
     );
 
     return Scaffold(
-      appBar: const CustomAppBarInAll(leading: false,actions: false,),
+      appBar: const CustomAppBarInAll(type: "forgot",leading: false,actions: false,),
       body: Container(
         width: double.infinity,
-        height: double.infinity,
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover),
         ),
