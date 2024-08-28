@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -29,21 +30,10 @@ class _LanguageSelectionState extends State<LanguageSelection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child:  CustomAppBar(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            text: AppLocalizations.of(context)!.language,
-            icon: Icons.arrow_back_rounded,
-          ),
-        ),
-      ),
-
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar:  CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.language),
       body:  Column(
         children: [
           const SizedBox(height: 20,),

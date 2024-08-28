@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/faqs_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
@@ -29,22 +30,10 @@ class _FaqsScreenState extends State<FaqsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0xff1C1C23)
-          : Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only(top: MySize.size25),
-          child: CustomAppBar(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            text: 'FAQs',
-            icon: Icons.abc,
-          ),
-        ),
-      ),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar: const CustomAppBarInAll(leading: false,title: "FAQs"),
       body: Padding(
         padding: const EdgeInsets.only(left: 37, right: 37,),
         child: ListView(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
@@ -35,10 +36,10 @@ class _ManagePlanState extends State<ManagePlan> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(context),
-        backgroundColor: themeProvider.themeData == darkMode
-            ? const Color(0XFF1C1C23)
-            : Colors.white,
+        appBar:  const CustomAppBarInAll(leading: false,title: "Manage Plan"),
+        backgroundColor: themeProvider.themeData == darkMode ?
+        Colors.black
+            : const Color(0XFFF1F1FF),
         body: _buildBody(planProvider, themeProvider),
         bottomNavigationBar: _buildBottomNavigationBar(planProvider),
       ),

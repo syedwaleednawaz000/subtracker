@@ -1,18 +1,13 @@
-import 'dart:collection';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
-import 'package:sub_tracker/views/settings/settings.dart';
+
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
 import '../add_card/Add_card.dart';
 import '../base/text_widgets.dart';
-import '../language_selection/base/custom_appBar.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -35,23 +30,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
-          : Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only(top: MySize.size25),
-          child: CustomAppBar(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            text: 'Manage Payment',
-            icon: Icons.abc,
-          ),
-        ),
-      ),
-      body: Padding(
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar:  const CustomAppBarInAll(leading: false,title: "Manage Payment"),
+      body: Container(
+        // color: ,
         padding: const EdgeInsets.only( top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

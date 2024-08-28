@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -23,40 +24,16 @@ class _TermsOfServicesState extends State<TermsOfServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
-          : Colors.white,
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar:  const CustomAppBarInAll(leading: false,title: "Terms of services"),
       body: SafeArea(
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 30),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Image.asset(AppImages.backArrow, height: 24,width: 24,)),
-                      SizedBox(
-                        width: MySize.scaleFactorWidth * 90,
-                      ),
-                      Text('Terms of Service',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: MySize.size16,
-                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                ? const Color(0XFFA2A2B5)
-                                : const Color(0XFFA2A2B5),
-                            fontFamily: 'Poppins_Regular'
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
                 Padding(
                   padding: EdgeInsets.only(left: MySize.size32),

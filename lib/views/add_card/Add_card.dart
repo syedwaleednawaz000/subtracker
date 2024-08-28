@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
+
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
@@ -37,22 +39,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only( top: MySize.size25),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const CustomAppBar(
-              text: 'Manage Payment',
-              icon: Icons.arrow_back_rounded,
-            ),
-          ),
-        ),
-      ),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+         Colors.black
+        : const Color(0XFFF1F1FF),
+      appBar:  const CustomAppBarInAll(leading: false,title: "Manage Paymentt"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

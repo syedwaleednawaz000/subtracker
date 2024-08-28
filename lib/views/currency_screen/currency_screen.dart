@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
@@ -28,20 +29,10 @@ class _CurrencySelectionState extends State<CurrencySelection> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child:  CustomAppBar(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            text: 'Currency',
-            icon: Icons.arrow_back_rounded,
-          ),
-        ),
-      ),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar: const CustomAppBarInAll(leading: false,title: "Currency"),
       body: Column(
         children: [
          SizedBox(height: MySize.size18,),

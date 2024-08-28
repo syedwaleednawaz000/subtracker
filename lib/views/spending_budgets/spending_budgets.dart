@@ -7,13 +7,16 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
+import 'package:sub_tracker/views/language_selection/base/custom_appBar.dart';
 import 'package:sub_tracker/views/spending_budgets/component/add_provider_dialog.dart';
 import 'package:sub_tracker/views/spending_budgets/component/set_budget_dialog.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -62,50 +65,10 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
     return SafeArea(
       child: Scaffold(
         backgroundColor:
-            Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Colors.black
+            Provider.of<ThemeChanger>(context).themeData == darkMode ?
+            Colors.black
                 : const Color(0XFFF1F1FF),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MySize.size72),
-          child: Padding(
-            padding: EdgeInsets.only(left: MySize.size8, top: MySize.size24),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              scrolledUnderElevation: 0,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              title: Text(
-                'Spending & Budgets',
-                style: TextStyle(
-                    color: const Color(0xFFA2A2B5),
-                    fontSize: MySize.size16,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400),
-              ),
-              actions: [
-                Padding(
-                  padding: EdgeInsets.only(right: MySize.size25),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const NotificationsScreen()));
-                      },
-                      child: SvgPicture.asset(
-                        AppImages.notificationIconSvg,
-                        height: MySize.size24,
-                        width: MySize.size24,
-                        color: const Color(0xFFA2A2B5),
-                  ),
-                ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: const CustomAppBarInAll(leading: true,title: "Spending & Budgets"),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

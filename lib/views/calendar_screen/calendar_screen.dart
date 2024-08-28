@@ -2,13 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/schedule_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
 
@@ -43,56 +46,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     MySize().init(context);
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              scrolledUnderElevation: 0,
-              backgroundColor:
-                  Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? const Color(0XFF353542).withOpacity(.50)
-                      : const Color(0xFFFFFFFF),
-              elevation: 0,
-              centerTitle: true,
-              title: Text(
-                'Calendar',
-                style: TextStyle(
-                    color: const Color(0xFFA2A2B5),
-                    fontSize: MySize.size16,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w400),
-              ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 25),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const NotificationsScreen()));
-                    },
-                    child: SvgPicture.asset(
-                      AppImages.notificationIconSvg,
-                      height: MySize.size24,
-                      width: MySize.size24,
-                      color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                          ? const Color(0xFFA2A2B5)
-                          : const Color(0xFFC1C1CD),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        appBar: const CustomAppBarInAll(leading: true,actions: true,title: "Calendar"),
         backgroundColor:
-            Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? Colors.black
+            Provider.of<ThemeChanger>(context).themeData == darkMode ?
+            Colors.black
                 : const Color(0XFFF1F1FF),
         body: SingleChildScrollView(
           child: Column(
@@ -105,8 +62,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         bottomRight: Radius.circular(MySize.size24)),
                     color:
                         Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? const Color(0XFF353542).withOpacity(.50)
-                            : const Color(0XFFFFFFFF)),
+                            ?  Colors.black
+                            : const Color(0XFFF1F1FF)),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24),
                   child: Column(
@@ -320,15 +277,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               builder: (context, scheduleProvider, child) {
                                 return Consumer<CurrencyProvider>(
                                   builder: (context, currencyProvider, child) {
+                                    String? formattedPrice;
+                                    if(scheduleProvider.scheduleData.isNotEmpty){
+                                       formattedPrice = AppConstant.validatePrice(price: double.parse(scheduleProvider.scheduleData['data']['total_bill'].toString()),currencyCode: currencyProvider.selectedCurrencySymbol);
+                                    }
                                     return Text(
-                                      '${currencyProvider.selectedCurrencySymbol} ${scheduleProvider.scheduleData.isNotEmpty ? scheduleProvider.scheduleData['data']['total_bill'] : "0"}',
+                                      formattedPrice??"0",
+                                      // '${currencyProvider.selectedCurrencySymbol} ${scheduleProvider.scheduleData.isNotEmpty ? scheduleProvider.scheduleData['data']['total_bill'] : "0"}',
                                       style: TextStyle(
                                           fontSize: MySize.size20,
                                           fontWeight: FontWeight.w700,
-                                          color:
-                                              Provider.of<ThemeChanger>(context)
-                                                          .themeData ==
-                                                      darkMode
+                                          color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                                   ? const Color(0xFFFFFFFF)
                                                   : const Color(0xFF1C1C23),
                                           fontFamily: 'Inter'),
@@ -375,10 +334,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   : Colors.black),
                                     ),
                                   )
-                                : scheduleProvider
-                                            .scheduleData['data']['providers']
-                                            .length ==
-                                        0
+                                : scheduleProvider.scheduleData['data']['providers'].length == 0
                                     ? Center(
                                         child: Text(
                                           "Upcoming bills not available",
@@ -398,30 +354,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                           crossAxisSpacing: 8,
                                           // mainAxisSpacing: 10
                                         ),
-                                        itemCount: scheduleProvider
-                                            .scheduleData['data']['providers']
-                                            .length,
+                                        itemCount: scheduleProvider.scheduleData['data']['providers'].length,
                                         // Update the item count based on your actual data
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
+                                        physics: const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
                                         itemBuilder: (context, index) {
-                                          final subscription = scheduleProvider
-                                                  .scheduleData['data']
-                                              ['providers'][index];
-
+                                          final subscription = scheduleProvider.scheduleData['data']['providers'][index];
                                           return GestureDetector(
                                             onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SubscriptionInfo(
-                                                          subscriptionInfoData:
-                                                              subscription),
-                                                ),
-                                              );
+                                              Get.to(()=>SubscriptionInfo(subscriptionInfoData: subscription),);
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.only(

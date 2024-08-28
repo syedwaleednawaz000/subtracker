@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
@@ -33,22 +34,10 @@ class _ContactSupportState extends State<ContactSupport> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0xff1C1C23)
-            : Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MySize.size72),
-          child: Padding(
-            padding: EdgeInsets.only(top: MySize.size25),
-            child: CustomAppBar(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              text: 'Support',
-              icon: Icons.abc,
-            ),
-          ),
-        ),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+        Colors.black
+            : const Color(0XFFF1F1FF),
+        appBar: const CustomAppBarInAll(leading: false,title: "Support"),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

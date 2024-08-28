@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
@@ -93,58 +95,10 @@ class _SettingsState extends State<Settings> {
     return SafeArea(
       child: Scaffold(
         backgroundColor:
-            Provider.of<ThemeChanger>(context).themeData == darkMode
-                ?  Colors.black
+            Provider.of<ThemeChanger>(context).themeData == darkMode ?
+            Colors.black
                 : const Color(0XFFF1F1FF),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              scrolledUnderElevation: 0,
-              backgroundColor:
-                  Provider.of<ThemeChanger>(context).themeData == darkMode
-                      ? Colors.transparent
-                      : Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              leading:GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const BnavBar()));
-                  },
-                  child: Transform.scale(scale:0.4,child: Image.asset(AppImages.backArrow,)),
-              ),
-              title: Text(
-                'Settings',
-                style: TextStyle(
-                    color: const Color(0XFFA2A2B5),
-                    fontSize: MySize.size16,
-                    fontWeight: FontWeight.w400),
-              ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 25),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                           context,
-                           MaterialPageRoute(
-                           builder: (context) =>
-                           const NotificationsScreen()));
-                      },
-                      child: SvgPicture.asset(
-                        AppImages.notificationIconSvg,
-                        height: MySize.size24,
-                        width: MySize.size24,
-                        color: const Color(0xFFA2A2B5),
-                      ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        appBar: const CustomAppBarInAll(leading: true,title: "Settings",actions: true),
         body: Consumer<LanguageProvider>(
           builder: (context, languageProvider, child) {
             return ListView(

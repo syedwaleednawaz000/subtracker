@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/cupertino.dart';
-
 import 'app_colors.dart';
+import 'package:intl/intl.dart';
 import 'my_size.dart';
 
 class AppConstant {
@@ -95,6 +93,21 @@ class AppConstant {
       'urna et at faucibus cras. Consectetur sed lorem\naliquet adipiscing sit in porttitor viverra. Erat'
       '\nmaecenas euismod a dictum. Interdum massa\nsenectus ultricies malesuada scelerisque sed.';
 
+
+  static String validatePrice({double? price, String? currencyCode}) {
+    // Use intl package to format the price according to international standards
+    final format = NumberFormat.simpleCurrency(name: currencyCode);
+
+    // If the price is zero or negative, format "0" with the correct currency symbol
+    if (price! <= 0) {
+      return format.format(0); // This will return something like "$0.00" or "₨0.00"
+    }
+
+    // Otherwise, format the actual price
+    String formattedPrice = format.format(price);
+
+    return formattedPrice;
+  }
 
 
 

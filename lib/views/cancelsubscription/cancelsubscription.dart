@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -22,22 +23,10 @@ class CancelSubscription extends StatelessWidget {
     Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).userPlan());
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
-          : Colors.white,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(MySize.size72),
-            child: Padding(
-              padding: EdgeInsets.only(top: MySize.size25),
-              child: CustomAppBar(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                text: 'Cancel Subscription',
-                icon: Icons.abc,
-              ),
-            ),
-          ),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+          appBar: const CustomAppBarInAll(leading: false,title: "Cancel Subscription"),
       body: SingleChildScrollView(
         child: Column(
           children: [

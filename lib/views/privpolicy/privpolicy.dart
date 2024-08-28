@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -28,46 +29,17 @@ class _PrivPolicyState extends State<PrivPolicy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
-          : Colors.white,
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar:  const CustomAppBarInAll(leading: false,title: "Privacy policy"),
       body: SafeArea(
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 30),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Image.asset(
-                            AppImages.backArrow,
-                            height: 24,
-                            width: 24,
-                          )),
-                      SizedBox(
-                        width: MySize.scaleFactorWidth * 90,
-                      ),
-                      Text(
-                        'Privacy Policy',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color:
-                                Provider.of<ThemeChanger>(context).themeData ==
-                                        darkMode
-                                    ? const Color(0XFFA2A2B5)
-                                    : const Color(0XFFA2A2B5),
-                            fontFamily: 'Poppins_Regular'),
-                      ),
-                    ],
-                  ),
-                ),
+
                 SizedBox(height: MySize.size12,),
 
                 Padding(

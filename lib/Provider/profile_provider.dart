@@ -162,7 +162,7 @@ class ProfileProvider extends ChangeNotifier{
     AppConstant.getUserToken = '';
     AppConstant.getUserID = '';
     // prefs.clear();
-    FlutterToast.toastMessage(message: "Successfully Logout");
+    // FlutterToast.toastMessage(message: "Successfully Logout");
     Get.offAll(()=> const WelcomeScreen());
 
   }

@@ -2,7 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String assetsIconsBackArrow = 'assets/icons/back_arrow.png';
   static const String fontsInterBlack = 'assets/fonts/Inter-Black.ttf';
   static const String fontsInterBold = 'assets/fonts/Inter-Bold.ttf';
   static const String fontsInterExtraBold = 'assets/fonts/Inter-ExtraBold.ttf';

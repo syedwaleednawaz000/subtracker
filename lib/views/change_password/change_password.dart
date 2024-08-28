@@ -1,25 +1,14 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import 'package:sub_tracker/utils/validation.dart';
-import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
-import 'package:sub_tracker/utils/app_Images.dart';
-import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/my_size.dart';
-import 'package:sub_tracker/views/auth/signUp/sigup_screen.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
+import 'package:sub_tracker/utils/validation.dart';
 
 import '../../theme/theme.dart';
-import '../base/field_container.dart';
-import '../language_selection/base/custom_appBar.dart';
 import '../personaldata/personaldata.dart';
-import '../settings/settings.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -43,20 +32,10 @@ class _ChangePasswordState extends State<ChangePassword> {
     MySize().init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MySize.size72),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 4, top: 25  ),
-            child:  CustomAppBar(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              text: 'Change Password',
-              icon: Icons.arrow_back_rounded,
-            ),
-          ),
-        ),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+        Colors.black
+            : const Color(0XFFF1F1FF),
+        appBar: const CustomAppBarInAll(leading: false,title: "Change Password"),
         body: Column(
           children: [
             Padding(
