@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,7 +32,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFF1C1C23),
+      appBar: const CustomAppBarInAll(leading: false,actions: false,),
+      // backgroundColor: const Color(0XFF1C1C23),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover)
@@ -43,23 +45,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*170.0,left: MySize.size36,top: MySize.size60),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap:(){
-                            Navigator.pop(context);
-                          },
-                          child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Image.asset(AppImages.backArrow)),
-                        ),
-                      ],
-                    ),
-                  ),
+                  SizedBox(height: MySize.scaleFactorHeight*150.0,),
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: MySize.size40),
                     child: Column(

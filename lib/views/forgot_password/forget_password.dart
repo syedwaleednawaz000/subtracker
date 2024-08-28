@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/utils/validation.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 
@@ -16,20 +18,6 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   final _formKey = GlobalKey<FormState>();
 
-  String? emailValidation(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
-    }
-    // Basic email format validation
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Invalid email format';
-    }
-    // Additional custom checks (optional), e.g., domain name validation
-    if (!value.contains('@gmail') && !value.contains('.com')) {
-      return 'Enter a Gmail address with .com domain';
-    }
-    return null;
-  }
   TextEditingController emailController = TextEditingController();
 @override
 void dispose() {
@@ -43,6 +31,7 @@ void dispose() {
     final localizations = AppLocalizations.of(context);
     return Scaffold(
       // backgroundColor: const Color(0xff073b5c),
+      appBar: const CustomAppBarInAll(leading: false,actions: false,),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
@@ -56,24 +45,7 @@ void dispose() {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*170.0,left: MySize.size36,top: MySize.size60),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap:(){
-                          Navigator.pop(context);
-                        },
-                        child: SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: Image.asset(AppImages.backArrow)),
-                      ),
-                    ],
-                  ),
-                ),
-                // SizedBox(height: MediaQuery.of(context).size.height*0.3,),
+                SizedBox(height: MySize.scaleFactorHeight*150.0,),
                 Text(AppLocalizations.of(context)!.forgot_password,
                   style:  TextStyle(
                       color: const Color(0xFFF0F4F7),
@@ -116,8 +88,7 @@ void dispose() {
                   child: Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                     return TextFormField(
                       controller: emailController,
-
-                      validator: emailValidation,
+                      validator: Validation.validateEmail,
                       style: const TextStyle(
                           color: Color(0XFF666680)
                       ),

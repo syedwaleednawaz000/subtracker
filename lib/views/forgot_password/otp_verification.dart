@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/textStyle.dart';
 import '../../utils/app_Images.dart';
@@ -71,6 +72,7 @@ class _OTPVerificationState extends State<OTPVerification> {
     );
 
     return Scaffold(
+      appBar: const CustomAppBarInAll(leading: false,actions: false,),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -86,24 +88,7 @@ class _OTPVerificationState extends State<OTPVerification> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*170.0,left: MySize.size36,top: MySize.size60),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap:(){
-                            Navigator.pop(context);
-                          },
-                          child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Image.asset(AppImages.backArrow)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // const SizedBox(height: 250),
+                  SizedBox(height: MySize.scaleFactorHeight*150.0,),
                    Text(
                      AppLocalizations.of(context)!.check_email,
                     style: const TextStyle(
