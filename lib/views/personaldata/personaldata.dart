@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/change_password/change_password.dart';
 import '../../theme/theme.dart';
@@ -39,38 +40,16 @@ class _PersonalDataState extends State<PersonalData> {
     MySize().init(context);
     var height = MediaQuery.of(context).size.height -56;
     return SafeArea(
+
       child: Scaffold(
+        appBar:  const CustomAppBarInAll(leading: false,title: "Personal Data"),
         resizeToAvoidBottomInset: false,
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+        const Color(0XFF1C1C23) : const Color(0XFFF1F1FF),
         body: Form(
           key: _formKey,
           child: ListView(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: MySize.size23,
-                  vertical: MySize.size32,
-                ),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: (){
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(AppImages.lightBackArrow, height: 20,)),
-                    SizedBox(
-                      width: MySize.scaleFactorWidth * 110,
-                    ),
-                    Text('Personal Data',
-                      style: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
-                        fontSize: MySize.size16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
                SizedBox(
                 height:  MySize.size40,
               ),
