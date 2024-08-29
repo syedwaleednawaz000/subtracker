@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -48,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                         right: MySize.size48,
                         bottom: MySize.scaleFactorHeight * 11),
                     child: Text(
-                      'Manage all your\nsubscriptions in one place effortlessly.',
+                      AppLocalizations.of(context)!.manage_all_your_subscriptions_in_one_place_effortlessly,
                       style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
@@ -92,7 +93,7 @@ class WelcomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Get started',
+                                AppLocalizations.of(context)!.get_started,
                                 style: TextStyle(
                                     color: Provider.of<ThemeChanger>(context)
                                                 .themeData ==
