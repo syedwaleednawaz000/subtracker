@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -32,7 +33,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
           : const Color(0XFFF1F1FF),
-      appBar: const CustomAppBarInAll(leading: false,title: "Currency"),
+      appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.currency),
       body: Column(
         children: [
          SizedBox(height: MySize.size18,),
@@ -43,12 +44,12 @@ class _CurrencySelectionState extends State<CurrencySelection> {
           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
             return CustomSaveButton(
               loading: currencyProvider.isUpdateCurrency,
-              text: 'Save',
+              text:  AppLocalizations.of(context)!.save,
               onTap: (){
                 if(currencyProvider.selectedCurrency != "Currency"){
                   currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
                 }else{
-                  FlutterToast.toastMessage(message: "Please select Currency",isError: true);
+                  FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_select_currency,isError: true);
                 }
               },
             );

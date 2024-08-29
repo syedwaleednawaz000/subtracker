@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -18,7 +18,7 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
 
-  List<String> titleContainer = ['Credit Card', 'Debit Card', 'Pay Pal'];
+
   List<String> containerImages= [
     AppImages.credit_cardIcon,
     AppImages.debit_cardIcon,
@@ -29,11 +29,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> titleContainer = [
+    AppLocalizations.of(context)!.credit_card,
+    AppLocalizations.of(context)!.debit_card,
+    AppLocalizations.of(context)!.pay_pal
+    ];
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode?
       Colors.black
           : const Color(0XFFF1F1FF),
-      appBar:  const CustomAppBarInAll(leading: false,title: "Manage Payment"),
+      appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_payment),
       body: Container(
         // color: ,
         padding: const EdgeInsets.only( top: 15),
@@ -46,7 +51,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 top: 25,
                 bottom: 10,
               ),
-              child: Text('Payment Method',
+              child: Text( AppLocalizations.of(context)!.payment_method,
                 style: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
                       ? const Color(0XFFFFFFFF)
@@ -198,9 +203,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       const SizedBox(
                         width: 10,
                       ),
-                      const Text(
-                        'Add Card',
-                        style: TextStyle(
+                       Text(
+                        AppLocalizations.of(context)!.add_card,
+                        style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           color: Color(0XFF757784)
@@ -217,7 +222,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 45),
               child: TextWidgetInterMedium(
-                  title: 'Cards',
+                  title:  AppLocalizations.of(context)!.cards,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                 color:Provider.of<ThemeChanger>(context).themeData ==
@@ -281,7 +286,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 47),
               child: TextWidgetInterMedium(
-                  title: 'Billing',
+                  title:  AppLocalizations.of(context)!.billing,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                 color:Provider.of<ThemeChanger>(context).themeData ==
@@ -318,7 +323,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Text('Yearly Subscription',
+                        child: Text( AppLocalizations.of(context)!.yearly_subscription,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -369,7 +374,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
             const Spacer(),
             CustomSaveButton(
-               titleText: 'Save',
+               titleText:  AppLocalizations.of(context)!.save,
             ),
           ],
         ),

@@ -30,7 +30,7 @@ void dispose() {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: const CustomAppBarInAll(type: "forgot",leading: false,actions: false,),
+      appBar:  CustomAppBarInAll(type:AppLocalizations.of(context)!.forgot,leading: false,actions: false,),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(

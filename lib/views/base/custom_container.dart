@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
 import '../../theme/theme.dart';
@@ -101,7 +102,7 @@ class _CustomContainerState extends State<CustomContainer> {
                     children: [
                       LineColorContainer(
                         borderColor: const Color(0xFF758AFF),
-                        titleText: 'Active subs',
+                        titleText:AppLocalizations.of(context)!.active_subs,
                         numberCount:AppConstant.validatePrice(context: context,price: double.parse(widget.activeSubscription.toString()??"0")),
                       ),
                       SizedBox(
@@ -109,7 +110,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       ),
                       LineColorContainer(
                         borderColor: const Color(0xFFDC23FF),
-                        titleText: 'Highest subs',
+                        titleText: AppLocalizations.of(context)!.highest_subs,
                         numberCount: AppConstant.validatePrice(context: context,price: double.parse(widget.highestSubscription.toString()??"0")),
                       ),
                       const SizedBox(
@@ -117,7 +118,7 @@ class _CustomContainerState extends State<CustomContainer> {
                       ),
                       LineColorContainer(
                         borderColor: AppColors.accentLine,
-                        titleText: 'Lowest subs',
+                        titleText: AppLocalizations.of(context)!.lowest_subs,
                         numberCount:AppConstant.validatePrice(context: context,price: double.parse(widget.lowestSubscription.toString()??"0")),
                       ),
                     ],

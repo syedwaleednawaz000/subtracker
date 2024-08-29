@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
@@ -29,7 +30,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.black,
-      title:  Center(child: Text('Add Provider',
+      title:  Center(child: Text(AppLocalizations.of(context)!.add_provider,
         style: TextStyle(
           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
         ),
@@ -57,7 +58,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
 
                     children: [
                       Text(
-                        'Add Image',
+                        AppLocalizations.of(context)!.add_image,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: MySize.size10,
@@ -96,7 +97,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
             ),
           ),
            SizedBox(height: MySize.size10,),
-           Text('Provider name:',
+           Text(AppLocalizations.of(context)!.provider_name,
             style: TextStyle(
               color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
 
@@ -117,11 +118,11 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
               decoration:  InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: MySize.size10,horizontal: MySize.size10),
 
-                labelText: ' Provider Name',
+                labelText: AppLocalizations.of(context)!.provider_name,
                 labelStyle: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                 ),
-                hintText: 'Enter provider name',
+                hintText: AppLocalizations.of(context)!.enter_provider_name,
                 hintStyle: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
 
@@ -160,7 +161,7 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel', style: TextStyle(color: Colors.red)),
+              child:  Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: Colors.red)),
             ),
             const SizedBox(width: 18),
             Consumer<SpendingBudgetProvider>(builder: (context, spendingBudgetProvider, child) {
@@ -171,13 +172,14 @@ class _AddProviderDialogState extends State<AddProviderDialog> {
                         context: context,providerName: priceController.text.trim(),
                         categoryID: widget.categoryId,providerImage: _pickProviderImage);
                   }else{
-                    FlutterToast.toastMessage(message: "Please upload image ", isError: true);
+                    FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_upload_image, isError: true);
                   }
                 },
                 child:spendingBudgetProvider.isAddProviderInUserCategoryLoading ? SizedBox(
                     height: MySize.size20,
                     width: MySize.size20,
-                    child: const CircularProgressIndicator(color: AppColors.purpleFF,)) :const Text('Add', style: TextStyle(color: Colors.blue)),
+                    child: const CircularProgressIndicator(color: AppColors.purpleFF,)) :
+                     Text(AppLocalizations.of(context)!.add_add, style: TextStyle(color: Colors.blue)),
               );
             },
             ),

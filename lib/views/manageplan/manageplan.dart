@@ -4,6 +4,7 @@ import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import '../../theme/theme.dart';
@@ -36,7 +37,7 @@ class _ManagePlanState extends State<ManagePlan> {
 
     return SafeArea(
       child: Scaffold(
-        appBar:  const CustomAppBarInAll(leading: false,title: "Manage Plan"),
+        appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_plan),
         backgroundColor: themeProvider.themeData == darkMode ?
         Colors.black
             : const Color(0XFFF1F1FF),
@@ -46,37 +47,6 @@ class _ManagePlanState extends State<ManagePlan> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(MySize.size72),
-      child: Padding(
-        padding: EdgeInsets.only(left: 8, top: MySize.size25),
-        child: AppBar(
-          scrolledUnderElevation: 0,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          centerTitle: true,
-          title: Text(
-            'Manage Plan',
-            style: TextStyle(
-              color: const Color(0XFFA2A2B5),
-              fontSize: MySize.size16,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Transform.scale(
-              scale: 0.5,
-              child: Image.asset(AppImages.backArrow, color: const Color(0XFFA2A2B5)),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildBody(PlanProvider planProvider, ThemeChanger themeProvider) {
     if (planProvider.isPlan) {
@@ -121,7 +91,7 @@ class _ManagePlanState extends State<ManagePlan> {
             ],
           ),
           if (index == 0) StackPercentageWidget(percentValue: "~20%"),
-          MonthlyPercentWidget(packageTitle: index == 0 ? "1 Month Free Trial" : "1 Year Free Trial"),
+          MonthlyPercentWidget(packageTitle: index == 0 ?  AppLocalizations.of(context)!.month_free_trial :  AppLocalizations.of(context)!.year_free_trial),
         ],
       ),
     );
@@ -178,7 +148,7 @@ class _ManagePlanState extends State<ManagePlan> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextWidgetInterBold(
-            title: 'Features',
+            title:  AppLocalizations.of(context)!.features,
             fontSize: MySize.size14,
             fontWeight: FontWeight.w600,
           ),
@@ -199,27 +169,27 @@ class _ManagePlanState extends State<ManagePlan> {
               children: [
                 manageplanrowlist(
                   imageIcon: Image.asset(AppImages.plan, height: 20),
-                  text: 'Subscription Tracking',
+                  text:  AppLocalizations.of(context)!.subscription_tracking,
                 ),
                 SizedBox(height: MySize.size20),
                 manageplanrowlist(
                   imageIcon: Image.asset(AppImages.notify, height: 20),
-                  text: 'Alerts and Notifications',
+                  text: AppLocalizations.of(context)!.alerts_and_notifications,
                 ),
                 SizedBox(height: MySize.size20),
                 manageplanrowlist(
                   imageIcon: Image.asset(AppImages.chart, height: 20),
-                  text: 'Financial Overview',
+                  text:  AppLocalizations.of(context)!.financial_overview,
                 ),
                 SizedBox(height: MySize.size20),
                 manageplanrowlist(
                   imageIcon: Image.asset(AppImages.analytics, height: 20),
-                  text: 'Spending Analytics',
+                  text:  AppLocalizations.of(context)!.spending_analytics,
                 ),
                 SizedBox(height: MySize.size20),
                 manageplanrowlist(
                   imageIcon: Image.asset(AppImages.contsupport, height: 20),
-                  text: 'Customer Support',
+                  text:  AppLocalizations.of(context)!.customer_support,
                 ),
               ],
             ),
@@ -236,10 +206,10 @@ class _ManagePlanState extends State<ManagePlan> {
         if (planProvider.selectIndex != -1) {
           planProvider.subscribePlan(context: context);
         } else {
-          FlutterToast.toastMessage(message: "Please select a plan", isError: true);
+          FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.please_select_plan, isError: true);
         }
       },
-      titleText: 'Next',
+      titleText:  AppLocalizations.of(context)!.next,
     );
   }
 }

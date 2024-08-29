@@ -12,6 +12,7 @@ import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/home_screen/Component/subscription_widget.dart';
 import 'package:sub_tracker/views/home_screen/Component/up_coming_bill_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
 import '../../theme/theme.dart';
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen>
                 titlePadding:
                     EdgeInsets.only(top: MySize.size30, left: MySize.size120),
                 title: Text(
-                  'Exit App',
+                  AppLocalizations.of(context)!.exit_app,
                   style: TextStyle(
                     fontSize: MySize.size18,
                     fontWeight: FontWeight.w600,
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 content: Text(
-                  'Do you really want to exit the app?',
+                  AppLocalizations.of(context)!.do_you_really_want_to_exit_the_app,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: MySize.size14,
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen>
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(false),
                         child: Text(
-                          'No',
+                          AppLocalizations.of(context)!.no,
                           style: TextStyle(
                             fontSize: MySize.size18,
                             fontWeight: FontWeight.w600,
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen>
                       TextButton(
                         onPressed: () => exit(0),
                         child: Text(
-                          'Yes',
+                          AppLocalizations.of(context)!.yes,
                           style: TextStyle(
                             fontSize: MySize.size18,
                             fontWeight: FontWeight.w600,
@@ -143,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     )
                   : subscriptionProvider.subscriptionData['data'] == null
-                      ? const Center(child: Text("data are not available"))
+                      ?  Center(child: Text(AppLocalizations.of(context)!.data_are_not_available))
                       : SingleChildScrollView(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -224,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen>
                                       Tab(
                                         child: Center(
                                           child: Text(
-                                            'Your subscriptions',
+                                            AppLocalizations.of(context)!.your_subscriptions,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontSize: MySize.size12,
@@ -236,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen>
                                       Tab(
                                         child: Center(
                                           child: Text(
-                                            'Upcoming bills',
+                                            AppLocalizations.of(context)!.upcoming_bills,
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontSize: MySize.size12,
@@ -258,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     data['subscriptions'].length == 0
                                         ? Center(
                                             child: Text(
-                                              "Your subscriptions are not available",
+                                              AppLocalizations.of(context)!.your_subscriptions_are_not_available,
                                               style: TextStyle(
                                                   fontSize: MySize.size14,
                                                   fontWeight: FontWeight.w600,
@@ -291,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     data['upcommingbills'].length == 0
                                         ? Center(
                                             child: Text(
-                                              "Your upcoming bills are not available",
+                                              AppLocalizations.of(context)!.your_upcoming_bills_are_not_available,
                                               style: TextStyle(
                                                   fontSize: MySize.size14,
                                                   fontWeight: FontWeight.w600,

@@ -43,7 +43,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBarInAll(type: "forgot",leading: false,actions: false,),
+      appBar:  CustomAppBarInAll(type:AppLocalizations.of(context)!.forgot,leading: false,actions: false,),
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
@@ -60,7 +60,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: MySize.size40),
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 200,),
                          Text( AppLocalizations.of(context)!.reset_password,
@@ -192,7 +191,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
                             forgotPasswordProvider.changePassword(context: context);
                           }else{
-                            FlutterToast.toastMessage(message: "Confirm password doesn't get matched with password",isError: true);
+                            FlutterToast.toastMessage(message: AppLocalizations.of(context)!.confirm_password_doesnt_get_matched_with_password,isError: true);
                           }
                         }
                       },

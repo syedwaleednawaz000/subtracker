@@ -9,7 +9,6 @@ import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import 'package:sub_tracker/utils/textStyle.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
 import 'base/countNotifier.dart';
@@ -72,7 +71,7 @@ class _OTPVerificationState extends State<OTPVerification> {
     );
 
     return Scaffold(
-      appBar: const CustomAppBarInAll(type: "forgot",leading: false,actions: false,),
+      appBar:CustomAppBarInAll(type:AppLocalizations.of(context)!.forgot,leading: false,actions: false,),
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
@@ -122,7 +121,7 @@ class _OTPVerificationState extends State<OTPVerification> {
                       }else{
                         otpCorrect = false;
                       }
-                      return value == widget.otp ? null : 'Pin is incorrect';
+                      return value == widget.otp ? null :AppLocalizations.of(context)!.pin_is_incorrect;
                     },
                     pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                     showCursor: true,
@@ -146,17 +145,17 @@ class _OTPVerificationState extends State<OTPVerification> {
                         if(forgotPasswordProvider.isTimerRunning == false){
                           forgotPasswordProvider.forgotPassword(context: context);
                         }else{
-                          FlutterToast.toastMessage(message: "Please wait your task is on running",isError: true);
+                          FlutterToast.toastMessage(message:AppLocalizations.of(context)!.please_wait_your_task_is_on_running,isError: true);
                         }
                       },
                       child: RichText(
                         text:  TextSpan(
                           text: AppLocalizations.of(context)!.didnt_get_a_code,
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                          children: const [
+                          style: const TextStyle(fontSize: 15, color: Colors.white),
+                          children:  [
                             TextSpan(
-                              text: ' Resend',
-                              style: TextStyle(
+                              text: AppLocalizations.of(context)!.resend,
+                              style: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -183,13 +182,13 @@ class _OTPVerificationState extends State<OTPVerification> {
                                     forgotPasswordProvider.startTimer(timer: false);
                                   });
                                 }else{
-                                  FlutterToast.toastMessage(message: "Please enter correct otp",isError: true);
+                                  FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_enter_correct_otp,isError: true);
                                 }
                               } else {
-                                FlutterToast.toastMessage(message: "Please enter the complete OTP code. The OTP must be 6 digits long.",isError: true);
+                                FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_enter_the_complete_otp_code_the_otp_must_be_digits_long,isError: true);
                               }
                             }else{
-                              FlutterToast.toastMessage(message: "Your OTP has been expired, please try again with new OTP",isError: true);
+                              FlutterToast.toastMessage(message: AppLocalizations.of(context)!.your_otp_has_been_expired_please_try_again_with_new_otp,isError: true);
                             }
                           },
                           child: Padding(

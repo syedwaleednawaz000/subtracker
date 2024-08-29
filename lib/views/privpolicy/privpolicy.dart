@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/privacy_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../theme/theme.dart';
@@ -32,7 +33,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
           : const Color(0XFFF1F1FF),
-      appBar:  const CustomAppBarInAll(leading: false,title: "Privacy policy"),
+      appBar:   CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.privacy_policy),
       body: SafeArea(
         child: ListView(
           physics: const BouncingScrollPhysics(),
@@ -47,7 +48,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Privacy Policy',
+                      AppLocalizations.of(context)!.privacy_policy,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -70,8 +71,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
                       child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            privacyAndPolicyProvider.privacyAndPolicyData['value'] ??
-                                "",
+                            privacyAndPolicyProvider.privacyAndPolicyData['value'] ?? "",
                             style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w400,

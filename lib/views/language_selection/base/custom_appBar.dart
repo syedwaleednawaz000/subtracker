@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
         leading: GestureDetector(
             onTap: onTap,
             child: Image.asset(
-              AppImages.backArrow,
+              AppImages.lightBackArrow,
               color: const Color(0xFFA2A2B5),
               // width: MySize.size10,
               // height: MySize.size10,

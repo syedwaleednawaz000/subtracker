@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -26,7 +27,7 @@ class CancelSubscription extends StatelessWidget {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
           : const Color(0XFFF1F1FF),
-          appBar: const CustomAppBarInAll(leading: false,title: "Cancel Subscription"),
+          appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.cancel_subscription),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -37,7 +38,7 @@ class CancelSubscription extends StatelessWidget {
             return planProvider.activeSubscriptionData.isEmpty ?
             const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
             planProvider.activeSubscriptionData['data'] == null ?
-            const Center(child: Text("Active addNewSubscription are not available "),):
+             Center(child: Text( AppLocalizations.of(context)!.active_addNewSubscription_are_not_available),):
             GestureDetector(
               onTap: () {
               },
@@ -108,7 +109,7 @@ class CancelSubscription extends StatelessWidget {
               padding: EdgeInsets.only(left: MySize.size35),
               child: Align(
                 alignment: Alignment.topLeft,
-                child:  Text(  'Canceling now will immediately remove\nall access to features.',
+                child:  Text(  AppLocalizations.of(context)!.canceling_now_will_immediately_remove_all_access_to_features,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: 16,
@@ -147,7 +148,7 @@ class CancelSubscription extends StatelessWidget {
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.plan,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                    text: 'Subscription Tracking',
+                    text: AppLocalizations.of(context)!.subscription_tracking,
                   ),
                   SizedBox(
                     height: MySize.size16,
@@ -155,7 +156,7 @@ class CancelSubscription extends StatelessWidget {
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.notify,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                    text: 'Alerts and Notifications',
+                    text:  AppLocalizations.of(context)!.alerts_and_notifications,
                   ),
                   SizedBox(
                     height: MySize.size16,
@@ -165,7 +166,7 @@ class CancelSubscription extends StatelessWidget {
                       color: Provider.of<ThemeChanger>(context).themeData ==
                           darkMode ? Colors.white : const Color(0XFFC1C1CD),
                     ),
-                    text: 'Financial Overview',
+                    text:  AppLocalizations.of(context)!.financial_overview,
                   ),
                   SizedBox(
                     height: MySize.size16,
@@ -173,7 +174,7 @@ class CancelSubscription extends StatelessWidget {
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.analytics,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                    text: 'Spending Analytics',
+                    text:  AppLocalizations.of(context)!.spending_analytics,
                   ),
                   SizedBox(
                     height: MySize.size16,
@@ -181,7 +182,7 @@ class CancelSubscription extends StatelessWidget {
                   manageplanrowlist(
                     imageIcon: Image.asset(AppImages.contsupport, height: 20,   color: Provider.of<ThemeChanger>(context).themeData ==
                         darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                    text: 'Customer Support',
+                    text:  AppLocalizations.of(context)!.customer_support,
                   ),
                 ],
               ),

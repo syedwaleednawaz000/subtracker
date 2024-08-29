@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_colors.dart';
@@ -31,7 +32,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                       title: Column(
                         children: [
                           Text(
-                            'Cancel Subscription',
+                            AppLocalizations.of(context)!.cancel_subscription,
                             style: TextStyle(
                               fontSize: 18,
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -47,7 +48,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Text(
                               textAlign: TextAlign.center,
-                              'Are you sure you want to cancel your subscription',
+                              AppLocalizations.of(context)!.are_you_sure_you_want_to_cancel_your_subscription,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -72,7 +73,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                   child: Text(
-                                    'Decline',
+                                    AppLocalizations.of(context)!.decline,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -103,7 +104,7 @@ class CancelSubsDialogBox extends StatelessWidget {
                                         padding:
                                         const EdgeInsets.only(left: 40),
                                         child: Text(
-                                          'Accept',
+                                          AppLocalizations.of(context)!.accept,
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
@@ -126,7 +127,7 @@ class CancelSubsDialogBox extends StatelessWidget {
               },
             );
           }else{
-            FlutterToast.toastMessage(message: "Your active subscription is not available",isError: true);
+            FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.your_active_subscription_is_not_available,isError: true);
           }
         },
         child: Center(
@@ -141,7 +142,7 @@ class CancelSubsDialogBox extends StatelessWidget {
             ),
             child: Center(
               child: TextWidgetInterMedium(
-                title: 'Cancel Subscription',
+                title:  AppLocalizations.of(context)!.cancel_subscription,
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
                     ? Colors.white
                     : Colors.black,

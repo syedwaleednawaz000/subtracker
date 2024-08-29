@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
@@ -28,7 +29,7 @@ class RegisterProvider extends ChangeNotifier{
       Response response = await _apiService.register(params: body);
       if(response.statusCode == 201){
         _loginLoading(load: false);
-        FlutterToast.toastMessage(message: "Successfully registered",);
+        FlutterToast.toastMessage(message:AppLocalizations.of(context)!.successfully_registered,);
 
         Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
       }else{

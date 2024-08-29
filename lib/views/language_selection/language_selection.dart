@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -40,8 +41,8 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           LanguageTiles(),
           const SizedBox(height: 45,),
           Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
-            return           CustomSaveButton(text: "Save",onTap: (){
-              FlutterToast.toastMessage(message: "Yet not implemented, we will add it later",isError: true);
+            return           CustomSaveButton(text:  AppLocalizations.of(context)!.save,onTap: (){
+              FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.yet_not_implemented_we_will_add_it_later,isError: true);
               // Get.back();
             }
             );

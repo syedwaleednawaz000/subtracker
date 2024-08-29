@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
@@ -52,7 +53,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.black,
       title: Center(
         child: Text(
-          'Create new category',
+          AppLocalizations.of(context)!.create_new_category,
           style: TextStyle(
             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0xFF000000) : const Color(0xFFFFFFFF),
             fontSize: MySize.size16,
@@ -70,7 +71,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                 children: [
                   SizedBox(
                     width: MySize.scaleFactorWidth*115,
-                    child: Center(child: Text("Category",
+                    child: Center(child: Text(AppLocalizations.of(context)!.category,
                     style:TextStyle(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                     )
@@ -79,7 +80,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                   SizedBox(width: MySize.size5,),
                   SizedBox(
                     width: 103,
-                    child: Center(child: Text("Provider",
+                    child: Center(child: Text(AppLocalizations.of(context)!.provider,
                     style: TextStyle(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                     ),
@@ -109,7 +110,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Add Image',
+                                  AppLocalizations.of(context)!.add_image,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: MySize.size10,
@@ -167,7 +168,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Add Image',
+                                AppLocalizations.of(context)!.add_image,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: MySize.size10,
@@ -219,7 +220,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                 controller: categoryNameController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter category name';
+                    return AppLocalizations.of(context)!.please_enter_category_name;
                   }
                   return null;
                 },
@@ -234,8 +235,8 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white, // Color for unselected border
                     ),
                   ),
-                  labelText: 'Category',
-                  hintText: 'Enter Category',
+                  labelText: AppLocalizations.of(context)!.category,
+                  hintText: AppLocalizations.of(context)!.enter_category,
                   hintStyle: TextStyle(
                     fontSize: MySize.size12,
                     fontWeight: FontWeight.w500,
@@ -259,7 +260,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                 controller: providerNameController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter provider name';
+                    return AppLocalizations.of(context)!.please_enter_provider_name;
                   }
                   return null;
                 },
@@ -274,8 +275,8 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white, // Color for unselected border
                     ),
                   ),
-                  labelText: 'Add provider',
-                  hintText: 'Enter Add provider',
+                  labelText:AppLocalizations.of(context)!.add_provider,
+                  hintText:AppLocalizations.of(context)!.enter_add_provider,
                   hintStyle: TextStyle(
                     fontSize: MySize.size12,
                     fontWeight: FontWeight.w500,
@@ -298,7 +299,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter price';
+                    return AppLocalizations.of(context)!.please_enter_price;
                   }
                   return null;
                 },
@@ -314,8 +315,8 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white, // Color for unselected border
                     ),
                   ),
-                  labelText: 'Enter Price',
-                  hintText: 'Enter Price',
+                  labelText: AppLocalizations.of(context)!.enter_price,
+                  hintText: AppLocalizations.of(context)!.enter_price,
                   hintStyle: TextStyle(
                     fontSize: MySize.size12,
                     fontWeight: FontWeight.w500,
@@ -338,7 +339,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
           children: [
             TextButton(
               child: Text(
-                'Cancel',
+                AppLocalizations.of(context)!.cancel,
                 style: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.redAccent : Colors.redAccent,
                   fontSize: MySize.size15,
@@ -356,7 +357,7 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                       height: MySize.size20,
                       width: MySize.size20,
                       child: CircularProgressIndicator(color: AppColors.purpleFF,)),): Text(
-                    'Add',
+                    AppLocalizations.of(context)!.add_add,
                     style: TextStyle(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.lightBlue : Colors.lightBlue,
                       fontSize: MySize.size16,
@@ -377,10 +378,10 @@ class _DialogBoxWidgetState extends State<DialogBoxWidget> {
                           );
                         }
                       }else{
-                        FlutterToast.toastMessage(message: "Please upload provider image ", isError: true);
+                        FlutterToast.toastMessage(message:AppLocalizations.of(context)!.please_upload_provider_image, isError: true);
                       }
                     }else{
-                      FlutterToast.toastMessage(message: "Please upload category image ", isError: true);
+                      FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_upload_category_image, isError: true);
                     }
                   },
                 );

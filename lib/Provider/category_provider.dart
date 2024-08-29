@@ -8,6 +8,7 @@ import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/spending_budgets/component/add_new_category_dialog.dart';
 import 'package:sub_tracker/views/addNewSubscription/model/all_category_model.dart';
 
@@ -24,7 +25,7 @@ class CategoryProvider extends ChangeNotifier {
   }
 
   Future<void> storeUserCategories(
-      {required String categoryID, required String totalBudget}) async {
+      {required String categoryID, required String totalBudget, BuildContext? context}) async {
     _storeUserCatLoading(load: true);
     var body = {'category_id': categoryID, 'total_budget': totalBudget};
     try {
@@ -32,7 +33,7 @@ class CategoryProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         _storeUserCatLoading(load: false);
         FlutterToast.toastMessage(
-          message: "User category added successfully",
+          message:  AppLocalizations.of(context!)!.user_category_added_successfully,
         );
         // Get.back();
       } else {
@@ -47,7 +48,7 @@ class CategoryProvider extends ChangeNotifier {
 
 
   Future<void> updateCategory(
-      {required String categoryName,}) async {
+      {required String categoryName, BuildContext? context}) async {
     _storeUserCatLoading(load: true);
     var body = { 'name': categoryName, 'image':'image','_method': 'PUT'};
     try {
@@ -55,7 +56,7 @@ class CategoryProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         _storeUserCatLoading(load: false);
         FlutterToast.toastMessage(
-          message: "category added successfully",
+          message:  AppLocalizations.of(context!)!.category_added_successfully,
         );
         // Get.back();
       } else {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../utils/my_size.dart';
 import '../theme/theme.dart';
 import '../utils/app_Images.dart';
@@ -15,37 +16,16 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeChanger>(context);
     return Scaffold(
+      backgroundColor: themeProvider.themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFF1F1FF),
+      appBar:  const CustomAppBarInAll(leading: false,title: "Notifications"),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: MySize.size32),
-          Padding(
-            padding: EdgeInsets.only(
-              left: MySize.size23,
-              top: MySize.size32,
-            ),
-            child: Row(
-              children: [
-                GestureDetector(
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    child: Image.asset(AppImages.backArrow, height: 20,)),
-                SizedBox(
-                  width: MySize.scaleFactorWidth * 110,
-                ),
-                Text('Notifications',
-                  style: TextStyle(
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
-                    fontSize: MySize.size16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
           SizedBox(height: MySize.size25),
           Padding(
             padding:  EdgeInsets.only(left:MySize.size40),

@@ -17,17 +17,18 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeChanger>(context);
     return AppBar(
       automaticallyImplyLeading: false,
       scrolledUnderElevation: 0,
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? Colors.black
+      backgroundColor: themeProvider.themeData == darkMode ?
+          Colors.black
           : type != null? Colors.black:Color(0XFFF1F1FF),
       elevation: 0,
       centerTitle: true,
       title: title != null
           ? Padding(
-            padding: const EdgeInsets.only(top: 14),
+            padding: const EdgeInsets.only(top: 32),
             child: Text(
                     title!,
                     style: const TextStyle(
@@ -44,13 +45,12 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
             Get.back();
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 17,left: 24),
-            child: Image.asset(
-              AppImages.backArrow,
-              color: const Color(0XFFFFFFFF),
+            padding: const EdgeInsets.only(top: 32,left: 24),
+            child:SvgPicture.asset(
               height: 24,
               width: 24,
-              // fit: BoxFit.cover, // Ensure the image fits well within the SizedBox
+                "assets/icons/backArrowSVG.svg",
+                color: themeProvider.themeData == darkMode ?Colors.white: Colors.black,
             ),
           ),): const SizedBox(), // Show SizedBox if leading is null
       actions:  [actions == false ?const SizedBox() :notificationIcon()], // Show SizedBox if actions are null

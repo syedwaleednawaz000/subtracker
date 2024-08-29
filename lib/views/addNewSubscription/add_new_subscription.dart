@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
@@ -68,7 +69,7 @@ class _SubscriptionState extends State<Subscription> {
           child: ListView(
             children: [
               Text(
-                'Subcategories of ${category.name}',
+                '${ AppLocalizations.of(context)!.subcategories_of} ${category.name}',
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -310,13 +311,13 @@ class _SubscriptionState extends State<Subscription> {
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: Image.asset(AppImages.backArrow,width: MySize.size24,height: MySize.size24,),
+                              child: Image.asset(AppImages.lightBackArrow,width: MySize.size24,height: MySize.size24,),
                             ),
                             SizedBox(
                               width: MySize.scaleFactorWidth * 145,
                             ),
                             Text(
-                              'New',
+                              AppLocalizations.of(context)!.new_new,
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -332,7 +333,7 @@ class _SubscriptionState extends State<Subscription> {
                         height: MySize.size30,
                       ),
                       Text(
-                        'Add new\nSubscription',
+                        AppLocalizations.of(context)!.add_new_subscription,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: MySize.size40,
@@ -403,7 +404,7 @@ class _SubscriptionState extends State<Subscription> {
                         builder: (context, categoryProvider, child) {
                           return Text(
                             categoryProvider.categoryName.isEmpty
-                                ? 'Tresorly'
+                                ?  AppLocalizations.of(context)!.tresorly
                                 : categoryProvider.categoryName,
                             style: TextStyle(
                               fontSize: MySize.size14,
@@ -427,7 +428,7 @@ class _SubscriptionState extends State<Subscription> {
                         children: [
                           Tooltip(
                             message:
-                                "If the provider is already listed, you can select it from here instead of adding a new one.",
+                            AppLocalizations.of(context)!.if_the_provider_is_already_listed_you_can_select_it_from_here_instead_of_adding_a_new_one,
                             decoration: BoxDecoration(
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
@@ -451,7 +452,7 @@ class _SubscriptionState extends State<Subscription> {
                           Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? Text(
-                                  'Select Subscription Provider',
+                            AppLocalizations.of(context)!.select_subscription_provider,
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
@@ -464,7 +465,7 @@ class _SubscriptionState extends State<Subscription> {
                                   ),
                                 )
                               : Text(
-                                  'Select Subscription Provider',
+                            AppLocalizations.of(context)!.select_subscription_provider,
                                   style: TextStyle(
                                     fontSize: MySize.size12,
                                     fontWeight: FontWeight.w500,
@@ -516,7 +517,7 @@ class _SubscriptionState extends State<Subscription> {
                                    SizedBox(width: MySize.size12),
                                   Text(
                                     categoryProvider.subCategoryName == ""
-                                        ? "Select Subscription Provider"
+                                        ?  AppLocalizations.of(context)!.select_subscription_provider
                                         : categoryProvider.subCategoryName,
                                     style: TextStyle(
                                       fontSize: MySize.size12,
@@ -556,7 +557,7 @@ class _SubscriptionState extends State<Subscription> {
 
                 /// below container
                 Text(
-                  'Description',
+                  AppLocalizations.of(context)!.description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: MySize.size14,
@@ -577,7 +578,7 @@ class _SubscriptionState extends State<Subscription> {
                     maxLines: 3,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter description';
+                        return  AppLocalizations.of(context)!.please_enter_description;
                       }
                       return null;
                     },
@@ -642,7 +643,7 @@ class _SubscriptionState extends State<Subscription> {
                       child: Row(
                         children: [
                           Text(
-                            "Start Date:",
+                            AppLocalizations.of(context)!.start_date,
                             style: TextStyle(
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
@@ -659,7 +660,7 @@ class _SubscriptionState extends State<Subscription> {
                           ),
                           Text(
                             _selectedStartDate == null
-                                ? "Select date "
+                                ?  AppLocalizations.of(context)!.select_date
                                 : _dateFormat.format(_selectedStartDate!),
                             style: TextStyle(
                               fontSize: MySize.size16,
@@ -705,7 +706,7 @@ class _SubscriptionState extends State<Subscription> {
                       child: Row(
                         children: [
                           Text(
-                            "Renewal Date:",
+                            AppLocalizations.of(context)!.renewal_date,
                             style: TextStyle(
                               color: Provider.of<ThemeChanger>(context)
                                           .themeData ==
@@ -722,7 +723,7 @@ class _SubscriptionState extends State<Subscription> {
                           ),
                           Text(
                             _selectedRenewalDate == null
-                                ? "Select date"
+                                ?  AppLocalizations.of(context)!.select_date
                                 : _dateFormat.format(_selectedRenewalDate!),
                             style: TextStyle(
                               fontSize: MySize.size16,
@@ -766,7 +767,7 @@ class _SubscriptionState extends State<Subscription> {
                           SizedBox(width: MySize.size4),
                           Expanded(
                             child: Text(
-                              'Billing Cycle',
+                              AppLocalizations.of(context)!.billing_cycle,
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,
@@ -807,7 +808,7 @@ class _SubscriptionState extends State<Subscription> {
                       },
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select a billing cycle';
+                          return  AppLocalizations.of(context)!.please_select_a_billing_cycle;
                         }
                         return null;
                       },
@@ -833,7 +834,7 @@ class _SubscriptionState extends State<Subscription> {
                           SizedBox(width: MySize.size4),
                           Expanded(
                             child: Text(
-                              'Reminder duration',
+                              AppLocalizations.of(context)!.reminder_duration,
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.bold,
@@ -874,7 +875,7 @@ class _SubscriptionState extends State<Subscription> {
                       },
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select a remind duration';
+                          return  AppLocalizations.of(context)!.please_select_a_remind_duration;
                         }
                         return null;
                       },
@@ -935,7 +936,7 @@ class _SubscriptionState extends State<Subscription> {
                                             size: MySize.size20,
                                           )),
                                       Text(
-                                        "Upload\nImage",
+                                        AppLocalizations.of(context)!.upload_image,
                                         style: TextStyle(
                                             fontSize: MySize.size10,
                                             fontWeight: FontWeight.w600),
@@ -963,7 +964,7 @@ class _SubscriptionState extends State<Subscription> {
                                     height: MySize.size10,
                                   ),
                                   Text(
-                                    'No image selected.',
+                                    AppLocalizations.of(context)!.no_image_selected,
                                     style: TextStyle(
                                       color: Provider.of<ThemeChanger>(context)
                                                   .themeData ==
@@ -1015,7 +1016,7 @@ class _SubscriptionState extends State<Subscription> {
                               _filePath != null
                                   ? Text(
                                       textAlign: TextAlign.center,
-                                      'File name: ${_filePath!.names[0]}',
+                                      '${ AppLocalizations.of(context)!.file_name}: ${_filePath!.names[0]}',
                                       style: TextStyle(
                                         fontSize: MySize.size14,
                                         fontWeight: FontWeight.w400,
@@ -1023,7 +1024,7 @@ class _SubscriptionState extends State<Subscription> {
                                       ),
                                     )
                                   : Text(
-                                      'No document selected.',
+                                AppLocalizations.of(context)!.no_document_selected,
                                       style: TextStyle(
                                         color:
                                             Provider.of<ThemeChanger>(context)
@@ -1086,7 +1087,7 @@ class _SubscriptionState extends State<Subscription> {
                       Column(
                         children: [
                           Text(
-                            'Monthly price',
+                            AppLocalizations.of(context)!.monthly_price,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: MySize.size12,
@@ -1231,14 +1232,14 @@ class _SubscriptionState extends State<Subscription> {
                                             remindDurationValue.toString(),
                                       );
                                     } else {
-                                      FlutterToast.toastMessage(message:"Renewal date must be greater than start date", isError: true);
+                                      FlutterToast.toastMessage(message: AppLocalizations.of(context)!.renewal_date_must_be_greater_than_start_date, isError: true);
                                     }
                                   } else {
-                                    FlutterToast.toastMessage(message: "Please select both image and document", isError: true);
+                                    FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.please_select_both_image_and_document, isError: true);
                                   }
                                 }
                               } else {
-                                FlutterToast.toastMessage(message: "Please select provider", isError: true);
+                                FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.please_select_provider, isError: true);
                               }
                             },
                             child: Container(
@@ -1268,7 +1269,7 @@ class _SubscriptionState extends State<Subscription> {
                                       child: CircularProgressIndicator())
                                   : Center(
                                       child: Text(
-                                        'Add this Subscription',
+                                        AppLocalizations.of(context)!.add_this_subscription,
                                         style: TextStyle(
                                           fontSize: MySize.size14,
                                           fontWeight: FontWeight.w600,
