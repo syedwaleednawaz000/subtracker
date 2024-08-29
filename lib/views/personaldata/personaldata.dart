@@ -7,6 +7,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/change_password/change_password.dart';
 import '../../theme/theme.dart';
@@ -50,6 +51,31 @@ class _PersonalDataState extends State<PersonalData> {
           key: _formKey,
           child: ListView(
             children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MySize.size23,
+                  vertical: MySize.size32,
+                ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(AppImages.lightBackArrow, height: 20,)),
+                    SizedBox(
+                      width: MySize.scaleFactorWidth * 110,
+                    ),
+                    Text( AppLocalizations.of(context)!.personal_data,
+                      style: TextStyle(
+                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
+                        fontSize: MySize.size16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
                SizedBox(
                 height:  MySize.size40,
               ),
@@ -173,7 +199,7 @@ class _PersonalDataState extends State<PersonalData> {
                       ),
                     ),
                     child: Center(
-                      child: Text('Change',
+                      child: Text( AppLocalizations.of(context)!.change,
                         style: TextStyle(
                             color:Provider.of<ThemeChanger>(context).themeData == darkMode
                                 ? Colors.white
@@ -190,7 +216,7 @@ class _PersonalDataState extends State<PersonalData> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('E-mail address',
+                      Text( AppLocalizations.of(context)!.email_address,
                         style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                           fontSize: 12,
@@ -214,7 +240,7 @@ class _PersonalDataState extends State<PersonalData> {
                               left: MySize.size20,
                               right: MySize.size20,
                             ),
-                            labelText: 'Email', // Use labelText for consistency
+                            labelText:  AppLocalizations.of(context)!.email, // Use labelText for consistency
                             labelStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? const Color(0XFF666680)
@@ -222,7 +248,7 @@ class _PersonalDataState extends State<PersonalData> {
                               fontSize: MySize.size12,
                               fontFamily: 'Poppins_Regular',
                             ),
-                            hintText: 'Email',
+                            hintText:  AppLocalizations.of(context)!.email,
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? const Color(0XFF666680)
@@ -282,7 +308,7 @@ class _PersonalDataState extends State<PersonalData> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Name',
+                      Text( AppLocalizations.of(context)!.name,
                         style: TextStyle(
                             color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                             fontSize: 12,
@@ -303,7 +329,7 @@ class _PersonalDataState extends State<PersonalData> {
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                            labelText: 'Name', // Use labelText for consistency
+                            labelText:  AppLocalizations.of(context)!.name, // Use labelText for consistency
                             labelStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                   ? const Color(0XFF666680)
@@ -311,7 +337,7 @@ class _PersonalDataState extends State<PersonalData> {
                               fontSize: MySize.size12,
                               fontFamily: 'Poppins_Regular',
                             ),
-                            hintText: 'Name',
+                            hintText:  AppLocalizations.of(context)!.name,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             hintStyle: TextStyle(
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -356,7 +382,7 @@ class _PersonalDataState extends State<PersonalData> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Phone No.',
+                      Text( AppLocalizations.of(context)!.phone_no,
                         style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF666680) : const Color(0XFF666680),
                           fontSize: 12,
@@ -377,7 +403,7 @@ class _PersonalDataState extends State<PersonalData> {
                           decoration: InputDecoration(
                             isDense: false, // Avoid density adjustments
                             contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20), // Adjust padding
-                            labelText: 'Phone No.',
+                            labelText:  AppLocalizations.of(context)!.phone_no,
                             labelStyle: TextStyle(
                               fontFamily: 'Poppins_Regular',
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -385,7 +411,7 @@ class _PersonalDataState extends State<PersonalData> {
                                   : const Color(0XFF666680).withOpacity(.4),
                               fontSize: MySize.size12,
                             ),
-                            hintText: 'Phone No.',
+                            hintText:  AppLocalizations.of(context)!.phone_no,
                             hintStyle: TextStyle(
                               fontFamily: 'Poppins_Regular',
                               color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -452,7 +478,7 @@ class _PersonalDataState extends State<PersonalData> {
                           name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
                     }
                   },
-                  titleText: 'Save',);
+                  titleText:  AppLocalizations.of(context)!.save,);
               },)
             ],
           ),

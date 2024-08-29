@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/faqs_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
@@ -33,7 +34,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
           : const Color(0XFFF1F1FF),
-      appBar: const CustomAppBarInAll(leading: false,title: "FAQs"),
+      appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.faqs),
       body: Padding(
         padding: const EdgeInsets.only(left: 37, right: 37,),
         child: ListView(
@@ -44,7 +45,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                 Padding(
                     padding: const EdgeInsets.only(top: 22, bottom: 18),
                     child: Text(
-                      'Frequently Asked Questions',
+                      AppLocalizations.of(context)!.frequently_asked_questions,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

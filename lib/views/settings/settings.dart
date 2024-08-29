@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
-import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -20,15 +17,12 @@ import 'package:sub_tracker/views/FAQs_screen/faqs.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/cancelsubscription/cancelsubscription.dart';
 import 'package:sub_tracker/views/contactsupport/contactsupport.dart';
-import 'package:sub_tracker/views/home_screen/home_screen.dart';
 import 'package:sub_tracker/views/manageplan/manageplan.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
 import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
-
-import '../bottomnavbar/bottom_navBar.dart';
 
 class Settings extends StatefulWidget {
   const Settings({
@@ -40,18 +34,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // List<bool> _switchValues = List.generate(3, (index) => false);
-  List<String> titleText = [
-    'Personal Data',
-    'Language',
-    'Currency',
-    'Change Password'
-  ];
-  List<String> titleText2 = [
-    'Biometric Auth.',
-    'Two Factor Auth.',
-    'Email Notification'
-  ];
 
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
   List<AssetImage> leadingAccImage = [
@@ -90,6 +72,17 @@ class _SettingsState extends State<Settings> {
       '${currencyProvider.selectedCurrency.toString()}',
       'Password',
     ];
+    List<String> titleText = [
+    AppLocalizations.of(context)!.personal_data,
+    AppLocalizations.of(context)!.language,
+    AppLocalizations.of(context)!.currency,
+    AppLocalizations.of(context)!.change_password
+    ];
+    List<String> titleText2 = [
+    AppLocalizations.of(context)!.biometric_auth,
+    AppLocalizations.of(context)!.two_factor_auth,
+    AppLocalizations.of(context)!.email_notification
+    ];
 
     ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
     return SafeArea(
@@ -98,7 +91,7 @@ class _SettingsState extends State<Settings> {
             Provider.of<ThemeChanger>(context).themeData == darkMode ?
             Colors.black
                 : const Color(0XFFF1F1FF),
-        appBar: const CustomAppBarInAll(leading: true,title: "Settings",actions: true),
+        appBar:  CustomAppBarInAll(leading: true,title: AppLocalizations.of(context)!.settings,actions: true),
         body: Consumer<LanguageProvider>(
           builder: (context, languageProvider, child) {
             return ListView(
@@ -111,7 +104,7 @@ class _SettingsState extends State<Settings> {
                       return  Container(
                         height: MySize.size72,
                         width: MySize.size72,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.transparent,
                           shape: BoxShape.circle
                         ),
@@ -213,7 +206,7 @@ class _SettingsState extends State<Settings> {
                         ),
                         child: Center(
                           child: Text(
-                            'Change',
+                            AppLocalizations.of(context)!.change,
                             style: TextStyle(
                                 color: Provider.of<ThemeChanger>(context)
                                             .themeData ==
@@ -233,7 +226,7 @@ class _SettingsState extends State<Settings> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Account',
+                          AppLocalizations.of(context)!.account,
                           style: TextStyle(
                               fontSize: MySize.size14,
                               fontWeight: FontWeight.w600),
@@ -282,7 +275,7 @@ class _SettingsState extends State<Settings> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>profileProvider.screens[index]));
                                           } else {
-                                            FlutterToast.toastMessage(message: "User data not found please try again", isError: true);
+                                            FlutterToast.toastMessage(message:AppLocalizations.of(context)!.user_data_not_found_please_try_again, isError: true);
                                           }
                                         } else {
                                           Navigator.push(
@@ -405,7 +398,7 @@ class _SettingsState extends State<Settings> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Appearance',
+                          AppLocalizations.of(context)!.appearance,
                           style: TextStyle(
                               // color: AppColors.whiteFF,
                               fontSize: MySize.size14,
@@ -444,9 +437,9 @@ class _SettingsState extends State<Settings> {
                           const SizedBox(
                             width: 18,
                           ),
-                          const Text(
-                            'Light/Dark Mode',
-                            style: TextStyle(
+                           Text(
+                            AppLocalizations.of(context)!.light_dark_mode,
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               // color:  Theme.of(context).colorScheme.primary
@@ -488,7 +481,7 @@ class _SettingsState extends State<Settings> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'My Subscription Plan',
+                          AppLocalizations.of(context)!.my_subscription_plan,
                           style: TextStyle(
                               fontSize: MySize.size14,
                               fontWeight: FontWeight.w600),
@@ -537,8 +530,8 @@ class _SettingsState extends State<Settings> {
                                     AppImages.plan,
                                     height: 20,
                                   ),
-                                  text: 'Manage Plan',
-                                  text2: 'Plan',
+                                  text: AppLocalizations.of(context)!.manage_plan,
+                                  text2: AppLocalizations.of(context)!.plan,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -562,8 +555,8 @@ class _SettingsState extends State<Settings> {
                                     AppImages.payment,
                                     height: 20,
                                   ),
-                                  text: 'Manage Payment',
-                                  text2: 'Cards',
+                                  text: AppLocalizations.of(context)!.manage_payment,
+                                  text2: AppLocalizations.of(context)!.cards,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -583,13 +576,13 @@ class _SettingsState extends State<Settings> {
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: SettingRowList(
-                                  type: "cancel",
+                                  type:AppLocalizations.of(context)!.cancel,
                                   imageIcon: Image.asset(
                                     AppImages.cancelSub,
                                     height: 20,
                                   ),
-                                  text: 'Cancel Subscription',
-                                  text2: 'Cancel',
+                                  text: AppLocalizations.of(context)!.cancel_subscription,
+                                  text2: AppLocalizations.of(context)!.cancel,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -604,12 +597,12 @@ class _SettingsState extends State<Settings> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: MySize.size32),
-                      child: const Align(
+                      child:  Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Help & Support',
+                            AppLocalizations.of(context)!.help_support,
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
@@ -655,8 +648,8 @@ class _SettingsState extends State<Settings> {
                                     AppImages.faqs,
                                     height: 20,
                                   ),
-                                  text: 'FAQs',
-                                  text2: 'FAQ',
+                                  text: AppLocalizations.of(context)!.faqs,
+                                  text2: AppLocalizations.of(context)!.faq,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -680,8 +673,8 @@ class _SettingsState extends State<Settings> {
                                     AppImages.contsupport,
                                     height: 20,
                                   ),
-                                  text: 'Contact Support',
-                                  text2: 'Support',
+                                  text: AppLocalizations.of(context)!.contact_support,
+                                  text2: AppLocalizations.of(context)!.support,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -705,8 +698,8 @@ class _SettingsState extends State<Settings> {
                                     AppImages.terms,
                                     height: 20,
                                   ),
-                                  text: 'Terms & Services',
-                                  text2: 'Legal',
+                                  text: AppLocalizations.of(context)!.terms_services,
+                                  text2: AppLocalizations.of(context)!.legal,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -730,8 +723,8 @@ class _SettingsState extends State<Settings> {
                                     AppImages.privpolicy,
                                     height: 20,
                                   ),
-                                  text: 'Privacy Policy',
-                                  text2: 'Legal',
+                                  text: AppLocalizations.of(context)!.privacy_policy,
+                                  text2: AppLocalizations.of(context)!.legal,
                                   text2Color: const Color(0XFFA2A2B5),
                                   icon: Image.asset(AppImages.arrowLeft),
                                 ),
@@ -774,7 +767,7 @@ class _SettingsState extends State<Settings> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Logout',
+                              AppLocalizations.of(context)!.logout,
                               style: TextStyle(
                                 fontSize: MySize.size14,
                                 fontWeight: FontWeight.w600,
@@ -829,7 +822,7 @@ class _SettingsState extends State<Settings> {
                             width: 14,
                           ),
                           TextWidgetInterRegular(
-                            title: 'Current Version ',
+                            title: AppLocalizations.of(context)!.current_version,
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           ),

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Repo/repo.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
@@ -20,14 +21,14 @@ class LanguageProvider extends ChangeNotifier{
     _isLanguages = load;
     notifyListeners();
   }
-  Future<void> updateLanguage()async{
+  Future<void> updateLanguage(BuildContext? context)async{
     var body = {
       'language_id': '1'
     };
     try{
       Response response = await _apiService.updateLanguages(params: body);
       if(response.statusCode == 200){
-        FlutterToast.toastMessage(message: "Language successfully updated",);
+        FlutterToast.toastMessage(message:  AppLocalizations.of(context!)!.language_successfully_updated,);
         if (kDebugMode) {
           print("hit successfully");
         }

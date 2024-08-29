@@ -1,9 +1,12 @@
+import 'dart:js';
+
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +80,7 @@ class SubscriptionProvider extends ChangeNotifier{
       if (response.statusCode == 200) {
         getSubscriptions();
         _storeSubLoading(load: false);
-        FlutterToast.toastMessage(message: "Subscription added successfully");
+        FlutterToast.toastMessage(message:'Subscription added successfully');
         Get.back();
 
         if (kDebugMode) {
@@ -145,7 +148,7 @@ class SubscriptionProvider extends ChangeNotifier{
         final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
         Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: dateFormat.format(DateTime.now()));
         getSubscriptions();
-        FlutterToast.toastMessage(message: "Subscription updated  successfully");
+        FlutterToast.toastMessage(message:AppLocalizations.of(context)!.subscription_added_successfully);
         Get.back();
         // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
         if (kDebugMode) {

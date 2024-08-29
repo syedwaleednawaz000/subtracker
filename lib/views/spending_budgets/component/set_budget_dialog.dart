@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/theme/theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 
 class SetBudgetDialog extends StatefulWidget {
@@ -23,7 +24,7 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.white : Colors.black,
-      title:  Center(child: Text('Set budget',
+      title:  Center(child: Text(AppLocalizations.of(context)!.set_budget,
       style: TextStyle(
         color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
       ),)),
@@ -34,7 +35,7 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Set total budget for ${widget.categoryName}',style: TextStyle(
+              Text('${AppLocalizations.of(context)!.set_total_budget_for} ${widget.categoryName}',style: TextStyle(
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
 
               ),),
@@ -44,7 +45,7 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text('Total budget:',style: TextStyle(
+               Text(AppLocalizations.of(context)!.total_budget,style: TextStyle(
                 color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                  ),
                ),
@@ -67,11 +68,11 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
                   controller: priceController,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(vertical: MySize.size10, horizontal: MySize.size10),
-                    labelText: 'Total budget',
+                    labelText: AppLocalizations.of(context)!.total_budget,
                     labelStyle: TextStyle(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
                     ),
-                    hintText: 'Enter total budget',
+                    hintText: AppLocalizations.of(context)!.enter_total_budget,
                     hintStyle: TextStyle(
                       color: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Colors.white,
 
@@ -109,14 +110,14 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel', style: TextStyle(color: Colors.red)),
+              child:  Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: Colors.red)),
             ),
             const SizedBox(width: 18),
             Consumer<SpendingBudgetProvider>(
               builder: (context, spendingBudgetProvider, child) {
                 return TextButton(
                   onPressed: () {
-                    spendingBudgetProvider.budgetSet(price: priceController.text.trim(), categoryID: widget.categoryId);
+                    spendingBudgetProvider.budgetSet(price: priceController.text.trim(),context: context, categoryID: widget.categoryId);
                   },
                   child: spendingBudgetProvider.isBudgetSetLoading
                       ? SizedBox(
@@ -124,7 +125,7 @@ class _SetBudgetDialogState extends State<SetBudgetDialog> {
                     width: MySize.size20,
                     child: const CircularProgressIndicator(color: AppColors.purpleFF),
                   )
-                      : const Text('Submit', style: TextStyle(color: Colors.blue)),
+                      :  Text(AppLocalizations.of(context)!.submit, style: TextStyle(color: Colors.blue)),
                 );
               },
             ),

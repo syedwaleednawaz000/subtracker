@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
@@ -37,7 +38,7 @@ class _ContactSupportState extends State<ContactSupport> {
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
         Colors.black
             : const Color(0XFFF1F1FF),
-        appBar: const CustomAppBarInAll(leading: false,title: "Support"),
+        appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.support),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,7 +49,7 @@ class _ContactSupportState extends State<ContactSupport> {
               children: [
 
                 SizedBox(height: MySize.size20,),
-                Text('Generate Ticket',
+                Text( AppLocalizations.of(context)!.generate_ticket,
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -59,7 +60,7 @@ class _ContactSupportState extends State<ContactSupport> {
                   ),
                 ),
                 SizedBox(height: MySize.size10,),
-                Text('Issue',
+                Text( AppLocalizations.of(context)!.issue,
                   style: TextStyle(
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w400,
@@ -75,14 +76,14 @@ class _ContactSupportState extends State<ContactSupport> {
             if (issuesProvider.isLoading) {
               return const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,));
             } else if (issuesProvider.issues.isEmpty) {
-              return const Center(child: Text('No issues found'));
+              return  Center(child: Text( AppLocalizations.of(context)!.no_issues_found));
             } else {
               return DropdownMenu(
 
                 onSelected: (value) {
                   Provider.of<ContactWithSupportProvider>(context,listen: false).getIssueId(issueID: value.toString());
                 },
-                hintText: "Select Issue",
+                hintText:  AppLocalizations.of(context)!.select_issue,
 
                 textStyle: TextStyle(
                   fontSize: 14,
@@ -126,7 +127,7 @@ class _ContactSupportState extends State<ContactSupport> {
         ),
 
                 SizedBox(height: MySize.size14,),
-                Text( 'Subject',
+                Text(  AppLocalizations.of(context)!.subject,
                   style: TextStyle(
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w400,
@@ -141,11 +142,11 @@ class _ContactSupportState extends State<ContactSupport> {
                    controller: subjectController,
                    validator: (value){},
                   maxLines: null,
-                  hintText: 'Enter Subject',
+                  hintText:  AppLocalizations.of(context)!.enter_subject,
 
                 ),
                 SizedBox(height: MySize.size14,),
-                Text('Description',
+                Text( AppLocalizations.of(context)!.description,
                   style: TextStyle(
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w400,
@@ -159,7 +160,7 @@ class _ContactSupportState extends State<ContactSupport> {
                 FormFieldComponent(
                   controller: descriptionController,
                   validator: (value){},
-                  hintText: 'Enter Description',
+                  hintText:  AppLocalizations.of(context)!.enter_description,
                   height: MySize.scaleFactorHeight* 210,
                   maxLines:7,
                 ),
@@ -201,7 +202,7 @@ class _ContactSupportState extends State<ContactSupport> {
                     ),
                     child: Center(
                       child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
-                        'Submit',
+                        AppLocalizations.of(context)!.submit,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

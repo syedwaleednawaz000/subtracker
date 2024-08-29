@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/term_and_condition_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -27,7 +28,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
           : const Color(0XFFF1F1FF),
-      appBar:  const CustomAppBarInAll(leading: false,title: "Terms of services"),
+      appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.terms_of_service),
       body: SafeArea(
         child: ListView(
           physics: const BouncingScrollPhysics(),
@@ -40,7 +41,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Terms of Service',
+                      AppLocalizations.of(context)!.terms_of_service,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -60,7 +61,7 @@ class _TermsOfServicesState extends State<TermsOfServices> {
                    return termAndConditionProvider.isTermAndCondition ?
                        const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
                     termAndConditionProvider.termAndConditionData == null ?
-                      const Center(child: Text("term and condition not available"),):
+                       Center(child: Text( AppLocalizations.of(context)!.term_and_condition_not_available),):
                     Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",
                       textAlign: TextAlign.left,
                       style: TextStyle(

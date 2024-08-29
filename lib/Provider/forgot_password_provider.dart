@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
@@ -76,7 +76,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
         // print("this is res ")
         Provider.of<LoginProvider>(context,listen: false).clearPassword();
         _loginLoading(load: false);
-        FlutterToast.toastMessage(message: "OTP send successfully ${response.data['otp'].toString()}",);
+        FlutterToast.toastMessage(message: "${AppLocalizations.of(context)!.otp_send_successfully}  ${response.data['otp'].toString()}",);
 
           startTimer(timer: true);
 
@@ -112,7 +112,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _verifyOTpLoading(load: false);
         forgetToken = response.data['token'];
-        FlutterToast.toastMessage(message: "OTP successfully verified",);
+        FlutterToast.toastMessage(message:AppLocalizations.of(context)!.otp_successfully_verified,);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdatePassword()));
 
       }else{
@@ -148,7 +148,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
         password.clear();
         confirmPassword.clear();
         _ChangePassLoading(load: false);
-        FlutterToast.toastMessage(message: " Password reset successfully",);
+        FlutterToast.toastMessage(message: AppLocalizations.of(context)!.password_reset_successfully,);
         Get.offAll(()=> const LoginScreen());
         notifyListeners();
       }else{

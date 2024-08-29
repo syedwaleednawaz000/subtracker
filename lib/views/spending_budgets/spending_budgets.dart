@@ -1,13 +1,7 @@
 import 'dart:math';
-
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/spending_budget_provider.dart';
@@ -17,12 +11,10 @@ import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/home_screen/Component/linear_progress.dart';
-import 'package:sub_tracker/views/language_selection/base/custom_appBar.dart';
 import 'package:sub_tracker/views/spending_budgets/component/add_provider_dialog.dart';
 import 'package:sub_tracker/views/spending_budgets/component/set_budget_dialog.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../Provider/category_provider.dart';
-import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
 import '../../utils/my_size.dart';
 import '../base/text_widgets.dart';
@@ -56,7 +48,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
     // TODO: implement initState
     Future.microtask(() =>
         Provider.of<SpendingBudgetProvider>(context, listen: false)
-            .getSpendingBudget());
+            .getSpendingBudget(context));
     super.initState();
   }
 
@@ -69,7 +61,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
             Provider.of<ThemeChanger>(context).themeData == darkMode ?
             Colors.black
                 : const Color(0XFFF1F1FF),
-        appBar: const CustomAppBarInAll(leading: true,title: "Spending & Budgets"),
+        appBar:  CustomAppBarInAll(leading: true,title: AppLocalizations.of(context)!.spending_budgets),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -199,7 +191,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextWidgetInterMedium(
-                      title: 'Your budgets are on track',
+                      title: AppLocalizations.of(context)!.your_budgets_are_on_track,
                       fontSize: MySize.size14,
                       fontWeight: FontWeight.w600,
                       color: Provider.of<ThemeChanger>(context).themeData ==
@@ -227,14 +219,14 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                           ),
                         )
                       : spendingBudgetProvider.spendingBudgetData.isEmpty
-                          ? const Center(
-                              child: Text("Error please try again"),
+                          ?  Center(
+                              child: Text(AppLocalizations.of(context)!.error_please_try_again),
                             )
                           : spendingBudgetProvider
                                       .spendingBudgetData['data'].length ==
                                   0
-                              ? const Center(
-                                  child: Text("Data not found"),
+                              ?  Center(
+                                  child: Text(AppLocalizations.of(context)!.data_not_found),
                                 )
                               : ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
@@ -272,7 +264,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                 categoryID:
                                                     finalData['id'].toString());
                                           } else {
-                                            FlutterToast.toastMessage(message:"Budget is already set");
+                                            FlutterToast.toastMessage(message:AppLocalizations.of(context)!.budget_is_already_set);
                                           }
                                         } else {
                                           addProvider(
@@ -382,7 +374,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                               children: [
                                                                 Flexible(
                                                                   child: Text(
-                                                                    "${finalData['user_id'] == null ? finalData['total_budget'] == null ? "Set Budget" : "" : "Add Provider"}",
+                                                                    "${finalData['user_id'] == null ? finalData['total_budget'] == null ? AppLocalizations.of(context)!.set_budget : "" : AppLocalizations.of(context)!.add_provider}",
                                                                     style: TextStyle(
                                                                       fontSize: MySize.size14,
                                                                       fontWeight: FontWeight.w600,
@@ -479,7 +471,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Add new category',
+                            AppLocalizations.of(context)!.add_new_category,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: MySize.size14,

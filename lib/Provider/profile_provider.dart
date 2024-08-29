@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
@@ -67,7 +67,7 @@ class ProfileProvider extends ChangeNotifier{
           Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(
               currencyCode: userData['data']['currency_code'], currencySymbol: userData['data']['currency_symbol']);
         }else{
-          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: "USD",currencySymbol: "\$");
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode:  "USD",currencySymbol: "\$");
         }
         updateTextFieldData();
         _updateLoading(load: false);
@@ -106,7 +106,7 @@ class ProfileProvider extends ChangeNotifier{
         updatePic= null;
         getProfile(userID: "",context: context,type: "switch");
 
-        FlutterToast.toastMessage(message: "Profile updated successfully",);
+        FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.profile_updated_successfully,);
         if (kDebugMode) {
           print("hit successfully");
         }

@@ -6,8 +6,7 @@ import 'package:get/route_manager.dart';
 
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
-import 'package:sub_tracker/views/auth/login/login_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ChangePasswordProvider extends ChangeNotifier{
   final ApiService _apiService = ApiService();
 
@@ -28,7 +27,7 @@ class ChangePasswordProvider extends ChangeNotifier{
       Response response = await _apiService.updatePassword(params: body);
       if(response.statusCode == 200){
         _loginLoading(load: false);
-        FlutterToast.toastMessage(message: "Password updated successfully",);
+        FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.password_updated_successfully,);
         Get.back();
       }else{
         _loginLoading(load: false);

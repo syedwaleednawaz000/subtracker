@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -9,12 +9,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/schedule_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
-import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
-import '../../notification_screen/notification_screen.dart';
 import '../../theme/theme.dart';
-
 import '../../utils/my_size.dart';
 import '../base/calendar_container.dart';
 import '../base/subscription_container.dart';
@@ -46,7 +43,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     MySize().init(context);
     return Scaffold(
-        appBar: const CustomAppBarInAll(leading: true,actions: true,title: "Calendar"),
+        appBar:  CustomAppBarInAll(leading: true,actions: true,title:AppLocalizations.of(context)!.calendar),
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode ?
             Colors.black
@@ -73,7 +70,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         height: MySize.size42,
                       ),
                       Text(
-                        'Subs\nSchedule',
+                        AppLocalizations.of(context)!.subs_schedule,
                         style: TextStyle(
                             color:
                                 Provider.of<ThemeChanger>(context).themeData ==
@@ -109,7 +106,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 print("model data is empty");
                               }
                               return Text(
-                                '$length subscriptions for today',
+                                '$length ${AppLocalizations.of(context)!.subscriptions_for_today}',
                                 style: TextStyle(
                                   fontSize: MySize.size14,
                                   fontWeight: FontWeight.w600,
@@ -169,7 +166,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
                               // Custom button with an icon
                               customButton: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 8.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -181,7 +178,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       _selectedMonth != null
                                           ? DateFormat('MMMM').format(
                                               DateTime(0, _selectedMonth!))
-                                          : 'Select Month',
+                                          : AppLocalizations.of(context)!.select_month,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
@@ -193,7 +190,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                 : Colors.black,
                                       ),
                                     ),
-                                    SizedBox(width: 8.0),
+                                    const SizedBox(width: 8.0),
                                     Icon(
                                       Icons.expand_more, // Custom icon
                                       color: Provider.of<ThemeChanger>(context)
@@ -298,7 +295,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               },
                             ),
                             Text(
-                              'in upcoming bills',
+                              AppLocalizations.of(context)!.in_upcoming_bills,
                               style: TextStyle(
                                   fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
@@ -325,7 +322,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             : scheduleProvider.scheduleData.isEmpty
                                 ? Center(
                                     child: Text(
-                                      "Please try again",
+                                      AppLocalizations.of(context)!.please_try_again,
                                       style: TextStyle(
                                           color:
                                               Provider.of<ThemeChanger>(context)
@@ -338,7 +335,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 : scheduleProvider.scheduleData['data']['providers'].length == 0
                                     ? Center(
                                         child: Text(
-                                          "Upcoming bills not available",
+                                          AppLocalizations.of(context)!.upcoming_bills_not_available,
                                           style: TextStyle(
                                               color: Provider.of<ThemeChanger>(
                                                               context)
@@ -371,14 +368,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   bottom: MySize.size10),
                                               child: SubsContainer(
                                                 title: subscription[
-                                                        'provider_name'] ??
-                                                    "",
+                                                        'provider_name'] ?? "",
                                                 subtitle:
                                                     subscription['price'] ?? "",
                                                 imageIcon: CachedNetworkImage(
                                                   imageUrl: subscription[
-                                                          'provider_icon'] ??
-                                                      "",
+                                                          'provider_icon'] ?? "",
                                                   imageBuilder: (context,
                                                           imageProvider) =>
                                                       Container(
@@ -405,7 +400,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   ),
                                                   errorWidget:
                                                       (context, url, error) =>
-                                                          Icon(Icons.error),
+                                                          const Icon(Icons.error),
                                                 ),
                                               ),
                                             ),
