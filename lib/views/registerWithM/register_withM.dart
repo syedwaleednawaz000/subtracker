@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/auth/signUp/sigup_screen.dart';
-import 'package:sub_tracker/views/base/text_widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../auth/login/login_screen.dart';
@@ -26,10 +26,10 @@ class RegisterWithM extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              const FieldContainer(
+               FieldContainer(
                 myImage: AppImages.appleIcon,
                 containerColor: AppColors.grey100, // Always grey100
-                mytitle: 'Sign up with Apple',
+                mytitle:  AppLocalizations.of(context)!.sign_up_with_apple,
                 textColor: Colors.white, // Always white
               ),
                SizedBox(height:MySize.size16,),
@@ -47,10 +47,10 @@ class RegisterWithM extends StatelessWidget {
                   ],
                   borderRadius: BorderRadius.circular(MySize.size40),
                 ),
-                child: const FieldContainer(
+                child:  FieldContainer(
                   myImage: AppImages.googleIcon,
                   containerColor: Colors.white,
-                  mytitle: 'Sign up with Google',
+                  mytitle:AppLocalizations.of(context)!.sign_up_with_google,
                   textColor: Colors.black,
                 ),
               ),
@@ -65,7 +65,7 @@ class RegisterWithM extends StatelessWidget {
                       .themeData == darkMode
                       ? AppColors.grey30.withOpacity(.3)
                       : AppColors.grey30.withOpacity(.3),
-                  mytitle: 'Sign up with E-mail',
+                  mytitle: AppLocalizations.of(context)!.sign_up_with_email,
                   textColor:  Provider.of<ThemeChanger>(context)
                       .themeData == darkMode
                       ?  AppColors.white100
@@ -73,7 +73,7 @@ class RegisterWithM extends StatelessWidget {
                 ),
               ),
               SizedBox(height:MySize.size19,),
-              Text('OR',
+              Text(AppLocalizations.of(context)!.or_or,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
@@ -94,7 +94,7 @@ class RegisterWithM extends StatelessWidget {
                       ?  AppColors.grey30.withOpacity(.3)
                       :  AppColors.grey30.withOpacity(.3),
 
-                  mytitle: 'Sign in with E-mail',
+                  mytitle: AppLocalizations.of(context)!.sign_in_with_email,
                   textColor:  Provider.of<ThemeChanger>(context)
                       .themeData == darkMode
                       ?   AppColors.white100
@@ -104,9 +104,10 @@ class RegisterWithM extends StatelessWidget {
               SizedBox(height:MySize.size24,),
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: MySize.size24),
-                child: const Text('By registering, you agree to our Terms of Use. Learn how we collect, use and share your data.',
+                child:  Text(
+                  AppLocalizations.of(context)!.by_registering_you_agree_to_our_terms_of_use_learn_how_we_collect_use_and_share_your_data,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: Color(0XFF666680),

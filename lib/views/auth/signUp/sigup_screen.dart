@@ -11,6 +11,7 @@ import 'package:sub_tracker/utils/validation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
 import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../base/field_container.dart';
@@ -83,8 +84,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       children: [
                         CustomTextFormField(
                           controller: nameController,
-                          text: "Full Name",
-                          hintText: "Enter your name",
+                          text: AppLocalizations.of(context)!.full_name,
+                          hintText: AppLocalizations.of(context)!.enter_your_name,
                           validator: Validation.validateName,
                           suffixIcons: IconButton(
                               onPressed: () {},
