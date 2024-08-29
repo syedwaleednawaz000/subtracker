@@ -72,7 +72,8 @@ class AppImages {
   static String  logout = 'assets/icons/logout.png';
   static String  chart = 'assets/icons/Chart.png';
   static String  analytics = 'assets/icons/analytics.png';
-  static String  backArrow = 'assets/icons/back_arrow.png';
+  static String  lightBackArrow = 'assets/icons/lightBackArrow.png';
+  static String  darkBackArrow = 'assets/icons/darkBackArrow.png';
   static String  downwardArrow = 'assets/icons/downwardArrow.png';
   static String  bioMetricimg = 'assets/icons/bioMetric.png';
 

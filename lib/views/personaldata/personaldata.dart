@@ -57,7 +57,7 @@ class _PersonalDataState extends State<PersonalData> {
                         onTap: (){
                           Navigator.pop(context);
                         },
-                        child: Image.asset(AppImages.backArrow, height: 20,)),
+                        child: Image.asset(AppImages.lightBackArrow, height: 20,)),
                     SizedBox(
                       width: MySize.scaleFactorWidth * 110,
                     ),

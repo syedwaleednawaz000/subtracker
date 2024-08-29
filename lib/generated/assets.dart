@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsIconsBackArrow = 'assets/icons/back_arrow.png';
   static const String fontsInterBlack = 'assets/fonts/Inter-Black.ttf';
   static const String fontsInterBold = 'assets/fonts/Inter-Bold.ttf';
   static const String fontsInterExtraBold = 'assets/fonts/Inter-ExtraBold.ttf';
@@ -18,6 +19,7 @@ class Assets {
   static const String iconsApple = 'assets/icons/apple.png';
   static const String iconsArrowleft = 'assets/icons/arrowleft.png';
   static const String iconsBackArrow = 'assets/icons/backArrow.png';
+  static const String iconsBackArrowSVG = 'assets/icons/backArrowSVG.svg';
   static const String iconsBell = 'assets/icons/bell.svg';
   static const String iconsBioMetric = 'assets/icons/bioMetric.png';
   static const String iconsCalendar = 'assets/icons/Calendar.png';
