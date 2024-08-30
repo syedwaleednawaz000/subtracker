@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+
+import '../views/notification_screen/notification_screen.dart';
 
 class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -23,7 +24,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       backgroundColor: themeProvider.themeData == darkMode ?
           Colors.black
-          : type != null? Colors.black:Color(0XFFF1F1FF),
+          : type != null? Colors.black:const Color(0XFFF1F1FF),
       elevation: 0,
       centerTitle: true,
       title: title != null
@@ -39,7 +40,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
           )
-          : const SizedBox(), // Show SizedBox if title is null
+          : const SizedBox(),
       leading: leading == false ? GestureDetector(
           onTap: () {
             Get.back();
@@ -59,7 +60,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
 
   Widget notificationIcon(){
     return  Padding(
-      padding: EdgeInsets.only(right: MySize.size25),
+      padding: EdgeInsets.only(right: MySize.size25,top: 32),
       child: InkWell(
         onTap: () {
           Get.to(()=> const NotificationsScreen());
@@ -74,7 +75,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
     );
   }
   @override
-  Size get preferredSize => Size.fromHeight(72); // Adjust height as needed
+  Size get preferredSize => const Size.fromHeight(72); // Adjust height as needed
 }
 
 

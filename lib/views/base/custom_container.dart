@@ -3,15 +3,16 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
-import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/utils/app_constant.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
+import 'package:sub_tracker/views/notification_screen/notification_screen.dart';
+
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
@@ -130,10 +131,7 @@ class _CustomContainerState extends State<CustomContainer> {
                 top: 31,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const NotificationsScreen()),
-                    );
+                    Get.to(()=> NotificationsScreen());
                   },
                   child: SvgPicture.asset(
                     AppImages.notificationIconSvg,

@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
-import 'package:sub_tracker/notification_screen/notification_screen.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -19,17 +16,13 @@ import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/FAQs_screen/faqs.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/cancelsubscription/cancelsubscription.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/contactsupport/contactsupport.dart';
-import 'package:sub_tracker/views/home_screen/home_screen.dart';
 import 'package:sub_tracker/views/manageplan/manageplan.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
 import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
 import 'package:sub_tracker/views/settings/base/showdialog.dart';
 import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
-
-import '../bottomnavbar/bottom_navBar.dart';
 
 class Settings extends StatefulWidget {
   const Settings({
@@ -41,18 +34,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // List<bool> _switchValues = List.generate(3, (index) => false);
-  // List<String> titleText = [
-  //   'Personal Data',
-  //   'Language',
-  //   'Currency',
-  //   'Change Password'
-  // ];
-  // List<String> titleText2 = [
-  //   'Biometric Auth.',
-  //   'Two Factor Auth.',
-  //   'Email Notification'
-  // ];
 
   List<String> trailText2 = ['Plan', 'Cards', 'Cancel'];
   List<AssetImage> leadingAccImage = [

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/theme/theme.dart';
 import '../../utils/my_size.dart';
-import '../theme/theme.dart';
-import '../utils/app_Images.dart';
+
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
