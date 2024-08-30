@@ -13,6 +13,7 @@ import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
@@ -282,6 +283,7 @@ class _SubscriptionState extends State<Subscription> {
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? const Color(0XFF1C1C23)
           : Colors.white,
+      appBar:  CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.new_new),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -302,33 +304,6 @@ class _SubscriptionState extends State<Subscription> {
                           bottomRight: Radius.circular(MySize.size24))),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: MySize.size20, vertical: MySize.size22),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Image.asset(AppImages.lightBackArrow,width: MySize.size24,height: MySize.size24,),
-                            ),
-                            SizedBox(
-                              width: MySize.scaleFactorWidth * 145,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.new_new,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: MySize.size16,
-                                fontFamily: 'Inter',
-                                color: const Color(0xFFA2A2B5),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       SizedBox(
                         height: MySize.size30,
                       ),
