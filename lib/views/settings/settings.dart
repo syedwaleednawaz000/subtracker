@@ -87,10 +87,9 @@ class _SettingsState extends State<Settings> {
     ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor:
-            Provider.of<ThemeChanger>(context).themeData == darkMode ?
-            Colors.black
-                : const Color(0XFFF1F1FF),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+        Colors.black
+            : const Color(0XFFFFFFFF),
         appBar:  CustomAppBarInAll(leading: true,title: AppLocalizations.of(context)!.settings,actions: true),
         body: Consumer<LanguageProvider>(
           builder: (context, languageProvider, child) {
@@ -243,7 +242,7 @@ class _SettingsState extends State<Settings> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Colors.white,
+                            : Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(
@@ -416,7 +415,7 @@ class _SettingsState extends State<Settings> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Colors.white,
+                            : Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(
@@ -499,7 +498,7 @@ class _SettingsState extends State<Settings> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Colors.white,
+                            : Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(
@@ -620,7 +619,7 @@ class _SettingsState extends State<Settings> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Colors.white,
+                            : Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(
@@ -754,7 +753,7 @@ class _SettingsState extends State<Settings> {
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
                               ? const Color(0XFF4E4E61).withOpacity(.2)
-                              : Colors.white,
+                              : Color(0XFFF1F1FF),
                           borderRadius: BorderRadius.circular(16),
                           border: Border(
                             top: BorderSide(
@@ -802,7 +801,7 @@ class _SettingsState extends State<Settings> {
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Colors.white,
+                            : Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
                         border: Border(
                           top: BorderSide(

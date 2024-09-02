@@ -281,8 +281,8 @@ class _SubscriptionState extends State<Subscription> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-          ? const Color(0XFF1C1C23)
-          : Colors.white,
+          ? const Color(0XFF1C1C23):
+      Color(0XFFFFFFFF),
       appBar:  CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.new_new),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -298,7 +298,7 @@ class _SubscriptionState extends State<Subscription> {
                       color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
                           ?  Colors.black
-                          : const Color(0xFFF1F1FF),
+                          : const Color(0XFFFFFFFF),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(MySize.size24),
                           bottomRight: Radius.circular(MySize.size24))),
@@ -563,7 +563,7 @@ class _SubscriptionState extends State<Subscription> {
                             ? const Color(0xFFFFFFFF)
                             : const Color(0XFF1C1C23),
                     decoration: InputDecoration(
-                      // hintText: 'Description',
+                      hintText: 'Description',
                       hintStyle: TextStyle(
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode

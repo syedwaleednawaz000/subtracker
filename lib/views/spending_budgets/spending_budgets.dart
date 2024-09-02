@@ -60,7 +60,7 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
         backgroundColor:
             Provider.of<ThemeChanger>(context).themeData == darkMode ?
             Colors.black
-                : const Color(0XFFF1F1FF),
+                : const Color(0XFFFFFFFF),
         appBar:  CustomAppBarInAll(leading: true,actions: true,title: AppLocalizations.of(context)!.spending_budgets),
         body: SingleChildScrollView(
           child: Column(

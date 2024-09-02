@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen>
           backgroundColor:
               Provider.of<ThemeChanger>(context).themeData == darkMode
                   ? Colors.black
-                  : const Color(0XFFF1F1FF),
+                  : const Color(0XFFFFFFFF),
           body: Consumer<SubscriptionProvider>(
             builder: (context, subscriptionProvider, child) {
               var data;
