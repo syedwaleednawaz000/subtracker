@@ -51,31 +51,6 @@ class _PersonalDataState extends State<PersonalData> {
           key: _formKey,
           child: ListView(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: MySize.size23,
-                  vertical: MySize.size32,
-                ),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: (){
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(AppImages.lightBackArrow, height: 20,)),
-                    SizedBox(
-                      width: MySize.scaleFactorWidth * 110,
-                    ),
-                    Text( AppLocalizations.of(context)!.personal_data,
-                      style: TextStyle(
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFFA2A2B5) : const Color(0XFFA2A2B5),
-                        fontSize: MySize.size16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
                SizedBox(
                 height:  MySize.size40,
               ),
