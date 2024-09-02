@@ -32,7 +32,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.currency),
       body: Column(
         children: [
@@ -41,21 +41,21 @@ class _CurrencySelectionState extends State<CurrencySelection> {
             child: CurrencyTiles(),
           ),
           SizedBox(height: MySize.size10),
-          Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
-            return CustomSaveButton(
-              loading: currencyProvider.isUpdateCurrency,
-              titleText:  AppLocalizations.of(context)!.save,
-              onTap: (){
-                if(currencyProvider.selectedCurrency != "Currency"){
-                  currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
-                }else{
-                  FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_select_currency,isError: true);
-                }
-              },
-            );
-          },)
         ],
       ),
+      bottomNavigationBar:           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+        return CustomSaveButton(
+          loading: currencyProvider.isUpdateCurrency,
+          titleText:  AppLocalizations.of(context)!.save,
+          onTap: (){
+            if(currencyProvider.selectedCurrency != "Currency"){
+              currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
+            }else{
+              FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_select_currency,isError: true);
+            }
+          },
+        );
+      },),
     );
   }
 }

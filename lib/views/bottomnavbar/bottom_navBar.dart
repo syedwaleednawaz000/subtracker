@@ -44,14 +44,14 @@ class _BnavBarState extends State<BnavBar> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       bottomNavigationBar: Container(
         width: size.width,
         height: 80,
         decoration: BoxDecoration(
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
               ? Colors.black
-              : const Color(0XFFF1F1FF),
+              : const Color(0XFFFFFFFF),
         ),
         padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
         child: Stack(
@@ -60,7 +60,7 @@ class _BnavBarState extends State<BnavBar> {
             PhysicalModel(
               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                   ? Colors.black
-                  : const Color(0xfff7f7ff).withOpacity(.6),
+                  : const Color(0XFFFFFFFF).withOpacity(.6),
               clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.circular(18),
               child: CustomPaint(
@@ -209,7 +209,7 @@ class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = isDarkMode ? Color(0xff4E4E61) : Colors.white
+      ..color = isDarkMode ? Color(0xff4E4E61) : Color(0XFFF1F1FF)
       ..style = PaintingStyle.fill;
 
     Path path = Path();

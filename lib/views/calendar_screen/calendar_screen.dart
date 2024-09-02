@@ -44,10 +44,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
     MySize().init(context);
     return Scaffold(
         appBar:  CustomAppBarInAll(leading: true,actions: true,title:AppLocalizations.of(context)!.calendar),
-        backgroundColor:
-            Provider.of<ThemeChanger>(context).themeData == darkMode ?
-            Colors.black
-                : const Color(0XFFF1F1FF),
+        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+        Colors.black
+            : const Color(0XFFFFFFFF),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -57,10 +56,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(MySize.size24),
                         bottomRight: Radius.circular(MySize.size24)),
-                    color:
-                        Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ?  Colors.black
-                            : const Color(0XFFF1F1FF)),
+                    color:  Provider.of<ThemeChanger>(context).themeData == darkMode ?
+                Colors.black
+                    : const Color(0XFFFFFFFF),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 24, right: 24),
                   child: Column(

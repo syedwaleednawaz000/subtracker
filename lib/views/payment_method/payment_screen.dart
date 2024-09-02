@@ -36,9 +36,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
     AppLocalizations.of(context)!.pay_pal
     ];
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode?
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_payment),
       body: Container(
         // color: ,

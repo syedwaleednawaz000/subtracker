@@ -31,7 +31,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.faqs),
       body: Padding(
         padding: const EdgeInsets.only(left: 37, right: 37,),

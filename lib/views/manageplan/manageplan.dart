@@ -41,7 +41,7 @@ class _ManagePlanState extends State<ManagePlan> {
         appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_plan),
         backgroundColor: themeProvider.themeData == darkMode ?
         Colors.black
-            : const Color(0XFFF1F1FF),
+            : const Color(0XFFFFFFFF),
         body: _buildBody(planProvider, themeProvider),
         bottomNavigationBar: _buildBottomNavigationBar(planProvider),
       ),
@@ -110,7 +110,7 @@ class _ManagePlanState extends State<ManagePlan> {
           decoration: BoxDecoration(
             color: themeProvider.themeData == darkMode
                 ? const Color(0XFF4E4E61).withOpacity(.2)
-                :  Colors.grey.withOpacity(.1),
+                :  Color(0XFFF1F1FF),
             borderRadius: BorderRadius.circular(16),
             border: planProvider.selectIndex == index
                 ? Border.all(color: AppColors.purpleFF, width: 2)

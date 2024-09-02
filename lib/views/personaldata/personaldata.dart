@@ -47,7 +47,8 @@ class _PersonalDataState extends State<PersonalData> {
         appBar:  const CustomAppBarInAll(leading: false,title: "Personal Data"),
         resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-        const Color(0XFF1C1C23) : const Color(0XFFF1F1FF),
+        Colors.black
+            : const Color(0XFFFFFFFF),
         body: Form(
           key: _formKey,
           child: ListView(
@@ -445,20 +446,21 @@ class _PersonalDataState extends State<PersonalData> {
                 );
               }),
               SizedBox(height: MySize.size100,),
-              Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                return  CustomSaveButton(
-                  loading: profileProvider.isUpdated,
-                  onTap: (){
-                    if(_formKey.currentState!.validate()){
-                      profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
-                          name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
-                    }
-                  },
-                  titleText:  AppLocalizations.of(context)!.save,);
-              },)
             ],
           ),
         ),
+        bottomNavigationBar: Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+          return  CustomSaveButton(
+            loading: profileProvider.isUpdated,
+            onTap: (){
+              if(_formKey.currentState!.validate()){
+                profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
+                    name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
+              }
+            },
+            titleText:  AppLocalizations.of(context)!.save,);
+        },)
+        ,
       ),
     );
   }

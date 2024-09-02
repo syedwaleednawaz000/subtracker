@@ -53,7 +53,7 @@ class _CustomContainerState extends State<CustomContainer> {
         ),
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
             ? const Color(0xFF353542)
-            : const Color(0xFFFFFFFF),
+            :  Colors.white,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,7 +62,7 @@ class _CustomContainerState extends State<CustomContainer> {
             alignment: Alignment.center,
             children: [
               CustomPaint(
-                size: const Size(385, 429),
+                size: const Size(385, 400),
                 painter: DottedArcPainterC(
                   strokeWidth: 3,
                   color:

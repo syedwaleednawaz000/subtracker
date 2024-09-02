@@ -34,9 +34,9 @@ class _ChangePasswordState extends State<ChangePassword> {
     MySize().init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-        Colors.black
-            : const Color(0XFFF1F1FF),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFFFFFFF),
         appBar:  CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.change_password),
         body: Column(
           children: [
@@ -323,28 +323,29 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
               ),
             ),
-            const Spacer(),
-          Consumer<ChangePasswordProvider>(builder: (context, changePasswordProvider, child) {
-            return             CustomSaveButton(
-              loading: changePasswordProvider.isChangePassword,
-              onTap: (){
-                if (_formKey.currentState!.validate()) {
-                  if (newPassTextEditingController.text.trim() == newConfirmPassTextEditingController.text.trim()) {
-                    changePasswordProvider.updatePassword(
-                      context: context,
-                      currentPassword: currentPassEditingController.text.trim(),
-                      newPassword: newPassTextEditingController.text.trim(),
-                      newPasswordConfirmation: newConfirmPassTextEditingController.text.trim(),
-                    );
-                  } else {
-                    FlutterToast.toastMessage(message: AppLocalizations.of(context)!.confirm_password_doesnt_get_matched_with_password, isError: true);
-                  }
-                }
-                },
-              titleText:  AppLocalizations.of(context)!.save,
-            );
-          },)
           ],
-        ));
+        ),
+      bottomNavigationBar:           Consumer<ChangePasswordProvider>(builder: (context, changePasswordProvider, child) {
+        return             CustomSaveButton(
+          loading: changePasswordProvider.isChangePassword,
+          onTap: (){
+            if (_formKey.currentState!.validate()) {
+              if (newPassTextEditingController.text.trim() == newConfirmPassTextEditingController.text.trim()) {
+                changePasswordProvider.updatePassword(
+                  context: context,
+                  currentPassword: currentPassEditingController.text.trim(),
+                  newPassword: newPassTextEditingController.text.trim(),
+                  newPasswordConfirmation: newConfirmPassTextEditingController.text.trim(),
+                );
+              } else {
+                FlutterToast.toastMessage(message: AppLocalizations.of(context)!.confirm_password_doesnt_get_matched_with_password, isError: true);
+              }
+            }
+          },
+          titleText:  AppLocalizations.of(context)!.save,
+        );
+      },)
+      ,
+    );
   }
 }

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sub_tracker/Widget/custom_save_button.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
@@ -36,7 +38,7 @@ class _ContactSupportState extends State<ContactSupport> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
         Colors.black
-            : const Color(0XFFF1F1FF),
+            : const Color(0XFFFFFFFF),
         appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.support),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,58 +169,65 @@ class _ContactSupportState extends State<ContactSupport> {
             ),
           ),
 
-            const Spacer(),
-      Container(
-        height: 114,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-            color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF353542).withOpacity(0.50)
-                : const Color(0xFFF1F1FF).withOpacity(0.50),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Consumer<ContactWithSupportProvider>(builder: (context, contactWithSupportProvider, child) {
-              return GestureDetector(
-                onTap: () {
-                  contactWithSupportProvider.sendSupportRequest( subject: subjectController.text.trim(), description: descriptionController.text.trim());
-                },
-                child: Container(
-                    height: 48,
-                    width: 288,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF353542).withOpacity(0.50)
-                          : const Color(0xFFF1F1FF),
-                      border: Border(
-                          top: BorderSide(color: Colors.white.withOpacity(.15)),
-                          left: BorderSide(color: Colors.white.withOpacity(.15)),
-                      ),
-                    ),
-                    child: Center(
-                      child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
-                        AppLocalizations.of(context)!.submit,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? const Color(0XFFFFFFFF)
-                              : Colors.black,
-                        ),
-                      ),
-                    )),
-              );
-            },)
+            // const Spacer(),
+      // Container(
+      //   height: 114,
+      //   width: double.infinity,
+      //   decoration: BoxDecoration(
+      //       borderRadius: const BorderRadius.only(
+      //           topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+      //       color: Provider.of<ThemeChanger>(context).themeData == darkMode
+      //           ? const Color(0XFF353542).withOpacity(0.50)
+      //           : const Color(0xFFF1F1FF).withOpacity(0.50),
+      //   ),
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Consumer<ContactWithSupportProvider>(builder: (context, contactWithSupportProvider, child) {
+      //         return GestureDetector(
+      //           onTap: () {
+      //             contactWithSupportProvider.sendSupportRequest( subject: subjectController.text.trim(), description: descriptionController.text.trim());
+      //           },
+      //           child: Container(
+      //               height: 48,
+      //               width: 288,
+      //               decoration: BoxDecoration(
+      //                 borderRadius: BorderRadius.circular(40),
+      //                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
+      //                     ? const Color(0XFF353542).withOpacity(0.50)
+      //                     : const Color(0xFFF1F1FF),
+      //                 border: Border(
+      //                     top: BorderSide(color: Colors.white.withOpacity(.15)),
+      //                     left: BorderSide(color: Colors.white.withOpacity(.15)),
+      //                 ),
+      //               ),
+      //               child: Center(
+      //                 child: contactWithSupportProvider.isSendLoading ? const CircularProgressIndicator(color: AppColors.purpleFF,):  Text(
+      //                   AppLocalizations.of(context)!.submit,
+      //                   style: TextStyle(
+      //                     fontSize: 14,
+      //                     fontWeight: FontWeight.w600,
+      //                     color: Provider.of<ThemeChanger>(context).themeData ==
+      //                         darkMode
+      //                         ? const Color(0XFFFFFFFF)
+      //                         : Colors.black,
+      //                   ),
+      //                 ),
+      //               )),
+      //         );
+      //       },)
+      //     ],
+      //   ),
+      // )
           ],
         ),
-      )
-          ],
-        ),
+          bottomNavigationBar:           Consumer<ContactWithSupportProvider>(builder: (context, contactWithSupportProvider, child) {
+            return CustomSaveButton(titleText:  AppLocalizations.of(context)!.submit,onTap: (){
+                          contactWithSupportProvider.sendSupportRequest( subject: subjectController.text.trim(), description: descriptionController.text.trim());
+            }
+            );
+          },)
+
       ),
     );
   }

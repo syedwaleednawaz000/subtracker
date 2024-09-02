@@ -33,22 +33,23 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:  CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.language),
       body:  Column(
         children: [
           const SizedBox(height: 20,),
           LanguageTiles(),
           const SizedBox(height: 45,),
-          Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
-            return CustomSaveButton(titleText:  AppLocalizations.of(context)!.save,onTap: (){
-              FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.yet_not_implemented_we_will_add_it_later,isError: true);
-              // Get.back();
-            }
-            );
-          },)
         ],
       ),
+      bottomNavigationBar:           Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
+        return CustomSaveButton(titleText:  AppLocalizations.of(context)!.save,onTap: (){
+          FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.yet_not_implemented_we_will_add_it_later,isError: true);
+          // Get.back();
+        }
+        );
+      },)
+      ,
     );
   }
 }

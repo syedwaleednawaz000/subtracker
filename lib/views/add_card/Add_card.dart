@@ -46,7 +46,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
          Colors.black
-        : const Color(0XFFF1F1FF),
+        : const Color(0XFFFFFFFF),
       appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_payment),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

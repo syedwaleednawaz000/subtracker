@@ -26,9 +26,9 @@ class CancelSubscription extends StatelessWidget {
     Future.microtask(() => Provider.of<PlanProvider>(context,listen: false).userPlan());
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-      Colors.black
-          : const Color(0XFFF1F1FF),
+          backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+          Colors.black
+              : const Color(0XFFFFFFFF),
           appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.cancel_subscription),
       body: SingleChildScrollView(
         child: Column(
@@ -57,7 +57,7 @@ class CancelSubscription extends StatelessWidget {
                         color:
                         Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            :  Colors.grey.withOpacity(.1),
+                            :  Color(0XFFF1F1FF),
                         borderRadius: BorderRadius.circular(16),
 
                       ),

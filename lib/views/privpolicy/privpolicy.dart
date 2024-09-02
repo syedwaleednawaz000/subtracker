@@ -32,7 +32,7 @@ class _PrivPolicyState extends State<PrivPolicy> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:   CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.privacy_policy),
       body: SafeArea(
         child: ListView(

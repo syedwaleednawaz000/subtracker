@@ -18,9 +18,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeChanger>(context);
     return Scaffold(
-      backgroundColor: themeProvider.themeData == darkMode ?
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:  const CustomAppBarInAll(leading: false,title: "Notifications"),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -24,7 +24,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       backgroundColor: themeProvider.themeData == darkMode ?
           Colors.black
-          : type != null? Colors.black:const Color(0XFFF1F1FF),
+          : type != null? Colors.black:const Color(0XFFFFFFFF),
       elevation: 0,
       centerTitle: true,
       title: title != null
