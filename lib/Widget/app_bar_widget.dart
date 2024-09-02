@@ -51,7 +51,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
               height: 24,
               width: 24,
                 "assets/icons/backArrowSVG.svg",
-                color: themeProvider.themeData == darkMode ?Colors.white: Colors.black,
+                color: themeProvider.themeData == darkMode ?Colors.white: Color(0XFFA2A2B5),
             ),
           ),): const SizedBox(), // Show SizedBox if leading is null
       actions:  [actions == false ?const SizedBox() :notificationIcon()], // Show SizedBox if actions are null

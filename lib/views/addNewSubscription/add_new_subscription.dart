@@ -292,12 +292,12 @@ class _SubscriptionState extends State<Subscription> {
               children: [
                 /// Above container
                 Container(
-                  height: MySize.scaleFactorHeight * 540,
+                  height: MySize.scaleFactorHeight * 480,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Provider.of<ThemeChanger>(context).themeData ==
                               darkMode
-                          ? const Color(0xFF353542)
+                          ?  Colors.black
                           : const Color(0xFFF1F1FF),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(MySize.size24),
@@ -519,16 +519,16 @@ class _SubscriptionState extends State<Subscription> {
                  SizedBox(
                   height: MySize.scaleFactorHeight * 23,
                 ),
-                SizedBox(
-                  height: 4,
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                        height: MySize.size34,
-                      ),
-                    ],
-                  ),
-                ),
+                // SizedBox(
+                //   height: 4,
+                //   child: ListView(
+                //     children: [
+                //       SizedBox(
+                //         height: MySize.size34,
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 /// below container
                 Text(

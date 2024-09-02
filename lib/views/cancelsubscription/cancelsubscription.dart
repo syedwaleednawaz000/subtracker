@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/Widget/custom_save_button.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
+import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/my_size.dart';
@@ -53,7 +57,7 @@ class CancelSubscription extends StatelessWidget {
                         color:
                         Provider.of<ThemeChanger>(context).themeData == darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : const Color(0XFFF1F1FF),
+                            :  Colors.grey.withOpacity(.1),
                         borderRadius: BorderRadius.circular(16),
 
                       ),
@@ -188,31 +192,46 @@ class CancelSubscription extends StatelessWidget {
           ],
         ),
       ),
-          bottomNavigationBar:Container(
-            height: 114,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24)),
-              color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                  ? const Color(0XFF353542).withOpacity(0.50)
-                  : const Color(0xFFF1F1FF).withOpacity(0.50),
-            ),
-            child: Center(
-              child: Container(
-                height: MySize.size48,
-                margin: EdgeInsets.only(left: MySize.size35,right: MySize.size35,bottom:MySize.size10 ),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius:  BorderRadius.circular(100),
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0XFF353542).withOpacity(.7)
-                        : const Color(0XFFF1F1FF).withOpacity(.8),
-                ),
-                child:  const CancelSubsDialogBox(),
-              ),
-            ),
-          ),
+          bottomNavigationBar: Consumer<PlanProvider>(builder: (context, planProvider, child) {
+            return CustomSaveButton(titleText:  AppLocalizations.of(context)!.cancel_subscription,onTap: (){
+              if(planProvider.activeSubscriptionData['data'] != null){
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const CancelSubsDialogBox();
+              },
+            );
+          }else{
+            FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.your_active_subscription_is_not_available,isError: true);
+          }
+            },
+            );
+          },),
+          // bottomNavigationBar:Container(
+          //   height: 114,
+          //   width: double.infinity,
+          //   decoration: BoxDecoration(
+          //     borderRadius: const BorderRadius.only(
+          //         topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+          //     color: Provider.of<ThemeChanger>(context).themeData == darkMode
+          //         ? const Color(0XFF353542).withOpacity(0.50)
+          //         : const Color(0xFFF1F1FF).withOpacity(0.50),
+          //   ),
+          //   child: Center(
+          //     child: Container(
+          //       height: MySize.size48,
+          //       margin: EdgeInsets.only(left: MySize.size35,right: MySize.size35,bottom:MySize.size10 ),
+          //       width: double.infinity,
+          //       decoration: BoxDecoration(
+          //           borderRadius:  BorderRadius.circular(100),
+          //           color: Provider.of<ThemeChanger>(context).themeData == darkMode
+          //               ? const Color(0XFF353542).withOpacity(.7)
+          //               : const Color(0XFFF1F1FF).withOpacity(.8),
+          //       ),
+          //       child:  const CancelSubsDialogBox(),
+          //     ),
+          //   ),
+          // ),
     ));
   }
 }

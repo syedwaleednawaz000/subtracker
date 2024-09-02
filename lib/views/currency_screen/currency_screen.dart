@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/Widget/custom_save_button.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
@@ -43,7 +44,7 @@ class _CurrencySelectionState extends State<CurrencySelection> {
           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
             return CustomSaveButton(
               loading: currencyProvider.isUpdateCurrency,
-              text:  AppLocalizations.of(context)!.save,
+              titleText:  AppLocalizations.of(context)!.save,
               onTap: (){
                 if(currencyProvider.selectedCurrency != "Currency"){
                   currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);

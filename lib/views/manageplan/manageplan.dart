@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/Widget/custom_save_button.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
@@ -109,7 +110,7 @@ class _ManagePlanState extends State<ManagePlan> {
           decoration: BoxDecoration(
             color: themeProvider.themeData == darkMode
                 ? const Color(0XFF4E4E61).withOpacity(.2)
-                : const Color(0XFFF1F1FF).withOpacity(.8),
+                :  Colors.grey.withOpacity(.1),
             borderRadius: BorderRadius.circular(16),
             border: planProvider.selectIndex == index
                 ? Border.all(color: AppColors.purpleFF, width: 2)

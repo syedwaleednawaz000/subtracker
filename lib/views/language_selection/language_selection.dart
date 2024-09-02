@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/language_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sub_tracker/Widget/custom_save_button.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -40,7 +41,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           LanguageTiles(),
           const SizedBox(height: 45,),
           Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
-            return           CustomSaveButton(text:  AppLocalizations.of(context)!.save,onTap: (){
+            return CustomSaveButton(titleText:  AppLocalizations.of(context)!.save,onTap: (){
               FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.yet_not_implemented_we_will_add_it_later,isError: true);
               // Get.back();
             }
@@ -79,8 +80,8 @@ class LanguageTiles extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MySize.size15),
                       color:languageData[index].languagesCode == languageProvider.languageCode
-                          ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF)) // Highlight selected
-                          : (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.black : Color(0xffF1F1FF)),
+                          ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF))
+                          : (Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : const Color(0XFFF7F7FF)),
                     ),
                     child: ListTile(
                       dense: true,
@@ -114,68 +115,6 @@ class LanguageTiles extends StatelessWidget {
   }
 }
 
-
-
-class CustomSaveButton extends StatelessWidget {
-  final void Function()? onTap;
-  final String text;
-  bool? loading ;
-
-   CustomSaveButton({
-    Key? key,
-    this.loading,
-    required this.text,
-    this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 114,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0XFF353542).withOpacity(0.50)
-            // :  Color(0XFFF1F1FF).withOpacity(0.50),
-            :  Colors.white.withOpacity(0.350),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: onTap,
-            child: Container(
-              height: 48,
-              width: 288,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                    ? const Color(0XFFFFFFFF).withOpacity(.15)
-                    : const Color(0XFFF1F1FF),
-              ),
-              child: Center(
-                child: loading == true ? const CircularProgressIndicator(color: AppColors.purpleFF,): Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? Colors.white
-                        : const Color(0XFF1C1C23),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class LanguageModelClass {
   String countryName ;
