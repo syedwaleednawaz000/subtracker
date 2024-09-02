@@ -183,36 +183,26 @@ class _HomeScreenState extends State<HomeScreen>
                                             darkMode
                                         ? const Color(0xFF0E0E12)
                                         // ? Colors.orange
-                                        : const Color(0xFFFFFFFF),
+                                        : const Color(0xFFCFCFFC)
+                                        .withOpacity(0.3),
                                   ),
                                   child: TabBar(
-                                    indicatorPadding:
-                                        const EdgeInsets.symmetric(vertical: 3),
+                                    dividerColor: Colors.transparent,
+                                    indicatorPadding: const EdgeInsets.symmetric(vertical: 3),
                                     indicator: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(MySize.size16),
-                                      color: Provider.of<ThemeChanger>(context)
-                                                  .themeData ==
-                                              darkMode
-                                          ? const Color(0xFF4E4E61)
-                                              .withOpacity(0.20)
-                                          : const Color(0xFFCFCFFC)
-                                              .withOpacity(0.3),
+                                      borderRadius: BorderRadius.circular(MySize.size16),
+                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                          ? const Color(0xFF4E4E61).withOpacity(0.20)
+                                          : Colors.white,
                                     ),
-                                    indicatorColor: Colors.transparent,
+                                    indicatorColor: Colors.transparent, // Ensures no default indicator line is shown
                                     controller: _tabController,
-                                    unselectedLabelColor:
-                                        Provider.of<ThemeChanger>(context)
-                                                    .themeData ==
-                                                darkMode
-                                            ? const Color(0XFFA2A2B5)
-                                            : const Color(0XFFA2A2B5),
-                                    labelColor:
-                                        Provider.of<ThemeChanger>(context)
-                                                    .themeData ==
-                                                darkMode
-                                            ? const Color(0XFFFFFFFF)
-                                            : const Color(0XFF424252),
+                                    unselectedLabelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                        ? const Color(0XFFA2A2B5)
+                                        : const Color(0XFFA2A2B5),
+                                    labelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                        ? const Color(0XFFFFFFFF)
+                                        : const Color(0XFF424252),
                                     tabs: [
                                       Tab(
                                         child: Center(
@@ -239,7 +229,8 @@ class _HomeScreenState extends State<HomeScreen>
                                         ),
                                       ),
                                     ],
-                                  ),
+                                  )
+
                                 ),
                               ),
                               SizedBox(
