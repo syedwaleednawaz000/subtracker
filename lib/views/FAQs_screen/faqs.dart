@@ -6,8 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/my_size.dart';
-import '../base/text_widgets.dart';
-import '../language_selection/base/custom_appBar.dart';
 import '../addNewSubscription/base/custom_expension_tile.dart';
 
 class FaqsScreen extends StatefulWidget {
