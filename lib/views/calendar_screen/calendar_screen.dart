@@ -295,7 +295,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               },
                             ),
                             Text(
-                              AppLocalizations.of(context)!.in_upcoming_bills,
+                              AppLocalizations.of(context)!.upcoming_bills,
                               style: TextStyle(
                                   fontSize: MySize.size12,
                                   fontWeight: FontWeight.w500,
@@ -335,7 +335,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 : scheduleProvider.scheduleData['data']['providers'].length == 0
                                     ? Center(
                                         child: Text(
-                                          AppLocalizations.of(context)!.upcoming_bills_not_available,
+                                          AppLocalizations.of(context)!.your_upcoming_bills_are_not_available,
                                           style: TextStyle(
                                               color: Provider.of<ThemeChanger>(
                                                               context)
