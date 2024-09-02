@@ -140,7 +140,8 @@ class CustomSaveButton extends StatelessWidget {
         ),
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
             ? const Color(0XFF353542).withOpacity(0.50)
-            : const Color(0XFFF1F1FF).withOpacity(.50),
+            // :  Color(0XFFF1F1FF).withOpacity(0.50),
+            :  Colors.white.withOpacity(0.350),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
