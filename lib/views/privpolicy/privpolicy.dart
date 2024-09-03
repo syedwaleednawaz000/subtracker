@@ -34,61 +34,59 @@ class _PrivPolicyState extends State<PrivPolicy> {
       Colors.black
           : const Color(0XFFFFFFFF),
       appBar:   CustomAppBarInAll(leading: false,title: AppLocalizations.of(context)!.privacy_policy),
-      body: SafeArea(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Column(
-              children: [
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Column(
+            children: [
 
-                SizedBox(height: MySize.size12,),
+              SizedBox(height: MySize.size12,),
 
-                Padding(
-                  padding: EdgeInsets.only(left: MySize.size32),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      AppLocalizations.of(context)!.privacy_policy,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? Colors.white
-                              : const Color(0XFF1c1c23),
-                          fontFamily: 'Poppins_Regular'),
-                    ),
+              Padding(
+                padding: EdgeInsets.only(left: MySize.size32),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    AppLocalizations.of(context)!.privacy_policy,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Provider.of<ThemeChanger>(context).themeData ==
+                                darkMode
+                            ? Colors.white
+                            : const Color(0XFF1c1c23),
+                        fontFamily: 'Poppins_Regular'),
                   ),
                 ),
-                SizedBox(
-                  height: MySize.size16,
-                ),
-                Consumer<PrivacyAndPolicyProvider>(
-                  builder: (context, privacyAndPolicyProvider, child) {
-                    return privacyAndPolicyProvider.isPrivacyAndPolicy ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),): Padding(
-                      padding: EdgeInsets.only(left: MySize.size32),
-                      child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            privacyAndPolicyProvider.privacyAndPolicyData['value'] ?? "",
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : const Color(0XFF333339),
-                                fontFamily: 'Poppins_Regular'),
-                          )),
-                    );
-                  },
-                )
-              ],
-            ),
-          ],
-        ),
+              ),
+              SizedBox(
+                height: MySize.size16,
+              ),
+              Consumer<PrivacyAndPolicyProvider>(
+                builder: (context, privacyAndPolicyProvider, child) {
+                  return privacyAndPolicyProvider.isPrivacyAndPolicy ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),): Padding(
+                    padding: EdgeInsets.only(left: MySize.size32),
+                    child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          privacyAndPolicyProvider.privacyAndPolicyData['value'] ?? "",
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? Colors.white
+                                  : const Color(0XFF333339),
+                              fontFamily: 'Poppins_Regular'),
+                        )),
+                  );
+                },
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

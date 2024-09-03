@@ -85,22 +85,22 @@ class _SettingsState extends State<Settings> {
     ];
 
     ThemeChanger themeChanger = Provider.of<ThemeChanger>(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
-        Colors.black
-            : const Color(0XFFFFFFFF),
-        appBar:  CustomAppBarInAll(leading: true,title: AppLocalizations.of(context)!.settings,actions: true),
-        body: Consumer<LanguageProvider>(
-          builder: (context, languageProvider, child) {
-            return ListView(
-              children: [
-                Column(
-                  children: [
-                    SizedBox(height: MySize.size40),
-                    Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                      final profileImageUrl = profileProvider.userData['data']['profile_image'];
-                      return  Container(
+    return Scaffold(
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFFFFFFF),
+      appBar:  CustomAppBarInAll(leading: true,title: AppLocalizations.of(context)!.settings,actions: true),
+      body: Consumer<LanguageProvider>(
+        builder: (context, languageProvider, child) {
+          return ListView(
+            children: [
+              Column(
+                children: [
+                  SizedBox(height: MySize.size40),
+                  Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                    final profileImageUrl = profileProvider.userData['data']['profile_image'];
+                    return  ClipOval(
+                      child: Container(
                         height: MySize.size72,
                         width: MySize.size72,
                         decoration: const BoxDecoration(
@@ -160,644 +160,597 @@ class _SettingsState extends State<Settings> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle),
                             child: Image.file(File(profileProvider.updatePic!.path.toString()))),
+                      ),
+                    );
+                  },),
+                  SizedBox(height: MySize.size8),
+                  Consumer<ProfileProvider>(
+                    builder: (context, profileProvider, child) {
+                      return Text(
+                        '${profileProvider.userData['data'] != null ? profileProvider.userData['data']['name'] : ""}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: MySize.size20,
+                            fontWeight: FontWeight.w700),
                       );
-                    },),
-                    SizedBox(height: MySize.size8),
-                    Consumer<ProfileProvider>(
-                      builder: (context, profileProvider, child) {
-                        return Text(
-                          '${profileProvider.userData['data'] != null ? profileProvider.userData['data']['name'] : ""}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: MySize.size20,
-                              fontWeight: FontWeight.w700),
-                        );
-                      },
-                    ),
-                    SizedBox(height: MySize.size8),
-                    GestureDetector(
-                      onTap: (){
-                        Provider.of<ProfileProvider>(context,listen: false).picPicture();
-                      },
-                      child: Container(
-                        height: 36,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? Colors.white.withOpacity(.1)
-                              : const Color(0XFFF1F1FF),
-                          border: Border(
-                            top: BorderSide(
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0xFFCFCFFC).withOpacity(.15)
-                                    : const Color(0xFFCFCFFC).withOpacity(.15)),
-                            left: BorderSide(
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0xFFCFCFFC).withOpacity(.15)
-                                    : const Color(0xFFCFCFFC).withOpacity(.15)),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.change,
-                            style: TextStyle(
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? Colors.white
-                                    : const Color(0XFF424252),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ),
-                    ),
+                    },
+                  ),
+                  // SizedBox(height: MySize.size8),
+                  // GestureDetector(
+                  //   onTap: (){
+                  //     Provider.of<ProfileProvider>(context,listen: false).picPicture();
+                  //   },
+                  //   child: Container(
+                  //     height: 36,
+                  //     width: 70,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(16),
+                  //       color: Provider.of<ThemeChanger>(context).themeData ==
+                  //               darkMode
+                  //           ? Colors.white.withOpacity(.1)
+                  //           : const Color(0XFFF1F1FF),
+                  //       border: Border(
+                  //         top: BorderSide(
+                  //             color: Provider.of<ThemeChanger>(context)
+                  //                         .themeData ==
+                  //                     darkMode
+                  //                 ? const Color(0xFFCFCFFC).withOpacity(.15)
+                  //                 : const Color(0xFFCFCFFC).withOpacity(.15)),
+                  //         left: BorderSide(
+                  //             color: Provider.of<ThemeChanger>(context)
+                  //                         .themeData ==
+                  //                     darkMode
+                  //                 ? const Color(0xFFCFCFFC).withOpacity(.15)
+                  //                 : const Color(0xFFCFCFFC).withOpacity(.15)),
+                  //       ),
+                  //     ),
+                  //     child: Center(
+                  //       child: Text(
+                  //         AppLocalizations.of(context)!.change,
+                  //         style: TextStyle(
+                  //             color: Provider.of<ThemeChanger>(context)
+                  //                         .themeData ==
+                  //                     darkMode
+                  //                 ? Colors.white
+                  //                 : const Color(0XFF424252),
+                  //             fontSize: 12,
+                  //             fontWeight: FontWeight.w600),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
 
-                    SizedBox(height: MySize.size30),
-                    Padding(
-                      padding: EdgeInsets.only(left: MySize.size32),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          AppLocalizations.of(context)!.account,
-                          style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.w600),
-                        ),
+                  SizedBox(height: MySize.size20),
+                  Padding(
+                    padding: EdgeInsets.only(left: MySize.size32),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.account,
+                        style: TextStyle(
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                    SizedBox(height: MySize.size8),
+                  ),
+                  SizedBox(height: MySize.size8),
 
-                    /// Account Container
-                    Container(
-                      width: MySize.scaleFactorWidth * 338,
-                      height: 400,
-                      decoration: BoxDecoration(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Color(0XFFF1F1FF),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border(
-                          top: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10)),
-                          left: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10)),
-                        ),
+                  /// Account Container
+                  Container(
+                    width: MySize.scaleFactorWidth * 338,
+                    height: 400,
+                    decoration: BoxDecoration(
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          : Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border(
+                        top: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
+                        left: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            // height: 185,
-                            width: double.infinity,
-                            child: ListView.builder(
-                              itemCount: titleText.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return Consumer<ProfileProvider>(
-                                  builder: (context, profileProvider, child) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        if (index == 0) {
-                                          if (profileProvider
-                                                  .userData['data'] !=
-                                              null) {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>profileProvider.screens[index]));
-                                          } else {
-                                            FlutterToast.toastMessage(message:AppLocalizations.of(context)!.user_data_not_found_please_try_again, isError: true);
-                                          }
-                                        } else {
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          // height: 185,
+                          width: double.infinity,
+                          child: ListView.builder(
+                            itemCount: titleText.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Consumer<ProfileProvider>(
+                                builder: (context, profileProvider, child) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if (index == 0) {
+                                        if (profileProvider
+                                                .userData['data'] !=
+                                            null) {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      profileProvider
-                                                          .screens[index]));
+                                                  builder: (context) =>profileProvider.screens[index]));
+                                        } else {
+                                          FlutterToast.toastMessage(message:AppLocalizations.of(context)!.user_data_not_found_please_try_again, isError: true);
                                         }
-                                      },
-                                      child: ListTile(
-                                        dense: true,
-                                        leading: Image(
-                                          image: leadingAccImage[index],
-                                          height: MySize.size22,
-                                        ),
-                                        title: Text(
-                                          titleText[index],
-                                          style: TextStyle(
-                                            fontSize: MySize.size14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        trailing: SizedBox(
-                                            width: 132,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  trailText[index],
-                                                  maxLines: 2,
-                                                  style: const TextStyle(
-                                                    color: Color(0XFFA2A2B5),
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Image.asset(
-                                                    AppImages.arrowLeft),
-                                              ],
-                                            )),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
-                            return Column(
-                              children: [
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: profileProvider.switchValues.length,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return ListTile(
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    profileProvider
+                                                        .screens[index]));
+                                      }
+                                    },
+                                    child: ListTile(
                                       dense: true,
                                       leading: Image(
-                                        image: leadingImage[index],
-                                        height: MySize.size20,
+                                        image: leadingAccImage[index],
+                                        height: MySize.size22,
                                       ),
                                       title: Text(
-                                        titleText2[index],
+                                        titleText[index],
                                         style: TextStyle(
                                           fontSize: MySize.size14,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      trailing: Transform.scale(
-                                        scale: 0.8,
-                                        child: Switch(
-                                          value: profileProvider.switchValues[index],
-                                          onChanged: (bool newValue) {
-                                            setState(() {
-                                              if(index == 0){
-                                                profileProvider.bioMetricAuth(context: context);
-                                              }else if(index ==1){
-                                                profileProvider.twoFactorAuth(context: context);
-                                              }else {
-                                                profileProvider.emailNotification(context: context);
-                                              }
-                                              profileProvider.switchValues[index] = newValue;
-                                            });
-                                          },
-                                          activeTrackColor: const Color(0XFF758AFF),
-                                          autofocus: true,
-                                          thumbColor: MaterialStateProperty.all(
-                                            Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                ? Colors.white
-                                                : Colors.white,
-                                          ),
-                                          inactiveTrackColor: const Color(0XFF4E4E61),
-                                          trackOutlineColor: const MaterialStatePropertyAll(
-                                            Color(0x00000000),
-                                          ),
+                                      trailing: SizedBox(
+                                          width: 132,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                trailText[index],
+                                                maxLines: 2,
+                                                style: const TextStyle(
+                                                  color: Color(0XFFA2A2B5),
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Image.asset(
+                                                  AppImages.arrowLeft),
+                                            ],
+                                          )),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                          return Column(
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: profileProvider.switchValues.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return ListTile(
+                                    dense: true,
+                                    leading: Image(
+                                      image: leadingImage[index],
+                                      height: MySize.size20,
+                                    ),
+                                    title: Text(
+                                      titleText2[index],
+                                      style: TextStyle(
+                                        fontSize: MySize.size14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    trailing: Transform.scale(
+                                      scale: 0.8,
+                                      child: Switch(
+                                        value: profileProvider.switchValues[index],
+                                        onChanged: (bool newValue) {
+                                          setState(() {
+                                            if(index == 0){
+                                              profileProvider.bioMetricAuth(context: context);
+                                            }else if(index ==1){
+                                              profileProvider.twoFactorAuth(context: context);
+                                            }else {
+                                              profileProvider.emailNotification(context: context);
+                                            }
+                                            profileProvider.switchValues[index] = newValue;
+                                          });
+                                        },
+                                        activeTrackColor: const Color(0XFF758AFF),
+                                        autofocus: true,
+                                        thumbColor: MaterialStateProperty.all(
+                                          Provider.of<ThemeChanger>(context).themeData == darkMode
+                                              ? Colors.white
+                                              : Colors.white,
+                                        ),
+                                        inactiveTrackColor: const Color(0XFF4E4E61),
+                                        trackOutlineColor: const MaterialStatePropertyAll(
+                                          Color(0x00000000),
                                         ),
                                       ),
-                                    );
-                                  },
-                                ),
-                                 SizedBox(height: MySize.size8,),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 18,top: 1),
-                                  child: ShowDialogBox(),
-                                ),
-                              ],
-                            );
-                          },)
-                        ],
+                                    ),
+                                  );
+                                },
+                              ),
+                               SizedBox(height: MySize.size8,),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 18,top: 1),
+                                child: ShowDialogBox(),
+                              ),
+                            ],
+                          );
+                        },)
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MySize.size28),
+                  Padding(
+                    padding: EdgeInsets.only(left: MySize.size32),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.appearance,
+                        style: TextStyle(
+                            // color: AppColors.whiteFF,
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                    SizedBox(height: MySize.size28),
-                    Padding(
-                      padding: EdgeInsets.only(left: MySize.size32),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          AppLocalizations.of(context)!.appearance,
-                          style: TextStyle(
-                              // color: AppColors.whiteFF,
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: MySize.size8),
+                  ),
+                  SizedBox(height: MySize.size8),
 
-                    /// Appearance Container
-                    Container(
-                      height: MySize.scaleFactorHeight * 64,
-                      width: MySize.scaleFactorWidth * 328,
-                      decoration: BoxDecoration(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Color(0XFFF1F1FF),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border(
-                          top: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10)),
-                          left: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10)),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Image.asset(
-                            AppImages.darkmode,
-                            height: 20,
-                          ),
-                          const SizedBox(
-                            width: 18,
-                          ),
-                           Text(
-                            AppLocalizations.of(context)!.light_dark_mode,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              // color:  Theme.of(context).colorScheme.primary
-                            ),
-                          ),
-                          const Spacer(),
-                          Transform.scale(
-                            scale: 0.8,
-                            child: Switch(
-                              value: themeChanger.themeData == darkMode,
-                              onChanged: (bool newValue) {
-                                // themeChanger.toggleTheme();
-                                Provider.of<ThemeChanger>(context, listen: false)
-                                    .toggleTheme();
-                              },
-                              activeTrackColor: const Color(0XFF758AFF),
-                              // focusColor: Colors.pink,
-                              autofocus: true,
-                              // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
-                              thumbColor: MaterialStateProperty.all(
-                                  Provider.of<ThemeChanger>(context).themeData ==
-                                          darkMode
-                                      ? Colors.white
-                                      : Colors.white),
-                              inactiveTrackColor: const Color(0XFF4E4E61),
-                              trackOutlineColor: const MaterialStatePropertyAll(
-                                  Color(0x00000000)),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                        ],
+                  /// Appearance Container
+                  Container(
+                    height: MySize.scaleFactorHeight * 64,
+                    width: MySize.scaleFactorWidth * 328,
+                    decoration: BoxDecoration(
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          : Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border(
+                        top: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
+                        left: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
                       ),
                     ),
-                    SizedBox(height: MySize.size36),
-                    Padding(
-                      padding: EdgeInsets.only(left: MySize.size32),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          AppLocalizations.of(context)!.my_subscription_plan,
-                          style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.w600),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 12,
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MySize.size8,
-                    ),
-
-                    /// Subscription plans
-                    Container(
-                      width: MySize.scaleFactorWidth * 328,
-                      decoration: BoxDecoration(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Color(0XFFF1F1FF),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border(
-                          top: BorderSide(
-                            color: AppColors.whiteFc.withOpacity(0.10),
-                            width: 2,
-                          ),
-                          left: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10),
-                              width: 2),
+                        Image.asset(
+                          AppImages.darkmode,
+                          height: 20,
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ManagePlan()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  imageIcon: Image.asset(
-                                    AppImages.plan,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.manage_plan,
-                                  text2: AppLocalizations.of(context)!.plan,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.size16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PaymentScreen()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  imageIcon: Image.asset(
-                                    AppImages.payment,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.manage_payment,
-                                  text2: AppLocalizations.of(context)!.cards,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.size16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CancelSubscription()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  type:AppLocalizations.of(context)!.cancel,
-                                  imageIcon: Image.asset(
-                                    AppImages.cancelSub,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.cancel_subscription,
-                                  text2: AppLocalizations.of(context)!.cancel,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                          ],
+                        const SizedBox(
+                          width: 18,
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MySize.size36,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: MySize.size32),
-                      child:  Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            AppLocalizations.of(context)!.help_support,
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )),
-                    ),
-                    SizedBox(
-                      height: MySize.size8,
-                    ),
-
-                    /// Help and support container
-                    Container(
-                      height: MySize.scaleFactorHeight * 190,
-                      width: MySize.scaleFactorWidth * 328,
-                      decoration: BoxDecoration(
-                        color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? const Color(0XFF4E4E61).withOpacity(.2)
-                            : Color(0XFFF1F1FF),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border(
-                          top: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10)),
-                          left: BorderSide(
-                              color: AppColors.whiteFc.withOpacity(0.10)),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const FaqsScreen()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  imageIcon: Image.asset(
-                                    AppImages.faqs,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.faqs,
-                                  text2: AppLocalizations.of(context)!.faq,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.size16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ContactSupport()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  imageIcon: Image.asset(
-                                    AppImages.contsupport,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.contact_support,
-                                  text2: AppLocalizations.of(context)!.support,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.size16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const TermsOfServices()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  imageIcon: Image.asset(
-                                    AppImages.terms,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.terms_services,
-                                  text2: AppLocalizations.of(context)!.legal,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MySize.size16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PrivPolicy()));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: SettingRowList(
-                                  imageIcon: Image.asset(
-                                    AppImages.privpolicy,
-                                    height: 20,
-                                  ),
-                                  text: AppLocalizations.of(context)!.privacy_policy,
-                                  text2: AppLocalizations.of(context)!.legal,
-                                  text2Color: const Color(0XFFA2A2B5),
-                                  icon: Image.asset(AppImages.arrowLeft),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MySize.size30,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-
-                        Provider.of<ProfileProvider>(context, listen: false)
-                            .cleanLocalData(context: context);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: MySize.size26, ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: MySize.size20, ),
-                        height: MySize.scaleFactorHeight * 64,
-                        // width: MySize.scaleFactorWidth * 328,
-                        decoration: BoxDecoration(
-
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                                  darkMode
-                              ? const Color(0XFF4E4E61).withOpacity(.2)
-                              : Color(0XFFF1F1FF),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border(
-                            top: BorderSide(
-                                color: AppColors.whiteFc.withOpacity(0.10)),
-                            left: BorderSide(
-                                color: AppColors.whiteFc.withOpacity(0.10)),
+                         Text(
+                          AppLocalizations.of(context)!.light_dark_mode,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            // color:  Theme.of(context).colorScheme.primary
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.logout,
-                              style: TextStyle(
-                                fontSize: MySize.size14,
-                                fontWeight: FontWeight.w600,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
+                        const Spacer(),
+                        Transform.scale(
+                          scale: 0.8,
+                          child: Switch(
+                            value: themeChanger.themeData == darkMode,
+                            onChanged: (bool newValue) {
+                              // themeChanger.toggleTheme();
+                              Provider.of<ThemeChanger>(context, listen: false)
+                                  .toggleTheme();
+                            },
+                            activeTrackColor: const Color(0XFF758AFF),
+                            // focusColor: Colors.pink,
+                            autofocus: true,
+                            // inactiveThumbColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : AppColors.purpleFF,
+                            thumbColor: MaterialStateProperty.all(
+                                Provider.of<ThemeChanger>(context).themeData ==
                                         darkMode
                                     ? Colors.white
-                                    : Colors.red,
-                              ),
-                            ),
-                            const Spacer(),
-                            Image.asset(AppImages.logout,
-                              color: Provider.of<ThemeChanger>(context)
-                                  .themeData ==
-                                  darkMode
-                                  ? Colors.white
-                                  : Colors.red,
-                              height: 20,width: 20,),
-                          ],
+                                    : Colors.white),
+                            inactiveTrackColor: const Color(0XFF4E4E61),
+                            trackOutlineColor: const MaterialStatePropertyAll(
+                                Color(0x00000000)),
+                          ),
                         ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MySize.size36),
+                  Padding(
+                    padding: EdgeInsets.only(left: MySize.size32),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.my_subscription_plan,
+                        style: TextStyle(
+                            fontSize: MySize.size14,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                    const SizedBox(
-                      height: 25,
+                  ),
+                  SizedBox(
+                    height: MySize.size8,
+                  ),
+
+                  /// Subscription plans
+                  Container(
+                    width: MySize.scaleFactorWidth * 328,
+                    decoration: BoxDecoration(
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          : Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border(
+                        top: BorderSide(
+                          color: AppColors.whiteFc.withOpacity(0.10),
+                          width: 2,
+                        ),
+                        left: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10),
+                            width: 2),
+                      ),
                     ),
-                    Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ManagePlan()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                imageIcon: Image.asset(
+                                  AppImages.plan,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.manage_plan,
+                                text2: AppLocalizations.of(context)!.plan,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MySize.size16,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PaymentScreen()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                imageIcon: Image.asset(
+                                  AppImages.payment,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.manage_payment,
+                                text2: AppLocalizations.of(context)!.cards,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MySize.size16,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CancelSubscription()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                type:AppLocalizations.of(context)!.cancel,
+                                imageIcon: Image.asset(
+                                  AppImages.cancelSub,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.cancel_subscription,
+                                text2: AppLocalizations.of(context)!.cancel,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MySize.size36,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: MySize.size32),
+                    child:  Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          AppLocalizations.of(context)!.help_support,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )),
+                  ),
+                  SizedBox(
+                    height: MySize.size8,
+                  ),
+
+                  /// Help and support container
+                  Container(
+                    height: MySize.scaleFactorHeight * 190,
+                    width: MySize.scaleFactorWidth * 328,
+                    decoration: BoxDecoration(
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          : Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border(
+                        top: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
+                        left: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const FaqsScreen()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                imageIcon: Image.asset(
+                                  AppImages.faqs,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.faqs,
+                                text2: AppLocalizations.of(context)!.faq,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MySize.size16,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ContactSupport()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                imageIcon: Image.asset(
+                                  AppImages.contsupport,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.contact_support,
+                                text2: AppLocalizations.of(context)!.support,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MySize.size16,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TermsOfServices()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                imageIcon: Image.asset(
+                                  AppImages.terms,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.terms_services,
+                                text2: AppLocalizations.of(context)!.legal,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MySize.size16,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PrivPolicy()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SettingRowList(
+                                imageIcon: Image.asset(
+                                  AppImages.privpolicy,
+                                  height: 20,
+                                ),
+                                text: AppLocalizations.of(context)!.privacy_policy,
+                                text2: AppLocalizations.of(context)!.legal,
+                                text2Color: const Color(0XFFA2A2B5),
+                                icon: Image.asset(AppImages.arrowLeft),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MySize.size30,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+
+                      Provider.of<ProfileProvider>(context, listen: false)
+                          .cleanLocalData(context: context);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: MySize.size26, ),
                       padding: EdgeInsets.symmetric(
-                          horizontal: MySize.size20, vertical: MySize.size16),
+                        horizontal: MySize.size20, ),
                       height: MySize.scaleFactorHeight * 64,
-                      width: MySize.scaleFactorWidth * 328,
+                      // width: MySize.scaleFactorWidth * 328,
                       decoration: BoxDecoration(
+
                         color: Provider.of<ThemeChanger>(context).themeData ==
                                 darkMode
                             ? const Color(0XFF4E4E61).withOpacity(.2)
@@ -811,41 +764,88 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.verified_sharp,
-                            color: Color(0XFFA2A2B5),
-                            size: 22,
-                          ),
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          TextWidgetInterRegular(
-                            title: AppLocalizations.of(context)!.current_version,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                          const Spacer(),
-                          const Text(
-                            '2.0.24 ',
+                          Text(
+                            AppLocalizations.of(context)!.logout,
                             style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0XFFA2A2B5),
+                              fontSize: MySize.size14,
+                              fontWeight: FontWeight.w600,
+                              color: Provider.of<ThemeChanger>(context)
+                                          .themeData ==
+                                      darkMode
+                                  ? Colors.white
+                                  : Colors.red,
                             ),
                           ),
+                          const Spacer(),
+                          Image.asset(AppImages.logout,
+                            color: Provider.of<ThemeChanger>(context)
+                                .themeData ==
+                                darkMode
+                                ? Colors.white
+                                : Colors.red,
+                            height: 20,width: 20,),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 25,
-                    )
-                    // BNavBar()
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MySize.size20, vertical: MySize.size16),
+                    height: MySize.scaleFactorHeight * 64,
+                    width: MySize.scaleFactorWidth * 328,
+                    decoration: BoxDecoration(
+                      color: Provider.of<ThemeChanger>(context).themeData ==
+                              darkMode
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          : Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border(
+                        top: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
+                        left: BorderSide(
+                            color: AppColors.whiteFc.withOpacity(0.10)),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.verified_sharp,
+                          color: Color(0XFFA2A2B5),
+                          size: 22,
+                        ),
+                        const SizedBox(
+                          width: 14,
+                        ),
+                        TextWidgetInterRegular(
+                          title: AppLocalizations.of(context)!.current_version,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                        const Spacer(),
+                        const Text(
+                          '2.0.24 ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0XFFA2A2B5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  )
+                  // BNavBar()
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

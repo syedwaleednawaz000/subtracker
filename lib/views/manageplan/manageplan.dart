@@ -36,15 +36,13 @@ class _ManagePlanState extends State<ManagePlan> {
     final themeProvider = Provider.of<ThemeChanger>(context);
     final planProvider = Provider.of<PlanProvider>(context);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_plan),
-        backgroundColor: themeProvider.themeData == darkMode ?
-        Colors.black
-            : const Color(0XFFFFFFFF),
-        body: _buildBody(planProvider, themeProvider),
-        bottomNavigationBar: _buildBottomNavigationBar(planProvider),
-      ),
+    return Scaffold(
+      appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_plan),
+      backgroundColor: themeProvider.themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFFFFFFF),
+      body: _buildBody(planProvider, themeProvider),
+      bottomNavigationBar: _buildBottomNavigationBar(planProvider),
     );
   }
 

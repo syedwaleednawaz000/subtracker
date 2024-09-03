@@ -73,7 +73,6 @@ class CurrencyTiles extends StatelessWidget {
         currencyProvider.currencyData == null ?
         const Center(child: Text("data are not available"),):
         ListView.builder(
-
           shrinkWrap: true,
           itemCount: currencyProvider.currencyData['data'].length,
           itemBuilder: (context, index) {

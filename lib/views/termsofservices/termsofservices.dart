@@ -27,59 +27,57 @@ class _TermsOfServicesState extends State<TermsOfServices> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
       Colors.black
-          : const Color(0XFFF1F1FF),
+          : const Color(0XFFFFFFFF),
       appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.terms_of_service),
-      body: SafeArea(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Column(
-              children: [
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Column(
+            children: [
 
-                Padding(
-                  padding: EdgeInsets.only(left: MySize.size32),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      AppLocalizations.of(context)!.terms_of_service,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: Provider.of<ThemeChanger>(context).themeData ==
-                              darkMode
-                              ? Colors.white
-                              : const Color(0XFF1c1c23),
-                          fontFamily: 'Poppins_Regular'),
-                    ),
+              Padding(
+                padding: EdgeInsets.only(left: MySize.size32),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    AppLocalizations.of(context)!.terms_of_service,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Provider.of<ThemeChanger>(context).themeData ==
+                            darkMode
+                            ? Colors.white
+                            : const Color(0XFF1c1c23),
+                        fontFamily: 'Poppins_Regular'),
                   ),
                 ),
-                SizedBox(height: MySize.size12,),
-                Padding(
-                  padding: EdgeInsets.only(left: MySize.size32,right: MySize.size14),
-                  child: Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
-                   return termAndConditionProvider.isTermAndCondition ?
-                       const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
-                    termAndConditionProvider.termAndConditionData == null ?
-                       Center(child: Text( AppLocalizations.of(context)!.term_and_condition_not_available),):
-                    Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                            ? Colors.white
-                            : const Color(0XFF333339),
-                        fontFamily: 'Poppins_Regular'
-                    ),
-                    );
-                    }
-                    ),
-                )
-              ],
-            ),
-          ],
-        ),
+              ),
+              SizedBox(height: MySize.size12,),
+              Padding(
+                padding: EdgeInsets.only(left: MySize.size32,right: MySize.size14),
+                child: Consumer<TermAndConditionProvider>(builder: (context, termAndConditionProvider, child) {
+                 return termAndConditionProvider.isTermAndCondition ?
+                     const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
+                  termAndConditionProvider.termAndConditionData == null ?
+                     Center(child: Text( AppLocalizations.of(context)!.term_and_condition_not_available),):
+                  Text("${termAndConditionProvider.termAndConditionData['value'] ??""}",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? Colors.white
+                          : const Color(0XFF333339),
+                      fontFamily: 'Poppins_Regular'
+                  ),
+                  );
+                  }
+                  ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

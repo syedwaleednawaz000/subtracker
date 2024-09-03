@@ -32,139 +32,137 @@ class _CreditCardScreenState extends State<CreditCardScreen> {
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0Xff1C1C23),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(height: MySize.size32,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextWidgetInterRegular(
-                      title: 'Credit Cards',
-                      // color: AppColors.grey30,
-                      fontSize: MySize.size16
-                  ),
-                  SizedBox(width: MySize.size100,),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24),
-                    child:  Image.asset('assets/icons/alert.png', height: 25, width: 25,),
-                  ),
-                ],
-              ),
-              SizedBox(height: MySize.size40,),
-              Image.asset(AppImages.cardImage,  height: 280, width: 377,),
-              SizedBox(height: MySize.size22,),
-              TextWidgetInterMedium(title: 'Manage Plan',
-                  // color: AppColors.white100, fontSize: 16
-              ),
-              SizedBox(height: MySize.size7,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 68,
-                    width: 104,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: const Border(
-                        top: BorderSide(color: AppColors.accentLine),
-                      ),
-                      color: AppColors.grey20.withOpacity(.2),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextWidgetInterMedium(
-                            title: 'monthly',
-                            fontSize: MySize.size12,
-                            // color: Color(0XFF83839C)
-                        ),
-                        // color: AppColors.white100.withOpacity(.4)),
-                        TextWidgetInterMedium(
-                            title: '\9.95',
-                            fontSize: MySize.size14,
-                            // color: AppColors.white100
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 25,),
-                  Container(
-                    height: 68,
-                    width: 104,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: const Border(
-                        top: BorderSide(color: AppColors.pinkLine),
-                      ),
-                      color: AppColors.grey20.withOpacity(.2),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextWidgetInterMedium(
-                            title: 'Yearly',
-                            fontSize: MySize.size12,
-                            // color: Color(0XFF83839C)
-                        ),
-                        // color: AppColors.white100.withOpacity(.4)),
-                        TextWidgetInterMedium(
-                            title: '\39.95',
-                            fontSize: MySize.size14,
-                            // color: AppColors.white100
-                        ),
-                      ],
-                    ),
-                  ),
-          
-                ],
-              ),
-              SizedBox(height: MySize.size30,),
-              Container(
-                height: MySize.scaleFactorHeight * 185,
-                width: MySize.scaleFactorWidth * 375,
-                
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: const Border(
-                    top: BorderSide(color: AppColors.accentLine),
-                  ),
-                  color: Color(0XFF353542),
+    return Scaffold(
+      backgroundColor: Color(0Xff1C1C23),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: MySize.size32,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextWidgetInterRegular(
+                    title: 'Credit Cards',
+                    // color: AppColors.grey30,
+                    fontSize: MySize.size16
                 ),
-          child:     Center(
-            child: DottedBorder(
-              dashPattern: [10, 20],
-              color: AppColors.grey30.withOpacity(.3),
-              borderType: BorderType.RRect,
-              radius: Radius.circular(12),
-              // padding: EdgeInsets.all(6),
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                child: Container(
-                  height: MySize.scaleFactorHeight * 84, width: MySize.scaleFactorWidth * 328,
-                  // color: AppColors.progressColor,
-                  child: Row(
+                SizedBox(width: MySize.size100,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 24),
+                  child:  Image.asset('assets/icons/alert.png', height: 25, width: 25,),
+                ),
+              ],
+            ),
+            SizedBox(height: MySize.size40,),
+            Image.asset(AppImages.cardImage,  height: 280, width: 377,),
+            SizedBox(height: MySize.size22,),
+            TextWidgetInterMedium(title: 'Manage Plan',
+                // color: AppColors.white100, fontSize: 16
+            ),
+            SizedBox(height: MySize.size7,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 68,
+                  width: 104,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: const Border(
+                      top: BorderSide(color: AppColors.accentLine),
+                    ),
+                    color: AppColors.grey20.withOpacity(.2),
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextWidgetInterMedium(title: 'Add new Card',
-                        // color: AppColors.grey30.withOpacity(.3),
+                      TextWidgetInterMedium(
+                          title: 'monthly',
+                          fontSize: MySize.size12,
+                          // color: Color(0XFF83839C)
                       ),
-                      const SizedBox(width: 24,),
-                      Icon(Icons.add_circle_outline_sharp, color: AppColors.grey30.withOpacity(.3),)
+                      // color: AppColors.white100.withOpacity(.4)),
+                      TextWidgetInterMedium(
+                          title: '\9.95',
+                          fontSize: MySize.size14,
+                          // color: AppColors.white100
+                      ),
                     ],
                   ),
+                ),
+                SizedBox(width: 25,),
+                Container(
+                  height: 68,
+                  width: 104,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: const Border(
+                      top: BorderSide(color: AppColors.pinkLine),
+                    ),
+                    color: AppColors.grey20.withOpacity(.2),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextWidgetInterMedium(
+                          title: 'Yearly',
+                          fontSize: MySize.size12,
+                          // color: Color(0XFF83839C)
+                      ),
+                      // color: AppColors.white100.withOpacity(.4)),
+                      TextWidgetInterMedium(
+                          title: '\39.95',
+                          fontSize: MySize.size14,
+                          // color: AppColors.white100
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+            SizedBox(height: MySize.size30,),
+            Container(
+              height: MySize.scaleFactorHeight * 185,
+              width: MySize.scaleFactorWidth * 375,
+
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: const Border(
+                  top: BorderSide(color: AppColors.accentLine),
+                ),
+                color: Color(0XFF353542),
+              ),
+        child:     Center(
+          child: DottedBorder(
+            dashPattern: [10, 20],
+            color: AppColors.grey30.withOpacity(.3),
+            borderType: BorderType.RRect,
+            radius: Radius.circular(12),
+            // padding: EdgeInsets.all(6),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              child: Container(
+                height: MySize.scaleFactorHeight * 84, width: MySize.scaleFactorWidth * 328,
+                // color: AppColors.progressColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextWidgetInterMedium(title: 'Add new Card',
+                      // color: AppColors.grey30.withOpacity(.3),
+                    ),
+                    const SizedBox(width: 24,),
+                    Icon(Icons.add_circle_outline_sharp, color: AppColors.grey30.withOpacity(.3),)
+                  ],
                 ),
               ),
             ),
           ),
-              ),
-              // Expanded(child: BNavBar()),
-            ],
-          ),
+        ),
+            ),
+            // Expanded(child: BNavBar()),
+          ],
         ),
       ),
     );
