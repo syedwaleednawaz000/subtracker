@@ -37,7 +37,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   @override
   void dispose() {
     // TODO: implement dispose
-    Future.microtask(() => Provider.of<ForgotPasswordProvider>(context,listen: false).clearPassword());
+    // Future.microtask(() => Provider.of<ForgotPasswordProvider>(context,listen: false).clearPassword());
     super.dispose();
   }
   @override
