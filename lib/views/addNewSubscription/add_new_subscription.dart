@@ -159,9 +159,9 @@ class _SubscriptionState extends State<Subscription> {
   }
 
   void _formatInput() {
-    String currentValue = _monthlyPriceController!.text;
+    String currentValue = _monthlyPriceController.text;
     if (currentValue.isNotEmpty && !currentValue.startsWith("\$")) {
-      _monthlyPriceController!.value = TextEditingValue(
+      _monthlyPriceController.value = TextEditingValue(
         text: "\$" + currentValue.replaceAll("\$", ""),
         selection: TextSelection.collapsed(offset: currentValue.length + 1),
       );
