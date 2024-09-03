@@ -60,8 +60,9 @@ class ForgotPasswordProvider extends ChangeNotifier{
       }
     }
   }
-
-  Future<void> forgotPassword({required BuildContext context, String? email})async{
+  String _otp = '';
+  String get otp => _otp;
+  Future<void> forgotPassword({required BuildContext context, String? email, String? requestType})async{
     if(email != null){
       emailTextEditingController.text = email;
     }
@@ -77,10 +78,12 @@ class ForgotPasswordProvider extends ChangeNotifier{
         Provider.of<LoginProvider>(context,listen: false).clearPassword();
         _loginLoading(load: false);
         FlutterToast.toastMessage(message: "${AppLocalizations.of(context)!.otp_send_successfully}  ${response.data['otp'].toString()}",);
-
           startTimer(timer: true);
-
-        Navigator.push(context, MaterialPageRoute(builder:  (context) => OTPVerification(otp: response.data['otp'].toString(),)));
+        _otp = response.data['otp'].toString();
+          if(requestType == null){
+            Get.to(()=> OTPVerification(otp: response.data['otp'].toString(),));
+            // Navigator.push(context, MaterialPageRoute(builder:  (context) => OTPVerification(otp: response.data['otp'].toString(),)));
+          }
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
       }else{
         _loginLoading(load: false);

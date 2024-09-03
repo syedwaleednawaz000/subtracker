@@ -108,25 +108,40 @@ class _OTPVerificationState extends State<OTPVerification> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 50),
-                  Pinput(
-                    enabled: true,
-                    controller: otpController,
-                    length: 6,
-                    defaultPinTheme: defaultPinTheme,
-                    focusedPinTheme: focusedPinTheme,
-                    submittedPinTheme: submittedPinTheme,
-                    validator: (value) {
-                      if(value == widget.otp){
-                        otpCorrect = true;
-                      }else{
-                        otpCorrect = false;
-                      }
-                      return value == widget.otp ? null :AppLocalizations.of(context)!.pin_is_incorrect;
-                    },
-                    pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                    showCursor: true,
-                    onCompleted: (pin) => print(pin),
-                  ),
+                  Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
+                     return Pinput(
+                       enabled: true,
+                       controller: otpController,
+                       length: 6,
+                       defaultPinTheme: defaultPinTheme,
+                       focusedPinTheme: focusedPinTheme,
+                       submittedPinTheme: submittedPinTheme,
+                       // validator: (value) {
+                       //   if(value == widget.otp){
+                       //     otpCorrect = true;
+                       //   }else{
+                       //     otpCorrect = false;
+                       //   }
+                       //   return value == widget.otp ? null :AppLocalizations.of(context)!.pin_is_incorrect;
+                       // },
+                       pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                       showCursor: true,
+                       onCompleted: (pin) {
+                         if(forgotPasswordProvider.isTimerRunning == true){
+                           if(pin == forgotPasswordProvider.otp){
+                             forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim()).then((value) {
+                               otpController.clear();
+                               forgotPasswordProvider.startTimer(timer: false);
+                             });
+                           }else{
+                             FlutterToast.toastMessage(message: "OTP is incorrect",isError: true);
+                           }
+                         }else{
+                           FlutterToast.toastMessage(message: "Your OTP has been expired, Please try with new OTP",isError: true);
+                         }
+                       },
+                     );
+                  },),
                   SizedBox(height: MySize.size25),
                   Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                     return Text("00 : ${forgotPasswordProvider.secondsRemaining.toString()}",style: const TextStyle(
@@ -140,10 +155,10 @@ class _OTPVerificationState extends State<OTPVerification> {
                   SizedBox(height: MySize.size25),
                   Consumer<ForgotPasswordProvider>(builder: (context, forgotPasswordProvider, child) {
                     return
-                    GestureDetector(
+                      forgotPasswordProvider.isTimerRunning == true ? const SizedBox(): GestureDetector(
                       onTap: (){
                         if(forgotPasswordProvider.isTimerRunning == false){
-                          forgotPasswordProvider.forgotPassword(context: context);
+                          forgotPasswordProvider.forgotPassword(context: context,requestType: "otpVerification");
                         }else{
                           FlutterToast.toastMessage(message:AppLocalizations.of(context)!.please_wait_your_task_is_on_running,isError: true);
                         }
@@ -165,65 +180,65 @@ class _OTPVerificationState extends State<OTPVerification> {
                         ),
                       ),
                     );
-                  },)
-                 , SizedBox(height: MySize.size25),
-                  SizedBox(
-                    height: MySize.scaleFactorHeight * 48,
-                    width: double.infinity,
-                    child: Consumer<ForgotPasswordProvider>(
-                      builder: (context, forgotPasswordProvider, child) {
-                        return GestureDetector(
-                          onTap: () {
-                            if(forgotPasswordProvider.isTimerRunning){
-                              if (otpController.text.length >= 6) {
-                                if(otpCorrect){
-                                  forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim()).then((value) {
-                                    otpController.clear();
-                                    forgotPasswordProvider.startTimer(timer: false);
-                                  });
-                                }else{
-                                  FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_enter_correct_otp,isError: true);
-                                }
-                              } else {
-                                FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_enter_the_complete_otp_code_the_otp_must_be_digits_long,isError: true);
-                              }
-                            }else{
-                              FlutterToast.toastMessage(message: AppLocalizations.of(context)!.your_otp_has_been_expired_please_try_again_with_new_otp,isError: true);
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 25.0,right: 24),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  border: Border(
-                                      top: BorderSide(color: Colors.white.withOpacity(.5)),
-                                      left: BorderSide(color: Colors.white.withOpacity(.5)),
-                                      bottom: BorderSide.none),
-                                  color: const Color(0XFF758AFF),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        offset: const Offset(0, 8),
-                                        blurRadius: 25,
-                                        color: const Color(0XFF4F63BE).withOpacity(.5))
-                                  ]),
-                              child: Center(
-                                child: forgotPasswordProvider.isVerifyOtp
-                                    ? const CircularProgressIndicator(color: AppColors.white100,)
-                                    :  Text(
-                                  AppLocalizations.of(context)!.reset_password,
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  },),
+                  // SizedBox(height: MySize.size25),
+                  // SizedBox(
+                  //   height: MySize.scaleFactorHeight * 48,
+                  //   width: double.infinity,
+                  //   child: Consumer<ForgotPasswordProvider>(
+                  //     builder: (context, forgotPasswordProvider, child) {
+                  //       return GestureDetector(
+                  //         onTap: () {
+                  //           if(forgotPasswordProvider.isTimerRunning){
+                  //             if (otpController.text.length >= 6) {
+                  //               if(otpCorrect){
+                  //                 forgotPasswordProvider.verifyOtp(context: context, otp: otpController.text.trim()).then((value) {
+                  //                   otpController.clear();
+                  //                   forgotPasswordProvider.startTimer(timer: false);
+                  //                 });
+                  //               }else{
+                  //                 FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_enter_correct_otp,isError: true);
+                  //               }
+                  //             } else {
+                  //               FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_enter_the_complete_otp_code_the_otp_must_be_digits_long,isError: true);
+                  //             }
+                  //           }else{
+                  //             FlutterToast.toastMessage(message: AppLocalizations.of(context)!.your_otp_has_been_expired_please_try_again_with_new_otp,isError: true);
+                  //           }
+                  //         },
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.only(left: 25.0,right: 24),
+                  //           child: Container(
+                  //             decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(40),
+                  //                 border: Border(
+                  //                     top: BorderSide(color: Colors.white.withOpacity(.5)),
+                  //                     left: BorderSide(color: Colors.white.withOpacity(.5)),
+                  //                     bottom: BorderSide.none),
+                  //                 color: const Color(0XFF758AFF),
+                  //                 boxShadow: [
+                  //                   BoxShadow(
+                  //                       offset: const Offset(0, 8),
+                  //                       blurRadius: 25,
+                  //                       color: const Color(0XFF4F63BE).withOpacity(.5))
+                  //                 ]),
+                  //             child: Center(
+                  //               child: forgotPasswordProvider.isVerifyOtp
+                  //                   ? const CircularProgressIndicator(color: AppColors.white100,)
+                  //                   :  Text(
+                  //                 AppLocalizations.of(context)!.reset_password,
+                  //                 style: const TextStyle(
+                  //                     fontSize: 16,
+                  //                     color: Colors.white,
+                  //                     fontWeight: FontWeight.w500),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             ),
