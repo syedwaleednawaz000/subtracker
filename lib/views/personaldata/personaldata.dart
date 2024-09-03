@@ -9,6 +9,7 @@ import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Widget/custom_save_button.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/views/change_password/change_password.dart';
 import '../../theme/theme.dart';
@@ -483,8 +484,17 @@ class _PersonalDataState extends State<PersonalData> {
           loading: profileProvider.isUpdated,
           onTap: (){
             if(_formKey.currentState!.validate()){
-              profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
-                  name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
+              if(profileProvider.updatePic == null){
+                if(profileProvider.hasUserChangedData()){
+                  profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
+                      name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
+                }else{
+                  FlutterToast.toastMessage(message: "Please change some thing",isError: true);
+                }
+              }else{
+                profileProvider.updateProfile(context:  context,email: profileProvider.emailEditingController.text.trim(),
+                    name: profileProvider.nameEditingController.text.trim(), phone: profileProvider.phoneNumberEditingController.text.trim());
+              }
             }
           },
           titleText:  AppLocalizations.of(context)!.save,);

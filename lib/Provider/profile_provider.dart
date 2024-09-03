@@ -32,6 +32,14 @@ class ProfileProvider extends ChangeNotifier{
     print("this is updated");
     notifyListeners();
   }
+  bool hasUserChangedData() {
+    // Compare the current text in the controllers with the original data
+    bool isNameChanged = nameEditingController.text != (userData['data']['name'] ?? "");
+    bool isEmailChanged = emailEditingController.text != (userData['data']['email'] ?? "");
+    bool isPhoneNumberChanged = phoneNumberEditingController.text != (userData['data']['phone_number'] ?? "");
+    return isNameChanged || isEmailChanged || isPhoneNumberChanged;
+  }
+
   bool _isDeleted = false;
   bool get isDeleted => _isDeleted;
   void _loginLoading({required bool load}){
