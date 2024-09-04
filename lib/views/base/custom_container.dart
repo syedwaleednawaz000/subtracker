@@ -47,104 +47,65 @@ class _CustomContainerState extends State<CustomContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius:  BorderRadius.only(
-          bottomRight: Radius.circular(MySize.size25),
-          bottomLeft: Radius.circular(MySize.size25),
-        ),
+
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0xFF353542)
-            :  Colors.white,
+            ? Colors.black
+            :  Color(0XFFFFFFFF),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              CustomPaint(
-                size: const Size(385, 400),
-                painter: DottedArcPainterC(
-                  strokeWidth: 3,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF353542)
-                          : const Color(0XFFFFFFFF),
-                ),
-              ),
-              CustomPaint(
-                size: const Size(298, 300), // Adjust size as needed
-                painter: DottedArcPainter(
-                  strokeWidth: 3,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF353542)
-                          : const Color(0XFFFFFFFF),
-                ),
-              ),
-              CustomPaint(
-                size: const Size(200, 10), // Adjust size as needed
-                painter: DottedArcPainter(
-                  strokeWidth: 3,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF4E4E61)
-                          : const Color(0XFF4E4E61),
-                ),
-              ),
-              CircularProgressBarWidget(
-                totalBudget: widget.monthlyBill,
-                monlthyBill: widget.totalBudget,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: MySize.scaleFactorHeight * 355),
-                child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LineColorContainer(
-                        borderColor: const Color(0xFF758AFF),
-                        titleText:AppLocalizations.of(context)!.active_subs,
-                        numberCount:AppConstant.validatePrice(context: context,price: double.parse(widget.activeSubscription.toString()??"0")),
-                      ),
-                      SizedBox(
-                        width: MySize.scaleFactorWidth * 14,
-                      ),
-                      LineColorContainer(
-                        borderColor: const Color(0xFFDC23FF),
-                        titleText: AppLocalizations.of(context)!.highest_subs,
-                        numberCount: AppConstant.validatePrice(context: context,price: double.parse(widget.highestSubscription.toString()??"0")),
-                      ),
-                      const SizedBox(
-                        width: 14,
-                      ),
-                      LineColorContainer(
-                        borderColor: AppColors.accentLine,
-                        titleText: AppLocalizations.of(context)!.lowest_subs,
-                        numberCount:AppConstant.validatePrice(context: context,price: double.parse(widget.lowestSubscription.toString()??"0")),
-                      ),
-                    ],
-                  );
-                },),
-              ),
-              Positioned(
-                right: 24,
-                top: 31,
-                child: InkWell(
-                  onTap: () {
-                    Get.to(()=> NotificationsScreen());
-                  },
-                  child: SvgPicture.asset(
-                    AppImages.notificationIconSvg,
-                    height: MySize.size24,
-                    width: MySize.size24,
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0xFFA2A2B5)
-                        : const Color(0xFFC1C1CD),
-                  ),
-                ),
-              )
-            ],
+          CustomPaint(
+            size: const Size(360, 400),
+            painter: DottedArcPainterC(
+              strokeWidth: 3,
+              color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF),
+            ),
           ),
+          CustomPaint(
+            size: const Size(260, 300), // Adjust size as needed
+            painter: DottedArcPainter(
+              strokeWidth: 3,
+              color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF),
+            ),
+          ),
+          CustomPaint(
+            size: const Size(200, 10), // Adjust size as needed
+            painter: DottedArcPainter(
+              strokeWidth: 3,
+              color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF4E4E61)
+                      : const Color(0XFF4E4E61),
+            ),
+          ),
+          CircularProgressBarWidget(
+            totalBudget: widget.monthlyBill,
+            monlthyBill: widget.totalBudget,
+          ),
+          Positioned(
+            right: 24,
+            top: 31,
+            child: InkWell(
+              onTap: () {
+                Get.to(()=> const NotificationsScreen());
+              },
+              child: SvgPicture.asset(
+                AppImages.notificationIconSvg,
+                height: MySize.size24,
+                width: MySize.size24,
+                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                    ? const Color(0xFFA2A2B5)
+                    : const Color(0xFFC1C1CD),
+              ),
+            ),
+          )
         ],
       ),
     );

@@ -30,166 +30,171 @@ class CancelSubscription extends StatelessWidget {
           : const Color(0XFFFFFFFF),
       appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.cancel_subscription),
           body: SingleChildScrollView(
-    child: Column(
-      children: [
-        SizedBox(
-          height: MySize.size54,
-        ),
-      Consumer<PlanProvider>(builder: (context, planProvider, child) {
-        return planProvider.activeSubscriptionData.isEmpty ?
-        const Center(child: CircularProgressIndicator(color: AppColors.purpleFF),):
-        planProvider.activeSubscriptionData['data'] == null ?
-         Center(child: Text( AppLocalizations.of(context)!.active_addNewSubscription_are_not_available),):
-        GestureDetector(
-          onTap: () {
-          },
-          child: Container(
-            height: MySize.scaleFactorHeight * 75,
-            width: MySize.scaleFactorWidth * 288,
-            margin: EdgeInsets.symmetric(vertical: MySize.size5),
-            child: Stack(
-              children: [
-                Container(
-                  height: MySize.scaleFactorHeight * 68,
-                  width: MySize.scaleFactorWidth * 288,
-                  decoration: BoxDecoration(
-                    color:
-                    Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0XFF4E4E61).withOpacity(.2)
-                        :  Color(0XFFF1F1FF),
-                    borderRadius: BorderRadius.circular(16),
+    child:  Consumer<PlanProvider>(builder: (context, planProvider, child) {
+      return planProvider.activeSubscriptionData.isEmpty ?
+       Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.35),child: const CircularProgressIndicator(color: AppColors.purpleFF),):
+      planProvider.activeSubscriptionData['data'] == null ?
+      Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.35),
+        child: Text( AppLocalizations.of(context)!.active_addNewSubscription_are_not_available),):
+      Column(
+        children: [
+          SizedBox(
+            height: MySize.size54,
+          ),
+          GestureDetector(
+            onTap: () {
+            },
+            child: Container(
+              height: MySize.scaleFactorHeight * 75,
+              width: MySize.scaleFactorWidth * 288,
+              margin: EdgeInsets.symmetric(vertical: MySize.size5),
+              child: Stack(
+                children: [
+                  Container(
+                    height: MySize.scaleFactorHeight * 68,
+                    width: MySize.scaleFactorWidth * 288,
+                    decoration: BoxDecoration(
+                      color:
+                      Provider.of<ThemeChanger>(context).themeData == darkMode
+                          ? const Color(0XFF4E4E61).withOpacity(.2)
+                          :  Color(0XFFF1F1FF),
+                      borderRadius: BorderRadius.circular(16),
 
-                  ),
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 8,),
-                        Text(
-                          '${planProvider.activeSubscriptionData['data']['type']}',
-                          style: const TextStyle(
-                            color: Color(0XFF83839C),
+                    ),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 8,),
+                          Text(
+                            '${planProvider.activeSubscriptionData['data']['type']}',
+                            style: const TextStyle(
+                              color: Color(0XFF83839C),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 2,),
+
+                          TextWidgetInterMedium(
+                            title: '\$${planProvider.activeSubscriptionData['data']['price']}',
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
+                            color: Provider.of<ThemeChanger>(context)
+                                .themeData == darkMode
+                                ? Colors.white
+                                : Colors.black,
                           ),
-                        ),
-                       const SizedBox(height: 2,),
-
-                        TextWidgetInterMedium(
-                          title: '\$${planProvider.activeSubscriptionData['data']['price']}',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Provider.of<ThemeChanger>(context)
-                              .themeData == darkMode
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                  Positioned(
+                      left: MySize.scaleFactorWidth * 120,
+                      child: Container(
+                        width: MySize.scaleFactorWidth * 46,
+                        height: MySize.scaleFactorHeight*2,
+                        decoration: BoxDecoration(
+                          color: Color(0xff758AFF),
+                          borderRadius: BorderRadius.circular(50),
+                        ),)),
+                  const SubscribeStackWidget(),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MySize.size48,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: MySize.size35),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child:  Text(  AppLocalizations.of(context)!.canceling_now_will_immediately_remove_all_access_to_features,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Provider.of<ThemeChanger>(context)
+                      .themeData == darkMode
+                      ? Colors.white
+                      : const Color(0XFF424252),
                 ),
-                Positioned(
-                  left: MySize.scaleFactorWidth * 120,
-                    child: Container(
-                  width: MySize.scaleFactorWidth * 46,
-                  height: MySize.scaleFactorHeight*2,
-                  decoration: BoxDecoration(
-                    color: Color(0xff758AFF),
-                    borderRadius: BorderRadius.circular(50),
-                  ),)),
-                const SubscribeStackWidget(),
+              ),
+
+            ),
+          ),
+          SizedBox(height: MySize.size15,),
+          Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: MySize.size20, vertical: MySize.size16),
+            height: MySize.scaleFactorHeight * 230,
+            width: MySize.scaleFactorWidth * 328,
+            decoration: BoxDecoration(
+              color:
+              Provider.of<ThemeChanger>(context).themeData == darkMode
+                  ? const Color(0XFF4E4E61).withOpacity(.2)
+                  : const Color(0XFFF1F1FF),
+              borderRadius: BorderRadius.circular(16),
+              border: Border(
+                  top: BorderSide(color: Colors.white.withOpacity(.15)),
+                  left: BorderSide(color: Colors.white.withOpacity(.15)),
+                  // right: BorderSide(color: Colors.white.withOpacity(.5)),
+                  bottom: BorderSide.none
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                manageplanrowlist(
+                  imageIcon: Image.asset(AppImages.plan,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      darkMode ? Colors.white : const Color(0XFFC1C1CD),),
+                  text: AppLocalizations.of(context)!.subscription_tracking,
+                ),
+                SizedBox(
+                  height: MySize.size16,
+                ),
+                manageplanrowlist(
+                  imageIcon: Image.asset(AppImages.notify,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      darkMode ? Colors.white : const Color(0XFFC1C1CD),),
+                  text:  AppLocalizations.of(context)!.alerts_and_notifications,
+                ),
+                SizedBox(
+                  height: MySize.size16,
+                ),
+                manageplanrowlist(
+                  imageIcon: Image.asset(AppImages.chart, height: 20,
+                    color: Provider.of<ThemeChanger>(context).themeData ==
+                        darkMode ? Colors.white : const Color(0XFFC1C1CD),
+                  ),
+                  text:  AppLocalizations.of(context)!.financial_overview,
+                ),
+                SizedBox(
+                  height: MySize.size16,
+                ),
+                manageplanrowlist(
+                  imageIcon: Image.asset(AppImages.analytics,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
+                      darkMode ? Colors.white : const Color(0XFFC1C1CD),),
+                  text:  AppLocalizations.of(context)!.spending_analytics,
+                ),
+                SizedBox(
+                  height: MySize.size16,
+                ),
+                manageplanrowlist(
+                  imageIcon: Image.asset(AppImages.contsupport, height: 20,   color: Provider.of<ThemeChanger>(context).themeData ==
+                      darkMode ? Colors.white : const Color(0XFFC1C1CD),),
+                  text:  AppLocalizations.of(context)!.customer_support,
+                ),
               ],
             ),
-          ),
-        );
-      },),
-        SizedBox(
-          height: MySize.size48,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: MySize.size35),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child:  Text(  AppLocalizations.of(context)!.canceling_now_will_immediately_remove_all_access_to_features,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Provider.of<ThemeChanger>(context)
-                    .themeData == darkMode
-                    ? Colors.white
-                    : const Color(0XFF424252),
-              ),
-            ),
-
-          ),
-        ),
-        SizedBox(height: MySize.size15,),
-        Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: MySize.size20, vertical: MySize.size16),
-          height: MySize.scaleFactorHeight * 230,
-          width: MySize.scaleFactorWidth * 328,
-          decoration: BoxDecoration(
-            color:
-            Provider.of<ThemeChanger>(context).themeData == darkMode
-                ? const Color(0XFF4E4E61).withOpacity(.2)
-                : const Color(0XFFF1F1FF),
-            borderRadius: BorderRadius.circular(16),
-            border: Border(
-                top: BorderSide(color: Colors.white.withOpacity(.15)),
-                left: BorderSide(color: Colors.white.withOpacity(.15)),
-                // right: BorderSide(color: Colors.white.withOpacity(.5)),
-                bottom: BorderSide.none
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              manageplanrowlist(
-                imageIcon: Image.asset(AppImages.plan,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                text: AppLocalizations.of(context)!.subscription_tracking,
-              ),
-              SizedBox(
-                height: MySize.size16,
-              ),
-              manageplanrowlist(
-                imageIcon: Image.asset(AppImages.notify,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                text:  AppLocalizations.of(context)!.alerts_and_notifications,
-              ),
-              SizedBox(
-                height: MySize.size16,
-              ),
-              manageplanrowlist(
-                imageIcon: Image.asset(AppImages.chart, height: 20,
-                  color: Provider.of<ThemeChanger>(context).themeData ==
-                      darkMode ? Colors.white : const Color(0XFFC1C1CD),
-                ),
-                text:  AppLocalizations.of(context)!.financial_overview,
-              ),
-              SizedBox(
-                height: MySize.size16,
-              ),
-              manageplanrowlist(
-                imageIcon: Image.asset(AppImages.analytics,  height: 20,    color: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                text:  AppLocalizations.of(context)!.spending_analytics,
-              ),
-              SizedBox(
-                height: MySize.size16,
-              ),
-              manageplanrowlist(
-                imageIcon: Image.asset(AppImages.contsupport, height: 20,   color: Provider.of<ThemeChanger>(context).themeData ==
-                    darkMode ? Colors.white : const Color(0XFFC1C1CD),),
-                text:  AppLocalizations.of(context)!.customer_support,
-              ),
-            ],
-          ),
-        )
-      ],
-    ),
+          )
+        ],
+      );
+    },),
           ),
       bottomNavigationBar: Consumer<PlanProvider>(builder: (context, planProvider, child) {
         return CustomSaveButton(titleText:  AppLocalizations.of(context)!.cancel_subscription,onTap: (){

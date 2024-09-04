@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/subscription_provider.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/base/linecolor_container.dart';
 import 'package:sub_tracker/views/home_screen/Component/subscription_widget.dart';
 import 'package:sub_tracker/views/home_screen/Component/up_coming_bill_widget.dart';
 
@@ -141,30 +144,75 @@ class _HomeScreenState extends State<HomeScreen>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Center(
-                                child: CustomContainer(
+                              Stack(children: [
+                                CustomContainer(
                                   activeSubscription:
-                                      data['activesub'].toString() == null
-                                          ? data['activesub'].toString()
-                                          : "0",
+                                  data['activesub'].toString() == null
+                                      ? data['activesub'].toString()
+                                      : "0",
                                   highestSubscription:
-                                      data['highsub'].toString() == null
-                                          ? data['highsub'].toString()
-                                          : "0",
+                                  data['highsub'].toString() == null
+                                      ? data['highsub'].toString()
+                                      : "0",
                                   lowestSubscription:
-                                      data['lowsub'].toString() == null
-                                          ? data['lowsub'].toString()
-                                          : "0",
+                                  data['lowsub'].toString() == null
+                                      ? data['lowsub'].toString()
+                                      : "0",
                                   monthlyBill:
-                                      data['monthlybill'].toString() == null
-                                          ? data['monthlybill'].toString()
-                                          : "0",
+                                  data['monthlybill'].toString() == null
+                                      ? data['monthlybill'].toString()
+                                      : "0",
                                   totalBudget:
-                                      data['totalBudget'].toString() == null
-                                          ? data['totalBudget'].toString()
-                                          : "0",
+                                  data['totalBudget'].toString() == null
+                                      ? data['totalBudget'].toString()
+                                      : "0",
                                 ),
-                              ),
+                                Positioned(
+                                  bottom: -20,
+                                  left: MySize.size23,
+                                  child: Container(
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                          ?  Colors.black
+                                          :  const Color(0XFFFFFFFF),
+                                      borderRadius:  BorderRadius.only(
+                                        bottomRight: Radius.circular(MySize.size25),
+                                        bottomLeft: Radius.circular(MySize.size25),
+                                      ),
+                                    ),
+                                    padding: EdgeInsets.only(bottom: MySize.scaleFactorHeight * 30),
+                                    child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          LineColorContainer(
+                                            borderColor: const Color(0xFF758AFF),
+                                            titleText:AppLocalizations.of(context)!.active_subs,
+                                            numberCount: AppConstant.validatePrice(context: context,price: double.parse(data['activesub'].toString() == null ? data['highsub'].toString() : "0",)),
+                                          ),
+                                          SizedBox(
+                                            width: MySize.scaleFactorWidth * 14,
+                                          ),
+                                          LineColorContainer(
+                                            borderColor: const Color(0xFFDC23FF),
+                                            titleText: AppLocalizations.of(context)!.highest_subs,
+                                            numberCount: AppConstant.validatePrice(context: context,price: double.parse(data['highsub'].toString() == null ? data['highsub'].toString() : "0",)),
+                                          ),
+                                          const SizedBox(
+                                            width: 14,
+                                          ),
+                                          LineColorContainer(
+                                            borderColor: AppColors.accentLine,
+                                            titleText: AppLocalizations.of(context)!.lowest_subs,
+                                            numberCount: AppConstant.validatePrice(context: context,price: double.parse(data['lowsub'].toString() == null ? data['highsub'].toString() : "0",)),
+                                          ),
+                                        ],
+                                      );
+                                    },),
+                                  ),
+                                ),
+                              ],),
                               SizedBox(
                                 height: MySize.scaleFactorHeight * 21,
                               ),

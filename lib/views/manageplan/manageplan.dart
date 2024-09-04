@@ -4,6 +4,7 @@ import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Provider/plan_provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/Widget/custom_save_button.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
@@ -127,7 +128,7 @@ class _ManagePlanState extends State<ManagePlan> {
               ),
               Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
                 return TextWidgetInterMedium(
-                  title: '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
+                  title: AppConstant.validatePrice(context: context,currencyCode: currencyProvider.selectedCurrencySymbol,price: double.parse(finalData['price'].toString(),)),
                   fontSize: MySize.size14,
                   fontWeight: FontWeight.w600,
                   color: themeProvider.themeData == darkMode ? const Color(0XFFFFFFFF) : Colors.black,

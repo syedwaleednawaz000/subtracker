@@ -109,9 +109,9 @@ class AppConstant {
     } else {
       switch (priceSymbol.toUpperCase()) {
         case 'PKR':
-          return 'PKR $price'; // PKR symbol comes before the price
+          return 'PKR$price'; // PKR symbol comes before the price
         case '\$':
-          return "$price$priceSymbol"; // Price comes before the USD symbol
+          return "$priceSymbol$price"; // Price comes before the USD symbol
         default:
           return '$priceSymbol$price'; // Default format
       }

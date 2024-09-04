@@ -30,8 +30,7 @@ class LineColorContainer extends StatelessWidget {
             darkMode
             ? const Color(0xFF4E4E61)
             .withOpacity(0.20)
-            : const Color(0xFFCFCFFC)
-            .withOpacity(0.3),
+            : const Color(0XFFF1F1FF),
         borderRadius: BorderRadius.circular(MySize.size16),
       ),
       child: CustomPaint(
