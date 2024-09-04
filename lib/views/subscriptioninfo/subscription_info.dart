@@ -1,11 +1,20 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/category_provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
+import 'package:sub_tracker/views/subscriptioninfo/Provider/sub_scription_info_provider.dart';
+import 'package:sub_tracker/views/subscriptioninfo/base/description_dialog.dart';
+import 'package:sub_tracker/views/subscriptioninfo/base/renewal_date.dart';
+import 'package:sub_tracker/views/subscriptioninfo/base/save_button.dart';
+import 'package:sub_tracker/views/subscriptioninfo/base/start_date.dart';
+import 'package:sub_tracker/views/subscriptioninfo/base/upload_document.dart';
+
 import '../../Provider/subscription_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -22,29 +31,14 @@ class SubscriptionInfo extends StatefulWidget {
 }
 
 class _SubscriptionInfoState extends State<SubscriptionInfo> {
-  FilePickerResult? _filePath;
 
-  Future<void> _pickFiles() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: [
-        'png',
-      ],
-    );
-    if (result != null) {
-      setState(() {
-        _filePath = result;
-      });
-    }
-  }
 
   String _name = "";
   String _descrip = "";
   String _selectedCategory = "";
   String _selectedReminder = "";
   String _selectedBilling = "";
-  String _startDate = "";
-  String _renDate = "";
+
   String _price = "";
   String _providerId = "";
   String _categoryId = "";
@@ -60,8 +54,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
           widget.subscriptionInfoData['category_id'].toString() ?? "";
       _selectedReminder = widget.subscriptionInfoData['reminder'] ?? "";
       _selectedBilling = widget.subscriptionInfoData['billing_cycle'] ?? "";
-      _startDate = widget.subscriptionInfoData['start_date'] ?? "";
-      _renDate = widget.subscriptionInfoData['renewal_date'] ?? "";
+      // _startDate = widget.subscriptionInfoData['start_date'] ?? "";
+      // _renDate = widget.subscriptionInfoData['renewal_date'] ?? "";
       _price = widget.subscriptionInfoData['price']?.toString() ?? "";
       _providerId = widget.subscriptionInfoData['provider_id'].toString() ?? "";
       _categoryId = widget.subscriptionInfoData['category_id'].toString() ?? "";
@@ -119,7 +113,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           Column(
                             children: [
                               Image.asset(
@@ -144,7 +138,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                               ),
                               // SizedBox(height: MySize.size2),
                               Text(
-                                "\$ ${widget.subscriptionInfoData['price'] ?? ""}",
+                                AppConstant.validatePrice(context: context,currencyCode: Provider.of<CurrencyProvider>(context,listen: false).selectedCurrencySymbol,price: double.parse(widget.subscriptionInfoData['price'] ?? "0")),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
@@ -171,11 +165,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                       // width: MySize.scaleFactorWidth * 288,
                                       decoration: BoxDecoration(
                                         color:
-                                        Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                            darkMode
-                                            ? const Color(0xFF4E4E61)
-                                            .withOpacity(.2)
+                                        Provider.of<ThemeChanger>(context).themeData == darkMode
+                                            ? const Color(0xFF4E4E61).withOpacity(.2)
                                             : const Color(0xFFF7F7FF),
                                         borderRadius: BorderRadius.circular(MySize.size16),
                                         border: Border.all(
@@ -196,11 +187,36 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                         mainAxisAlignment:
                                         MainAxisAlignment.start,
                                         children: [
+                                          Consumer<CategoryProvider>(
+                                            builder: (context, categoryProvider, child) {
+                                              return  GestureDetector(
+                                                onTap: () {
+                                                  Provider.of<SubscriptionInfoProvider>(context,listen: false).showCategories(context: context,provider: categoryProvider);
+                                                },
+                                                child: Consumer<SubscriptionInfoProvider>(builder: (context, subscriptionInfoProvider, child) {
+                                                  return SubscriptionInfoRow(
+                                                    text: 'Category & name',
+                                                    text2: subscriptionInfoProvider.categoryName,
+                                                    icon: Image.asset(
+                                                      AppImages.arrowLeft,
+                                                      width: MySize.size14,
+                                                      height: MySize.size14,
+                                                      color: Provider.of<ThemeChanger>(
+                                                          context)
+                                                          .themeData ==
+                                                          darkMode
+                                                          ? const Color(0xFFA2A2B5)
+                                                          : const Color(0xFFA2A2B5),
+                                                    ),
+                                                  );
+                                                },),
+                                              );
+                                            },
+                                          ),
+                                          SizedBox(height: MySize.size20),
                                           GestureDetector(
                                             onTap: () {
-                                              _showDescripDialog(
-                                                  context: context,
-                                                  oldValue: _descrip);
+                                              Provider.of<SubscriptionInfoProvider>(context,listen: false).showDescriptionDialog(context: context, oldValue: _descrip);
                                             },
                                             child: SubscriptionInfoRow(
                                               text: 'Description',
@@ -218,62 +234,10 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                               ),
                                             ),
                                           ),
-                                          // SizedBox(height: MySize.size6),
                                           SizedBox(height: MySize.size20),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              DateTime? selectedDate =
-                                              await _selectDate(context);
-                                              final DateFormat dateFormat =
-                                              DateFormat('dd-MM-yyyy');
-                                              if (selectedDate != null) {
-                                                setState(() {
-                                                  _startDate = dateFormat
-                                                      .format(selectedDate);
-                                                });
-                                              }
-                                            },
-                                            child: SubscriptionInfoRow(
-                                              text: 'Start Date',
-                                              text2: _startDate,
-                                              icon: Image.asset(
-                                                AppImages.arrowLeft,
-                                                width: MySize.size12,
-                                                height: MySize.size12,
-                                                color: Provider.of<ThemeChanger>(
-                                                    context)
-                                                    .themeData ==
-                                                    darkMode
-                                                    ? const Color(0xFFA2A2B5)
-                                                    : const Color(0xFFA2A2B5),
-                                              ),
-                                            ),
-                                          ),
+                                          const StartDate(),
                                           SizedBox(height: MySize.size16),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              DateTime? selectedDate = await _renewalDate(context);
-                                              final DateFormat dateFormat = DateFormat('dd-MM-yyyy'); // Updated format
-                                              if (selectedDate != null) {
-                                                setState(() {
-                                                  _renDate = dateFormat.format(selectedDate);
-                                                });
-                                              }
-                                            },
-                                            child: SubscriptionInfoRow(
-                                              text: 'Renewal Date',
-                                              text2: _renDate,
-                                              icon: Image.asset(
-                                                AppImages.arrowLeft,
-                                                width: MySize.size14,
-                                                height: MySize.size14,
-                                                color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                                    ? const Color(0xFFA2A2B5)
-                                                    : const Color(0xFFA2A2B5),
-                                              ),
-                                            ),
-                                          ),
-
+                                          RenewalDate(),
                                           SizedBox(height: MySize.size16),
                                           GestureDetector(
                                             onTapDown:
@@ -321,214 +285,14 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                                             ),
                                           ),
                                           SizedBox(height: MySize.size26),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              await _pickFiles();
-                                            },
-                                            child: _filePath == null
-                                                ? DottedBorder(
-                                              dashPattern: const [
-                                                6,
-                                                6,
-                                                6,
-                                                6
-                                              ],
-                                              color: Provider.of<ThemeChanger>(
-                                                  context)
-                                                  .themeData ==
-                                                  darkMode
-                                                  ? const Color(
-                                                  0XFF4E4E61)
-                                                  : const Color(
-                                                  0XFF4E4E61)
-                                                  .withOpacity(.5),
-                                              strokeWidth: 1,
-                                              borderType:
-                                              BorderType.RRect,
-                                              radius: Radius.circular(
-                                                  MySize.size12),
-                                              child: SizedBox(
-                                                height: MySize
-                                                    .scaleFactorHeight *
-                                                    61,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .center,
-                                                  children: [
-                                                    Text(
-                                                      'Upload documents',
-                                                      textAlign:
-                                                      TextAlign
-                                                          .center,
-                                                      style: TextStyle(
-                                                        fontSize: MySize
-                                                            .size14,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w600,
-                                                        color: Provider.of<ThemeChanger>(context)
-                                                            .themeData ==
-                                                            darkMode
-                                                            ? const Color(
-                                                            0XFFA2A2B5)
-                                                            : const Color(
-                                                            0XFFA2A2B5),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        width: MySize
-                                                            .size10),
-                                                    Container(
-                                                      height:
-                                                      MySize.size20,
-                                                      width:
-                                                      MySize.size20,
-                                                      decoration:
-                                                      BoxDecoration(
-                                                        color: Colors
-                                                            .transparent,
-                                                        borderRadius:
-                                                        BorderRadius
-                                                            .circular(
-                                                            90),
-                                                        border:
-                                                        Border.all(
-                                                          color: Provider.of<ThemeChanger>(context)
-                                                              .themeData ==
-                                                              darkMode
-                                                              ? const Color(
-                                                              0XFFA2A2B5)
-                                                              : const Color(
-                                                              0XFFA2A2B5),
-                                                          width: 2,
-                                                        ),
-                                                      ),
-                                                      child: Center(
-                                                        child: Icon(
-                                                          Icons.add,
-                                                          color: Provider.of<ThemeChanger>(context)
-                                                              .themeData ==
-                                                              darkMode
-                                                              ? const Color(
-                                                              0XFFA2A2B5)
-                                                              : const Color(
-                                                              0XFFA2A2B5),
-                                                          size: MySize
-                                                              .size12,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                                : Text(
-                                              textAlign:
-                                              TextAlign.center,
-                                              'File path: $_filePath',
-                                              style: TextStyle(
-                                                fontSize: MySize.size14,
-                                                fontWeight:
-                                                FontWeight.w400,
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                          ),
+                                          const UploadDocument(),
                                         ],
                                       ),
                                     ),
                                     SizedBox(
                                       height: MySize.size20,
                                     ),
-                                    Consumer<SubscriptionProvider>(
-                                      builder: (context, subscriptionProvider,
-                                          child) {
-                                        return InkWell(
-                                          onTap: () {
-                                            subscriptionProvider
-                                                .updateSubscription(
-                                                context: context,
-                                                subscriptionID:
-                                                _subscriptionId,
-                                                description: _descrip,
-                                                startDate: _startDate,
-                                                renewalDate: _renDate,
-                                                billingCycle:
-                                                _selectedBilling,
-                                                price: _price,
-                                                reminderDuration:
-                                                _selectedReminder,
-                                                categoryID:
-                                                _selectedCategory,
-                                                providerId: _providerId,
-                                                image: _filePath);
-                                          },
-                                          child: Container(
-                                            height:
-                                            MySize.scaleFactorHeight * 48,
-                                            margin: const EdgeInsets.only(
-                                                bottom: 18,
-                                                right: 20,
-                                                left: 20),
-                                            width:
-                                            MySize.scaleFactorWidth * 288,
-                                            decoration: BoxDecoration(
-                                              color:
-                                              Provider.of<ThemeChanger>(
-                                                  context)
-                                                  .themeData ==
-                                                  darkMode
-                                                  ? Colors.white
-                                                  .withOpacity(.1)
-                                                  : const Color(
-                                                  0XFFF7F7FF),
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  MySize.size24),
-                                              border: Border.all(
-                                                color:
-                                                Provider.of<ThemeChanger>(
-                                                    context)
-                                                    .themeData ==
-                                                    darkMode
-                                                    ? Colors.white
-                                                    .withOpacity(.15)
-                                                    : Colors.white
-                                                    .withOpacity(.15),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: subscriptionProvider
-                                                  .isUpdateSub
-                                                  ? const CircularProgressIndicator(
-                                                color:
-                                                AppColors.purpleFF,
-                                              )
-                                                  : Text(
-                                                'Save',
-                                                textAlign:
-                                                TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                  MySize.size14,
-                                                  fontWeight:
-                                                  FontWeight.w600,
-                                                  color: Provider.of<ThemeChanger>(
-                                                      context)
-                                                      .themeData ==
-                                                      darkMode
-                                                      ? const Color(
-                                                      0XFFFFFFFF)
-                                                      : const Color(
-                                                      0XFF424252),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    )
+                                    const SaveButtonInSubInfo(),
                                   ],
                                 ),
                               )
@@ -590,52 +354,6 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
     );
   }
 
-  void _showDescripDialog(
-      {required BuildContext context, required String oldValue}) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        TextEditingController descriptionController = TextEditingController();
-        descriptionController.text = oldValue;
-
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return AlertDialog(
-              title: const Text('Enter Description'),
-              content: TextField(
-                controller: descriptionController,
-                decoration: const InputDecoration(hintText: "Description"),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text(
-                    'CANCEL',
-                    style: TextStyle(color: Colors.redAccent),
-                  ),
-                  onPressed: () {
-                    descriptionController.clear(); // Clear the text field
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                ),
-                TextButton(
-                  child: const Text(
-                    'OK',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _descrip = descriptionController.text.trim();
-                    });
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
 
   void _showCategPopupMenu(BuildContext context, Offset tapPosition) async {
     final selected = await showMenu<String>(
@@ -743,59 +461,4 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
     }
   }
 
-  Future<DateTime?> _selectDate(BuildContext context) async {
-    DateTime initialDate = DateTime.now();
-    DateTime firstDate = DateTime(2000);
-    DateTime lastDate = DateTime(2050);
-
-    return await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.blue,
-              onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: Colors.black,
-            ),
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: DatePickerDialog(
-            initialDate: initialDate,
-            firstDate: firstDate,
-            lastDate: lastDate,
-          ),
-        );
-      },
-    );
-  }
-
-  Future<DateTime?> _renewalDate(BuildContext context) async {
-    DateTime initialDate = DateTime.now();
-    DateTime firstDate = DateTime(2000);
-    DateTime lastDate = DateTime(2050);
-
-    return await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.blue,
-              onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: Colors.black,
-            ),
-            dialogBackgroundColor: Colors.white,
-          ),
-          child: DatePickerDialog(
-            initialDate: initialDate,
-            firstDate: firstDate,
-            lastDate: lastDate,
-          ),
-        );
-      },
-    );
-  }
 }

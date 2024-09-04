@@ -98,7 +98,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
             )
                 : Image.asset(
               AppImages.trash,
-              scale: 1.2,
+              scale: 1.1,
               color: Provider.of<ThemeChanger>(
                   context)
                   .themeData ==

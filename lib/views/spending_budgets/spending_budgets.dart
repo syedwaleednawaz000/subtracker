@@ -176,7 +176,8 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
             ),
             Container(
               height: MySize.size60,
-              width: MySize.scaleFactorWidth * 326,
+              // width: MySize.scaleFactorWidth * 326,
+              margin: EdgeInsets.symmetric(horizontal: MySize.scaleFactorWidth * 24),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color: Colors.transparent,
@@ -227,68 +228,63 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                             ?  Center(
                                 child: Text(AppLocalizations.of(context)!.data_not_found),
                               )
-                            : ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: spendingBudgetProvider
-                                    .spendingBudgetData['data'].length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  var finalData = spendingBudgetProvider
-                                      .spendingBudgetData['data'][index];
-                                  double totalBudget =
-                                      finalData['total_budget'] != null
-                                          ? double.parse(
-                                              finalData['total_budget']
-                                                  .toString())
-                                          : 1.0; // Avoid division by zero
-                                  double spentBudget =
-                                      finalData['price'] != null
-                                          ? double.parse(
-                                              finalData['price'].toString())
-                                          : 0.0;
-                                  double progressPercentage =
-                                      (spentBudget / totalBudget) * 1;
-                                  randomColors = generateRandomColors(
-                                      spendingBudgetProvider
-                                          .spendingBudgetData['data'].length);
+                            : Container(
+                  margin: EdgeInsets.symmetric(horizontal: MySize.scaleFactorWidth * 24),
+                              child: ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: spendingBudgetProvider
+                                      .spendingBudgetData['data'].length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    var finalData = spendingBudgetProvider
+                                        .spendingBudgetData['data'][index];
+                                    double totalBudget =
+                                        finalData['total_budget'] != null
+                                            ? double.parse(
+                                                finalData['total_budget']
+                                                    .toString())
+                                            : 1.0; // Avoid division by zero
+                                    double spentBudget =
+                                        finalData['price'] != null
+                                            ? double.parse(
+                                                finalData['price'].toString())
+                                            : 0.0;
+                                    double progressPercentage =
+                                        (spentBudget / totalBudget) * 1;
+                                    randomColors = generateRandomColors(
+                                        spendingBudgetProvider
+                                            .spendingBudgetData['data'].length);
 
-                                  return GestureDetector(
-                                    onTap: () {
-                                      if (finalData['user_id'] == null) {
-                                        if (finalData['total_budget'] ==
-                                            null) {
-                                          showBudgetDialog(
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (finalData['user_id'] == null) {
+                                          if (finalData['total_budget'] ==
+                                              null) {
+                                            showBudgetDialog(
+                                                context: context,
+                                                categoryName: finalData['name'],
+                                                categoryID:
+                                                    finalData['id'].toString());
+                                          } else {
+                                            FlutterToast.toastMessage(message:AppLocalizations.of(context)!.budget_is_already_set);
+                                          }
+                                        } else {
+                                          addProvider(
                                               context: context,
                                               categoryName: finalData['name'],
-                                              categoryID:
-                                                  finalData['id'].toString());
-                                        } else {
-                                          FlutterToast.toastMessage(message:AppLocalizations.of(context)!.budget_is_already_set);
+                                              categoryID: finalData['id'].toString());
+                                          // open dialog box for add provider
                                         }
-                                      } else {
-                                        addProvider(
-                                            context: context,
-                                            categoryName: finalData['name'],
-                                            categoryID: finalData['id'].toString());
-                                        // open dialog box for add provider
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: MySize.size2),
-                                      child: Column(
-                                        children: [
-                                          Consumer<CurrencyProvider>(
-                                            builder: (context,
-                                                currencyProvider, child) {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        MySize.size24),
-                                                child: Container(
-                                                  height: MySize
-                                                          .scaleFactorHeight *
-                                                      110,
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 8),
+                                        child: Column(
+                                          children: [
+                                            Consumer<CurrencyProvider>(
+                                              builder: (context,
+                                                  currencyProvider, child) {
+                                                return Container(
+                                                  height: MySize.scaleFactorHeight * 110,
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -435,16 +431,16 @@ class _SpendingBudgetsState extends State<SpendingBudgets> {
                                                       )
                                                     ],
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ],
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    );
+                                  },
+                                ),
+                            );
               },
             ),
             Padding(

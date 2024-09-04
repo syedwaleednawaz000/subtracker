@@ -97,73 +97,6 @@ class SubscriptionProvider extends ChangeNotifier{
     }
   }
 
-  bool _isUpdateSub = false;
-  bool get isUpdateSub => _isUpdateSub;
-  void _updateSubLoading({required bool load}){
-    _isUpdateSub = load;
-    notifyListeners();
-  }
-  Future<void> updateSubscription({
-    required String description,
-    required String startDate,
-    required String renewalDate,
-    required String billingCycle,
-    required String price,
-    required BuildContext context,
-    required String subscriptionID,
-    required String reminderDuration,
-    required String categoryID,
-    required String providerId,
-    FilePickerResult? image,
-    // FilePickerResult? document,
-  }) async {
-    _updateSubLoading(load: true);
-    String cleanedPrice = price.replaceAll('\$', '');
-
-    FormData formData = FormData.fromMap({
-      'category_id': categoryID,
-      'provider_id': providerId,
-      'description': description,
-      'start_date': startDate,
-      'renewal_date': renewalDate,
-      'billing_cycle': billingCycle,
-      'reminder': reminderDuration,
-      'price': cleanedPrice,
-      '_method': "PUT",
-    });
-
-    if (image != null) {
-      formData.files.add(MapEntry(
-        'image',
-        await MultipartFile.fromFile(image.files[0].path.toString(), filename: image.files[0].path.toString().split('/').last),
-      ));
-    }
-
-
-    try {
-      Response response = await _apiService.updateSubscription(params: formData,subscriptionID: subscriptionID);
-      if (response.statusCode == 200) {
-        _updateSubLoading(load: false);
-        final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-        Provider.of<ScheduleProvider>(context,listen: false).getScheduleData(date: dateFormat.format(DateTime.now()));
-        getSubscriptions();
-        FlutterToast.toastMessage(message:AppLocalizations.of(context)!.subscription_added_successfully);
-        Get.back();
-        // Get.to(() => SubscriptionInfo(subscriptionInfoData: {}));
-        if (kDebugMode) {
-          print("hit successfully");
-        }
-      } else {
-        _updateSubLoading(load: false);
-        if (kDebugMode) {
-          print("hit successfully in else ");
-        }
-      }
-    } catch (error) {
-      _updateSubLoading(load: false);
-      print("this is error ${error.toString()}");
-    }
-  }
 
   bool _isDeleteSubscription = false;
   bool get isDeleteSubscription => _isDeleteSubscription;
@@ -231,7 +164,6 @@ class SubscriptionProvider extends ChangeNotifier{
       print("this is error ${error.toString()}");
     }
   }
-
 
 
 }

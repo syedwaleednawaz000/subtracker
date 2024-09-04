@@ -8,6 +8,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
@@ -23,6 +24,7 @@ import 'package:sub_tracker/views/addNewSubscription/base/hbocontainer.dart';
 import 'package:sub_tracker/views/addNewSubscription/model/all_category_model.dart';
 
 import 'package:intl/intl.dart';
+
 
 class Subscription extends StatefulWidget {
   const Subscription({super.key});
@@ -270,7 +272,7 @@ class _SubscriptionState extends State<Subscription> {
       });
     }
   }
-
+  final tooltipController = JustTheController();
   final List<String> items = [
     '1 week',
     '1 Month',
@@ -403,60 +405,54 @@ class _SubscriptionState extends State<Subscription> {
                     SizedBox(
                       height: MySize.size14,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    Stack(
+                      clipBehavior: Clip.none,
                       children: [
-                        Tooltip(
-                          message:
-                          AppLocalizations.of(context)!.if_the_provider_is_already_listed_you_can_select_it_from_here_instead_of_adding_a_new_one,
-                          decoration: BoxDecoration(
-                            color: Provider.of<ThemeChanger>(context)
-                                        .themeData ==
-                                    darkMode
-                                ? Colors.white
-                                : const Color(0xFF333339),
-                            // Set the background color of the tooltip
-                            borderRadius: BorderRadius.circular(MySize.size4),
-                          ),
-                          child: GestureDetector(
-                              onTap: () {},
-                              child: Image.asset(
-                                AppImages.exclMark,
-                                width: MySize.size15,
-                                height: MySize.size15,
-                              )),
-                        ),
-                        SizedBox(
-                          width: MySize.size4,
-                        ),
-                        Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                            ? Text(
-                          AppLocalizations.of(context)!.select_subscription_provider,
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Inter',
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0xFF666680)
-                                      : const Color(0xFF666680),
+                        GestureDetector(
+                          onTap: (){
+                            tooltipController.showTooltip();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              JustTheTooltip(
+                                backgroundColor: Color(0xff272730),
+                                preferredDirection: AxisDirection.up,
+                                controller:  tooltipController,
+                                margin:  EdgeInsets.only(left: MySize.scaleFactorWidth*60,right: MySize.scaleFactorHeight*40),
+                                content:  Padding(
+                                  padding: EdgeInsets.symmetric(vertical: MySize.scaleFactorHeight*8,horizontal:  MySize.scaleFactorWidth*12),
+                                  child: Text(
+                                    ' If the provider is already listed, you can select it from here instead of adding a new one.',
+                                    style: TextStyle(color: Colors.white,fontSize: 10),
+                                  ),
                                 ),
-                              )
-                            : Text(
-                          AppLocalizations.of(context)!.select_subscription_provider,
-                                style: TextStyle(
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0XFF666680)
-                                      : const Color(0XFF666680),
+                                child: Material(
+                                  // color: Colors.grey.shade800,
+                                  shape: const CircleBorder(),
+                                  elevation: 0,
+                                  child: Image.asset(
+                                    AppImages.exclMark,
+                                    width: MySize.size15,
+                                    height: MySize.size15,
+                                  ),
                                 ),
                               ),
+                              SizedBox(
+                                width: MySize.size4,
+                              ),
+                               Text(
+                                AppLocalizations.of(context)!.select_subscription_provider,
+                                style: TextStyle(
+                                  fontSize: MySize.size12,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0XFF666680),
+                                ),
+                              )  ,
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -517,6 +513,7 @@ class _SubscriptionState extends State<Subscription> {
                         );
                       },
                     ),
+                    SizedBox(height: MySize.scaleFactorHeight*24,)
                   ],
                 ),
               ),

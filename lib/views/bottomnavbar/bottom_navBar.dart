@@ -47,13 +47,13 @@ class _BnavBarState extends State<BnavBar> {
           : const Color(0XFFFFFFFF),
       bottomNavigationBar: Container(
         width: size.width,
-        height: 80,
+        height: 67,
         decoration: BoxDecoration(
           color: Provider.of<ThemeChanger>(context).themeData == darkMode
               ? Colors.black
               : const Color(0XFFFFFFFF),
         ),
-        padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
+        padding: const EdgeInsets.only(right: 16, left: 16,),
         child: Stack(
           // overflow: Overflow.visible,
           children: [

@@ -56,6 +56,7 @@ dependencies:
   shared_preferences: ^2.2.3
   fluttertoast: ^8.2.5
   dio: ^5.5.0+1
+  just_the_tooltip: ^0.0.12
   connectivity_plus: ^6.0.3
   animated_bottom_navigation_bar: ^1.3.3
   google_fonts:
@@ -104,6 +105,8 @@ flutter:
     - assets/icons/lang/
     - assets/icons/
     - assets/welBg/
+    - lib/views/addNewSubscription/base/
+    - lib/views/subscriptioninfo/base/
 
   #     - images/a_dot_ham.jpeg
 
