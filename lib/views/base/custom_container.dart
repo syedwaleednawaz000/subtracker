@@ -47,7 +47,6 @@ class _CustomContainerState extends State<CustomContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
             ? Colors.black
             :  Color(0XFFFFFFFF),

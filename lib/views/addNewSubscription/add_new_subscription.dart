@@ -298,7 +298,7 @@ class _SubscriptionState extends State<Subscription> {
             children: [
               /// Above container
               Container(
-                height: MySize.scaleFactorHeight * 480,
+                // height: MySize.scaleFactorHeight * 480,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Provider.of<ThemeChanger>(context).themeData ==
@@ -517,24 +517,13 @@ class _SubscriptionState extends State<Subscription> {
                         );
                       },
                     ),
-                    // SizedBox(height: MySize.size10,)
                   ],
                 ),
               ),
 
                SizedBox(
-                height: MySize.scaleFactorHeight * 23,
+                height: MySize.scaleFactorHeight * 40,
               ),
-              // SizedBox(
-              //   height: 4,
-              //   child: ListView(
-              //     children: [
-              //       SizedBox(
-              //         height: MySize.size34,
-              //       ),
-              //     ],
-              //   ),
-              // ),
 
               /// below container
               Text(

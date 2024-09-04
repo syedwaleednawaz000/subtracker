@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/subscription_provider.dart';
+import 'package:sub_tracker/Utils/app_colors.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/my_size.dart';
@@ -11,10 +13,11 @@ import '../views/notification_screen/notification_screen.dart';
 class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final String? type;
+  final String? id;
   final bool leading;
   final bool? actions;
 
-  const CustomAppBarInAll({super.key,this.type, this.title,  this.leading = false, this.actions = false});
+  const CustomAppBarInAll({this.id,super.key,this.type, this.title,  this.leading = false, this.actions = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       backgroundColor: themeProvider.themeData == darkMode ?
           Colors.black
-          : type != null? Colors.black:const Color(0XFFFFFFFF),
+          : type != null?type == "delete" ? Color(0XFFFFFFFF): Colors.black:const Color(0XFFFFFFFF),
       elevation: 0,
       centerTitle: true,
       title: title != null
@@ -54,7 +57,7 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
                 color: themeProvider.themeData == darkMode ?Colors.white: Color(0XFFA2A2B5),
             ),
           ),): const SizedBox(), // Show SizedBox if leading is null
-      actions:  [actions == false ?const SizedBox() :notificationIcon()], // Show SizedBox if actions are null
+      actions:  [actions == false ?const SizedBox() : type == "delete"? deleteWidget():notificationIcon()], // Show SizedBox if actions are null
     );
   }
 
@@ -72,6 +75,40 @@ class CustomAppBarInAll extends StatelessWidget implements PreferredSizeWidget {
           color: const Color(0xFFA2A2B5),
         ),
       ),
+    );
+  }
+  Widget deleteWidget(){
+    return  Consumer<SubscriptionProvider>(
+      builder:
+          (context, subscriptionProvider, child) {
+        return Padding(
+          padding: EdgeInsets.only(right: MySize.size25,top: 32),
+          child: GestureDetector(
+            onTap: () {
+              subscriptionProvider.deleteSubscription(
+                  context: context,
+                  subscriptionID: id.toString());
+            },
+            child: subscriptionProvider
+                .isDeleteSubscription
+                ? const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.purpleFF,
+              ),
+            )
+                : Image.asset(
+              AppImages.trash,
+              scale: 1.2,
+              color: Provider.of<ThemeChanger>(
+                  context)
+                  .themeData ==
+                  darkMode
+                  ? const Color(0xFFA2A2B5)
+                  : const Color(0xFF424252),
+            ),
+          ),
+        );
+      },
     );
   }
   @override

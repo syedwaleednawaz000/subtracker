@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import '../../Provider/subscription_provider.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -77,8 +78,8 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
 
   @override
   Widget build(BuildContext context) {
-    print("this is subsription data ${widget.subscriptionInfoData}");
     return Scaffold(
+      appBar:   CustomAppBarInAll(leading: false,actions: true,title: "Subscription info",type: "delete",id: widget.subscriptionInfoData['id'].toString()),
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? const Color(0XFF0E0E12)
           : Colors.white,
@@ -118,82 +119,7 @@ class _SubscriptionInfoState extends State<SubscriptionInfo> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: MySize.size28,
-                          vertical: MySize.size32,
-                        ),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Transform.rotate(
-                                angle: 3.14 / 2,
-                                child: Image.asset(
-                                  AppImages.downwardArrow,
-                                  width: MySize.size20,
-                                  height: MySize.size20,
-                                  color: Provider.of<ThemeChanger>(context)
-                                              .themeData ==
-                                          darkMode
-                                      ? const Color(0xFFA2A2B5)
-                                      : const Color(0xFF424252),
-                                ),
-                              ),
-                            ),
-
-                            const Spacer(),
-                            Text(
-                              'Subscription info',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: MySize.size16,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                                color: Provider.of<ThemeChanger>(context)
-                                            .themeData ==
-                                        darkMode
-                                    ? const Color(0xFFA2A2B5)
-                                    : const Color(0xFF424252),
-                              ),
-                            ),
-                            const Spacer(), // Add Spacer here
-                            Consumer<SubscriptionProvider>(
-                              builder:
-                                  (context, subscriptionProvider, child) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    subscriptionProvider.deleteSubscription(
-                                        context: context,
-                                        subscriptionID: widget
-                                            .subscriptionInfoData['id']
-                                            .toString());
-                                  },
-                                  child: subscriptionProvider
-                                          .isDeleteSubscription
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                            color: AppColors.purpleFF,
-                                          ),
-                                        )
-                                      : Image.asset(
-                                          AppImages.trash,
-                                          scale: 1.2,
-                                          color: Provider.of<ThemeChanger>(
-                                                          context)
-                                                      .themeData ==
-                                                  darkMode
-                                              ? const Color(0xFFA2A2B5)
-                                              : const Color(0xFF424252),
-                                        ),
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                      ),
+                          SizedBox(height: 10,),
                           Column(
                             children: [
                               Image.asset(

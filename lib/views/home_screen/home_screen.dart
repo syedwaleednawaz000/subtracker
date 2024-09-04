@@ -168,10 +168,10 @@ class _HomeScreenState extends State<HomeScreen>
                                       : "0",
                                 ),
                                 Positioned(
-                                  bottom: -20,
+                                  bottom: -40,
                                   left: MySize.size23,
                                   child: Container(
-                                    height: 100,
+                                    height: 125,
                                     decoration: BoxDecoration(
                                       color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                           ?  Colors.black
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen>
                                         bottomLeft: Radius.circular(MySize.size25),
                                       ),
                                     ),
-                                    padding: EdgeInsets.only(bottom: MySize.scaleFactorHeight * 30),
+                                    padding: EdgeInsets.only(bottom: MySize.scaleFactorHeight * 15),
                                     child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
                                       return Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
