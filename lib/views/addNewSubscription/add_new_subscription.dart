@@ -456,7 +456,7 @@ class _SubscriptionState extends State<Subscription> {
                       ],
                     ),
                     SizedBox(
-                      height: MySize.size4,
+                      height: MySize.size10,
                     ),
                     Consumer<CategoryProvider>(
                       builder: (context, categoryProvider, child) {
@@ -513,13 +513,12 @@ class _SubscriptionState extends State<Subscription> {
                         );
                       },
                     ),
-                    SizedBox(height: MySize.scaleFactorHeight*24,)
                   ],
                 ),
               ),
 
                SizedBox(
-                height: MySize.scaleFactorHeight * 40,
+                height: MySize.scaleFactorHeight * 52,
               ),
 
               /// below container
