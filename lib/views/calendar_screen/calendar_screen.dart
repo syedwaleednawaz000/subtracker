@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -92,12 +93,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             builder: (context, scheduleProvider, child) {
                               int length = 0;
                               if (scheduleProvider.scheduleData.isNotEmpty) {
-                                if (scheduleProvider
-                                        .scheduleData['data']['providers']
-                                        .length !=
-                                    0) {
-                                  length = scheduleProvider
-                                      .scheduleData['data']['providers'].length;
+                                if (scheduleProvider.scheduleData['data']['subscriptions'].length != 0) {
+                                  length = scheduleProvider.scheduleData['data']['subscriptions'].length;
                                 } else {
                                   print("provider is empty");
                                 }
@@ -331,7 +328,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   : Colors.black),
                                     ),
                                   )
-                                : scheduleProvider.scheduleData['data']['providers'].length == 0
+                                : scheduleProvider.scheduleData['data']['subscriptions'].length == 0
                                     ? Center(
                                         child: Text(
                                           AppLocalizations.of(context)!.your_upcoming_bills_are_not_available,
@@ -351,13 +348,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                           crossAxisSpacing: 8,
                                           // mainAxisSpacing: 10
                                         ),
-                                        itemCount: scheduleProvider.scheduleData['data']['providers'].length,
+                                        itemCount: scheduleProvider.scheduleData['data']['subscriptions'].length,
                                         // Update the item count based on your actual data
                                         physics: const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
                                         itemBuilder: (context, index) {
-                                          final subscription = scheduleProvider.scheduleData['data']['providers'][index];
+                                          final subscription = scheduleProvider.scheduleData['data']['subscriptions'][index];
                                           return GestureDetector(
                                             onTap: () {
                                               Get.to(()=>SubscriptionInfo(subscriptionInfoData: subscription),);
@@ -366,41 +363,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                               padding: EdgeInsets.only(
                                                   bottom: MySize.size10),
                                               child: SubsContainer(
-                                                title: subscription[
-                                                        'provider_name'] ?? "",
+                                                title: subscription['provider']['name'] ?? "",
                                                 subtitle:
                                                     subscription['price'] ?? "",
-                                                imageIcon: CachedNetworkImage(
-                                                  imageUrl: subscription[
-                                                          'provider_icon'] ?? "",
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      Container(
-                                                    height: MySize.size40,
-                                                    width: MySize.size40,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: imageProvider,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  placeholder: (context, url) =>
-                                                      Shimmer.fromColors(
-                                                    baseColor:
-                                                        Colors.grey[300]!,
-                                                    highlightColor:
-                                                        Colors.grey[100]!,
-                                                    child: Container(
-                                                      height: 40.0,
-                                                      width: 40.0,
-                                                      color: Colors.grey[300],
-                                                    ),
-                                                  ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          const Icon(Icons.error),
-                                                ),
+                                                imageIcon: buildImageWidget(imageUrl: subscription['provider']['image_icon'] ?? ""),
                                               ),
                                             ),
                                           );
@@ -414,5 +380,44 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ],
           ),
         ));
+  }
+
+
+  Widget buildImageWidget({required String imageUrl}) {
+    if (imageUrl.toLowerCase().endsWith('.svg')) {
+      // Show SVG image
+      return SvgPicture.network(
+        imageUrl,
+            height: MySize.size40,
+            width: MySize.size40,
+        placeholderBuilder: (context) => Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            height: MySize.size40,
+            width: MySize.size40,
+            color: Colors.grey[300],
+          ),
+        ),
+        // errorBuilder: (context, error, stackTrace) => Icon(Icons.error, size: 40, color: Colors.red),
+      );
+    } else {
+      // Show CachedNetworkImage for non-SVG images
+      return CachedNetworkImage(
+        imageUrl: imageUrl,
+        height: MySize.size40,
+        width: MySize.size40,
+        placeholder: (context, url) => Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            height: MySize.size40,
+            width: MySize.size40,
+            color: Colors.grey[300],
+          ),
+        ),
+        errorWidget: (context, url, error) => const Icon(Icons.error, size: 40, color: Colors.red),
+      );
+    }
   }
 }

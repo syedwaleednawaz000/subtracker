@@ -18,9 +18,11 @@ class ScheduleProvider extends ChangeNotifier{
     try {
       Response response = await _apiService.getScheduleData(date: date,);
       if (response.statusCode == 200) {
+        log("Fetched scheduleModelData: ${response.data} ::");
         scheduleData = response.data;
         // scheduleModelData.add(ScheduleModel.fromJson(data));
         log("Fetched scheduleModelData: ${scheduleData['data']['providers'].length} ::");
+        notifyListeners();
       }
     } catch (error) {
       log("${ AppLocalizations.of(context!)!.error_fetching_scheduleModelData}: $error");
