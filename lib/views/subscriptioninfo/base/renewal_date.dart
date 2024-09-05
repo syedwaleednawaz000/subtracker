@@ -17,7 +17,7 @@ class RenewalDate extends StatelessWidget {
       child: Consumer<SubscriptionInfoProvider>(builder: (context, subscriptionInfoProvider, child) {
         return SubscriptionInfoRow(
           text: 'Renewal Date',
-          text2: subscriptionInfoProvider.startDateInString,
+          text2: subscriptionInfoProvider.renewalDateInString,
           icon: Image.asset(
             AppImages.arrowLeft,
             width: MySize.size14,

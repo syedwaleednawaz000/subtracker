@@ -132,7 +132,7 @@ class Assets {
   static const String iconsTresorly = 'assets/icons/tresorly.png';
   static const String iconsYtb = 'assets/icons/ytb.png';
   static const String imagesAdd = 'assets/images/Add.png';
-  static const String imagesAppIcon = 'assets/images/appIcon.png';
+  static const String imagesAppIcon = 'assets/images/appIcon.jpeg';
   static const String imagesB = 'assets/images/b.png';
   static const String imagesBb = 'assets/images/bb.png';
   static const String imagesBgBlack = 'assets/images/bgBlack.png';

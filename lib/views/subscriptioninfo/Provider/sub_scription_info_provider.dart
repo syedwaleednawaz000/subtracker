@@ -41,7 +41,6 @@ class SubscriptionInfoProvider extends ChangeNotifier{
   }) async {
     _updateSubLoading(load: true);
     String cleanedPrice = price.replaceAll('\$', '');
-
     FormData formData = FormData.fromMap({
       'category_id': categoryID,
       'provider_id': providerId,
@@ -53,7 +52,7 @@ class SubscriptionInfoProvider extends ChangeNotifier{
       'price': cleanedPrice,
       '_method': "PUT",
     });
-
+    print("this is body ${formData.fields}");
     if (image != null) {
       formData.files.add(MapEntry(
         'image',
@@ -120,28 +119,53 @@ class SubscriptionInfoProvider extends ChangeNotifier{
   }
 
   void showDescriptionDialog(
-      {required BuildContext context, required String oldValue}) {
+      {required BuildContext context,}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return DescriptionDialog(context: context,oldValue: oldValue,);
+        return DescriptionDialog(context: context,);
       },
     );
   }
+  String  priceInString = "";
+  TextEditingController descriptionController = TextEditingController();
   String startDateInString = "";
+  String renewalDateInString = "";
+  String _categoryName = "";
+  String get categoryName => _categoryName;
+  String _subCategoryName = "";
+  String get subCategoryName => _subCategoryName;
+  String _subCategoryID = "";
+  String get subCategoryID => _subCategoryID;
+  String _categoryID = "";
+  String get categoryID => _categoryID;
+  Future<void> setAllValue({required String price, required String desc, required String categoryName,
+    required String providerName, required String startDate,required String renewalDate,
+    required String billingRecycle,required String reminder,required String categoryID, required String providerID})async{
+    priceInString = price;
+    descriptionController.text = desc;
+    _categoryName = categoryName;
+    _subCategoryName = providerName;
+    startDateInString = startDate;
+    renewalDateInString = renewalDate;
+    selectedBilling = billingRecycle;
+    selectedReminder = reminder;
+    _categoryID = categoryID;
+    _subCategoryID = providerID;
+    notifyListeners();
+  }
   Future<void> startDate({required BuildContext context})async{
     DateTime? selectedDate =  await _selectDate(context);
     final DateFormat dateFormat =
-    DateFormat('dd-MM-yyyy');
+    DateFormat('yyyy-MM-d');
     if (selectedDate != null) {
       startDateInString = dateFormat.format(selectedDate);
     notifyListeners();
     }
   }
-  String renewalDateInString = "";
   Future<void> renewalDate({required BuildContext context})async{
     DateTime? selectedDate = await _selectDate(context);
-    final DateFormat dateFormat = DateFormat('dd-MM-yyyy'); // Updated format
+    final DateFormat dateFormat = DateFormat('yyyy-MM-dd'); // Updated format
     if (selectedDate != null) {
       renewalDateInString = dateFormat.format(selectedDate);
       notifyListeners();
@@ -174,18 +198,6 @@ class SubscriptionInfoProvider extends ChangeNotifier{
       },
     );
   }
-
-
-
-
-  String _categoryName = "";
-  String get categoryName => _categoryName;
-  String _subCategoryName = "";
-  String get subCategoryName => _subCategoryName;
-  String _subCategoryID = "";
-  String get subCategoryID => _subCategoryID;
-  String _categoryID = "";
-  String get categoryID => _categoryID;
   void setAllCategoryValue({required String categoryID, required String subCategoryID ,
     required String subCategoryName,required String categoryName  }){
     _categoryID = categoryID;
@@ -196,6 +208,70 @@ class SubscriptionInfoProvider extends ChangeNotifier{
     Get.back();
   }
 
+  String selectedReminder = "";
+  void showReminderPopupMenu(BuildContext context, Offset tapPosition) async {
+    final selected = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
+      ),
+      items: [
+        const PopupMenuItem<String>(
+          value: 'Weekly',
+          child: Text("Weekly"),
+        ),
+        const PopupMenuItem<String>(
+          value: 'Monthly',
+          child: Text('Monthly'),
+        ),
+        const PopupMenuItem<String>(
+          value: 'Yearly',
+          child: Text('Yearly'),
+        ),
+      ],
+      elevation: 8.0,
+    );
 
+    if (selected != null) {
+        selectedReminder = selected;
+      print(selectedReminder);
+      notifyListeners();
+    }
+  }
+  String selectedBilling = "";
+  void showBillingPopupMenu(BuildContext context, Offset tapPosition) async {
+    final selected = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx,
+        tapPosition.dy,
+      ),
+      items: [
+        const PopupMenuItem<String>(
+          value: 'Weekly',
+          child: Text("Weekly"),
+        ),
+        const PopupMenuItem<String>(
+          value: 'Monthly',
+          child: Text('Monthly'),
+        ),
+        const PopupMenuItem<String>(
+          value: 'Yearly',
+          child: Text('Yearly'),
+        ),
+      ],
+      elevation: 8.0,
+    );
 
+    if (selected != null) {
+        selectedBilling = selected;
+      print(selectedBilling);
+      notifyListeners();
+    }
+  }
 }

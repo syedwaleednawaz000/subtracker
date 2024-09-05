@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/views/subscriptioninfo/Provider/sub_scription_info_provider.dart';
 
 class DescriptionDialog extends StatelessWidget {
   BuildContext  context;
-  String oldValue;
-   DescriptionDialog({super.key,required  this.context, required this.oldValue});
-  TextEditingController descriptionController = TextEditingController();
+
+   DescriptionDialog({super.key,required  this.context,});
   @override
   Widget build(BuildContext context) {
-    descriptionController.text = oldValue;
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return AlertDialog(
           title: const Text('Enter Description'),
-          content: TextField(
-            controller: descriptionController,
-            decoration: const InputDecoration(hintText: "Description"),
-          ),
+          content: Consumer<SubscriptionInfoProvider>(builder: (context, subscriptionInfoProvider, child) {
+            return TextField(
+              controller: subscriptionInfoProvider.descriptionController,
+              decoration: const InputDecoration(hintText: "Description"),
+            );
+          },),
           actions: <Widget>[
             TextButton(
               child: const Text(
@@ -23,7 +25,6 @@ class DescriptionDialog extends StatelessWidget {
                 style: TextStyle(color: Colors.redAccent),
               ),
               onPressed: () {
-                descriptionController.clear(); // Clear the text field
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),
@@ -33,9 +34,6 @@ class DescriptionDialog extends StatelessWidget {
                 style: TextStyle(color: Colors.blue),
               ),
               onPressed: () {
-                // setState(() {
-                //   _descrip = descriptionController.text.trim();
-                // });
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),

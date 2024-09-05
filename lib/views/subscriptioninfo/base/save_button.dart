@@ -6,27 +6,28 @@ import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/subscriptioninfo/Provider/sub_scription_info_provider.dart';
 
 class SaveButtonInSubInfo extends StatelessWidget {
-  const SaveButtonInSubInfo({super.key});
+  String subscriptionId;
+   SaveButtonInSubInfo({required this.subscriptionId,super.key});
 
   @override
   Widget build(BuildContext context) {
-    return                                     Consumer<SubscriptionInfoProvider>(
+    return  Consumer<SubscriptionInfoProvider>(
       builder: (context, subscriptionInfoProvider,
           child) {
         return InkWell(
           onTap: () {
-            // subscriptionInfoProvider.updateSubscription(
-            //     context: context,
-            //     subscriptionID: _subscriptionId,
-            //     description: _descrip,
-            //     startDate: _startDate,
-            //     renewalDate: _renDate,
-            //     billingCycle: _selectedBilling,
-            //     price: _price,
-            //     reminderDuration: _selectedReminder,
-            //     categoryID: _selectedCategory,
-            //     providerId: _providerId,
-            //     image: subscriptionInfoProvider.filePath);
+            subscriptionInfoProvider.updateSubscription(
+                context: context,
+                subscriptionID: subscriptionId,
+                description: subscriptionInfoProvider.descriptionController.text.trim(),
+                startDate: subscriptionInfoProvider.startDateInString,
+                renewalDate: subscriptionInfoProvider.renewalDateInString,
+                billingCycle: subscriptionInfoProvider.selectedBilling,
+                price: subscriptionInfoProvider.priceInString,
+                reminderDuration: subscriptionInfoProvider.selectedReminder,
+                categoryID: subscriptionInfoProvider.categoryID,
+                providerId: subscriptionInfoProvider.subCategoryID,
+                image: subscriptionInfoProvider.filePath);
           },
           child: Container(
             height:

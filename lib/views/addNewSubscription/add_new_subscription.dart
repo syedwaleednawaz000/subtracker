@@ -148,7 +148,7 @@ class _SubscriptionState extends State<Subscription> {
 
   @override
   void initState() {
-    Provider.of<CategoryProvider>(context, listen: false).getAllCategory();
+    Future.microtask(() =>     Provider.of<CategoryProvider>(context, listen: false).getAllCategory());
     super.initState();
     DateTime currentDate = DateTime.now();
 
