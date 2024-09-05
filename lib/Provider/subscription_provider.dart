@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -150,7 +152,7 @@ class SubscriptionProvider extends ChangeNotifier{
         subscriptionData = {};
         subscriptionData = response.data;
         if (kDebugMode) {
-          print("hit successfully getSubscriptions $subscriptionData");
+          log("hit successfully getSubscriptions ${subscriptionData} ===");
         }
 
       }else{

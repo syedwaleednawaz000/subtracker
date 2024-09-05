@@ -141,6 +141,7 @@ class Assets {
   static const String imagesBgImage = 'assets/images/bgImage.png';
   static const String imagesBgWhite = 'assets/images/bgWhite.png';
   static const String imagesBgr = 'assets/images/bgr.png';
+  static const String imagesBlackLogoForHome = 'assets/images/blackLogoForHome.png';
   static const String imagesCancelsubscription = 'assets/images/cancelsubscription.png';
   static const String imagesCard = 'assets/images/Card.png';
   static const String imagesChartHalf = 'assets/images/chart_half.png';
@@ -159,8 +160,6 @@ class Assets {
   static const String imagesHbo = 'assets/images/hbo.png';
   static const String imagesHomeFrame = 'assets/images/homeFrame.png';
   static const String imagesIndeed = 'assets/images/indeed.png';
-  static const String imagesLogo = 'assets/images/logo.png';
-  static const String imagesLogo2 = 'assets/images/logo2.png';
   static const String imagesM = 'assets/images/m.png';
   static const String imagesMainCircle = 'assets/images/MainCircle.png';
   static const String imagesMastercard = 'assets/images/mastercard.png';
@@ -173,6 +172,7 @@ class Assets {
   static const String imagesThreeDots = 'assets/images/three_dots.png';
   static const String imagesTresorly = 'assets/images/tresorly.png';
   static const String imagesVector = 'assets/images/Vector.png';
+  static const String imagesWhiteLogoForHome = 'assets/images/whiteLogoForHome.png';
   static const String l10nAppEn = 'lib/l10n/app_en.arb';
   static const String l10nAppUr = 'lib/l10n/app_ur.arb';
   static const String langCN = 'assets/icons/lang/CN.png';

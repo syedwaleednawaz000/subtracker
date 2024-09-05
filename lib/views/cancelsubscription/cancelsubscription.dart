@@ -49,9 +49,10 @@ class CancelSubscription extends StatelessWidget {
             onTap: () {
             },
             child: Container(
-              height: MySize.scaleFactorHeight * 75,
-              width: MySize.scaleFactorWidth * 288,
-              margin: EdgeInsets.symmetric(vertical: MySize.size5),
+              height:  75,
+              width: double.infinity,
+              margin: EdgeInsets.only(left: MySize.scaleFactorWidth * 43,right: MySize.scaleFactorWidth * 43),
+              // margin: EdgeInsets.symmetric(vertical: MySize.size5),
               child: Stack(
                 children: [
                   Container(
@@ -111,7 +112,7 @@ class CancelSubscription extends StatelessWidget {
             height: MySize.size48,
           ),
           Padding(
-            padding: EdgeInsets.only(left: MySize.size35),
+            padding: EdgeInsets.only(left: MySize.size25,right: MySize.size25),
             child: Align(
               alignment: Alignment.topLeft,
               child:  Text(  AppLocalizations.of(context)!.canceling_now_will_immediately_remove_all_access_to_features,
@@ -130,10 +131,8 @@ class CancelSubscription extends StatelessWidget {
           ),
           SizedBox(height: MySize.size15,),
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: MySize.size20, vertical: MySize.size16),
-            height: MySize.scaleFactorHeight * 230,
-            width: MySize.scaleFactorWidth * 328,
+            margin: EdgeInsets.only(left: MySize.size25,right: MySize.size25),
+            padding: EdgeInsets.symmetric(horizontal: MySize.size20, vertical: MySize.size16),
             decoration: BoxDecoration(
               color:
               Provider.of<ThemeChanger>(context).themeData == darkMode

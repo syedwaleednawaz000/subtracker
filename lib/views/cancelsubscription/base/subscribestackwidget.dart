@@ -11,8 +11,8 @@ class SubscribeStackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Positioned(
-      bottom: MySize.scaleFactorHeight* 0,
-      left: MySize.scaleFactorWidth* 80,
+      bottom: 9,
+      left: MySize.scaleFactorWidth*80,
       // right: MySize.scaleFactorWidth* 135,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -59,7 +59,9 @@ class _ManagePlanState extends State<ManagePlan> {
         children: [
           _buildPlanList(planProvider, themeProvider),
           SizedBox(height: MySize.size10),
-          _buildFeaturesSection(themeProvider),
+          Consumer<PlanProvider>(builder: (context, planProvider, child) {
+            return planProvider.selectIndex ==-1 ? const SizedBox(): _buildFeaturesSection(themeProvider);
+          },)
         ],
       ),
     );
@@ -105,11 +107,12 @@ class _ManagePlanState extends State<ManagePlan> {
         },
         child: Container(
           height: MySize.scaleFactorHeight * 68,
-          width: MySize.scaleFactorWidth * 288,
+          width: double.infinity,
+          margin: EdgeInsets.only(left: MySize.scaleFactorWidth * 43,right: MySize.scaleFactorWidth * 43),
           decoration: BoxDecoration(
             color: themeProvider.themeData == darkMode
                 ? const Color(0XFF4E4E61).withOpacity(.2)
-                :  Color(0XFFF1F1FF),
+                :  const Color(0XFFF1F1FF),
             borderRadius: BorderRadius.circular(16),
             border: planProvider.selectIndex == index
                 ? Border.all(color: AppColors.purpleFF, width: 2)
@@ -142,8 +145,8 @@ class _ManagePlanState extends State<ManagePlan> {
   }
 
   Widget _buildFeaturesSection(ThemeChanger themeProvider) {
-    return Padding(
-      padding: EdgeInsets.only(left: MySize.size32),
+    return Container(
+      padding: EdgeInsets.only(left: MySize.size25,right: MySize.size22),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -156,7 +159,6 @@ class _ManagePlanState extends State<ManagePlan> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: MySize.size20, vertical: MySize.size16),
             height: MySize.scaleFactorHeight * 245,
-            width: MySize.scaleFactorWidth * 328,
             decoration: BoxDecoration(
               color: themeProvider.themeData == darkMode
                   ? const Color(0XFF4E4E61).withOpacity(.2)

@@ -68,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 content: Text(
-                  AppLocalizations.of(context)!.do_you_really_want_to_exit_the_app,
+                  AppLocalizations.of(context)!
+                      .do_you_really_want_to_exit_the_app,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: MySize.size14,
@@ -139,80 +140,135 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     )
                   : subscriptionProvider.subscriptionData['data'] == null
-                      ?  Center(child: Text(AppLocalizations.of(context)!.data_are_not_available))
+                      ? Center(
+                          child: Text(AppLocalizations.of(context)!
+                              .data_are_not_available))
                       : SingleChildScrollView(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Stack(children: [
-                                CustomContainer(
-                                  activeSubscription:
-                                  data['activesub'].toString() == null
-                                      ? data['activesub'].toString()
-                                      : "0",
-                                  highestSubscription:
-                                  data['highsub'].toString() == null
-                                      ? data['highsub'].toString()
-                                      : "0",
-                                  lowestSubscription:
-                                  data['lowsub'].toString() == null
-                                      ? data['lowsub'].toString()
-                                      : "0",
-                                  monthlyBill:
-                                  data['monthlybill'].toString() == null
-                                      ? data['monthlybill'].toString()
-                                      : "0",
-                                  totalBudget:
-                                  data['totalBudget'].toString() == null
-                                      ? data['totalBudget'].toString()
-                                      : "0",
-                                ),
-                                Positioned(
-                                  bottom: -40,
-                                  left: MySize.size23,
-                                  child: Container(
-                                    height: 125,
-                                    decoration: BoxDecoration(
-                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                          ?  Colors.black
-                                          :  const Color(0XFFFFFFFF),
-                                      borderRadius:  BorderRadius.only(
-                                        bottomRight: Radius.circular(MySize.size25),
-                                        bottomLeft: Radius.circular(MySize.size25),
+                              Stack(
+                                children: [
+                                  CustomContainer(
+                                    activeSubscription:
+                                        data['activesub'].toString() == null
+                                            ? data['activesub'].toString()
+                                            : "0",
+                                    highestSubscription:
+                                        data['highsub'].toString() == null
+                                            ? data['highsub'].toString()
+                                            : "0",
+                                    lowestSubscription:
+                                        data['lowsub'].toString() == null
+                                            ? data['lowsub'].toString()
+                                            : "0",
+                                    monthlyBill:
+                                        data['monthlybill'].toString() == null
+                                            ? data['monthlybill'].toString()
+                                            : "0",
+                                    totalBudget:
+                                        data['totalBudget'].toString() == null
+                                            ? data['totalBudget'].toString()
+                                            : "0",
+                                  ),
+                                  Positioned(
+                                    bottom: -40,
+                                    left: MySize.size23,
+                                    child: Container(
+                                      height: 125,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Provider.of<ThemeChanger>(context)
+                                                        .themeData ==
+                                                    darkMode
+                                                ? Colors.black
+                                                : const Color(0XFFFFFFFF),
+                                        borderRadius: BorderRadius.only(
+                                          bottomRight:
+                                              Radius.circular(MySize.size25),
+                                          bottomLeft:
+                                              Radius.circular(MySize.size25),
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.only(
+                                          bottom:
+                                              MySize.scaleFactorHeight * 15),
+                                      child: Consumer<CurrencyProvider>(
+                                        builder:
+                                            (context, currencyProvider, child) {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              LineColorContainer(
+                                                borderColor:
+                                                    const Color(0xFF758AFF),
+                                                titleText: AppLocalizations.of(
+                                                        context)!
+                                                    .active_subs,
+                                                numberCount:
+                                                    AppConstant.validatePrice(
+                                                        context: context,
+                                                        price: double.parse(
+                                                          data['activesub']
+                                                                      .toString() ==
+                                                                  null
+                                                              ? data['highsub']
+                                                                  .toString()
+                                                              : "0",
+                                                        )),
+                                              ),
+                                              SizedBox(
+                                                width: MySize.scaleFactorWidth *
+                                                    14,
+                                              ),
+                                              LineColorContainer(
+                                                borderColor:
+                                                    const Color(0xFFDC23FF),
+                                                titleText: AppLocalizations.of(
+                                                        context)!
+                                                    .highest_subs,
+                                                numberCount:
+                                                    AppConstant.validatePrice(
+                                                        context: context,
+                                                        price: double.parse(
+                                                          data['highsub']
+                                                                      .toString() ==
+                                                                  null
+                                                              ? data['highsub']
+                                                                  .toString()
+                                                              : "0",
+                                                        )),
+                                              ),
+                                              const SizedBox(
+                                                width: 14,
+                                              ),
+                                              LineColorContainer(
+                                                borderColor:
+                                                    AppColors.accentLine,
+                                                titleText: AppLocalizations.of(
+                                                        context)!
+                                                    .lowest_subs,
+                                                numberCount:
+                                                    AppConstant.validatePrice(
+                                                        context: context,
+                                                        price: double.parse(
+                                                          data['lowsub']
+                                                                      .toString() ==
+                                                                  null
+                                                              ? data['highsub']
+                                                                  .toString()
+                                                              : "0",
+                                                        )),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       ),
                                     ),
-                                    padding: EdgeInsets.only(bottom: MySize.scaleFactorHeight * 15),
-                                    child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
-                                      return Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          LineColorContainer(
-                                            borderColor: const Color(0xFF758AFF),
-                                            titleText:AppLocalizations.of(context)!.active_subs,
-                                            numberCount: AppConstant.validatePrice(context: context,price: double.parse(data['activesub'].toString() == null ? data['highsub'].toString() : "0",)),
-                                          ),
-                                          SizedBox(
-                                            width: MySize.scaleFactorWidth * 14,
-                                          ),
-                                          LineColorContainer(
-                                            borderColor: const Color(0xFFDC23FF),
-                                            titleText: AppLocalizations.of(context)!.highest_subs,
-                                            numberCount: AppConstant.validatePrice(context: context,price: double.parse(data['highsub'].toString() == null ? data['highsub'].toString() : "0",)),
-                                          ),
-                                          const SizedBox(
-                                            width: 14,
-                                          ),
-                                          LineColorContainer(
-                                            borderColor: AppColors.accentLine,
-                                            titleText: AppLocalizations.of(context)!.lowest_subs,
-                                            numberCount: AppConstant.validatePrice(context: context,price: double.parse(data['lowsub'].toString() == null ? data['highsub'].toString() : "0",)),
-                                          ),
-                                        ],
-                                      );
-                                    },),
                                   ),
-                                ),
-                              ],),
+                                ],
+                              ),
                               SizedBox(
                                 height: MySize.scaleFactorHeight * 21,
                               ),
@@ -220,119 +276,117 @@ class _HomeScreenState extends State<HomeScreen>
                                 padding: EdgeInsets.symmetric(
                                     horizontal: MySize.size24),
                                 child: Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: MySize.scaleFactorHeight * 7),
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(MySize.size16),
-                                    color: Provider.of<ThemeChanger>(context)
-                                                .themeData ==
-                                            darkMode
-                                        ? const Color(0xFF0E0E12)
-                                        // ? Colors.orange
-                                        : const Color(0xFFCFCFFC)
-                                        .withOpacity(0.3),
-                                  ),
-                                  child: TabBar(
-                                    dividerColor: Colors.transparent,
-                                    indicatorPadding: const EdgeInsets.symmetric(vertical: 3),
-                                    indicator: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(MySize.size16),
-                                      color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                          ? const Color(0xFF4E4E61).withOpacity(0.20)
-                                          : Colors.white,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: MySize.scaleFactorHeight * 7),
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(MySize.size16),
+                                      color: Provider.of<ThemeChanger>(context)
+                                                  .themeData ==
+                                              darkMode
+                                          ? const Color(0xFF0E0E12)
+                                          // ? Colors.orange
+                                          : const Color(0xFFCFCFFC)
+                                              .withOpacity(0.3),
                                     ),
-                                    indicatorColor: Colors.transparent, // Ensures no default indicator line is shown
-                                    controller: _tabController,
-                                    unselectedLabelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                        ? const Color(0XFFA2A2B5)
-                                        : const Color(0XFFA2A2B5),
-                                    labelColor: Provider.of<ThemeChanger>(context).themeData == darkMode
-                                        ? const Color(0XFFFFFFFF)
-                                        : const Color(0XFF424252),
-                                    tabs: [
-                                      Tab(
-                                        child: Center(
-                                          child: Text(
-                                            AppLocalizations.of(context)!.your_subscriptions,
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontSize: MySize.size12,
-                                              fontWeight: FontWeight.w600,
+                                    child: TabBar(
+                                      dividerColor: Colors.transparent,
+                                      indicatorPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 3),
+                                      indicator: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            MySize.size16),
+                                        color:
+                                            Provider.of<ThemeChanger>(context)
+                                                        .themeData ==
+                                                    darkMode
+                                                ? const Color(0xFF4E4E61)
+                                                    .withOpacity(0.20)
+                                                : Colors.white,
+                                      ),
+                                      indicatorColor: Colors.transparent,
+                                      // Ensures no default indicator line is shown
+                                      controller: _tabController,
+                                      unselectedLabelColor:
+                                          Provider.of<ThemeChanger>(context)
+                                                      .themeData ==
+                                                  darkMode
+                                              ? const Color(0XFFA2A2B5)
+                                              : const Color(0XFFA2A2B5),
+                                      labelColor:
+                                          Provider.of<ThemeChanger>(context)
+                                                      .themeData ==
+                                                  darkMode
+                                              ? const Color(0XFFFFFFFF)
+                                              : const Color(0XFF424252),
+                                      tabs: [
+                                        Tab(
+                                          child: Center(
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .your_subscriptions,
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                fontSize: MySize.size12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Tab(
-                                        child: Center(
-                                          child: Text(
-                                            AppLocalizations.of(context)!.upcoming_bills,
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontSize: MySize.size12,
-                                              fontWeight: FontWeight.w600,
+                                        Tab(
+                                          child: Center(
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .upcoming_bills,
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                fontSize: MySize.size12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-
-                                ),
+                                      ],
+                                    )),
                               ),
                               SizedBox(
                                 height: MySize.size200,
                                 child: TabBarView(
                                   controller: _tabController,
-
                                   children: [
                                     data['subscriptions'].length == 0
-                                        ?
-                                    Center(
+                                        ? Center(
                                             child: Text(
                                               AppLocalizations.of(context)!.your_subscriptions_are_not_available,
                                               style: TextStyle(
                                                   fontSize: MySize.size14,
                                                   fontWeight: FontWeight.w600,
-                                                  color:
-                                                      Provider.of<ThemeChanger>(
-                                                                      context)
-                                                                  .themeData ==
-                                                              darkMode
+                                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                                           ? Colors.white
                                                           : Colors.black),
                                             ),
                                           )
                                         : Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: MySize.size20),
+                                            margin: EdgeInsets.symmetric(horizontal: MySize.size20),
                                             child: ListView.builder(
                                               shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              itemCount:
-                                                  data['subscriptions'].length,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              itemCount: data['subscriptions'].length,
                                               itemBuilder: (context, index) {
                                                 return SubscriptionWidget(
-                                                  subscriptions:
-                                                      data['subscriptions']
-                                                          [index],
+                                                  subscriptions: data['subscriptions'][index],
                                                 );
                                               },
                                             )),
                                     data['upcommingbills'].length == 0
                                         ? Center(
-                                            child: Text(
-                                              AppLocalizations.of(context)!.your_upcoming_bills_are_not_available,
+                                            child: Text(AppLocalizations.of(context)!.your_upcoming_bills_are_not_available,
                                               style: TextStyle(
                                                   fontSize: MySize.size14,
                                                   fontWeight: FontWeight.w600,
-                                                  color:
-                                                      Provider.of<ThemeChanger>(
-                                                                      context)
-                                                                  .themeData ==
-                                                              darkMode
+                                                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
                                                           ? Colors.white
                                                           : Colors.black),
                                             ),
@@ -342,13 +396,11 @@ class _HomeScreenState extends State<HomeScreen>
                                                 horizontal: MySize.size20),
                                             child: ListView.builder(
                                               shrinkWrap: true,
-                                              itemCount:
-                                                  data['upcommingbills'].length,
+                                              itemCount: data['upcommingbills'].length,
                                               itemBuilder: (context, index) {
-                                                var finalData =
-                                                    data['upcommingbills']
-                                                        [index];
-                                                return UpComingBillWidget(upComingBills: finalData);
+                                                var finalData = data['upcommingbills'][index];
+                                                return UpComingBillWidget(
+                                                    upComingBills: finalData);
                                               },
                                             ),
                                           ),

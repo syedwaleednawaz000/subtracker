@@ -54,12 +54,12 @@ class CircularProgressBarWidget extends StatelessWidget {
               ),
               Provider.of<ThemeChanger>(context).themeData == darkMode
                   ? Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/whiteLogoForHome.png',
                       width: MySize.scaleFactorWidth * 83,
                       height: MySize.scaleFactorHeight * 36,
                     )
                   : Image.asset(
-                      'assets/images/logo2.png',
+                      'assets/images/blackLogoForHome.png',
                       width: MySize.scaleFactorWidth * 83,
                       height: MySize.scaleFactorHeight * 36,
                     ),

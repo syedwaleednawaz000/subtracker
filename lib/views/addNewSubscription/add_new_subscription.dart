@@ -277,11 +277,13 @@ class _SubscriptionState extends State<Subscription> {
     '1 week',
     '1 Month',
     '1 Year',
+    'Never',
   ];
   final List<String> billingCycleData = [
     '1 week',
     '1 month',
     '1 year',
+    'Never',
   ];
   String? billingValue;
   String? remindDurationValue;
@@ -605,7 +607,7 @@ class _SubscriptionState extends State<Subscription> {
                             : Colors.black,
                       )),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MySize.size30),
+                    padding: EdgeInsets.only(left: MySize.size30),
                     child: Row(
                       children: [
                         Text(
@@ -668,7 +670,7 @@ class _SubscriptionState extends State<Subscription> {
                             : Colors.black,
                       )),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MySize.size30),
+                    padding: EdgeInsets.only(left: MySize.size30),
                     child: Row(
                       children: [
                         Text(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/Widget/custom_save_button.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/views/personaldata/personaldata.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../theme/theme.dart';
@@ -338,16 +340,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       const Spacer(),
                       Padding(
                         padding:  EdgeInsets.only(right: MySize.size16),
-                        child:  Text('39.95 CHF',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color:  Provider.of<ThemeChanger>(context)
-                              .themeData == darkMode
-                              ?  const Color(0XFFD2D2D2).withOpacity(.9)
-                              :  const Color(0XFF424252)
-                          ),
-                        ),
+                        child:  Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                          return Text(AppConstant.validatePrice(context: context,price: double.parse("39.0"),currencyCode: currencyProvider.selectedCurrencySymbol),
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color:  Provider.of<ThemeChanger>(context)
+                                    .themeData == darkMode
+                                    ?  const Color(0XFFD2D2D2).withOpacity(.9)
+                                    :  const Color(0XFF424252)
+                            ),
+                          );
+                        },),
                       ),
 
                     ],
@@ -362,16 +366,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
               padding:  EdgeInsets.only(right: MySize.size36),
               child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text('Total: 24.50CHF',
-
-                  style: TextStyle(
-                    color:  Provider.of<ThemeChanger>(context)
-                        .themeData == darkMode
-                        ?  Colors.white.withOpacity(.6)
-                        :  const Color(0XFF000000).withOpacity(.6),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),)),),
+                  child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+                    return Text("Total: ${AppConstant.validatePrice(context: context,price: double.parse("39.0"),currencyCode: currencyProvider.selectedCurrencySymbol)}",
+                      style: TextStyle(
+                        color:  Provider.of<ThemeChanger>(context)
+                            .themeData == darkMode
+                            ?  Colors.white.withOpacity(.6)
+                            :  const Color(0XFF000000).withOpacity(.6),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),);
+                  },)),),
 
             const Spacer(),
             CustomSaveButton(

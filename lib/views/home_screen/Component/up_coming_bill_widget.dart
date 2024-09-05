@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
 
@@ -14,7 +15,7 @@ class UpComingBillWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var finalData = upComingBills;
-    DateTime parsedDate = DateTime.parse(finalData['renewal_date']);
+    DateTime parsedDate = DateTime.parse(finalData['renewal_date'].toString());
     String month = DateFormat('MMM').format(parsedDate);
     String day = DateFormat('d').format(parsedDate);
     return GestureDetector(
@@ -67,9 +68,8 @@ class UpComingBillWidget extends StatelessWidget {
                             fontSize: MySize.size12,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Inter',
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? const Color(0XFFA2A2B5)
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFFFFFFFF)
                                 : const Color(0XFF424252),
                           ),
                         ),
@@ -81,9 +81,8 @@ class UpComingBillWidget extends StatelessWidget {
                             fontSize: MySize.size14,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Inter",
-                            color: Provider.of<ThemeChanger>(context).themeData ==
-                                darkMode
-                                ? const Color(0XFFA2A2B5)
+                            color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                ? const Color(0XFFFFFFFF)
                                 : const Color(0XFF424252),
                           ),
                         ),
@@ -100,8 +99,8 @@ class UpComingBillWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Inter',
                     color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0xFFFFFFFF)
-                        : const Color(0xFF424252),
+                        ? const Color(0XFFFFFFFF)
+                        : const Color(0XFF424252),
                   ),
                 ),
               ],
@@ -110,7 +109,7 @@ class UpComingBillWidget extends StatelessWidget {
                 padding: EdgeInsets.only(right: MySize.size22),
                 child: Consumer<CurrencyProvider>(builder:  (context, currencyProvider, child) {
                   return Text(
-                    '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
+                    AppConstant.validatePrice(context: context,currencyCode: currencyProvider.selectedCurrencySymbol,price: double.parse(finalData['price'].toString())),
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontSize: MySize.size14,
