@@ -288,7 +288,8 @@ class _HomeScreenState extends State<HomeScreen>
 
                                   children: [
                                     data['subscriptions'].length == 0
-                                        ? Center(
+                                        ?
+                                    Center(
                                             child: Text(
                                               AppLocalizations.of(context)!.your_subscriptions_are_not_available,
                                               style: TextStyle(

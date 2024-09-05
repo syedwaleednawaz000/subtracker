@@ -33,19 +33,18 @@ class SubscriptionWidget extends StatelessWidget {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  left: MySize.size12, right: MySize.size15),
-            ),
-            TextWidgetInterMedium(
-              title: '${finalData['provider'] == null ? "":finalData['provider']['name']}',
-              fontSize: MySize.size14,
-              // color: AppColors.white100
+              padding:  EdgeInsets.only(left: MySize.size22),
+              child: TextWidgetInterMedium(
+                title: '${finalData['provider'] == null ? "":finalData['provider']['name']}',
+                fontSize: MySize.size14,
+                // color: AppColors.white100
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: MySize.scaleFactorWidth * 115,
                   right: MySize.size22),
               child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
                 return TextWidgetInterMedium(
