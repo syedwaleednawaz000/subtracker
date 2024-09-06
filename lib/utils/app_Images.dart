@@ -68,7 +68,7 @@ class AppImages {
   static String  faqs = 'assets/icons/faqs.png';
   static String  contsupport = 'assets/icons/contact.png';
   static String  terms = 'assets/icons/terms.png';
-  static String  privpolicy = 'assets/icons/privpolicy.png';
+  static String  PrivacyPolicy = 'assets/icons/privpolicy.png';
   static String  logout = 'assets/icons/logout.png';
   static String  chart = 'assets/icons/Chart.png';
   static String  analytics = 'assets/icons/analytics.png';

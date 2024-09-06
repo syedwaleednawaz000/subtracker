@@ -260,7 +260,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       ),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          Get.to(()=>const PrivPolicy());
+                                          Get.to(()=>const PrivacyPolicy());
                                         },
                                     ),
                                     TextSpan(

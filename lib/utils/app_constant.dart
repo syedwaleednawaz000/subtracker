@@ -66,7 +66,7 @@ class AppConstant {
   static String  faqs = 'android/assets_h/icons/faqs.png';
   static String  contsupport = 'android/assets_h/icons/contact.png';
   static String  terms = 'android/assets_h/icons/terms.png';
-  static String  privpolicy = 'android/assets_h/icons/privpolicy.png';
+  static String  PrivacyPolicy = 'android/assets_h/icons/PrivacyPolicy.png';
   static String  logout = 'android/assets_h/icons/logout.png';
   static String  chart = 'android/assets_h/icons/Chart.png';
   static String  analytics = 'android/assets_h/icons/analytics.png';

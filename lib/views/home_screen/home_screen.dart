@@ -147,127 +147,131 @@ class _HomeScreenState extends State<HomeScreen>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Stack(
-                                children: [
-                                  CustomContainer(
-                                    activeSubscription:
-                                        data['activesub'].toString() == null
-                                            ? data['activesub'].toString()
-                                            : "0",
-                                    highestSubscription:
-                                        data['highsub'].toString() == null
-                                            ? data['highsub'].toString()
-                                            : "0",
-                                    lowestSubscription:
-                                        data['lowsub'].toString() == null
-                                            ? data['lowsub'].toString()
-                                            : "0",
-                                    monthlyBill:
-                                        data['monthlybill'].toString() == null
-                                            ? data['monthlybill'].toString()
-                                            : "0",
-                                    totalBudget:
-                                        data['totalBudget'].toString() == null
-                                            ? data['totalBudget'].toString()
-                                            : "0",
-                                  ),
-                                  Positioned(
-                                    bottom: -40,
-                                    left: MySize.size23,
-                                    child: Container(
-                                      height: 125,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Provider.of<ThemeChanger>(context)
-                                                        .themeData ==
-                                                    darkMode
-                                                ? Colors.black
-                                                : const Color(0XFFFFFFFF),
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight:
-                                              Radius.circular(MySize.size25),
-                                          bottomLeft:
-                                              Radius.circular(MySize.size25),
+                              SizedBox(
+                                height: 410,
+                                child: Stack(
+                                  children: [
+                                    CustomContainer(
+                                      activeSubscription:
+                                          data['activesub'].toString() == null
+                                              ? data['activesub'].toString()
+                                              : "0",
+                                      highestSubscription:
+                                          data['highsub'].toString() == null
+                                              ? data['highsub'].toString()
+                                              : "0",
+                                      lowestSubscription:
+                                          data['lowsub'].toString() == null
+                                              ? data['lowsub'].toString()
+                                              : "0",
+                                      monthlyBill:
+                                          data['monthlybill'].toString() == null
+                                              ? data['monthlybill'].toString()
+                                              : "0",
+                                      totalBudget:
+                                          data['totalBudget'].toString() == null
+                                              ? data['totalBudget'].toString()
+                                              : "0",
+                                    ),
+                                    Positioned(
+                                      bottom: -40,
+                                      left: MySize.size23,
+                                      child: Container(
+                                        height: 125,
+                                        // margin: EdgeInsets.only(top: 10),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Provider.of<ThemeChanger>(context)
+                                                          .themeData ==
+                                                      darkMode
+                                                  ? Colors.black
+                                                  : const Color(0XFFFFFFFF),
+                                          borderRadius: BorderRadius.only(
+                                            bottomRight:
+                                                Radius.circular(MySize.size25),
+                                            bottomLeft:
+                                                Radius.circular(MySize.size25),
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.only(
+                                            bottom:
+                                                MySize.scaleFactorHeight * 15),
+                                        child: Consumer<CurrencyProvider>(
+                                          builder:
+                                              (context, currencyProvider, child) {
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                LineColorContainer(
+                                                  borderColor:
+                                                      const Color(0xFF758AFF),
+                                                  titleText: AppLocalizations.of(
+                                                          context)!
+                                                      .active_subs,
+                                                  numberCount:
+                                                      AppConstant.validatePrice(
+                                                          context: context,
+                                                          price: double.parse(
+                                                            data['activesub']
+                                                                        .toString() ==
+                                                                    null
+                                                                ? data['highsub']
+                                                                    .toString()
+                                                                : "0",
+                                                          )),
+                                                ),
+                                                SizedBox(
+                                                  width: MySize.scaleFactorWidth *
+                                                      14,
+                                                ),
+                                                LineColorContainer(
+                                                  borderColor:
+                                                      const Color(0xFFDC23FF),
+                                                  titleText: AppLocalizations.of(
+                                                          context)!
+                                                      .highest_subs,
+                                                  numberCount:
+                                                      AppConstant.validatePrice(
+                                                          context: context,
+                                                          price: double.parse(
+                                                            data['highsub']
+                                                                        .toString() ==
+                                                                    null
+                                                                ? data['highsub']
+                                                                    .toString()
+                                                                : "0",
+                                                          )),
+                                                ),
+                                                const SizedBox(
+                                                  width: 14,
+                                                ),
+                                                LineColorContainer(
+                                                  borderColor:
+                                                      AppColors.accentLine,
+                                                  titleText: AppLocalizations.of(
+                                                          context)!
+                                                      .lowest_subs,
+                                                  numberCount:
+                                                      AppConstant.validatePrice(
+                                                          context: context,
+                                                          price: double.parse(
+                                                            data['lowsub']
+                                                                        .toString() ==
+                                                                    null
+                                                                ? data['highsub']
+                                                                    .toString()
+                                                                : "0",
+                                                          )),
+                                                ),
+                                              ],
+                                            );
+                                          },
                                         ),
                                       ),
-                                      padding: EdgeInsets.only(
-                                          bottom:
-                                              MySize.scaleFactorHeight * 15),
-                                      child: Consumer<CurrencyProvider>(
-                                        builder:
-                                            (context, currencyProvider, child) {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              LineColorContainer(
-                                                borderColor:
-                                                    const Color(0xFF758AFF),
-                                                titleText: AppLocalizations.of(
-                                                        context)!
-                                                    .active_subs,
-                                                numberCount:
-                                                    AppConstant.validatePrice(
-                                                        context: context,
-                                                        price: double.parse(
-                                                          data['activesub']
-                                                                      .toString() ==
-                                                                  null
-                                                              ? data['highsub']
-                                                                  .toString()
-                                                              : "0",
-                                                        )),
-                                              ),
-                                              SizedBox(
-                                                width: MySize.scaleFactorWidth *
-                                                    14,
-                                              ),
-                                              LineColorContainer(
-                                                borderColor:
-                                                    const Color(0xFFDC23FF),
-                                                titleText: AppLocalizations.of(
-                                                        context)!
-                                                    .highest_subs,
-                                                numberCount:
-                                                    AppConstant.validatePrice(
-                                                        context: context,
-                                                        price: double.parse(
-                                                          data['highsub']
-                                                                      .toString() ==
-                                                                  null
-                                                              ? data['highsub']
-                                                                  .toString()
-                                                              : "0",
-                                                        )),
-                                              ),
-                                              const SizedBox(
-                                                width: 14,
-                                              ),
-                                              LineColorContainer(
-                                                borderColor:
-                                                    AppColors.accentLine,
-                                                titleText: AppLocalizations.of(
-                                                        context)!
-                                                    .lowest_subs,
-                                                numberCount:
-                                                    AppConstant.validatePrice(
-                                                        context: context,
-                                                        price: double.parse(
-                                                          data['lowsub']
-                                                                      .toString() ==
-                                                                  null
-                                                              ? data['highsub']
-                                                                  .toString()
-                                                              : "0",
-                                                        )),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 height: MySize.scaleFactorHeight * 21,
@@ -371,8 +375,8 @@ class _HomeScreenState extends State<HomeScreen>
                                         : Container(
                                             margin: EdgeInsets.symmetric(horizontal: MySize.size20),
                                             child: ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
+                                              // shrinkWrap: true,
+                                              physics: const BouncingScrollPhysics(),
                                               itemCount: data['subscriptions'].length,
                                               itemBuilder: (context, index) {
                                                 return SubscriptionWidget(

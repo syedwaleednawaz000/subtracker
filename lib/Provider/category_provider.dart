@@ -23,6 +23,13 @@ class CategoryProvider extends ChangeNotifier {
     _isStoreUserCat = load;
     notifyListeners();
   }
+  void clearSomeData(){
+    _categoryName = '';
+    _subCategoryName = '';
+    _categoryID = '';
+    _subCategoryID= '';
+    notifyListeners();
+  }
 
   Future<void> storeUserCategories(
       {required String categoryID, required String totalBudget, BuildContext? context}) async {

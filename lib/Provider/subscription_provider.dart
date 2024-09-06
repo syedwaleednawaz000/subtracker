@@ -36,6 +36,7 @@ class SubscriptionProvider extends ChangeNotifier{
     _isStoreSub = load;
     notifyListeners();
   }
+
   Future<void> addNewSubscription({
     required String description,
     required String startDate,
@@ -49,7 +50,7 @@ class SubscriptionProvider extends ChangeNotifier{
     FilePickerResult? document,
   }) async {
     _storeSubLoading(load: true);
-    String cleanedPrice = price.replaceAll('\$', '');
+    String cleanedPrice = price.replaceAll(RegExp(r'[^\d.]'), '');
 
     FormData formData = FormData.fromMap({
       'category_id': categoryID,
@@ -152,7 +153,8 @@ class SubscriptionProvider extends ChangeNotifier{
         subscriptionData = {};
         subscriptionData = response.data;
         if (kDebugMode) {
-          log("hit successfully getSubscriptions ${subscriptionData} ===");
+          log("hit successfully getSubscriptions ${subscriptionData['data']['subscriptions'].length} ===");
+          log("hit successfully getSubscriptions ${subscriptionData['data']['upcommingbills'].length} ===");
         }
 
       }else{

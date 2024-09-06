@@ -231,6 +231,10 @@ class SubscriptionInfoProvider extends ChangeNotifier{
           value: 'Yearly',
           child: Text('Yearly'),
         ),
+        const PopupMenuItem<String>(
+          value: 'Never',
+          child: Text('Never'),
+        ),
       ],
       elevation: 8.0,
     );
@@ -263,6 +267,9 @@ class SubscriptionInfoProvider extends ChangeNotifier{
         const PopupMenuItem<String>(
           value: 'Yearly',
           child: Text('Yearly'),
+        ),        const PopupMenuItem<String>(
+          value: 'Never',
+          child: Text('Never'),
         ),
       ],
       elevation: 8.0,

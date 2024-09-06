@@ -614,7 +614,7 @@ class _SettingsState extends State<Settings> {
 
                   /// Help and support container
                   Container(
-                    height: MySize.scaleFactorHeight * 190,
+                    // height: MySize.scaleFactorHeight * 190,
                     width: MySize.scaleFactorWidth * 328,
                     decoration: BoxDecoration(
                       color: Provider.of<ThemeChanger>(context).themeData ==
@@ -714,13 +714,13 @@ class _SettingsState extends State<Settings> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const PrivPolicy()));
+                                          const PrivacyPolicy()));
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(right: 5),
                               child: SettingRowList(
                                 imageIcon: Image.asset(
-                                  AppImages.privpolicy,
+                                  AppImages.PrivacyPolicy,
                                   height: 20,
                                 ),
                                 text: AppLocalizations.of(context)!.privacy_policy,

@@ -120,7 +120,7 @@ class Assets {
   static const String iconsPayment = 'assets/icons/payment.png';
   static const String iconsPee = 'assets/icons/pee.png';
   static const String iconsPlan = 'assets/icons/plan.png';
-  static const String iconsPrivpolicy = 'assets/icons/privpolicy.png';
+  static const String iconsPrivacyPolicy = 'assets/icons/PrivacyPolicy.png';
   static const String iconsRightArrow = 'assets/icons/right_arrow.png';
   static const String iconsSearch = 'assets/icons/search.png';
   static const String iconsSettings = 'assets/icons/settings.png';
@@ -191,7 +191,7 @@ class Assets {
   static const String notificationScreenNotificationScreen = 'lib/views/notification_screen/notification_screen.dart';
   static const String paymentMethodPaymentScreen = 'lib/views/payment_method/payment_screen.dart';
   static const String personaldataPersonaldata = 'lib/views/personaldata/personaldata.dart';
-  static const String privpolicyPrivpolicy = 'lib/views/privpolicy/privpolicy.dart';
+  static const String PrivacyPolicyPrivacyPolicy = 'lib/views/PrivacyPolicy/PrivacyPolicy.dart';
   static const String providerBottomBarProvider = 'lib/Provider/bottom_bar_provider.dart';
   static const String providerCategoryProvider = 'lib/Provider/category_provider.dart';
   static const String providerChangePasswordProvider = 'lib/Provider/change_password_provider.dart';

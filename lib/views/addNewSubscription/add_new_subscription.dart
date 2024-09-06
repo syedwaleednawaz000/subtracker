@@ -148,6 +148,7 @@ class _SubscriptionState extends State<Subscription> {
 
   @override
   void initState() {
+    Future.microtask(() =>     Provider.of<CategoryProvider>(context, listen: false).clearSomeData());
     Future.microtask(() =>     Provider.of<CategoryProvider>(context, listen: false).getAllCategory());
     super.initState();
     DateTime currentDate = DateTime.now();
@@ -467,7 +468,7 @@ class _SubscriptionState extends State<Subscription> {
                             showCategories(context, categoryProvider);
                           },
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: MySize.size24),
+                            margin: EdgeInsets.symmetric(horizontal: MySize.size24,vertical: 10),
                             height: MySize.scaleFactorHeight * 43,
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -524,22 +525,22 @@ class _SubscriptionState extends State<Subscription> {
               ),
 
               /// below container
-              Text(
-                AppLocalizations.of(context)!.description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: MySize.size14,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w500,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0xFF666680)
-                          : const Color(0xFF666680),
-                ),
-              ),
-              SizedBox(
-                height: MySize.size4,
-              ),
+              // Text(
+              //   AppLocalizations.of(context)!.description,
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(
+              //     fontSize: MySize.size14,
+              //     fontFamily: 'Inter',
+              //     fontWeight: FontWeight.w500,
+              //     color:
+              //         Provider.of<ThemeChanger>(context).themeData == darkMode
+              //             ? const Color(0xFF666680)
+              //             : const Color(0xFF666680),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: MySize.size4,
+              // ),
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: MySize.size24),
                 child: TextFormField(
@@ -737,13 +738,14 @@ class _SubscriptionState extends State<Subscription> {
                           child: Text(
                             AppLocalizations.of(context)!.billing_cycle,
                             style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.bold,
                               color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFFA2A2B5)
                                   : const Color(0XFFA2A2B5),
+                              fontSize: MySize.size16,
+                              fontFamily: '',
+                              fontWeight: FontWeight.w600,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -804,13 +806,14 @@ class _SubscriptionState extends State<Subscription> {
                           child: Text(
                             AppLocalizations.of(context)!.reminder_duration,
                             style: TextStyle(
-                              fontSize: MySize.size14,
-                              fontWeight: FontWeight.bold,
                               color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
+                                  .themeData ==
+                                  darkMode
                                   ? const Color(0XFFA2A2B5)
                                   : const Color(0XFFA2A2B5),
+                              fontSize: MySize.size16,
+                              fontFamily: '',
+                              fontWeight: FontWeight.w600,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
