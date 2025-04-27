@@ -11,6 +11,7 @@ import 'package:sub_tracker/utils/validation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/privpolicy/privpolicy.dart';
 import 'package:sub_tracker/views/termsofservices/termsofservices.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../base/field_container.dart';
@@ -83,13 +84,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       children: [
                         CustomTextFormField(
                           controller: nameController,
-                          text: "Username",
-                          hintText: "Enter your name",
+                          text: AppLocalizations.of(context)!.full_name,
+                          hintText: AppLocalizations.of(context)!.enter_your_name,
                           validator: Validation.validateName,
                           suffixIcons: IconButton(
                               onPressed: () {},
                               icon: Icon(
-                                Icons.email,
+                                Icons.person,
                                 color: const Color(0XFF666680).withOpacity(.3),
                               )),
                         ),
@@ -212,7 +213,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Transform.scale(
-                           scale: 1.6,
+                           scale: 1.33,
                               child: Checkbox(
                                 materialTapTargetSize:
                                     MaterialTapTargetSize.shrinkWrap,
@@ -259,7 +260,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       ),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          Get.to(()=>const PrivPolicy());
+                                          Get.to(()=>const PrivacyPolicy());
                                         },
                                     ),
                                     TextSpan(
@@ -272,7 +273,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                     TextSpan(
                                       text: AppLocalizations.of(context)!
-                                          .terms_of_use,
+                                          .term_of_use,
                                       style: const TextStyle(
                                         color: Color(0XFF758AFF),
                                         fontSize: 14,
@@ -315,17 +316,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                     password: passwordController.text.trim(),
                                   );
                                 } else {
-                                  FlutterToast.toastMessage(
-                                    message: "Please accept privacy and policy",
-                                    isError: true,
+                                  FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_accept_privacy_and_policy, isError: true,
                                   );
                                 }
                               } else {
-                                FlutterToast.toastMessage(
-                                  message:
-                                      "Password do not match",
-                                  isError: true,
-                                );
+                                FlutterToast.toastMessage(message:AppLocalizations.of(context)!.password_do_not_match, isError: true,);
                               }
                             }
                           },
@@ -467,9 +462,7 @@ class CustomTextFormField extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: const Color(0XFF666680).withOpacity(.3),
             ),
-            // hintStyle: TextStyle(color: Color(0XFF666680)),
-            // suffixIcon: Icon(Icons.email, color: const Color(0XFF666680).withOpacity(.3),),
-            suffixIcon: suffixIcons,
+           suffixIcon: suffixIcons,
             prefixIcon: prefixIcons,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),

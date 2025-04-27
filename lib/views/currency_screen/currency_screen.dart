@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:sub_tracker/Widget/custom_save_button.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import '../../theme/theme.dart';
 import '../../utils/my_size.dart';
-import '../language_selection/base/custom_appBar.dart';
 import '../language_selection/language_selection.dart';
 
 class CurrencySelection extends StatefulWidget {
@@ -28,20 +30,10 @@ class _CurrencySelectionState extends State<CurrencySelection> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only(left: 8, top: MySize.size25),
-          child:  CustomAppBar(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            text: 'Currency',
-            icon: Icons.arrow_back_rounded,
-          ),
-        ),
-      ),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+      Colors.black
+          : const Color(0XFFFFFFFF),
+      appBar:  CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.currency),
       body: Column(
         children: [
          SizedBox(height: MySize.size18,),
@@ -49,21 +41,21 @@ class _CurrencySelectionState extends State<CurrencySelection> {
             child: CurrencyTiles(),
           ),
           SizedBox(height: MySize.size10),
-          Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
-            return CustomSaveButton(
-              loading: currencyProvider.isUpdateCurrency,
-              text: 'Save',
-              onTap: (){
-                if(currencyProvider.selectedCurrency != "Currency"){
-                  currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
-                }else{
-                  FlutterToast.toastMessage(message: "Please select Currency");
-                }
-              },
-            );
-          },)
         ],
       ),
+      bottomNavigationBar:           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
+        return CustomSaveButton(
+          loading: currencyProvider.isUpdateCurrency,
+          titleText:  AppLocalizations.of(context)!.save,
+          onTap: (){
+            if(currencyProvider.selectedCurrency != "Currency"){
+              currencyProvider.updateCurrency(context: context,currencyCode: currencyProvider.selectedCurrency);
+            }else{
+              FlutterToast.toastMessage(message: AppLocalizations.of(context)!.please_select_currency,isError: true);
+            }
+          },
+        );
+      },),
     );
   }
 }
@@ -81,7 +73,6 @@ class CurrencyTiles extends StatelessWidget {
         currencyProvider.currencyData == null ?
         const Center(child: Text("data are not available"),):
         ListView.builder(
-
           shrinkWrap: true,
           itemCount: currencyProvider.currencyData['data'].length,
           itemBuilder: (context, index) {
@@ -97,7 +88,7 @@ class CurrencyTiles extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(MySize.size15),
                     color: currencyProvider.selectedCurrency == finalData['code']
-                        ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Colors.blue : Colors.blue.withOpacity(0.5))
+                        ? (Provider.of<ThemeChanger>(context).themeData == darkMode ? Color(0xff758AFF) : Color(0xff758AFF))
                         : (Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF272730) : const Color(0XFFF7F7FF)),
                   ),
                   child: Center(
@@ -124,7 +115,7 @@ class CurrencyTiles extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                       trailing: Text(
                         currencyProvider.currencyData['data'][index]['code'].toString(),

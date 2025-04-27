@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
@@ -10,7 +11,6 @@ import 'package:sub_tracker/views/subscriptioninfo/subscription_info.dart';
 class SubscriptionWidget extends StatelessWidget {
   Map<String, dynamic> subscriptions;
    SubscriptionWidget({required this.subscriptions,super.key});
-
   @override
   Widget build(BuildContext context) {
     var finalData = subscriptions;
@@ -34,25 +34,28 @@ class SubscriptionWidget extends StatelessWidget {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  left: MySize.size12, right: MySize.size15),
-              //  child: Image.asset(AppImages.subtrackrIcon,  height: 40, width: 40,),
-            ),
-            TextWidgetInterMedium(
-              title: '${finalData['provider'] == null ? "":finalData['provider']['name']}',
-              fontSize: MySize.size14,
-              // color: AppColors.white100
+              padding:  EdgeInsets.only(left: MySize.size22),
+              child: TextWidgetInterMedium(
+                title: '${finalData['provider'] == null ? "":finalData['provider']['name']}',
+                fontSize: MySize.size14,
+                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                    ? const Color(0XFFFFFFFF)
+                    : const Color(0XFF424252),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: MySize.scaleFactorWidth * 115,
                   right: MySize.size22),
               child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
                 return TextWidgetInterMedium(
-                  title: '${currencyProvider.selectedCurrencySymbol} ${finalData['price']}',
+                  title: AppConstant.validatePrice(currencyCode: currencyProvider.selectedCurrencySymbol,context: context,price: double.parse(finalData['price'].toString(),)),
                   fontSize: MySize.size14,
+                  color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFFFFFFFF)
+                      : const Color(0XFF424252),
                   // color: AppColors.white100
                 );
               },),

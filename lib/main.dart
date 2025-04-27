@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sub_tracker/Provider/bio_metric_provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Provider/change_password_provider.dart';
 import 'package:sub_tracker/Provider/contact_with_support_provider.dart';
@@ -28,10 +27,12 @@ import 'package:sub_tracker/Provider/two_factor_auth_provider.dart';
 import 'package:sub_tracker/theme/theme.dart';
 import 'package:sub_tracker/utils/app_url.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/auth/local_auth_provider.dart';
 import 'package:sub_tracker/views/forgot_password/base/countNotifier.dart';
 import 'package:sub_tracker/views/splash_screen/splash_screen.dart';
 import 'Provider/bottom_bar_provider.dart';
 import 'Provider/spending_budget_provider.dart';
+import 'views/subscriptioninfo/Provider/sub_scription_info_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,13 +70,13 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => SplashProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ProfileProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => LanguageProvider()),
-        ChangeNotifierProvider(create: (BuildContext context) => BioMetricProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => CurrencyProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => EmailNotificationProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TwoFactorAuthProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ChangePasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ForgotPasswordProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => PlanProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => LocalAuthProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => FaqsProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => SubscriptionProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => TicketProvider()),
@@ -85,14 +86,17 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (BuildContext context) => ScheduleProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => SpendingBudgetProvider()),
         ChangeNotifierProvider(create: (BuildContext context) => ContactWithSupportProvider()),
+        ChangeNotifierProvider(create: (BuildContext context) => SubscriptionInfoProvider()),
 
       ],
       child: Builder(builder: (BuildContext context) {
         final themeChanger = Provider.of<ThemeChanger>(context);
+
         return Consumer<LanguageProvider>(builder: (context, languageProvider, child) {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: themeChanger.themeData,
+
             locale: languageProvider.appLocale,
             localizationsDelegates:  const [
               AppLocalizations.delegate,
@@ -113,6 +117,7 @@ class _MyAppState extends State<MyApp> {
                 child: child!,
               );
             },
+
           );
         },);
       }),

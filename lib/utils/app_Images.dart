@@ -68,11 +68,12 @@ class AppImages {
   static String  faqs = 'assets/icons/faqs.png';
   static String  contsupport = 'assets/icons/contact.png';
   static String  terms = 'assets/icons/terms.png';
-  static String  privpolicy = 'assets/icons/privpolicy.png';
+  static String  PrivacyPolicy = 'assets/icons/privpolicy.png';
   static String  logout = 'assets/icons/logout.png';
   static String  chart = 'assets/icons/Chart.png';
   static String  analytics = 'assets/icons/analytics.png';
-  static String  backArrow = 'assets/icons/back_arrow.png';
+  static String  lightBackArrow = 'assets/icons/lightBackArrow.png';
+  static String  darkBackArrow = 'assets/icons/darkBackArrow.png';
   static String  downwardArrow = 'assets/icons/downwardArrow.png';
   static String  bioMetricimg = 'assets/icons/bioMetric.png';
 
@@ -88,6 +89,10 @@ class AppImages {
   static String  arrowLeft = 'assets/icons/arrowleft.png';
   static String  editImage = 'assets/icons/editimage.png';
   static String exclMark = 'assets/icons/mark.png';
+
+
+
+  static String addIcon = 'assets/images/Add.png';
 
   ///
 

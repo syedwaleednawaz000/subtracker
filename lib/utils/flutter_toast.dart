@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
 
 class FlutterToast{
-  static void toastMessage({required String message , bool isError = false}){
+  static void toastMessage({required String message , bool isError = false,}){
      Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,

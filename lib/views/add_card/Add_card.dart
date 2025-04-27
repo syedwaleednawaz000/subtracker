@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/views/payment_method/payment_screen.dart';
+
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constant.dart';
 import '../../utils/my_size.dart';
 import '../base/text_widgets.dart';
-import '../language_selection/base/custom_appBar.dart';
 import '../settings/settings.dart';
 
 
@@ -26,7 +28,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   bool tap2 = true;
   int selectedIndex = -1;
 
-  List<String> titleContainer = ['Credit Card', 'Debit Card', 'Pay Pal'];
+
   List<String> containerImages= [
     AppImages.credit_cardIcon,
     AppImages.debit_cardIcon,
@@ -35,30 +37,23 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> titleContainer = [
+    AppLocalizations.of(context)!.credit_card,
+    AppLocalizations.of(context)!.debit_card,
+    AppLocalizations.of(context)!.pay_pal
+    ];
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ? const Color(0XFF1C1C23) : const Color(0XFFF7F7FF),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(MySize.size72),
-        child: Padding(
-          padding: EdgeInsets.only( top: MySize.size25),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const CustomAppBar(
-              text: 'Manage Payment',
-              icon: Icons.arrow_back_rounded,
-            ),
-          ),
-        ),
-      ),
+      backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode ?
+         Colors.black
+        : const Color(0XFFFFFFFF),
+      appBar:   CustomAppBarInAll(leading: false,title:  AppLocalizations.of(context)!.manage_payment),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 32, right: 10, bottom: 10, top: 18),
-            child:  Text('Payment Method',
+            padding: const EdgeInsets.only(left: 32, right: 10, bottom: 10, top: 40),
+            child:  Text( AppLocalizations.of(context)!.payment_method,
               style: TextStyle(
                   color: Provider.of<ThemeChanger>(context).themeData == darkMode
                       ? const Color(0XFFFFFFFF)
@@ -198,12 +193,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidgetInterMedium(
-                      title: 'Name on card',
+                      title:  AppLocalizations.of(context)!.name_on_card,
                       fontSize: MySize.size15,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                     const SizedBox(height: 5,),
@@ -225,7 +220,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                             cursorColor: Colors.blueGrey,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(bottom: MySize.size20),
-                              hintText: 'Olivia Rhye',
+                              hintText:  AppLocalizations.of(context)!.olivia_rhye,
                               hintStyle: TextStyle(
                                 fontSize: MySize.size14,
                                 color: Provider.of<ThemeChanger>(context).themeData == darkMode
@@ -245,12 +240,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidgetInterMedium(
-                      title: 'Expiry',
+                      title:  AppLocalizations.of(context)!.expiry,
                       fontSize: MySize.size15,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                     const SizedBox(height: 5,),
@@ -293,12 +288,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidgetInterMedium(
-                      title: 'Card number',
+                      title: AppLocalizations.of(context)!.card_number,
                       fontSize: MySize.size15,
                       fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                      SizedBox(height: MySize.size5,),
@@ -337,10 +332,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidgetInterMedium(title: 'CVV', fontSize: MySize.size15, fontWeight: FontWeight.w500,
+                    TextWidgetInterMedium(title:  AppLocalizations.of(context)!.cvv, fontSize: MySize.size15, fontWeight: FontWeight.w500,
                       color:Provider.of<ThemeChanger>(context).themeData ==
                           darkMode
-                          ? Color(0XFFFFFFFF)
+                          ? const Color(0XFFFFFFFF)
                           : Colors.black,
                     ),
                     const SizedBox(height: 5,),
@@ -387,7 +382,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                Navigator.push(context, MaterialPageRoute(builder:  (context) => const PaymentScreen()));
              },
                child: Container(
-                 height: MySize.size44, width:  MySize.scaleFactorWidth*154,
+                 height: MySize.size48, width:  MySize.scaleFactorWidth*154,
                  decoration: BoxDecoration(
                      color: const Color(0XFF3D3D47),
                      border: Border.all(color: const Color(0XFF3D3D47)),
@@ -396,19 +391,18 @@ class _AddCardScreenState extends State<AddCardScreen> {
                      BoxShadow(
                        color: const Color(0XFF101828).withOpacity(.5),
                        blurRadius: 2,
+                       spreadRadius: 0,
                        offset: const Offset(0, 1)
                      )
                    ]
                  ),
-                 child: Center(
-                 child:   Text('Cancel',
+                 child:  Center(
+                 child:   Text( AppLocalizations.of(context)!.cancel,
                      style: TextStyle(
-                       fontSize: 14, fontWeight: FontWeight.w400,
+                       fontSize: 14,
+                       fontWeight: FontWeight.w400,
                        fontFamily: 'Poppins_Regular',
-                       color:  Provider.of<ThemeChanger>(context)
-                           .themeData == darkMode
-                           ? Colors.white
-                           :  Colors.white,
+                       color:  Colors.white,
                      ),
                    ),
 
@@ -421,28 +415,28 @@ class _AddCardScreenState extends State<AddCardScreen> {
                  Navigator.push(context, MaterialPageRoute(builder:  (context) => const PaymentScreen()));
                },
                child: Container(
-                 height:  MySize.size44, width:  MySize.scaleFactorWidth*154,
+                 height:  MySize.size48,
+                 width:  MySize.scaleFactorWidth*154,
                  decoration: BoxDecoration(
                      color: const Color(0XFF758AFF),
-                   borderRadius: BorderRadius.circular(10),
+                   borderRadius: BorderRadius.circular(8),
                      border: Border.all(color: Colors.transparent),
                      boxShadow: [
                        BoxShadow(
                            color: const Color(0XFF101828).withOpacity(.5),
                            blurRadius: 2,
+                           spreadRadius: 0,
                            offset: const Offset(0, 1)
+
                        )
                      ]
                  ),
-                 child: Center(
-                     child: Text('Confirm',
-                  style: TextStyle(
+                 child:  Center(
+                     child: Text( AppLocalizations.of(context)!.confirm,
+                  style: const TextStyle(
                     fontSize: 14, fontWeight: FontWeight.w400,
                     fontFamily: 'Poppins_Regular',
-                    color:  Provider.of<ThemeChanger>(context)
-                        .themeData == darkMode
-                        ? Colors.white
-                        :  Colors.white,
+                    color:  Colors.white,
                   ),
                  ),
                  ),

@@ -2,6 +2,8 @@ import 'package:circular_seek_bar/circular_seek_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/views/base/text_widgets.dart';
 
 import '../../theme/theme.dart';
@@ -52,12 +54,12 @@ class CircularProgressBarWidget extends StatelessWidget {
               ),
               Provider.of<ThemeChanger>(context).themeData == darkMode
                   ? Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/whiteLogoForHome.png',
                       width: MySize.scaleFactorWidth * 83,
                       height: MySize.scaleFactorHeight * 36,
                     )
                   : Image.asset(
-                      'assets/images/logo2.png',
+                      'assets/images/blackLogoForHome.png',
                       width: MySize.scaleFactorWidth * 83,
                       height: MySize.scaleFactorHeight * 36,
                     ),
@@ -66,7 +68,8 @@ class CircularProgressBarWidget extends StatelessWidget {
               ),
           Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
             return               Text(
-              '${currencyProvider.selectedCurrencySymbol} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
+              AppConstant.validatePrice(context: context,price: double.parse(monlthyBill == null ? "${monlthyBill}" : "0")),
+              // '${currencyProvider.selectedCurrencySymbol} ${monlthyBill == null ? "${monlthyBill}" : "0"}',
               style: TextStyle(
                 fontSize: MySize.size40,
                 fontWeight: FontWeight.w700,
@@ -82,7 +85,7 @@ class CircularProgressBarWidget extends StatelessWidget {
                 height: MySize.size16,
               ),
               Text(
-                'This month bills',
+                AppLocalizations.of(context)!.this_month_bills,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: MySize.size12,
@@ -117,7 +120,7 @@ class CircularProgressBarWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'See your budget',
+                      AppLocalizations.of(context)!.see_your_budget,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: MySize.size12,

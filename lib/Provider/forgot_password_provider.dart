@@ -4,7 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/login_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/auth/login/login_screen.dart';
@@ -18,7 +20,10 @@ class ForgotPasswordProvider extends ChangeNotifier{
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
   String forgetToken = "";
-
+  void clearPassword(){
+    password.clear();
+    confirmPassword.clear();
+  }
   bool isForgot = false;
   void _loginLoading({required bool load}){
     isForgot = load;
@@ -49,15 +54,20 @@ class ForgotPasswordProvider extends ChangeNotifier{
     }else{
       if (_timer != null) {
         _timer!.cancel();
+        isTimerRunning = false;
         secondsRemaining = 0;
         notifyListeners();
       }
     }
   }
-
-  Future<void> forgotPassword({required BuildContext context,})async{
+  String _otp = '';
+  String get otp => _otp;
+  Future<void> forgotPassword({required BuildContext context, String? email, String? requestType})async{
+    if(email != null){
+      emailTextEditingController.text = email;
+    }
     var body = {
-      'email': emailTextEditingController.text.trim(),
+      'email': email ?? emailTextEditingController.text.trim(),
     };
     _loginLoading(load: true);
     print("this is the body ${body}");
@@ -65,12 +75,15 @@ class ForgotPasswordProvider extends ChangeNotifier{
       Response response = await _apiService.forgotPassword(params: body);
       if(response.statusCode == 200){
         // print("this is res ")
+        Provider.of<LoginProvider>(context,listen: false).clearPassword();
         _loginLoading(load: false);
-        FlutterToast.toastMessage(message: "OTP send successfully ${response.data['otp'].toString()}",);
-
+        FlutterToast.toastMessage(message: "${AppLocalizations.of(context)!.otp_send_successfully}  ${response.data['otp'].toString()}",);
           startTimer(timer: true);
-
-        Navigator.push(context, MaterialPageRoute(builder:  (context) => OTPVerification(otp: response.data['otp'].toString(),)));
+        _otp = response.data['otp'].toString();
+          if(requestType == null){
+            Get.to(()=> OTPVerification(otp: response.data['otp'].toString(),));
+            // Navigator.push(context, MaterialPageRoute(builder:  (context) => OTPVerification(otp: response.data['otp'].toString(),)));
+          }
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => const LoginScreen()));
       }else{
         _loginLoading(load: false);
@@ -102,7 +115,7 @@ class ForgotPasswordProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _verifyOTpLoading(load: false);
         forgetToken = response.data['token'];
-        FlutterToast.toastMessage(message: "OTP successfully verified",);
+        FlutterToast.toastMessage(message:AppLocalizations.of(context)!.otp_successfully_verified,);
         Navigator.push(context, MaterialPageRoute(builder: (context) => const UpdatePassword()));
 
       }else{
@@ -134,8 +147,11 @@ class ForgotPasswordProvider extends ChangeNotifier{
     try{
       Response response = await _apiService.changePassword(params: body);
       if(response.statusCode == 200){
+        emailTextEditingController.clear();
+        password.clear();
+        confirmPassword.clear();
         _ChangePassLoading(load: false);
-        FlutterToast.toastMessage(message: " Password reset successfully",);
+        FlutterToast.toastMessage(message: AppLocalizations.of(context)!.password_reset_successfully,);
         Get.offAll(()=> const LoginScreen());
         notifyListeners();
       }else{

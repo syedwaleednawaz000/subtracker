@@ -3,13 +3,16 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
-import 'package:sub_tracker/notification_screen/notification_screen.dart';
+import 'package:sub_tracker/utils/app_constant.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/views/language_selection/language_selection.dart';
+import 'package:sub_tracker/views/notification_screen/notification_screen.dart';
+
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
 import '../../utils/app_colors.dart';
@@ -44,107 +47,64 @@ class _CustomContainerState extends State<CustomContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius:  BorderRadius.only(
-          bottomRight: Radius.circular(MySize.size25),
-          bottomLeft: Radius.circular(MySize.size25),
-        ),
         color: Provider.of<ThemeChanger>(context).themeData == darkMode
-            ? const Color(0xFF353542)
-            : const Color(0xFFFFFFFF),
+            ? Colors.black
+            :  Color(0XFFFFFFFF),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              CustomPaint(
-                size: const Size(385, 429),
-                painter: DottedArcPainterC(
-                  strokeWidth: 3,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF353542)
-                          : const Color(0XFFFFFFFF),
-                ),
-              ),
-              CustomPaint(
-                size: const Size(298, 300), // Adjust size as needed
-                painter: DottedArcPainter(
-                  strokeWidth: 3,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF353542)
-                          : const Color(0XFFFFFFFF),
-                ),
-              ),
-              CustomPaint(
-                size: const Size(200, 10), // Adjust size as needed
-                painter: DottedArcPainter(
-                  strokeWidth: 3,
-                  color:
-                      Provider.of<ThemeChanger>(context).themeData == darkMode
-                          ? const Color(0XFF4E4E61)
-                          : const Color(0XFF4E4E61),
-                ),
-              ),
-              CircularProgressBarWidget(
-                totalBudget: widget.monthlyBill,
-                monlthyBill: widget.totalBudget,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: MySize.scaleFactorHeight * 355),
-                child: Consumer<CurrencyProvider>(builder: (context, currencyProvider, child) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LineColorContainer(
-                        borderColor: const Color(0xFF758AFF),
-                        titleText: 'Active subs',
-                        numberCount: '${widget.activeSubscription}',
-                      ),
-                      SizedBox(
-                        width: MySize.scaleFactorWidth * 14,
-                      ),
-                      LineColorContainer(
-                        borderColor: const Color(0xFFDC23FF),
-                        titleText: 'Highest subs',
-                        numberCount: '${currencyProvider.selectedCurrencySymbol} ${widget.highestSubscription}',
-                      ),
-                      const SizedBox(
-                        width: 14,
-                      ),
-                      LineColorContainer(
-                        borderColor: AppColors.accentLine,
-                        titleText: 'Lowest subs',
-                        numberCount: '${currencyProvider.selectedCurrencySymbol} ${widget.lowestSubscription}',
-                      ),
-                    ],
-                  );
-                },),
-              ),
-              Positioned(
-                right: 24,
-                top: 31,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const NotificationsScreen()),
-                    );
-                  },
-                  child: SvgPicture.asset(
-                    AppImages.notificationIconSvg,
-                    height: MySize.size24,
-                    width: MySize.size24,
-                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
-                        ? const Color(0xFFA2A2B5)
-                        : const Color(0xFFC1C1CD),
-                  ),
-                ),
-              )
-            ],
+          CustomPaint(
+            size: const Size(360, 400),
+            painter: DottedArcPainterC(
+              strokeWidth: 3,
+              color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF),
+            ),
           ),
+          CustomPaint(
+            size: const Size(260, 300), // Adjust size as needed
+            painter: DottedArcPainter(
+              strokeWidth: 3,
+              color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF353542)
+                      : const Color(0XFFFFFFFF),
+            ),
+          ),
+          CustomPaint(
+            size: const Size(200, 10), // Adjust size as needed
+            painter: DottedArcPainter(
+              strokeWidth: 3,
+              color:
+                  Provider.of<ThemeChanger>(context).themeData == darkMode
+                      ? const Color(0XFF4E4E61)
+                      : const Color(0XFF4E4E61),
+            ),
+          ),
+          CircularProgressBarWidget(
+            totalBudget: widget.monthlyBill,
+            monlthyBill: widget.totalBudget,
+          ),
+          Positioned(
+            right: 24,
+            top: 31,
+            child: InkWell(
+              onTap: () {
+                Get.to(()=> const NotificationsScreen());
+              },
+              child: SvgPicture.asset(
+                AppImages.notificationIconSvg,
+                height: MySize.size24,
+                width: MySize.size24,
+                color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                    ? const Color(0xFFA2A2B5)
+                    : const Color(0xFFC1C1CD),
+              ),
+            ),
+          )
         ],
       ),
     );

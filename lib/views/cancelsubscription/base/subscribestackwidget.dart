@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../utils/my_size.dart';
 import '../../base/text_widgets.dart';
 
@@ -10,8 +11,8 @@ class SubscribeStackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Positioned(
-      bottom: MySize.scaleFactorHeight* 0,
-      left: MySize.scaleFactorWidth* 80,
+      bottom: MySize.scaleFactorHeight *1,
+      left: MySize.scaleFactorWidth*88,
       // right: MySize.scaleFactorWidth* 135,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -37,7 +38,7 @@ class SubscribeStackWidget extends StatelessWidget {
         ),
         child: Center(
           child: TextWidgetInterMedium(
-              title: 'Subscribed',
+              title:  AppLocalizations.of(context)!.subscribed,
               color: AppColors.whiteFF,
               fontSize: 10,
               fontWeight: FontWeight.w500),

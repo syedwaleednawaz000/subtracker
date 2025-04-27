@@ -1,8 +1,8 @@
-
-
 import 'package:flutter/cupertino.dart';
-
+import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'app_colors.dart';
+import 'package:intl/intl.dart';
 import 'my_size.dart';
 
 class AppConstant {
@@ -66,7 +66,7 @@ class AppConstant {
   static String  faqs = 'android/assets_h/icons/faqs.png';
   static String  contsupport = 'android/assets_h/icons/contact.png';
   static String  terms = 'android/assets_h/icons/terms.png';
-  static String  privpolicy = 'android/assets_h/icons/privpolicy.png';
+  static String  PrivacyPolicy = 'android/assets_h/icons/PrivacyPolicy.png';
   static String  logout = 'android/assets_h/icons/logout.png';
   static String  chart = 'android/assets_h/icons/Chart.png';
   static String  analytics = 'android/assets_h/icons/analytics.png';
@@ -94,6 +94,29 @@ class AppConstant {
   static const String privText = 'Lorem ipsum dolor sit amet consectetur. Auctor\n'
       'urna et at faucibus cras. Consectetur sed lorem\naliquet adipiscing sit in porttitor viverra. Erat'
       '\nmaecenas euismod a dictum. Interdum massa\nsenectus ultricies malesuada scelerisque sed.';
+
+
+  static String validatePrice({double? price, String? currencyCode, required BuildContext context}) {
+
+    String priceSymbol = Provider.of<CurrencyProvider>(context, listen: false).selectedCurrencySymbol;
+    if (price == null || price < 0) {
+      switch (priceSymbol.toUpperCase()) {
+        case '\$':
+          return "0.0$priceSymbol"; // Assuming '$' is for USD
+        default:
+          return "$priceSymbol${"0.0"}";
+      }
+    } else {
+      switch (priceSymbol.toUpperCase()) {
+        case 'PKR':
+          return 'PKR$price'; // PKR symbol comes before the price
+        case '\$':
+          return "$priceSymbol$price"; // Price comes before the USD symbol
+        default:
+          return '$priceSymbol$price'; // Default format
+      }
+    }
+  }
 
 
 

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Repo/repo.dart';
 import 'package:sub_tracker/views/bottomnavbar/bottom_navBar.dart';
@@ -40,15 +41,8 @@ class LoginProvider extends ChangeNotifier{
         }else{
           storeRememberMe(email: '',password: '');
         }
-        if (kDebugMode) {
-          log("hit successfully");
-        }
-        FlutterToast.toastMessage(message: "Successfully logged in",);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => BnavBar()),
-        );
-
+         // FlutterToast.toastMessage(message: "Successfully Signed In",);
+        Get.offAll(()=> const BnavBar());
         // Navigator.push(context, MaterialPageRoute(builder:  (context) => BnavBar()));
         emailController.clear();
         passwordController.clear();
@@ -75,7 +69,6 @@ class LoginProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
   Future<void> storeRememberMe({required String email, required String password })async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(AppConstant.saveUserEmail, email);
@@ -94,6 +87,16 @@ class LoginProvider extends ChangeNotifier{
       notifyListeners();
     }
   }
+  Future<void> clearPassword()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString(AppConstant.saveUserPassword) != null){
+      prefs.remove(AppConstant.saveUserPassword);
+      passwordController.clear();
+      notifyListeners();
+    }
+
+  }
+
 
 
 }

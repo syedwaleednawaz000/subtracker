@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
 
+
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/category_provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
@@ -19,7 +21,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
   String totalSpendBudget = "0";
   Map<String , dynamic> spendingBudgetData = {};
   bool isLoading = false;
-  Future<void> getSpendingBudget() async {
+  Future<void> getSpendingBudget(BuildContext context) async {
     isLoading = true;
     notifyListeners();
     try {
@@ -34,7 +36,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
     } catch (error) {
       isLoading = false;
       notifyListeners();
-      log("Error fetching scheduleModelData: $error");
+      log("${ AppLocalizations.of(context)!.error_fetching_scheduleModelData}: $error");
     } finally {
       print("its final ");
       notifyListeners();
@@ -43,7 +45,7 @@ class SpendingBudgetProvider extends ChangeNotifier{
 
 
   bool isBudgetSetLoading = false;
-  Future<void> budgetSet({required String price , required String categoryID}) async {
+  Future<void> budgetSet({required String price , required String categoryID,BuildContext? context}) async {
     isBudgetSetLoading = true;
     notifyListeners();
     Map<String , dynamic> body ={
@@ -54,9 +56,9 @@ class SpendingBudgetProvider extends ChangeNotifier{
       Response response = await _apiService.setBudget(params: body);
       if (response.statusCode == 200) {
         isBudgetSetLoading = false;
-        getSpendingBudget();
+        getSpendingBudget(context!);
         Get.back();
-        FlutterToast.toastMessage(message: "Budget set Successfully");
+        FlutterToast.toastMessage(message:  AppLocalizations.of(context!)!.set_budget);
         notifyListeners();
       }
     } catch (error) {
@@ -109,10 +111,10 @@ class SpendingBudgetProvider extends ChangeNotifier{
     try {
       Response response = await _apiService.addCategories(params: formData);
       if (response.statusCode == 200) {
-        getSpendingBudget();
+        getSpendingBudget(context!);
         Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
         _addCat(load: false);
-        FlutterToast.toastMessage(message: "Category added successfully");
+        FlutterToast.toastMessage(message: AppLocalizations.of(context)!.category_added_successfully);
         Get.back();
         if (kDebugMode) {
           print("hit successfully");
@@ -151,9 +153,9 @@ class SpendingBudgetProvider extends ChangeNotifier{
       if (response.statusCode == 200) {
         Provider.of<CategoryProvider>(context,listen: false).getAllCategory();
         isAddProviderInUserCategoryLoading = false;
-        getSpendingBudget();
+        getSpendingBudget(context!);
         Get.back();
-        FlutterToast.toastMessage(message: "Provider added Successfully");
+        FlutterToast.toastMessage(message: AppLocalizations.of(context)!.provider_added_successfully);
         notifyListeners();
       }
     } catch (error) {

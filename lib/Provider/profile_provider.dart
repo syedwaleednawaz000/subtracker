@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sub_tracker/Provider/currency_Provider.dart';
 import 'package:sub_tracker/Repo/repo.dart';
@@ -32,6 +32,14 @@ class ProfileProvider extends ChangeNotifier{
     print("this is updated");
     notifyListeners();
   }
+  bool hasUserChangedData() {
+    // Compare the current text in the controllers with the original data
+    bool isNameChanged = nameEditingController.text != (userData['data']['name'] ?? "");
+    bool isEmailChanged = emailEditingController.text != (userData['data']['email'] ?? "");
+    bool isPhoneNumberChanged = phoneNumberEditingController.text != (userData['data']['phone_number'] ?? "");
+    return isNameChanged || isEmailChanged || isPhoneNumberChanged;
+  }
+
   bool _isDeleted = false;
   bool get isDeleted => _isDeleted;
   void _loginLoading({required bool load}){
@@ -44,18 +52,30 @@ class ProfileProvider extends ChangeNotifier{
     _isUpdateProfile = load;
     notifyListeners();
   }
+  List<bool> switchValues = [];
+  Future<void> setSwitchValue({required Map<String , dynamic> map}) async {
+    Map<String , dynamic> data = map['data'];
+    switchValues.add(data['biometric_auth'] =="disabled"?false:true);
+    switchValues.add(data['two_factor'] =="disabled"?false:true);
+    switchValues.add(data['email_notifications'] =="disabled"?false:true);
+    notifyListeners();
+  }
+  // List<bool> switchValues = List.generate(3, (index) => false);
   Map<String , dynamic > userData = {};
-  Future<void> getProfile({required BuildContext context,required String userID})async{
+  Future<void> getProfile({required BuildContext context,required String userID, String? type})async{
     _updateLoading(load: true);
     try{
       Response response = await _apiService.getProfile();
       if(response.statusCode == 200){
         userData = response.data;
+        if(type == null){
+          setSwitchValue(map: userData);
+        }
         if(userData['data']['currency_code'] != null){
           Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(
               currencyCode: userData['data']['currency_code'], currencySymbol: userData['data']['currency_symbol']);
         }else{
-          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode: "USD",currencySymbol: "\$");
+          Provider.of<CurrencyProvider>(context,listen: false).selectCurrency(currencyCode:  "USD",currencySymbol: "\$");
         }
         updateTextFieldData();
         _updateLoading(load: false);
@@ -92,8 +112,9 @@ class ProfileProvider extends ChangeNotifier{
       if(response.statusCode == 200){
         _updateLoading(load: false);
         updatePic= null;
-        getProfile(userID: "",context: context);
-        FlutterToast.toastMessage(message: "Profile updated successfully",);
+        getProfile(userID: "",context: context,type: "switch");
+
+        FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.profile_updated_successfully,);
         if (kDebugMode) {
           print("hit successfully");
         }
@@ -149,11 +170,8 @@ class ProfileProvider extends ChangeNotifier{
     AppConstant.getUserToken = '';
     AppConstant.getUserID = '';
     // prefs.clear();
-    FlutterToast.toastMessage(message: "Successfully Logout");
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => WelcomeScreen()),
-    );
+    // FlutterToast.toastMessage(message: "Successfully Logout");
+    Get.offAll(()=> const WelcomeScreen());
 
   }
 
@@ -179,4 +197,74 @@ class ProfileProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+
+
+  Future<void> bioMetricAuth({required BuildContext context,})async{
+    try{
+      Response? response;
+      if(userData['data']['biometric_auth'] =="enabled"){
+        response = await _apiService.disableBiometric(params: {});
+      }else{
+        response = await _apiService.enableBiometric(params: {});
+      }
+      if(response!.statusCode == 200){
+        if(userData['data']['biometric_auth'] =="enabled"){
+          userData['data']['biometric_auth'] = "disable";
+        }else{
+          userData['data']['biometric_auth'] = "enabled";
+        }
+        FlutterToast.toastMessage(message: response.data['message'],);
+        notifyListeners();
+      }else{
+      }
+    }catch(error){
+      print("this is error ${error.toString()}");
+    }
+  }
+
+  Future<void> twoFactorAuth({required BuildContext context,})async{
+    try{
+      Response? response;
+      if(userData['data']['two_factor'] =="enabled"){
+        response = await _apiService.disableTwoFactorAuth(params: {});
+      }else{
+        response = await _apiService.enableTwoFactorAuth(params: {});
+      }
+      if(response!.statusCode == 200){
+        if(userData['data']['two_factor'] =="enabled"){
+          userData['data']['two_factor'] = "disable";
+        }else{
+          userData['data']['two_factor'] = "enabled";
+        }
+        FlutterToast.toastMessage(message: response.data['message'],);
+        notifyListeners();
+      }else{
+      }
+    }catch(error){
+      print("this is error ${error.toString()}");
+    }
+  }
+
+  Future<void> emailNotification({required BuildContext context,})async{
+    try{
+      Response? response;
+      if(userData['data']['email_notifications'] =="enabled"){
+        response = await _apiService.disableEmailNotifications(params: {});
+      }else{
+        response = await _apiService.enableEmailNotifications(params: {});
+      }
+      if(response!.statusCode == 200){
+        if(userData['data']['email_notifications'] =="enabled"){
+          userData['data']['email_notifications'] = "disable";
+        }else{
+          userData['data']['email_notifications'] = "enabled";
+        }
+        FlutterToast.toastMessage(message: response.data['message'],);
+        notifyListeners();
+      }else{
+      }
+    }catch(error){
+      print("this is error ${error.toString()}");
+    }
+  }
 }

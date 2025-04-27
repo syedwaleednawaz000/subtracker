@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:sub_tracker/views/settings/settings.dart';
 import 'package:sub_tracker/views/spending_budgets/spending_budgets.dart';
@@ -28,6 +30,8 @@ class _BnavBarState extends State<BnavBar> {
   @override
   void initState() {
     // TODO: implement initState
+    Future.microtask(() => Provider.of<ProfileProvider>(context, listen: false)
+        .getProfile(userID: "", context: context));
     Future.microtask(() =>
         Provider.of<BottomBarProvider>(context, listen: false).selection(0));
     super.initState();
@@ -40,25 +44,23 @@ class _BnavBarState extends State<BnavBar> {
     return Scaffold(
       backgroundColor: Provider.of<ThemeChanger>(context).themeData == darkMode
           ? Colors.black
-          : const Color(0XFFF7F7FF),
+          : const Color(0XFFFFFFFF),
       bottomNavigationBar: Container(
         width: size.width,
-        height: 80,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              color: Colors.indigoAccent.withOpacity(0.2),
-              offset: const Offset(0, -4),
-              spreadRadius: 1,
-              blurRadius: 19)
-        ]),
-        padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
+        height: 67,
+        decoration: BoxDecoration(
+          color: Provider.of<ThemeChanger>(context).themeData == darkMode
+              ? Colors.black
+              : const Color(0XFFFFFFFF),
+        ),
+        padding: const EdgeInsets.only(right: 16, left: 16,),
         child: Stack(
           // overflow: Overflow.visible,
           children: [
             PhysicalModel(
               color: Provider.of<ThemeChanger>(context).themeData == darkMode
                   ? Colors.black
-                  : const Color(0xfff7f7ff).withOpacity(.6),
+                  : const Color(0XFFFFFFFF).withOpacity(.6),
               clipBehavior: Clip.hardEdge,
               borderRadius: BorderRadius.circular(18),
               child: CustomPaint(
@@ -71,7 +73,7 @@ class _BnavBarState extends State<BnavBar> {
               child: ClipOval(
                 child: FloatingActionButton(
                   backgroundColor: const Color(0XFF758AFF),
-                  elevation: 1,
+                  elevation: 0,
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -156,8 +158,8 @@ class _BnavBarState extends State<BnavBar> {
                   }),
                   Consumer<BottomBarProvider>(
                     builder: (context, value, child) {
-                      return
-                        IconButton(
+                      return Consumer<ProfileProvider>(builder: (context, profileProvider, child) {
+                        return                         IconButton(
                           icon: Image.asset(
                             AppImages.settingIcon,
                             width: MySize.size18,
@@ -173,9 +175,17 @@ class _BnavBarState extends State<BnavBar> {
                                 ? const Color(0xffA2A2B5)
                                 : const Color(0xffA2A2B5),
                           ),
-                          onPressed: () => value.selection(3),
+                          onPressed: () {
+                            if(profileProvider.userData.isNotEmpty){
+                              value.selection(3);
+                            }else{
+                              FlutterToast.toastMessage(message: "Please wait user data is loading",isError: true);
+                              profileProvider.getProfile(context: context, userID: "");
+                            }
+                          },
                           // color: value.selectedIndex == 2 ? Colors.blue : Colors.grey,
                         );
+                      },);
                     },
                   ),
                 ],
@@ -199,7 +209,7 @@ class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = isDarkMode ? Color(0xff4E4E61) : Colors.white
+      ..color = isDarkMode ? Color(0xff4E4E61) : Color(0XFFF1F1FF)
       ..style = PaintingStyle.fill;
 
     Path path = Path();

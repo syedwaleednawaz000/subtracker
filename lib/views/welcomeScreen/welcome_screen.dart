@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import '../../theme/theme.dart';
 import '../../utils/app_Images.dart';
@@ -30,10 +31,6 @@ class WelcomeScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                     image: AssetImage("assets/images/bg_get_started.png")
                 ),
-                // gradient: const LinearGradient(colors: [
-                //   Color(0XFF3F3F4B),
-                //   Color(0XFF1C1C23),
-                // ]),
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40)),
@@ -52,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                         right: MySize.size48,
                         bottom: MySize.scaleFactorHeight * 11),
                     child: Text(
-                      'Manage all your\nsubscriptions in one place effortlessly.',
+                      AppLocalizations.of(context)!.manage_all_your_subscriptions_in_one_place_effortlessly,
                       style: TextStyle(
                           color: Provider.of<ThemeChanger>(context).themeData ==
                                   darkMode
@@ -96,7 +93,7 @@ class WelcomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Get started',
+                                AppLocalizations.of(context)!.get_started,
                                 style: TextStyle(
                                     color: Provider.of<ThemeChanger>(context)
                                                 .themeData ==
@@ -116,29 +113,7 @@ class WelcomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // Stack(
-                        //   children: [
-                        //     Positioned(
-                        //         child: Image.asset(
-                        //       'assets/images/bb.png',
-                        //       scale: 3.4,
-                        //     )),
-                        //     Positioned(
-                        //         right: MySize.size56,
-                        //         top: MySize.size56,
-                        //         child: Image.asset(
-                        //           'assets/images/s.png',
-                        //           scale: 3,
-                        //         )),
-                        //     Positioned(
-                        //         left: MySize.size64,
-                        //         top: MySize.size76,
-                        //         child: Image.asset(
-                        //           'assets/images/m.png',
-                        //           scale: 3.4,
-                        //         )),
-                        //   ],
-                        // )
+
                       ],
                     ),
                   ),

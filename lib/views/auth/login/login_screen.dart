@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/route_manager.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sub_tracker/Provider/login_provider.dart';
+import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/textStyle.dart';
 import 'package:sub_tracker/utils/validation.dart';
 import 'package:sub_tracker/utils/app_Images.dart';
 import 'package:sub_tracker/utils/app_colors.dart';
 import 'package:sub_tracker/utils/my_size.dart';
+import 'package:sub_tracker/views/auth/local_auth_provider.dart';
 import 'package:sub_tracker/views/auth/signUp/sigup_screen.dart';
 import 'package:sub_tracker/views/forgot_password/forget_password.dart';
 
@@ -60,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Text(
                           '${AppLocalizations.of(context)!.welcome_back}',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
                               color: Colors.white),
@@ -220,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Row(
                                 children: [
                                   Transform.scale(
-                                    scale: 1.6,
+                                    scale: 1.33,
                                     child: Checkbox(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -341,41 +345,57 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.white,
                                                 fontSize: 14)),
-                                  )),
+                                  ),
+                              ),
                             );
                           },
                         ),
                         SizedBox(
                           height: MySize.size30,
                         ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              AppImages.faceIdImage,
-                              height: MySize.scaleFactorHeight * 69,
-                              width: MySize.scaleFactorWidth * 69,
-                              fit: BoxFit.cover,
-                              color: Provider.of<ThemeChanger>(context)
-                                          .themeData ==
-                                      darkMode
-                                  ? Colors.grey
-                                  : const Color(0xFFF0F4F7),
-                            ),
-                            SizedBox(
-                              height: MySize.scaleFactorHeight * 5,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.enable_face_id,
-                              style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: MySize.size12,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFFF0F4F7)),
-                            )
-                          ],
+                        Consumer<LocalAuthProvider>(
+                          builder: (context, biometricProvider, child) {
+                            return GestureDetector(
+                              onTap: () {
+                                if (biometricProvider.canCheckBiometrics == false) {
+                                  FlutterToast.toastMessage(message: AppLocalizations.of(context)!.your_device_does_not_support_biometrics,isError: true
+                                  );
+                                } else if (biometricProvider.availableBiometrics?.isEmpty ?? true) {
+                                  FlutterToast.toastMessage(message:  AppLocalizations.of(context)!.no_biometrics_available,isError: true);
+                                } else {
+                                  biometricProvider.authenticateWithBiometrics();
+                                }
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    AppImages.faceIdImage,
+                                    height: MySize.scaleFactorHeight * 69,
+                                    width: MySize.scaleFactorWidth * 69,
+                                    fit: BoxFit.cover,
+                                    color: Provider.of<ThemeChanger>(context).themeData == darkMode
+                                        ? Colors.grey
+                                        : const Color(0xFFF0F4F7),
+                                  ),
+                                  SizedBox(
+                                    height: MySize.scaleFactorHeight * 5,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.enable_face_id,
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: MySize.size12,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xFFF0F4F7),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
-                          height: MySize.scaleFactorHeight * 45,
+                          height: MySize.scaleFactorHeight * 50,
                         ),
                         Text(
                           AppLocalizations.of(context)!
@@ -402,9 +422,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   : AppColors.grey30.withOpacity(.15),
                               mytitle: AppLocalizations.of(context)!.sign_up,
                               textColor: Colors.white),
-                        ),
-                        SizedBox(
-                          height: MySize.size20,
                         ),
                       ],
                     ));

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:sub_tracker/Provider/forgot_password_provider.dart';
 import 'package:sub_tracker/Utils/app_colors.dart';
+import 'package:sub_tracker/Widget/app_bar_widget.dart';
 import 'package:sub_tracker/utils/flutter_toast.dart';
 import 'package:sub_tracker/utils/my_size.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,12 +28,24 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   bool password = true;
   bool confirmPassword = true;
 
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.microtask(() => Provider.of<ForgotPasswordProvider>(context,listen: false).clearPassword());
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    // Future.microtask(() => Provider.of<ForgotPasswordProvider>(context,listen: false).clearPassword());
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF1C1C23),
+      appBar:  CustomAppBarInAll(type:AppLocalizations.of(context)!.forgot,leading: false,actions: false,),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(AppImages.restPassBg), fit: BoxFit.cover)
         ),
@@ -43,24 +56,10 @@ class _UpdatePasswordState extends State<UpdatePassword> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:  EdgeInsets.only(bottom: MySize.scaleFactorHeight*170.0,left: MySize.size36,top: MySize.size60),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap:(){
-                            Navigator.pop(context);
-                          },
-                          child: Image.asset(AppImages.backArrow),
-                        ),
-                      ],
-                    ),
-                  ),
+                  SizedBox(height: MySize.scaleFactorHeight*150.0,),
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: MySize.size40),
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // const SizedBox(height: 200,),
                          Text( AppLocalizations.of(context)!.reset_password,
@@ -84,8 +83,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                              Text(AppLocalizations.of(context)!.password,
-                              style: TextStyle(
-                                // fontFamily: 'Poppins_Regular',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
                                 color: Color(0XFF666680),
@@ -95,9 +93,9 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                             SizedBox(height: MySize.size4,),
                             TextFormField(
                               validator: Validation.validatePassword,
-
+                              obscureText: password,
                               controller: forgotPasswordProvider.password,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color:  Color(0XFF666680)
                               ),
                               decoration: InputDecoration(
@@ -136,9 +134,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           children: [
                              Text(AppLocalizations.of(context)!.confirm_password,
                               style: const TextStyle(
-                                // fontWeight: FontWeight.w400,
-                                // fontFamily: 'Poppins_Regular',
-                                fontSize: 12,
+                                 fontSize: 12,
                                 color: Color(0XFF666680),
                               ),
                             ),
@@ -195,7 +191,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                           if(forgotPasswordProvider.password.text.trim() == forgotPasswordProvider.confirmPassword.text.trim()){
                             forgotPasswordProvider.changePassword(context: context);
                           }else{
-                            FlutterToast.toastMessage(message: "Confirm password doesn't match");
+                            FlutterToast.toastMessage(message: AppLocalizations.of(context)!.confirm_password_doesnt_get_matched_with_password,isError: true);
                           }
                         }
                       },

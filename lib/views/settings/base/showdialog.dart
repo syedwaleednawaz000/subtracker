@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sub_tracker/Provider/profile_provider.dart';
 import 'package:sub_tracker/views/settings/base/settingrowslist.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../theme/theme.dart';
 import '../../../utils/app_Images.dart';
 import '../../../utils/app_colors.dart';
@@ -30,7 +31,7 @@ class ShowDialogBox extends StatelessWidget {
                   titlePadding: EdgeInsets.only(top: MySize.size30),
                   title: Column(
                     children: [
-                      Text('Delete Account',
+                      Text( AppLocalizations.of(context)!.delete_account,
                         style: TextStyle(
                           fontSize: MySize.size18,
                           fontWeight: FontWeight.w600,
@@ -42,7 +43,7 @@ class ShowDialogBox extends StatelessWidget {
                       ),
 
                       SizedBox(height: MySize.size8,),
-                      Text( 'Are you sure you want to delete the\naccount?',
+                      Text(  AppLocalizations.of(context)!.are_you_sure_you_want_to_delete_the_account,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: MySize.size14,
@@ -66,9 +67,9 @@ class ShowDialogBox extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Decline',
+                            child: Text( AppLocalizations.of(context)!.decline,
                               style: TextStyle(
-                                fontSize: MySize.size18,
+                                fontSize: MySize.size16,
                                 fontWeight: FontWeight.w600,
                                 color:  Provider.of<ThemeChanger>(context)
                                     .themeData == darkMode
@@ -89,9 +90,9 @@ class ShowDialogBox extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 40),
                                 child: profileProvider.isDeleteAccount ? const Center(child: CircularProgressIndicator(color: AppColors.purpleFF,),):
-                                Text('Accept',
+                                Text( AppLocalizations.of(context)!.accept,
                                   style: TextStyle(
-                                    fontSize: MySize.size18,
+                                    fontSize: MySize.size16,
                                     fontWeight: FontWeight.w600,
                                     color:  Provider.of<ThemeChanger>(context)
                                         .themeData == darkMode
@@ -111,7 +112,7 @@ class ShowDialogBox extends StatelessWidget {
         );
       },
       child: SettingRowList(
-        text: 'Delete Account',
+        text:  AppLocalizations.of(context)!.delete_account,
         color: const Color(0XFFB50000),
         imageIcon: Image.asset(AppImages.delete,height: 20, color: const Color(0XFFB50000),),
       ),
